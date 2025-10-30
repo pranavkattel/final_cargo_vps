@@ -142,32 +142,103 @@ const UnifiedAdminPanel: React.FC = () => {
       customerName: '',
       customerEmail: '',
       customerPhone: '',
+      customerAddress: '',
       origin: '',
       destination: '',
       weight: '',
+      dimensions: { length: '', width: '', height: '' },
+      value: '',
       serviceType: 'standard',
-      status: 'pending'
+      status: 'pending',
+      estimatedDelivery: '',
+      description: ''
     });
+
+    // generate a friendly preview tracking id when modal opens
+    useEffect(() => {
+      const generateTrackingId = () => {
+        const prefix = 'CC';
+        const timestamp = Date.now().toString(36).toUpperCase();
+        const random = Math.random().toString(36).substr(2, 4).toUpperCase();
+        return `${prefix}${timestamp}${random}`;
+      };
+
+      setNewOrder(prev => ({ ...prev, trackingId: generateTrackingId() }));
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     const handleSubmit = async (e: React.FormEvent) => {
       e.preventDefault();
+
+      // basic validation for required fields
+      if (!newOrder.customerName.trim()) {
+        alert('Customer name is required');
+        return;
+      }
+
+      if (!newOrder.customerPhone.trim()) {
+        alert('Customer phone is required');
+        return;
+      }
+
+      if (!newOrder.customerAddress.trim()) {
+        alert('Customer address is required');
+        return;
+      }
+
+      if (!newOrder.origin.trim() || !newOrder.destination.trim()) {
+        alert('Origin and destination are required');
+        return;
+      }
+
+      if (!newOrder.weight || parseFloat(newOrder.weight) <= 0) {
+        alert('Please provide a valid weight');
+        return;
+      }
+
+      if (!newOrder.description.trim()) {
+        alert('Shipment description is required');
+        return;
+      }
+
+      if (!newOrder.estimatedDelivery) {
+        alert('Estimated delivery date is required');
+        return;
+      }
+
       try {
+        // build dimensions object only if any dimension provided
+        const dims: any = {};
+        if (newOrder.dimensions.length) dims.length = parseFloat(newOrder.dimensions.length);
+        if (newOrder.dimensions.width) dims.width = parseFloat(newOrder.dimensions.width);
+        if (newOrder.dimensions.height) dims.height = parseFloat(newOrder.dimensions.height);
+
+        const shipmentDetailsObj: any = {
+          origin: newOrder.origin,
+          destination: newOrder.destination,
+          weight: parseFloat(newOrder.weight) || 0,
+          serviceType: newOrder.serviceType,
+          description: newOrder.description || ''
+        };
+
+        if (Object.keys(dims).length > 0) {
+          shipmentDetailsObj.dimensions = dims;
+        }
+
+        if (newOrder.value) shipmentDetailsObj.value = parseFloat(newOrder.value);
+
         const orderData = {
+          // include the preview trackingId (backend will assign final one if needed)
+          trackingId: newOrder.trackingId,
           customerInfo: {
             name: newOrder.customerName,
             email: newOrder.customerEmail,
             phone: newOrder.customerPhone,
-            address: ''
+            address: newOrder.customerAddress || ''
           },
-          shipmentDetails: {
-            origin: newOrder.origin,
-            destination: newOrder.destination,
-            weight: parseFloat(newOrder.weight) || 0,
-            serviceType: newOrder.serviceType,
-            description: ''
-          },
+          shipmentDetails: shipmentDetailsObj,
           status: newOrder.status,
-          estimatedDelivery: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
+          estimatedDelivery: new Date(newOrder.estimatedDelivery).toISOString(),
           events: [
             {
               status: newOrder.status,
@@ -181,17 +252,38 @@ const UnifiedAdminPanel: React.FC = () => {
 
         const response = await trackingAPI.createShipment(orderData);
         console.log('Created shipment:', response);
+
+        // Extract final tracking ID returned by backend (fallback to preview)
+        const finalTrackingId = (response && (response as any).trackingId) || orderData.trackingId;
+
+        // Try to copy tracking ID to clipboard (best-effort)
+        try {
+          if (finalTrackingId && navigator.clipboard && navigator.clipboard.writeText) {
+            await navigator.clipboard.writeText(finalTrackingId);
+          }
+        } catch (err) {
+          // ignore clipboard errors
+        }
+
+        // Inform admin of the final tracking ID
+        alert(`Shipment created successfully!\nTracking ID: ${finalTrackingId}${finalTrackingId ? ' (copied to clipboard)' : ''}`);
+
         setShowAddModal(false);
         setNewOrder({
           trackingId: '',
           customerName: '',
           customerEmail: '',
           customerPhone: '',
+          customerAddress: '',
           origin: '',
           destination: '',
           weight: '',
+          dimensions: { length: '', width: '', height: '' },
+          value: '',
           serviceType: 'standard',
-          status: 'pending'
+          status: 'pending',
+          estimatedDelivery: '',
+          description: ''
         });
         await fetchOrders();
       } catch (error) {
@@ -211,15 +303,15 @@ const UnifiedAdminPanel: React.FC = () => {
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Tracking ID</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Tracking ID (auto-generated)</label>
               <input
                 type="text"
-                required
+                readOnly
                 value={newOrder.trackingId}
-                onChange={(e) => setNewOrder({...newOrder, trackingId: e.target.value})}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg"
-                placeholder="CC001234"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-50"
+                placeholder="Auto-generated"
               />
+              <p className="text-xs text-gray-400 mt-1">The system will create a final tracking ID on save; this is a preview.</p>
             </div>
 
             <div>
@@ -242,6 +334,29 @@ const UnifiedAdminPanel: React.FC = () => {
                 onChange={(e) => setNewOrder({...newOrder, customerEmail: e.target.value})}
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg"
                 placeholder="john@example.com"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Customer Phone</label>
+              <input
+                type="tel"
+                required
+                value={newOrder.customerPhone}
+                onChange={(e) => setNewOrder({...newOrder, customerPhone: e.target.value})}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+                placeholder="+1-555-0123"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Customer Address</label>
+              <input
+                type="text"
+                value={newOrder.customerAddress}
+                onChange={(e) => setNewOrder({...newOrder, customerAddress: e.target.value})}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+                placeholder="Street, City, Country"
               />
             </div>
 
@@ -292,6 +407,33 @@ const UnifiedAdminPanel: React.FC = () => {
                   <option value="express">Express</option>
                   <option value="overnight">Overnight</option>
                 </select>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Estimated Delivery Date</label>
+                <input
+                  type="date"
+                  required
+                  min={new Date().toISOString().split('T')[0]}
+                  value={newOrder.estimatedDelivery}
+                  onChange={(e) => setNewOrder({...newOrder, estimatedDelivery: e.target.value})}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg bg-white"
+                />
+                <p className="text-xs text-gray-400 mt-1">Enter the expected delivery date (required)</p>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Shipment Description / Notes</label>
+                <textarea
+                  required
+                  value={newOrder.description}
+                  onChange={(e) => setNewOrder({...newOrder, description: e.target.value})}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+                  placeholder="Description or handling notes (required)"
+                  rows={3}
+                />
               </div>
             </div>
 

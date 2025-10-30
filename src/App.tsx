@@ -16,7 +16,6 @@ import TestAPI from './pages/TestAPI';
 import AdminApp from './pages/AdminApp';
 import UnifiedAdminPanel from './pages/UnifiedAdminPanel';
 import DataTools from './pages/DataTools';
-import TwakChat from './components/TwakChat';
 
 function App() {
   return (
@@ -41,8 +40,7 @@ function App() {
             <Route path="/test-api" element={<TestAPI />} />
           </Routes>
         </main>
-        <Footer />
-        <TwakChat />
+  <Footer />
       </div>
     </Router>
   );

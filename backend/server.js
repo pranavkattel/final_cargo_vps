@@ -32,6 +32,8 @@ const corsOptions = {
     
     const allowedOrigins = [
       process.env.CORS_ORIGIN,
+      'http://46.224.19.81:5173/',
+      'https://46.224.19.81:5173/',
       'http://localhost:5173',
       'http://localhost:4173',
       'http://127.0.0.1:5173',
