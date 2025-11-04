@@ -58,7 +58,10 @@ const mongoStorageHelpers = {
           status: shipment.status,
           customerInfo: shipment.customerInfo,
           shipmentDetails: shipment.shipmentDetails,
-          trackingEvents: shipment.trackingEvents,
+          // include both 'events' and 'trackingEvents' for compatibility
+          events: shipment.events || shipment.trackingEvents || [],
+          trackingEvents: shipment.events || shipment.trackingEvents || [],
+          estimatedDelivery: shipment.estimatedDelivery,
           createdAt: shipment.createdAt,
           updatedAt: shipment.updatedAt
         };
@@ -84,7 +87,9 @@ const mongoStorageHelpers = {
         status: shipment.status,
         customerInfo: shipment.customerInfo,
         shipmentDetails: shipment.shipmentDetails,
-        trackingEvents: shipment.trackingEvents,
+        events: shipment.events || shipment.trackingEvents || [],
+        trackingEvents: shipment.events || shipment.trackingEvents || [],
+        estimatedDelivery: shipment.estimatedDelivery,
         createdAt: shipment.createdAt,
         updatedAt: shipment.updatedAt
       }));
@@ -157,7 +162,8 @@ const mongoStorageHelpers = {
         customerInfo: shipmentData.customerInfo,
         shipmentDetails: shipmentData.shipmentDetails,
         events: shipmentData.events || [],
-        estimatedDelivery: shipmentData.estimatedDelivery || new Date(Date.now() + 5 * 24 * 60 * 60 * 1000) // 5 days from now
+        // Accept estimatedDelivery from top-level or nested shipmentDetails for compatibility
+        estimatedDelivery: shipmentData.estimatedDelivery || shipmentData.shipmentDetails?.estimatedDelivery || new Date(Date.now() + 5 * 24 * 60 * 60 * 1000) // 5 days from now
       });
 
       const savedShipment = await newShipment.save();
@@ -169,6 +175,7 @@ const mongoStorageHelpers = {
         customerInfo: savedShipment.customerInfo,
         shipmentDetails: savedShipment.shipmentDetails,
         events: savedShipment.events,
+        trackingEvents: savedShipment.events,
         estimatedDelivery: savedShipment.estimatedDelivery,
         createdAt: savedShipment.createdAt,
         updatedAt: savedShipment.updatedAt
@@ -196,7 +203,9 @@ const mongoStorageHelpers = {
         status: updatedShipment.status,
         customerInfo: updatedShipment.customerInfo,
         shipmentDetails: updatedShipment.shipmentDetails,
-        trackingEvents: updatedShipment.trackingEvents,
+        events: updatedShipment.events || updatedShipment.trackingEvents || [],
+        trackingEvents: updatedShipment.events || updatedShipment.trackingEvents || [],
+        estimatedDelivery: updatedShipment.estimatedDelivery,
         createdAt: updatedShipment.createdAt,
         updatedAt: updatedShipment.updatedAt
       };
@@ -322,7 +331,13 @@ async function createSampleData() {
   ];
 
   try {
-    await Shipment.insertMany(sampleShipments);
+    // Ensure each sample has a top-level estimatedDelivery (some legacy samples include it under shipmentDetails)
+    const normalized = sampleShipments.map(s => ({
+      ...s,
+      estimatedDelivery: s.estimatedDelivery || s.shipmentDetails?.estimatedDelivery || new Date(Date.now() + 5 * 24 * 60 * 60 * 1000)
+    }));
+
+    await Shipment.insertMany(normalized);
     console.log('✅ Created sample shipments in MongoDB');
   } catch (error) {
     console.error('Error creating sample data:', error);

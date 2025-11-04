@@ -1,4 +1,7 @@
 const express = require('express');
+const https = require('https');
+const fs = require('fs');
+const path = require('path');
 const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
@@ -7,7 +10,12 @@ const { storageAdapter } = require('./data/storageConfig');
 require('dotenv').config();
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 443;
+const HTTP_PORT = process.env.HTTP_PORT || 80;
+
+// SSL Certificate paths (Let's Encrypt default location)
+const SSL_KEY_PATH = process.env.SSL_KEY_PATH || '/etc/letsencrypt/live/cargocapital.com/privkey.pem';
+const SSL_CERT_PATH = process.env.SSL_CERT_PATH || '/etc/letsencrypt/live/cargocapital.com/fullchain.pem';
 
 // Rate limiting
 const limiter = rateLimit({
@@ -32,8 +40,10 @@ const corsOptions = {
     
     const allowedOrigins = [
       process.env.CORS_ORIGIN,
-      'http://46.224.19.81:5173/',
-      'https://46.224.19.81:5173/',
+      'http://46.224.19.81:5173',
+      'http://cargocapital.com',
+      'https://cargocapital.com',
+      'https://46.224.19.81:5173',
       'http://localhost:5173',
       'http://localhost:4173',
       'http://127.0.0.1:5173',
@@ -146,19 +156,66 @@ app.use('*', (req, res) => {
   });
 });
 
+// HTTP to HTTPS redirect server
+function startHttpRedirect() {
+  const http = require('http');
+  const redirectApp = express();
+  
+  redirectApp.use('*', (req, res) => {
+    res.redirect(301, `https://${req.headers.host}${req.url}`);
+  });
+  
+  http.createServer(redirectApp).listen(HTTP_PORT, '0.0.0.0', () => {
+    console.log(`🔀 HTTP redirect server running on port ${HTTP_PORT} (redirects to HTTPS)`);
+  });
+}
+
 // Start server with storage initialization
 async function startServer() {
   try {
     await initializeApp();
     
-    app.listen(PORT, '0.0.0.0', () => {
-      console.log(`Capital Cargo API server is running on port ${PORT}`);
-      console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
-      console.log(`Storage Type: ${process.env.STORAGE_TYPE || 'file'}`);
-      console.log(`🌐 Network access enabled - accessible from other devices`);
-      console.log(`📱 Local access: http://localhost:${PORT}`);
-      console.log(`🔗 Network access: http://[YOUR_IP]:${PORT}`);
-    });
+    // Check if SSL certificates exist
+    const sslKeyExists = fs.existsSync(SSL_KEY_PATH);
+    const sslCertExists = fs.existsSync(SSL_CERT_PATH);
+    
+    if (sslKeyExists && sslCertExists) {
+      // HTTPS Server with SSL
+      const sslOptions = {
+        key: fs.readFileSync(SSL_KEY_PATH),
+        cert: fs.readFileSync(SSL_CERT_PATH)
+      };
+      
+      https.createServer(sslOptions, app).listen(PORT, '0.0.0.0', () => {
+        console.log(`🔒 Capital Cargo API server is running on HTTPS port ${PORT}`);
+        console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
+        console.log(`Storage Type: ${process.env.STORAGE_TYPE || 'file'}`);
+        console.log(`🌐 Network access enabled - accessible from other devices`);
+        console.log(`🔗 HTTPS access: https://cargocapital.com`);
+        console.log(`📱 Local HTTPS: https://localhost:${PORT}`);
+        console.log(`✅ SSL/TLS enabled with Let's Encrypt certificates`);
+      });
+      
+      // Start HTTP redirect server
+      startHttpRedirect();
+      
+    } else {
+      // Fallback to HTTP if SSL certificates not found
+      console.warn('⚠️  SSL certificates not found at:');
+      console.warn(`   Key: ${SSL_KEY_PATH}`);
+      console.warn(`   Cert: ${SSL_CERT_PATH}`);
+      console.warn('⚠️  Starting in HTTP mode (not recommended for production)');
+      console.warn('💡 To enable HTTPS, run: sudo certbot certonly --standalone -d cargocapital.com');
+      
+      app.listen(PORT, '0.0.0.0', () => {
+        console.log(`Capital Cargo API server is running on HTTP port ${PORT}`);
+        console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
+        console.log(`Storage Type: ${process.env.STORAGE_TYPE || 'file'}`);
+        console.log(`🌐 Network access enabled - accessible from other devices`);
+        console.log(`📱 Local access: http://localhost:${PORT}`);
+        console.log(`🔗 Network access: http://[YOUR_IP]:${PORT}`);
+      });
+    }
   } catch (error) {
     console.error('Failed to start server:', error);
     process.exit(1);

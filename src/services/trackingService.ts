@@ -229,8 +229,13 @@ class TrackingService {
           customerInfo: backendData.customerInfo,
           shipmentDetails: backendData.shipmentDetails,
           status: backendData.status,
-          events: backendData.trackingEvents || [], // Map trackingEvents to events
-          estimatedDelivery: backendData.shipmentDetails?.estimatedDelivery || backendData.estimatedDelivery || '',
+          events: backendData.trackingEvents || backendData.events || [], // Map trackingEvents/events
+          // Normalize estimatedDelivery to ISO string (frontend expects ISO or YYYY-MM-DD)
+          estimatedDelivery: backendData.shipmentDetails?.estimatedDelivery
+            ? new Date(backendData.shipmentDetails.estimatedDelivery).toISOString()
+            : backendData.estimatedDelivery
+              ? new Date(backendData.estimatedDelivery).toISOString()
+              : '',
           createdAt: backendData.createdAt,
           updatedAt: backendData.updatedAt
         };

@@ -41,6 +41,24 @@ const AdminTracking: React.FC = () => {
     estimatedDelivery: '',
   });
 
+  // Helper to resolve estimated delivery from multiple possible locations
+  const resolveEstimatedDelivery = (order: any): string | null => {
+    if (order?.estimatedDelivery) return order.estimatedDelivery;
+    if (order?.shipmentDetails && (order as any).shipmentDetails.estimatedDelivery) return (order as any).shipmentDetails.estimatedDelivery;
+    if (order?.createdAt) {
+      try {
+        const created = new Date(order.createdAt);
+        if (!isNaN(created.getTime())) {
+          const d = new Date(created.getTime() + 5 * 24 * 60 * 60 * 1000);
+          return d.toISOString();
+        }
+      } catch (e) {
+        // ignore
+      }
+    }
+    return null;
+  };
+
   // Fetch all orders
   const fetchOrders = async () => {
     setLoading(true);
@@ -233,7 +251,12 @@ const AdminTracking: React.FC = () => {
       serviceType: order.shipmentDetails.serviceType,
       description: order.shipmentDetails.description,
       status: order.status,
-      estimatedDelivery: order.estimatedDelivery,
+      // Normalize to `YYYY-MM-DD` for HTML date input
+      // Prefer top-level estimatedDelivery, fall back to nested shipmentDetails
+      estimatedDelivery: (() => {
+        const ed = resolveEstimatedDelivery(order);
+        return ed ? new Date(ed).toISOString().split('T')[0] : '';
+      })(),
     });
     setShowForm(true);
   };
@@ -545,7 +568,12 @@ const AdminTracking: React.FC = () => {
                 <td className="p-2">{order.shipmentDetails.origin}</td>
                 <td className="p-2">{order.shipmentDetails.destination}</td>
                 <td className="p-2">{order.status}</td>
-                <td className="p-2">{order.estimatedDelivery?.slice(0,10)}</td>
+                <td className="p-2">{
+                  (() => {
+                    const ed = resolveEstimatedDelivery(order);
+                    return ed ? new Date(ed).toLocaleDateString() : 'N/A';
+                  })()
+                }</td>
                 <td className="p-2 flex gap-2">
                   <button className="bg-yellow-500 text-white px-2 py-1 rounded" onClick={() => handleEdit(order)}>Edit</button>
                   <button className="bg-red-600 text-white px-2 py-1 rounded" onClick={() => handleDelete(order.trackingId)}>Delete</button>

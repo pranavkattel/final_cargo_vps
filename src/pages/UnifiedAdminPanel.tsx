@@ -107,6 +107,27 @@ const UnifiedAdminPanel: React.FC = () => {
     return icons[status] || '📦';
   };
 
+  // Helper to resolve estimated delivery from multiple possible locations
+  const resolveEstimatedDelivery = (order: any): string | null => {
+    // Prefer top-level estimatedDelivery
+    if (order?.estimatedDelivery) return order.estimatedDelivery;
+    // Fallback to nested shipmentDetails.estimatedDelivery
+    if (order?.shipmentDetails && (order as any).shipmentDetails.estimatedDelivery) return (order as any).shipmentDetails.estimatedDelivery;
+    // Fallback to createdAt + 5 days
+    if (order?.createdAt) {
+      try {
+        const created = new Date(order.createdAt);
+        if (!isNaN(created.getTime())) {
+          const d = new Date(created.getTime() + 5 * 24 * 60 * 60 * 1000);
+          return d.toISOString();
+        }
+      } catch (e) {
+        // ignore
+      }
+    }
+    return null;
+  };
+
   const filteredOrders = orders.filter(order => {
     const matchesSearch = order.trackingId.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          order.customerInfo.name.toLowerCase().includes(searchTerm.toLowerCase());
@@ -829,7 +850,10 @@ const UnifiedAdminPanel: React.FC = () => {
                         </select>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                        {order.estimatedDelivery ? new Date(order.estimatedDelivery).toLocaleDateString() : 'N/A'}
+                        {(() => {
+                          const ed = resolveEstimatedDelivery(order);
+                          return ed ? new Date(ed).toLocaleDateString() : 'N/A';
+                        })()}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap space-x-2">
                         <button

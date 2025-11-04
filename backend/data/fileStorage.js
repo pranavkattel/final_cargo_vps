@@ -190,8 +190,35 @@ const fileStorageHelpers = {
     const skip = (page - 1) * limit;
     const paginatedShipments = filteredShipments.slice(skip, skip + limit);
 
+    // Normalize each shipment to include top-level estimatedDelivery and unified events array
+    const normalized = paginatedShipments.map(shipment => {
+      // Ensure estimatedDelivery exists at top-level for frontend compatibility
+      let estimatedDelivery = shipment.estimatedDelivery || (shipment.shipmentDetails && shipment.shipmentDetails.estimatedDelivery) || null;
+      
+      // Fallback: compute from createdAt + 5 days if not present
+      if (!estimatedDelivery && shipment.createdAt) {
+        try {
+          const created = new Date(shipment.createdAt);
+          if (!isNaN(created.getTime())) {
+            const computed = new Date(created.getTime() + 5 * 24 * 60 * 60 * 1000);
+            estimatedDelivery = computed.toISOString();
+          }
+        } catch (e) {
+          // ignore parse errors
+        }
+      }
+      
+      return {
+        ...shipment,
+        estimatedDelivery: estimatedDelivery,
+        // Normalize events/trackingEvents
+        events: shipment.events || shipment.trackingEvents || [],
+        trackingEvents: shipment.events || shipment.trackingEvents || []
+      };
+    });
+
     return {
-      data: paginatedShipments,
+      data: normalized,
       pagination: {
         page: parseInt(page),
         limit: parseInt(limit),
@@ -211,7 +238,9 @@ const fileStorageHelpers = {
       status: shipmentData.status || 'Pending Pickup',
       customerInfo: shipmentData.customerInfo,
       shipmentDetails: shipmentData.shipmentDetails,
-      trackingEvents: shipmentData.trackingEvents || [],
+      trackingEvents: shipmentData.trackingEvents || shipmentData.events || [],
+      // Accept estimatedDelivery provided either at top-level or within shipmentDetails
+      estimatedDelivery: shipmentData.estimatedDelivery || (shipmentData.shipmentDetails && shipmentData.shipmentDetails.estimatedDelivery) || null,
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString()
     };
@@ -230,11 +259,24 @@ const fileStorageHelpers = {
     
     if (shipmentIndex === -1) return null;
     
-    data.shipments[shipmentIndex] = {
+    // Merge update; also normalize estimatedDelivery if provided nested
+    const merged = {
       ...data.shipments[shipmentIndex],
       ...updateData,
       updatedAt: new Date().toISOString()
     };
+
+    // If updateData contains shipmentDetails.estimatedDelivery, propagate to top-level
+    if (updateData.shipmentDetails && updateData.shipmentDetails.estimatedDelivery) {
+      merged.estimatedDelivery = updateData.shipmentDetails.estimatedDelivery;
+    }
+
+    // If updateData contains estimatedDelivery at top-level, ensure it's set
+    if (updateData.estimatedDelivery) {
+      merged.estimatedDelivery = updateData.estimatedDelivery;
+    }
+
+    data.shipments[shipmentIndex] = merged;
     
     await saveToFile(data);
     return data.shipments[shipmentIndex];
