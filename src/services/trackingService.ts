@@ -568,6 +568,10 @@ export const trackingAPI = {
     return await new TrackingService().updateShipmentStatus(trackingId, status, description, location);
   },
 
+  updateShipment: async (trackingId: string, shipmentData: Partial<ShipmentData>): Promise<ShipmentData> => {
+    return await new TrackingService().updateShipment(trackingId, shipmentData);
+  },
+
   getAllShipments: async (page: number = 1, limit: number = 10, status?: string): Promise<ApiResponse<ShipmentData[]>> => {
     return await new TrackingService().getAllShipments(page, limit, status);
   },

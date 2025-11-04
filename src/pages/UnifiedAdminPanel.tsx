@@ -26,6 +26,8 @@ const UnifiedAdminPanel: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('');
   const [showAddModal, setShowAddModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [editingOrder, setEditingOrder] = useState<ShipmentData | null>(null);
   const [settingsLoading, setSettingsLoading] = useState(false);
 
   // Settings state
@@ -479,6 +481,243 @@ const UnifiedAdminPanel: React.FC = () => {
     );
   };
 
+  const EditOrderModal = () => {
+    if (!editingOrder) return null;
+
+    const [editForm, setEditForm] = useState({
+      customerName: editingOrder.customerInfo.name,
+      customerEmail: editingOrder.customerInfo.email,
+      customerPhone: editingOrder.customerInfo.phone,
+      customerAddress: editingOrder.customerInfo.address,
+      origin: editingOrder.shipmentDetails.origin,
+      destination: editingOrder.shipmentDetails.destination,
+      weight: editingOrder.shipmentDetails.weight.toString(),
+      dimensions: {
+        length: (editingOrder.shipmentDetails as any).dimensions?.length?.toString() || '',
+        width: (editingOrder.shipmentDetails as any).dimensions?.width?.toString() || '',
+        height: (editingOrder.shipmentDetails as any).dimensions?.height?.toString() || ''
+      },
+      value: (editingOrder.shipmentDetails as any).value?.toString() || '',
+      serviceType: editingOrder.shipmentDetails.serviceType || 'standard',
+      status: editingOrder.status,
+      estimatedDelivery: (() => {
+        const ed = resolveEstimatedDelivery(editingOrder);
+        return ed ? new Date(ed).toISOString().split('T')[0] : '';
+      })(),
+      description: editingOrder.shipmentDetails.description || ''
+    });
+
+    const handleEditSubmit = async (e: React.FormEvent) => {
+      e.preventDefault();
+
+      if (!editForm.customerName.trim() || !editForm.customerEmail.trim() || !editForm.origin.trim() || !editForm.destination.trim()) {
+        alert('Please fill in all required fields');
+        return;
+      }
+
+      try {
+        const dims: any = {};
+        if (editForm.dimensions.length) dims.length = parseFloat(editForm.dimensions.length);
+        if (editForm.dimensions.width) dims.width = parseFloat(editForm.dimensions.width);
+        if (editForm.dimensions.height) dims.height = parseFloat(editForm.dimensions.height);
+
+        const shipmentDetailsObj: any = {
+          origin: editForm.origin,
+          destination: editForm.destination,
+          weight: parseFloat(editForm.weight) || 0,
+          serviceType: editForm.serviceType,
+          description: editForm.description || ''
+        };
+
+        if (Object.keys(dims).length > 0) {
+          shipmentDetailsObj.dimensions = dims;
+        }
+
+        if (editForm.value) shipmentDetailsObj.value = parseFloat(editForm.value);
+
+        const updateData = {
+          customerInfo: {
+            name: editForm.customerName,
+            email: editForm.customerEmail,
+            phone: editForm.customerPhone,
+            address: editForm.customerAddress || ''
+          },
+          shipmentDetails: shipmentDetailsObj,
+          status: editForm.status,
+          estimatedDelivery: editForm.estimatedDelivery ? new Date(editForm.estimatedDelivery).toISOString() : undefined
+        };
+
+        await trackingAPI.updateShipment(editingOrder.trackingId, updateData);
+        alert(`Order ${editingOrder.trackingId} updated successfully!`);
+        
+        setShowEditModal(false);
+        setEditingOrder(null);
+        await fetchOrders();
+      } catch (error) {
+        console.error('Error updating order:', error);
+        alert('Failed to update order. Please try again.');
+      }
+    };
+
+    return (
+      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div className="bg-white rounded-lg p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+          <div className="flex justify-between items-center mb-4">
+            <h3 className="text-lg font-semibold">Edit Order: {editingOrder.trackingId}</h3>
+            <button onClick={() => setShowEditModal(false)} className="text-gray-500 hover:text-gray-700">
+              ✕
+            </button>
+          </div>
+
+          <form onSubmit={handleEditSubmit} className="space-y-4">
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Customer Name</label>
+                <input
+                  type="text"
+                  required
+                  value={editForm.customerName}
+                  onChange={(e) => setEditForm({...editForm, customerName: e.target.value})}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Customer Email</label>
+                <input
+                  type="email"
+                  required
+                  value={editForm.customerEmail}
+                  onChange={(e) => setEditForm({...editForm, customerEmail: e.target.value})}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Customer Phone</label>
+                <input
+                  type="tel"
+                  value={editForm.customerPhone}
+                  onChange={(e) => setEditForm({...editForm, customerPhone: e.target.value})}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Customer Address</label>
+                <input
+                  type="text"
+                  value={editForm.customerAddress}
+                  onChange={(e) => setEditForm({...editForm, customerAddress: e.target.value})}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Origin</label>
+                <input
+                  type="text"
+                  required
+                  value={editForm.origin}
+                  onChange={(e) => setEditForm({...editForm, origin: e.target.value})}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Destination</label>
+                <input
+                  type="text"
+                  required
+                  value={editForm.destination}
+                  onChange={(e) => setEditForm({...editForm, destination: e.target.value})}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Weight (kg)</label>
+                <input
+                  type="number"
+                  value={editForm.weight}
+                  onChange={(e) => setEditForm({...editForm, weight: e.target.value})}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Service Type</label>
+                <select
+                  value={editForm.serviceType}
+                  onChange={(e) => setEditForm({...editForm, serviceType: e.target.value})}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+                >
+                  <option value="standard">Standard</option>
+                  <option value="express">Express</option>
+                  <option value="overnight">Overnight</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Status</label>
+                <select
+                  value={editForm.status}
+                  onChange={(e) => setEditForm({...editForm, status: e.target.value})}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+                >
+                  <option value="processing">⏳ Processing</option>
+                  <option value="picked-up">📦 Picked Up</option>
+                  <option value="in-transit">🚚 In Transit</option>
+                  <option value="out-for-delivery">🚛 Out for Delivery</option>
+                  <option value="delivered">✅ Delivered</option>
+                  <option value="failed-delivery">❌ Failed Delivery</option>
+                  <option value="returned">↩️ Returned</option>
+                  <option value="cancelled">🚫 Cancelled</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Estimated Delivery</label>
+                <input
+                  type="date"
+                  value={editForm.estimatedDelivery}
+                  onChange={(e) => setEditForm({...editForm, estimatedDelivery: e.target.value})}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+                />
+              </div>
+
+              <div className="col-span-2">
+                <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                <textarea
+                  value={editForm.description}
+                  onChange={(e) => setEditForm({...editForm, description: e.target.value})}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+                  rows={3}
+                />
+              </div>
+            </div>
+
+            <div className="flex space-x-3 pt-4">
+              <button
+                type="button"
+                onClick={() => setShowEditModal(false)}
+                className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+              >
+                Save Changes
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    );
+  };
+
   const handlePasswordChange = async (e: React.FormEvent) => {
     e.preventDefault();
     
@@ -857,7 +1096,10 @@ const UnifiedAdminPanel: React.FC = () => {
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap space-x-2">
                         <button
-                          onClick={() => {/* Handle edit */}}
+                          onClick={() => {
+                            setEditingOrder(order);
+                            setShowEditModal(true);
+                          }}
                           className="bg-gradient-to-r from-yellow-500 to-yellow-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:from-yellow-600 hover:to-yellow-700 transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
                         >
                           Edit
@@ -1123,6 +1365,9 @@ const UnifiedAdminPanel: React.FC = () => {
 
       {/* Add Order Modal */}
       {showAddModal && <AddOrderModal />}
+      
+      {/* Edit Order Modal */}
+      {showEditModal && <EditOrderModal />}
     </div>
   );
 };
