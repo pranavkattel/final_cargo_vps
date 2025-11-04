@@ -10,8 +10,9 @@ const AdminTest: React.FC = () => {
 
     const testAPI = async () => {
       try {
+        const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
         console.log('AdminTest: Making API call...');
-        const response = await fetch('http://localhost:5000/api/shipments');
+        const response = await fetch(`${API_URL}/shipments`);
         console.log('AdminTest: Got response:', response.status);
         
         if (!response.ok) {
