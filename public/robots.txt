@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+
+# Disallow admin pages from search engines
+Disallow: /admin
+Disallow: /admin-panel
+Disallow: /admin-unified
+Disallow: /admin-tools
+Disallow: /admin-test
+Disallow: /test-api
+
+# Sitemap
+Sitemap: https://cargocapital.com/sitemap.xml

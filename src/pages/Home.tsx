@@ -7,26 +7,26 @@ const Home = () => {
   const services = [
     {
       icon: Plane,
-      title: 'Air Cargo',
-      description: 'Need it there fast? We fly it.',
+      title: 'Air Freight Services',
+      description: 'Best air cargo company in Nepal - Fast international shipping',
       features: ['Priority delivery', 'Real-time tracking', 'Secure handling']
     },
     {
       icon: Ship,
-      title: 'Sea Freight',
-      description: 'Big cargo? Smooth Sailing.',
+      title: 'Sea Freight & Ocean Shipping',
+      description: 'Top-rated sea freight forwarding services in Nepal',
       features: ['Bulk shipping', 'Container services', 'Port-to-port delivery']
     },
     {
       icon: Truck,
-      title: 'Land Transport',
-      description: 'We got the distance - literally.',
+      title: 'Land Transport & Logistics',
+      description: 'Reliable cargo transport across Nepal and borders',
       features: ['Cross-border delivery', 'Flexible scheduling', 'Last-mile precision']
     },
     {
       icon: DoorOpen,
-      title: 'Door-Door',
-      description: 'From our hands to yours.',
+      title: 'Door-to-Door Delivery',
+      description: 'Complete cargo solutions from pickup to delivery',
       features: ['Easy pickup', 'Direct delivery', 'Stress-free']
     }
   ];
@@ -67,6 +67,13 @@ const Home = () => {
 
   return (
     <div className="pt-16">
+      {/* SEO Content - Hidden but crawlable */}
+      <div className="sr-only">
+        <h1>Capital Cargo - #1 Best Cargo Company in Nepal</h1>
+        <p>Capital Cargo is Nepal's leading cargo company and top-rated logistics service provider based in Kathmandu. As the #1 freight forwarding company in Nepal, we offer best international shipping, air freight services, sea freight, and reliable cargo delivery across Nepal and worldwide. Trusted by thousands for import-export cargo solutions.</p>
+        <p>Services: Best air freight company Nepal, top cargo shipping, international shipping Nepal, freight forwarding services, logistics and cargo transport, import export services, door-to-door delivery Kathmandu</p>
+      </div>
+      
       {/* Hero Section */}
       <section className="relative text-white py-16 overflow-hidden" style={{ background: 'linear-gradient(135deg, #0096C7 0%, #007bb3 100%)' }}>
         <div className="absolute inset-0 opacity-10">
@@ -75,13 +82,12 @@ const Home = () => {
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-8">
-              <h1 className="text-4xl md:text-6xl font-bold leading-tight">
-                Connecting Nepal to the{' '}
-                <span style={{ color: '#F9B222' }}>World</span>
-              </h1>
+              <h2 className="text-4xl md:text-6xl font-bold leading-tight">
+                Nepal's #1 Best Cargo & <span style={{ color: '#F9B222' }}>Logistics Company</span>
+              </h2>
               <p className="text-xl text-blue-100 leading-relaxed">
-                Your trusted partner for international cargo services. We specialize in shipping 
-                Nepali products worldwide with care, efficiency, and reliability.
+                Top-rated international shipping and freight forwarding services in Kathmandu. 
+                Trusted cargo delivery company offering air freight, sea freight, and reliable logistics solutions across Nepal and worldwide.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link 
@@ -91,7 +97,7 @@ const Home = () => {
                   onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#e6a01e'}
                   onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#F9B222'}
                 >
-                  Get Quote
+                  Get Instant Quote
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
                 <Link 
