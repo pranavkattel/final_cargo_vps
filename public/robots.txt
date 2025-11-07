@@ -1,5 +1,31 @@
+# Robots.txt for Capital Cargo - Best Cargo Services in Nepal
+# Allow all search engines to crawl the site
+
 User-agent: *
 Allow: /
+Disallow: /admin
+Disallow: /api/
+Disallow: /*.json$
+Disallow: /backend/
+
+# Specific rules for Google
+User-agent: Googlebot
+Allow: /
+Disallow: /admin
+Crawl-delay: 0
+
+# Specific rules for Bing
+User-agent: Bingbot
+Allow: /
+Disallow: /admin
+Crawl-delay: 0
+
+# Sitemap location
+Sitemap: https://cargocapital.com/sitemap.xml
+
+# Crawl delay for other bots
+User-agent: *
+Crawl-delay: 10
 
 # Disallow admin pages from search engines
 Disallow: /admin
