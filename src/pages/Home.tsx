@@ -9,25 +9,29 @@ const Home = () => {
       icon: Plane,
       title: 'Air Freight Services',
       description: 'Best air cargo company in Nepal - Fast international shipping',
-      features: ['Priority delivery', 'Real-time tracking', 'Secure handling']
+      features: ['Priority delivery', 'Real-time tracking', 'Secure handling'],
+      image: 'https://images.pexels.com/photos/62623/wing-plane-flying-airplane-62623.jpeg?auto=compress&cs=tinysrgb&w=800'
     },
     {
       icon: Ship,
       title: 'Sea Freight & Ocean Shipping',
       description: 'Top-rated sea freight forwarding services in Nepal',
-      features: ['Bulk shipping', 'Container services', 'Port-to-port delivery']
+      features: ['Bulk shipping', 'Container services', 'Port-to-port delivery'],
+      image: 'https://images.pexels.com/photos/906982/pexels-photo-906982.jpeg?auto=compress&cs=tinysrgb&w=800'
     },
     {
       icon: Truck,
       title: 'Land Transport & Logistics',
       description: 'Reliable cargo transport across Nepal and borders',
-      features: ['Cross-border delivery', 'Flexible scheduling', 'Last-mile precision']
+      features: ['Cross-border delivery', 'Flexible scheduling', 'Last-mile precision'],
+      image: 'https://images.pexels.com/photos/1095814/pexels-photo-1095814.jpeg?auto=compress&cs=tinysrgb&w=800'
     },
     {
       icon: DoorOpen,
       title: 'Door-to-Door Delivery',
       description: 'Complete cargo solutions from pickup to delivery',
-      features: ['Easy pickup', 'Direct delivery', 'Stress-free']
+      features: ['Easy pickup', 'Direct delivery', 'Stress-free'],
+      image: 'https://images.pexels.com/photos/4481532/pexels-photo-4481532.jpeg?auto=compress&cs=tinysrgb&w=800'
     }
   ];
 
@@ -66,7 +70,7 @@ const Home = () => {
   ];
 
   return (
-    <div className="pt-16">
+    <div>
       {/* SEO Content - Hidden but crawlable */}
       <div className="sr-only">
         <h1>Capital Cargo - #1 Best Cargo Company in Nepal</h1>
@@ -74,18 +78,20 @@ const Home = () => {
         <p>Services: Best air freight company Nepal, top cargo shipping, international shipping Nepal, freight forwarding services, logistics and cargo transport, import export services, door-to-door delivery Kathmandu</p>
       </div>
       
-      {/* Hero Section */}
-      <section className="relative text-white py-16 overflow-hidden" style={{ background: 'linear-gradient(135deg, #0096C7 0%, #007bb3 100%)' }}>
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-blue-800"></div>
+      {/* Hero Section - Bigger for Video Background */}
+      <section className="relative text-white min-h-[85vh] flex items-center overflow-hidden" style={{ background: 'linear-gradient(135deg, #0096C7 0%, #007bb3 100%)' }}>
+        {/* Video Background Placeholder - You can add video element here */}
+        <div className="absolute inset-0 opacity-20">
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-900 via-blue-800 to-blue-900"></div>
+          {/* Future: Add <video> element here */}
         </div>
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div className="space-y-8">
-              <h2 className="text-4xl md:text-6xl font-bold leading-tight">
+              <h1 className="text-5xl md:text-7xl font-bold leading-tight">
                 Nepal's #1 Best Cargo & <span style={{ color: '#F9B222' }}>Logistics Company</span>
-              </h2>
-              <p className="text-xl text-blue-100 leading-relaxed">
+              </h1>
+              <p className="text-2xl text-blue-100 leading-relaxed">
                 Top-rated international shipping and freight forwarding services in Kathmandu. 
                 Trusted cargo delivery company offering air freight, sea freight, and reliable logistics solutions across Nepal and worldwide.
               </p>
@@ -151,8 +157,215 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Services Section */}
+      {/* About Us Section */}
       <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div>
+              <h2 className="text-4xl md:text-5xl font-bold mb-6" style={{ color: '#0096C7' }}>
+                About Capital Cargo
+              </h2>
+              <p className="text-lg text-gray-700 leading-relaxed mb-6">
+                Established in 1998, Capital Cargo has been Nepal's most trusted logistics and freight forwarding company for over 27 years. We are headquartered in Kathmandu and specialize in international cargo shipping, connecting Nepali businesses with global markets.
+              </p>
+              <p className="text-lg text-gray-700 leading-relaxed mb-6">
+                As Nepal's #1 cargo company, we handle everything from small parcels to large commercial shipments across 110+ countries worldwide. Our expertise spans air freight, sea freight, land transport, and door-to-door delivery services.
+              </p>
+              <div className="grid grid-cols-2 gap-6 mt-8">
+                <div className="bg-blue-50 p-6 rounded-xl border border-blue-100">
+                  <div className="text-3xl font-bold mb-2" style={{ color: '#0096C7' }}>27+</div>
+                  <div className="text-gray-700 font-medium">Years Experience</div>
+                </div>
+                <div className="bg-blue-50 p-6 rounded-xl border border-blue-100">
+                  <div className="text-3xl font-bold mb-2" style={{ color: '#0096C7' }}>110+</div>
+                  <div className="text-gray-700 font-medium">Countries Served</div>
+                </div>
+                <div className="bg-blue-50 p-6 rounded-xl border border-blue-100">
+                  <div className="text-3xl font-bold mb-2" style={{ color: '#0096C7' }}>50K+</div>
+                  <div className="text-gray-700 font-medium">Happy Customers</div>
+                </div>
+                <div className="bg-blue-50 p-6 rounded-xl border border-blue-100">
+                  <div className="text-3xl font-bold mb-2" style={{ color: '#0096C7' }}>1M+</div>
+                  <div className="text-gray-700 font-medium">Packages Delivered</div>
+                </div>
+              </div>
+            </div>
+            <div className="relative">
+              <img
+                src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80"
+                alt="About Capital Cargo Nepal"
+                className="rounded-2xl shadow-2xl object-cover w-full h-[500px]"
+              />
+              <div className="absolute -bottom-6 -left-6 bg-white p-6 rounded-xl shadow-xl">
+                <div className="flex items-center space-x-4">
+                  <Award className="h-12 w-12" style={{ color: '#F9B222' }} />
+                  <div>
+                    <div className="font-bold text-gray-900">ISO Certified</div>
+                    <div className="text-sm text-gray-600">Quality Assured</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Office Location Map Section */}
+      <section className="py-20 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl md:text-5xl font-bold mb-4" style={{ color: '#0096C7' }}>
+              Visit Our Office
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Find us in the heart of Thamel, Kathmandu - Easy access for all your cargo needs
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {/* Google Maps Embed */}
+            <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3532.0726203098875!2d85.31065731506217!3d27.715383582790384!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb18fdefffffff%3A0x5f006508519ddb86!2sThamel%2C%20Kathmandu%2044600!5e0!3m2!1sen!2snp!4v1699999999999!5m2!1sen!2snp"
+                width="100%"
+                height="450"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Capital Cargo Office Location"
+              ></iframe>
+            </div>
+
+            {/* Contact Information Card */}
+            <div className="bg-white rounded-2xl shadow-2xl p-8 flex flex-col justify-center">
+              <div className="space-y-6">
+                <div>
+                  <h3 className="text-2xl font-bold mb-4" style={{ color: '#0096C7' }}>
+                    Capital Cargo Nepal
+                  </h3>
+                  <p className="text-gray-600 leading-relaxed">
+                    Located in the bustling heart of Thamel, our office provides easy access for all your international cargo and shipping needs.
+                  </p>
+                </div>
+
+                <div className="space-y-4">
+                  <div className="flex items-start space-x-4">
+                    <div className="rounded-full p-3 mt-1" style={{ backgroundColor: '#F9B222' }}>
+                      <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-gray-900 mb-1">Address</h4>
+                      <p className="text-gray-600">Thamel, Kathmandu, Nepal</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start space-x-4">
+                    <div className="rounded-full p-3 mt-1" style={{ backgroundColor: '#F9B222' }}>
+                      <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-gray-900 mb-1">Phone</h4>
+                      <p className="text-gray-600">+977-01-5367883</p>
+                      <p className="text-gray-600">01-5368837</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start space-x-4">
+                    <div className="rounded-full p-3 mt-1" style={{ backgroundColor: '#F9B222' }}>
+                      <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-gray-900 mb-1">Office Hours</h4>
+                      <p className="text-gray-600">Sunday - Friday: 10:00 AM - 5:00 PM</p>
+                      <p className="text-gray-600">Saturday: Closed</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start space-x-4">
+                    <div className="rounded-full p-3 mt-1" style={{ backgroundColor: '#F9B222' }}>
+                      <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-gray-900 mb-1">Email</h4>
+                      <p className="text-gray-600">info@cargocapital.com</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="pt-6 border-t border-gray-200">
+                  <Link
+                    to="/contact"
+                    className="inline-flex items-center justify-center w-full px-6 py-3 text-lg font-semibold text-white rounded-lg transition-all duration-300 hover:scale-105"
+                    style={{ backgroundColor: '#F9B222' }}
+                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#e6a01e'}
+                    onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#F9B222'}
+                  >
+                    Get Directions
+                    <ArrowRight className="ml-2 h-5 w-5" />
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Why Choose Us Section */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold mb-4" style={{ color: '#0096C7' }}>
+              Why Choose Capital Cargo?
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              We combine 27 years of expertise with modern technology to deliver excellence
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-8 hover:shadow-xl transition-all duration-300 hover:scale-105">
+              <div className="rounded-full p-4 mb-4 w-fit" style={{ backgroundColor: '#F9B222' }}>
+                <CheckCircle className="h-8 w-8 text-white" />
+              </div>
+              <h3 className="text-xl font-bold mb-3" style={{ color: '#0096C7' }}>Expert Knowledge</h3>
+              <p className="text-gray-700">27+ years of experience in international logistics and deep understanding of Nepali markets and customs procedures.</p>
+            </div>
+            <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-8 hover:shadow-xl transition-all duration-300 hover:scale-105">
+              <div className="rounded-full p-4 mb-4 w-fit" style={{ backgroundColor: '#F9B222' }}>
+                <Shield className="h-8 w-8 text-white" />
+              </div>
+              <h3 className="text-xl font-bold mb-3" style={{ color: '#0096C7' }}>Secure & Reliable</h3>
+              <p className="text-gray-700">Advanced tracking systems, comprehensive insurance options, and secure packaging to ensure your cargo reaches safely.</p>
+            </div>
+            <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-8 hover:shadow-xl transition-all duration-300 hover:scale-105">
+              <div className="rounded-full p-4 mb-4 w-fit" style={{ backgroundColor: '#F9B222' }}>
+                <Clock className="h-8 w-8 text-white" />
+              </div>
+              <h3 className="text-xl font-bold mb-3" style={{ color: '#0096C7' }}>On-Time Delivery</h3>
+              <p className="text-gray-700">Committed to meeting delivery schedules with 99.9% on-time performance rate across all shipping methods.</p>
+            </div>
+            <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-8 hover:shadow-xl transition-all duration-300 hover:scale-105">
+              <div className="rounded-full p-4 mb-4 w-fit" style={{ backgroundColor: '#F9B222' }}>
+                <Globe className="h-8 w-8 text-white" />
+              </div>
+              <h3 className="text-xl font-bold mb-3" style={{ color: '#0096C7' }}>Global Network</h3>
+              <p className="text-gray-700">Extensive network covering 110+ countries with trusted airline and shipping partners worldwide.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Services Section */}
+      <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{ color: '#0096C7' }}>
@@ -165,110 +378,37 @@ const Home = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {services.map((service, index) => (
-              <div key={index} className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all duration-300 hover:scale-105 border border-gray-100">
-                <div className="rounded-full p-3 mb-4 w-fit" style={{ backgroundColor: '#F9B222', color: 'white' }}>
-                  <service.icon className="h-8 w-8" />
+              <div key={index} className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 hover:scale-105 border border-gray-100">
+                <div className="relative h-48 overflow-hidden">
+                  <img 
+                    src={service.image} 
+                    alt={service.title}
+                    className="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                  <div className="absolute bottom-4 left-4 rounded-full p-3 w-fit" style={{ backgroundColor: '#F9B222', color: 'white' }}>
+                    <service.icon className="h-6 w-6" />
+                  </div>
                 </div>
-                <h3 className="text-xl font-semibold mb-3" style={{ color: '#0096C7' }}>{service.title}</h3>
-                <p className="text-gray-600 mb-4">{service.description}</p>
-                <ul className="space-y-2">
-                  {service.features.map((feature, featureIndex) => (
-                    <li key={featureIndex} className="flex items-center text-sm text-gray-600">
-                      <CheckCircle className="h-4 w-4 mr-2" style={{ color: '#F9B222' }} />
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
+                <div className="p-6">
+                  <h3 className="text-xl font-semibold mb-3" style={{ color: '#0096C7' }}>{service.title}</h3>
+                  <p className="text-gray-600 mb-4">{service.description}</p>
+                  <ul className="space-y-2">
+                    {service.features.map((feature, featureIndex) => (
+                      <li key={featureIndex} className="flex items-center text-sm text-gray-600">
+                        <CheckCircle className="h-4 w-4 mr-2" style={{ color: '#F9B222' }} />
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Stats Section */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{ color: '#0096C7' }}>
-              Trusted by Thousands
-            </h2>
-            <p className="text-xl text-gray-600">
-              Our numbers speak for our commitment to excellence
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {stats.map((stat, index) => (
-              <div key={index} className="text-center bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300">
-                <div className="rounded-full p-4 mx-auto mb-4 w-fit" style={{ backgroundColor: '#F9B222' }}>
-                  <stat.icon className="h-8 w-8 text-white" />
-                </div>
-                <div className="text-3xl font-bold mb-2" style={{ color: '#0096C7' }}>{stat.number}</div>
-                <div className="text-gray-600">{stat.label}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
-      {/* Why Choose Us */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <div>
-              <h2 className="text-3xl md:text-4xl font-bold mb-8" style={{ color: '#0096C7' }}>
-                Why Choose Capital Cargo?
-              </h2>
-              <div className="space-y-6">
-                <div className="flex items-start space-x-4">
-                  <div className="rounded-full p-2" style={{ backgroundColor: '#F9B222' }}>
-                    <CheckCircle className="h-6 w-6 text-white" />
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-semibold mb-2" style={{ color: '#0096C7' }}>Expert Knowledge</h3>
-                    <p className="text-gray-600">27+ years of experience in international logistics and deep understanding of Nepali markets.</p>
-                  </div>
-                </div>
-                <div className="flex items-start space-x-4">
-                  <div className="rounded-full p-2" style={{ backgroundColor: '#F9B222' }}>
-                    <Shield className="h-6 w-6 text-white" />
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-semibold mb-2" style={{ color: '#0096C7' }}>Secure & Reliable</h3>
-                    <p className="text-gray-600">Advanced tracking systems and insurance options to ensure your cargo reaches safely.</p>
-                  </div>
-                </div>
-                <div className="flex items-start space-x-4">
-                  <div className="rounded-full p-2" style={{ backgroundColor: '#F9B222' }}>
-                    <Clock className="h-6 w-6 text-white" />
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-semibold mb-2" style={{ color: '#0096C7' }}>On-Time Delivery</h3>
-                    <p className="text-gray-600">Committed to meeting delivery schedules with 99.9% on-time performance rate.</p>
-                  </div>
-                </div>
-                <div className="flex items-start space-x-4">
-                  <div className="rounded-full p-2" style={{ backgroundColor: '#F9B222' }}>
-                    <Globe className="h-6 w-6 text-white" />
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-semibold mb-2" style={{ color: '#0096C7' }}>Global Network</h3>
-                    <p className="text-gray-600">Extensive network covering 110+ countries with trusted partners worldwide.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="relative">
-              {/* Replace Globe3D with an image */}
-              <img
-                src="https://images.pexels.com/photos/1797428/pexels-photo-1797428.jpeg?auto=compress&fit=crop&w=800&q=80"
-                alt="Why Choose NepalCargo"
-                className="rounded-xl shadow-2xl object-cover w-full h-full max-h-[400px]"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* Testimonials */}
       <section className="py-20 bg-gray-50 overflow-hidden">

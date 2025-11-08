@@ -77,7 +77,7 @@ const Contact = () => {
     {
       icon: Phone,
       title: 'Call Us',
-      details: ['+977-1-4444-555', '+977-1-4444-556'],
+      details: ['+977-01-5367883', '01-5368837'],
       color: 'text-green-600'
     },
     {

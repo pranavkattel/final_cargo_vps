@@ -22,14 +22,14 @@ const Navbar = () => {
   return (
     <nav className="bg-white shadow-lg sticky top-0 z-50 transition-all duration-300 w-full">
       <div className="w-full px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center h-16">
+        <div className="flex items-center h-20">
           {/* Company Logo - Far Left */}
           <div className="flex-shrink-0">
             <Link to="/" className="flex items-center group">
               <img 
                 src={logo} 
                 alt="Capital Cargo Logo" 
-                className="h-12 transition-all duration-300 group-hover:scale-105" 
+                className="h-20 transition-all duration-300 group-hover:scale-105" 
               />
             </Link>
           </div>
@@ -181,7 +181,7 @@ const Navbar = () => {
             }}
           >
             <Phone className="h-4 w-4 transition-transform duration-300 group-hover:rotate-12" />
-            <span className="text-sm font-medium">+977-1-4444-555</span>
+            <span className="text-sm font-medium">+977-01-5367883, 01-5368837</span>
           </div>
         </div>
       </div>

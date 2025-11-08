@@ -106,7 +106,7 @@ router.post('/quote', async (req, res) => {
             </td></tr>
             <tr>
               <td style="background: #f1f5f9; text-align: center; padding: 18px 0; color: #64748b; font-size: 0.95rem;">
-                Cargo Express &bull; Kathmandu, Nepal &bull; +977-1234567890<br/>
+                Capital Cargo &bull; Kathmandu, Nepal &bull; +977-01-5367883, 01-5368837<br/>
                 <span style="color: #94a3b8;">This is an automated notification. Please respond promptly.</span>
               </td>
             </tr>
@@ -142,12 +142,12 @@ router.post('/quote', async (req, res) => {
               </ul>
               <div style="background: #f1f5f9; padding: 18px; border-radius: 8px; margin-bottom: 24px; color: #64748b;">
                 Need urgent assistance? Contact us at:<br/>
-                <span style="font-weight: bold; color: #2563eb;">📞 +977-1234567890 | ✉️ info@cargocapital.com</span>
+                <span style="font-weight: bold; color: #2563eb;">📞 +977-01-5367883, 01-5368837 | ✉️ info@cargocapital.com</span>
               </div>
             </td></tr>
             <tr>
               <td style="background: #f1f5f9; text-align: center; padding: 18px 0; color: #64748b; font-size: 0.95rem;">
-                Cargo Express &bull; Kathmandu, Nepal &bull; +977-1234567890<br/>
+                Capital Cargo &bull; Kathmandu, Nepal &bull; +977-01-5367883, 01-5368837<br/>
                 <span style="color: #94a3b8;">This is an automated confirmation. No reply needed.</span>
               </td>
             </tr>
@@ -221,7 +221,7 @@ router.post('/contact', async (req, res) => {
             </td></tr>
             <tr>
               <td style="background: #f1f5f9; text-align: center; padding: 18px 0; color: #64748b; font-size: 0.95rem;">
-                Cargo Express &bull; Kathmandu, Nepal &bull; +977-1234567890<br/>
+                Capital Cargo &bull; Kathmandu, Nepal &bull; +977-01-5367883, 01-5368837<br/>
                 <span style="color: #94a3b8;">This is an automated notification. Please respond promptly.</span>
               </td>
             </tr>
@@ -256,12 +256,12 @@ router.post('/contact', async (req, res) => {
               </div>
               <div style="background: #f1f5f9; padding: 18px; border-radius: 8px; margin-bottom: 24px; color: #64748b;">
                 Need immediate assistance? Contact us at:<br/>
-                <span style="font-weight: bold; color: #2563eb;">📞 +977-1234567890 | ✉️ info@cargocapital.com</span>
+                <span style="font-weight: bold; color: #2563eb;">📞 +977-01-5367883, 01-5368837 | ✉️ info@cargocapital.com</span>
               </div>
             </td></tr>
             <tr>
               <td style="background: #f1f5f9; text-align: center; padding: 18px 0; color: #64748b; font-size: 0.95rem;">
-                Cargo Express &bull; Kathmandu, Nepal &bull; +977-1234567890<br/>
+                Capital Cargo &bull; Kathmandu, Nepal &bull; +977-01-5367883, 01-5368837<br/>
                 <span style="color: #94a3b8;">This is an automated confirmation. No reply needed.</span>
               </td>
             </tr>

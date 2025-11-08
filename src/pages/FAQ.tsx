@@ -239,7 +239,7 @@ const FAQ = () => {
               </div>
               <h3 className="text-lg font-semibold mb-2" style={{ color: '#0096C7' }}>Call Us</h3>
               <p className="text-gray-600 mb-4">Speak directly with our support team</p>
-              <p className="font-semibold" style={{ color: '#F9B222' }}>+977-1-4444-555</p>
+              <p className="font-semibold" style={{ color: '#F9B222' }}>+977-01-5367883, 01-5368837</p>
             </div>
             
             <div className="text-center p-6 bg-gray-50 rounded-xl">

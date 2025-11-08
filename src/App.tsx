@@ -2,6 +2,8 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import NepaliCalendar from './components/NepaliCalendar';
+import ScrollToTop from './components/ScrollToTop';
 import Home from './pages/Home';
 import About from './pages/About';
 import Services from './pages/Services';
@@ -20,6 +22,7 @@ import DataTools from './pages/DataTools';
 function App() {
   return (
     <Router>
+      <ScrollToTop />
       <div className="min-h-screen bg-gray-50">
         <Navbar />
         <main>
@@ -40,7 +43,8 @@ function App() {
             <Route path="/test-api" element={<TestAPI />} />
           </Routes>
         </main>
-  <Footer />
+        <Footer />
+        <NepaliCalendar />
       </div>
     </Router>
   );

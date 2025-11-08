@@ -11,54 +11,38 @@ interface CargoLocationData {
   lng: number;
   shipments: ShipmentData[];
   type: 'continent';
-  commonCargoTypes: string[];
-  majorExports: string[];
-  majorImports: string[];
+  popularCountries: string[];
 }
 
-// Continent coordinates for major shipping locations with cargo type data
+// Continent coordinates with popular destination countries
 const continentCoordinates: Record<string, { 
   lat: number; 
   lng: number; 
-  commonCargoTypes: string[];
-  majorExports: string[];
-  majorImports: string[];
+  popularCountries: string[];
 }> = {
   'North America': { 
-    lat: 39.8283, lng: -98.5795, // Geographic center of continental United States
-    commonCargoTypes: ['Technology', 'Agricultural Products', 'Automotive Parts', 'Pharmaceuticals'],
-    majorExports: ['Technology', 'Agricultural Products', 'Machinery', 'Entertainment'],
-    majorImports: ['Electronics', 'Textiles', 'Raw Materials', 'Energy']
+    lat: 39.8283, lng: -98.5795,
+    popularCountries: ['United States', 'Canada', 'Mexico']
   },
   'South America': { 
-    lat: -14.2350, lng: -51.9253, // Geographic center of Brazil
-    commonCargoTypes: ['Coffee', 'Soybeans', 'Beef', 'Minerals'],
-    majorExports: ['Agricultural Products', 'Minerals', 'Coffee', 'Beef'],
-    majorImports: ['Machinery', 'Electronics', 'Chemicals', 'Energy']
+    lat: -14.2350, lng: -51.9253,
+    popularCountries: ['Brazil', 'Argentina', 'Chile', 'Colombia', 'Peru']
   },
   'Europe': { 
-    lat: 54.5260, lng: 15.2551, // Geographic center of Europe
-    commonCargoTypes: ['Luxury Goods', 'Automotive Parts', 'Pharmaceuticals', 'Machinery'],
-    majorExports: ['Machinery', 'Automotive Parts', 'Luxury Goods', 'Pharmaceuticals'],
-    majorImports: ['Energy', 'Electronics', 'Raw Materials', 'Food Products']
+    lat: 54.5260, lng: 15.2551,
+    popularCountries: ['United Kingdom', 'Germany', 'France', 'Italy', 'Spain', 'Netherlands', 'Belgium', 'Switzerland']
   },
   'Africa': { 
-    lat: -8.7832, lng: 34.5085, // Geographic center of Africa
-    commonCargoTypes: ['Minerals', 'Agricultural Products', 'Textiles', 'Oil'],
-    majorExports: ['Minerals', 'Oil', 'Agricultural Products', 'Diamonds'],
-    majorImports: ['Machinery', 'Electronics', 'Food Products', 'Textiles']
+    lat: -8.7832, lng: 34.5085,
+    popularCountries: ['South Africa', 'Egypt', 'Kenya', 'Nigeria', 'Morocco']
   },
   'Asia': { 
-    lat: 34.0479, lng: 100.6197, // Geographic center of Asia
-    commonCargoTypes: ['Electronics', 'Textiles', 'Machinery', 'Chemicals'],
-    majorExports: ['Electronics', 'Textiles', 'Machinery', 'Chemicals'],
-    majorImports: ['Raw Materials', 'Energy', 'Food Products', 'Minerals']
+    lat: 34.0479, lng: 100.6197,
+    popularCountries: ['China', 'Japan', 'South Korea', 'India', 'Singapore', 'Thailand', 'Malaysia', 'United Arab Emirates']
   },
   'Oceania': { 
-    lat: -25.2744, lng: 133.7751, // Geographic center of Australia
-    commonCargoTypes: ['Mining Equipment', 'Agricultural Products', 'Wool', 'Minerals'],
-    majorExports: ['Minerals', 'Agricultural Products', 'Wool', 'Coal'],
-    majorImports: ['Machinery', 'Electronics', 'Oil', 'Textiles']
+    lat: -25.2744, lng: 133.7751,
+    popularCountries: ['Australia', 'New Zealand']
   }
 };
 
@@ -67,10 +51,10 @@ const Globe = ({ onLocationClick }: { onLocationClick: (location: CargoLocationD
   const groupRef = useRef<THREE.Group>(null);
   const [cargoLocations, setCargoLocations] = useState<CargoLocationData[]>([]);
 
-  const globeRadius = 2; // Back to reasonable size
+  const globeRadius = 2.5; // Increased size for better visibility
 
-  // Load realistic Earth texture
-  const earthTexture = useTexture('https://cdn.jsdelivr.net/gh/mrdoob/three.js@dev/examples/textures/planets/earth_atmos_2048.jpg');
+  // Load Earth texture - land only, no oceans
+  const earthTexture = useTexture('https://raw.githubusercontent.com/turban/webgl-earth/master/images/2_no_clouds_4k.jpg');
 
   useFrame(() => {
     if (groupRef.current) {
@@ -99,11 +83,9 @@ const Globe = ({ onLocationClick }: { onLocationClick: (location: CargoLocationD
               name: continentName,
               lat: continentData.lat,
               lng: continentData.lng,
-              shipments: [], // We'll show cargo types instead of actual shipments
+              shipments: [],
               type: 'continent',
-              commonCargoTypes: continentData.commonCargoTypes,
-              majorExports: continentData.majorExports,
-              majorImports: continentData.majorImports
+              popularCountries: continentData.popularCountries
             });
           }
         });
@@ -116,7 +98,7 @@ const Globe = ({ onLocationClick }: { onLocationClick: (location: CargoLocationD
         // Fallback: show continents even if API fails
         const continents = Object.keys(continentCoordinates);
         
-        const fallbackLocations = continents.map((continentName, index) => {
+        const fallbackLocations = continents.map((continentName) => {
           const continentData = continentCoordinates[continentName];
           
           return {
@@ -126,9 +108,7 @@ const Globe = ({ onLocationClick }: { onLocationClick: (location: CargoLocationD
             lng: continentData.lng,
             shipments: [],
             type: 'continent',
-            commonCargoTypes: continentData.commonCargoTypes,
-            majorExports: continentData.majorExports,
-            majorImports: continentData.majorImports
+            popularCountries: continentData.popularCountries
           } as CargoLocationData;
         });
         
@@ -156,49 +136,26 @@ const Globe = ({ onLocationClick }: { onLocationClick: (location: CargoLocationD
 
   return (
     <group ref={groupRef}>
-      {/* Main globe with very bright, bluish Earth texture */}
+      {/* Main globe with land masses only */}
       <mesh 
         ref={meshRef} 
         geometry={useMemo(() => new THREE.SphereGeometry(globeRadius, 64, 64), [])}
       >
         <meshStandardMaterial 
           map={earthTexture}
-          roughness={0.3}
+          roughness={0.5}
           metalness={0.1}
-          emissive="#004080"
-          emissiveIntensity={0.6}
-          color="#E3F2FD"
           transparent={false}
           opacity={1.0}
         />
       </mesh>
 
-      {/* Very bright blue atmospheric glow effect */}
+      {/* Subtle atmospheric glow */}
       <mesh geometry={useMemo(() => new THREE.SphereGeometry(globeRadius * 1.02, 64, 64), [])}>
         <meshBasicMaterial 
-          color="#29B6F6" 
+          color="#ffffff" 
           transparent 
-          opacity={0.4}
-          side={THREE.BackSide}
-        />
-      </mesh>
-
-      {/* Additional intense outer glow for maximum brightness */}
-      <mesh geometry={useMemo(() => new THREE.SphereGeometry(globeRadius * 1.05, 32, 32), [])}>
-        <meshBasicMaterial 
-          color="#03A9F4" 
-          transparent 
-          opacity={0.3}
-          side={THREE.BackSide}
-        />
-      </mesh>
-
-      {/* Extra bright blue rim light */}
-      <mesh geometry={useMemo(() => new THREE.SphereGeometry(globeRadius * 1.08, 16, 16), [])}>
-        <meshBasicMaterial 
-          color="#0288D1" 
-          transparent 
-          opacity={0.2}
+          opacity={0.1}
           side={THREE.BackSide}
         />
       </mesh>
@@ -231,28 +188,23 @@ const Globe = ({ onLocationClick }: { onLocationClick: (location: CargoLocationD
         </Sphere>
       ))}
 
-      {/* Enhanced bright and bluish lighting - increased intensities */}
-      <ambientLight intensity={1.5} color="#E1F5FE" />
+      {/* Bright lighting for land visibility */}
+      <ambientLight intensity={1.2} color="#FFFFFF" />
       <directionalLight 
         position={[5, 3, 5]} 
-        intensity={2.8} 
+        intensity={2.0} 
         color="#FFFFFF"
         castShadow={false}
       />
       <directionalLight 
         position={[-3, 2, -3]} 
-        intensity={2.0} 
-        color="#E1F5FE"
+        intensity={1.5} 
+        color="#FFFFFF"
       />
       <directionalLight 
         position={[0, 5, 0]} 
-        intensity={1.8} 
-        color="#BBDEFB"
-      />
-      <directionalLight 
-        position={[0, -3, 3]} 
-        intensity={1.5} 
-        color="#90CAF9"
+        intensity={1.2} 
+        color="#FFFFFF"
       />
     </group>
   );
@@ -270,9 +222,9 @@ const Globe3D = () => {
   };
 
   return (
-    <div className="relative w-full h-[300px] md:h-[380px] lg:h-[450px]">
+    <div className="relative w-full h-[450px] md:h-[550px] lg:h-[650px]">
       <Canvas 
-        camera={{ position: [0, 0, 7], fov: 45 }}
+        camera={{ position: [0, 0, 8], fov: 45 }}
       >
         <Suspense fallback={null}>
           <OrbitControls
@@ -280,57 +232,60 @@ const Globe3D = () => {
             enablePan={true}
             autoRotate
             autoRotateSpeed={0.3}
-            minDistance={3}
-            maxDistance={8}
+            minDistance={5}
+            maxDistance={12}
             enableDamping={true}
             dampingFactor={0.1}
             target={[0, 0, 0]}
-            makeDefault={false}
-          />++
+            makeDefault
+          />
           <Globe onLocationClick={handleLocationClick} />
         </Suspense>
       </Canvas>
       
       {selectedLocation && (
-        <div className="absolute top-4 right-4 bg-white p-4 rounded-lg shadow-lg max-w-sm">
+        <div className="absolute top-4 right-4 bg-white p-6 rounded-lg shadow-2xl max-w-sm border-2" style={{ borderColor: '#f9b222' }}>
           <button
             onClick={handleCloseDetailPanel}
-            className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
+            className="absolute top-2 right-2 text-gray-500 hover:text-gray-700 font-bold text-xl"
           >
             ✕
           </button>
-          <h3 className="font-bold text-lg mb-2 text-black">{selectedLocation.name}</h3>
-          <div className="text-sm text-black">
-            <div className="mb-2">
-              <strong className="text-black">Common Cargo Types:</strong>
-              <div className="flex flex-wrap gap-1 mt-1">
-                {selectedLocation.commonCargoTypes.map((type, index) => (
-                  <span key={index} className="bg-blue-100 text-black px-2 py-1 rounded text-xs">
-                    {type}
-                  </span>
-                ))}
-              </div>
-            </div>
-            <div className="mb-2">
-              <strong className="text-black">Major Exports:</strong>
-              <div className="flex flex-wrap gap-1 mt-1">
-                {selectedLocation.majorExports.map((export_, index) => (
-                  <span key={index} className="bg-green-100 text-black px-2 py-1 rounded text-xs">
-                    {export_}
-                  </span>
-                ))}
-              </div>
-            </div>
-            <div>
-              <strong className="text-black">Major Imports:</strong>
-              <div className="flex flex-wrap gap-1 mt-1">
-                {selectedLocation.majorImports.map((import_, index) => (
-                  <span key={index} className="bg-orange-100 text-black px-2 py-1 rounded text-xs">
-                    {import_}
-                  </span>
-                ))}
-              </div>
-            </div>
+          <h3 className="font-bold text-xl mb-3 text-black" style={{ color: '#0096C7' }}>
+            {selectedLocation.name}
+          </h3>
+          <p className="text-sm text-gray-600 mb-3">Select a country to get a shipping quote:</p>
+          <div className="space-y-2 max-h-96 overflow-y-auto">
+            {selectedLocation.popularCountries.map((country: string, index: number) => (
+              <a
+                key={index}
+                href={`/quote?destination=${encodeURIComponent(country)}`}
+                className="block px-4 py-3 rounded-lg transition-all duration-200 hover:shadow-md border border-gray-200 hover:border-blue-400 text-gray-800"
+                style={{ backgroundColor: '#f6f6f6', color: '#1a1a1a' }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = '#f9b222';
+                  e.currentTarget.style.color = 'white';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = '#f6f6f6';
+                  e.currentTarget.style.color = '#1a1a1a';
+                }}
+              >
+                <div className="flex items-center justify-between">
+                  <span className="font-medium">{country}</span>
+                  <span className="text-sm">→</span>
+                </div>
+              </a>
+            ))}
+          </div>
+          <div className="mt-4 pt-4 border-t border-gray-200">
+            <a
+              href="/quote"
+              className="block text-center px-4 py-2 rounded-lg text-white font-semibold transition-colors duration-200"
+              style={{ backgroundColor: '#0096C7' }}
+            >
+              View All Destinations
+            </a>
           </div>
         </div>
       )}

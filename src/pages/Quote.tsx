@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Package, MapPin, DollarSign, Clock, Shield, CheckCircle } from 'lucide-react';
+import { ALL_COUNTRIES, POPULAR_DESTINATIONS } from '../data/countries';
 
 interface QuoteForm {
   pickupAddress: string;
@@ -23,13 +25,21 @@ interface QuoteForm {
 }
 
 const Quote = () => {
+  const location = useLocation();
+  
+  // Get destination from URL query parameter
+  const getInitialDestination = () => {
+    const params = new URLSearchParams(location.search);
+    return params.get('destination') || '';
+  };
+
   const [formData, setFormData] = useState<QuoteForm>({
     pickupAddress: '',
     pickupCity: '',
     pickupCountry: 'Nepal',
     destinationAddress: '',
     destinationCity: '',
-    destinationCountry: '',
+    destinationCountry: getInitialDestination(),
     weight: '',
     length: '',
     width: '',
@@ -44,15 +54,22 @@ const Quote = () => {
     phone: ''
   });
 
+  // Update destination when URL changes
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const destination = params.get('destination');
+    if (destination) {
+      setFormData(prev => ({ ...prev, destinationCountry: destination }));
+    }
+  }, [location.search]);
+
   const [currentStep, setCurrentStep] = useState(1);
   const [showThankYou, setShowThankYou] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState('');
 
-  const countries = [
-    'USA', 'UK', 'Germany', 'Japan', 'Australia', 'India', 'China', 'UAE', 
-    'Canada', 'France', 'South Korea', 'Singapore', 'Netherlands', 'Italy', 'Spain'
-  ];
+  // Using all 195 countries from data file
+  const countries = ALL_COUNTRIES;
 
   const goodsTypes = [
     'Handicrafts & Artwork',
@@ -264,10 +281,17 @@ const Quote = () => {
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   required
                 >
-                  <option value="">Select country</option>
-                  {countries.map(country => (
-                    <option key={country} value={country}>{country}</option>
-                  ))}
+                  <option value="">Select destination country</option>
+                  <optgroup label="🔥 Popular Destinations">
+                    {POPULAR_DESTINATIONS.map(country => (
+                      <option key={country} value={country}>✈️ {country}</option>
+                    ))}
+                  </optgroup>
+                  <optgroup label="🌍 All Countries (195 total)">
+                    {countries.map(country => (
+                      <option key={country} value={country}>{country}</option>
+                    ))}
+                  </optgroup>
                 </select>
               </div>
             </div>
