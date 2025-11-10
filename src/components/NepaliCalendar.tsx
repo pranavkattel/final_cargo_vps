@@ -122,7 +122,9 @@ const NepaliCalendar: React.FC = () => {
         <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
           <div className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
             {/* Header */}
-            <div className="sticky top-0 bg-gradient-to-r from-blue-600 to-blue-700 text-white p-6 rounded-t-2xl">
+            <div style={{ zIndex: 100 }}
+              className="sticky top-0 bg-gradient-to-r from-blue-600 to-blue-700 text-white p-6 rounded-t-2xl"
+            >
               <div className="flex justify-between items-center mb-4">
                 <div className="flex-1">
                   <h2 className="text-2xl font-bold mb-2">{monthNames[currentMonth]} {currentYear}</h2>
