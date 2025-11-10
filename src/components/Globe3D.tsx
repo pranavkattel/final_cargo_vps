@@ -1,7 +1,8 @@
-import React, { useRef, useMemo, Suspense, useState, useEffect } from 'react';
+import { useRef, useMemo, Suspense, useState, useEffect } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, Sphere, useTexture } from '@react-three/drei';
 import * as THREE from 'three';
+import earthTextureImg from '../assets/images/earth_texture.jpg';
 import { trackingAPI, ShipmentData } from '../services/trackingService';
 
 interface CargoLocationData {
@@ -46,15 +47,31 @@ const continentCoordinates: Record<string, {
   }
 };
 
-const Globe = ({ onLocationClick }: { onLocationClick: (location: CargoLocationData) => void }) => {
+const createContinentLocations = () => {
+  return Object.entries(continentCoordinates).map(([continentName, data]) => ({
+    id: `${continentName}_continent`,
+    name: continentName,
+    lat: data.lat,
+    lng: data.lng,
+    shipments: [],
+    type: 'continent' as const,
+    popularCountries: data.popularCountries
+  }));
+};
+
+const Globe = ({
+  onLocationClick,
+}: {
+  onLocationClick: (location: CargoLocationData) => void;
+}) => {
   const meshRef = useRef<THREE.Mesh>(null);
   const groupRef = useRef<THREE.Group>(null);
-  const [cargoLocations, setCargoLocations] = useState<CargoLocationData[]>([]);
+  const [cargoLocations, setCargoLocations] = useState<CargoLocationData[]>(createContinentLocations);
 
   const globeRadius = 2.5; // Increased size for better visibility
 
-  // Load Earth texture - land only, no oceans
-  const earthTexture = useTexture('https://raw.githubusercontent.com/turban/webgl-earth/master/images/2_no_clouds_4k.jpg');
+  // Load Earth texture from local assets for reliable rendering
+  const earthTexture = useTexture(earthTextureImg);
 
   useFrame(() => {
     if (groupRef.current) {
@@ -65,8 +82,8 @@ const Globe = ({ onLocationClick }: { onLocationClick: (location: CargoLocationD
   useEffect(() => {
     const fetchShipments = async () => {
       try {
-        const response = await trackingAPI.getAllShipments(1, 100);
-        const shipments = response.data || [];
+  const response = await trackingAPI.getAllShipments(1, 100);
+  const shipments = response.data || [];
         
         // Create locations from continents with realistic cargo information
         const locationMap = new Map<string, CargoLocationData>();
@@ -74,16 +91,22 @@ const Globe = ({ onLocationClick }: { onLocationClick: (location: CargoLocationD
         // Add all continents as potential shipping locations
         const continents = Object.keys(continentCoordinates);
         
-        continents.forEach((continentName, index) => {
+        continents.forEach((continentName) => {
           const continentData = continentCoordinates[continentName];
           if (continentData) {
             const key = `${continentName}_continent`;
+            const relatedShipments = shipments.filter((shipment) => {
+              const destination = shipment.shipmentDetails?.destination?.toLowerCase() || '';
+              return continentData.popularCountries.some((country) =>
+                destination.includes(country.toLowerCase())
+              );
+            });
             locationMap.set(key, {
               id: key,
               name: continentName,
               lat: continentData.lat,
               lng: continentData.lng,
-              shipments: [],
+              shipments: relatedShipments,
               type: 'continent',
               popularCountries: continentData.popularCountries
             });
@@ -96,22 +119,7 @@ const Globe = ({ onLocationClick }: { onLocationClick: (location: CargoLocationD
         console.error('Error fetching shipments for globe:', error);
         
         // Fallback: show continents even if API fails
-        const continents = Object.keys(continentCoordinates);
-        
-        const fallbackLocations = continents.map((continentName) => {
-          const continentData = continentCoordinates[continentName];
-          
-          return {
-            id: `${continentName}_continent`,
-            name: continentName,
-            lat: continentData.lat,
-            lng: continentData.lng,
-            shipments: [],
-            type: 'continent',
-            popularCountries: continentData.popularCountries
-          } as CargoLocationData;
-        });
-        
+        const fallbackLocations = createContinentLocations();
         setCargoLocations(fallbackLocations);
         console.log('Loaded fallback continent locations:', fallbackLocations); // Debug log
       }
@@ -135,7 +143,7 @@ const Globe = ({ onLocationClick }: { onLocationClick: (location: CargoLocationD
   };
 
   return (
-    <group ref={groupRef}>
+    <group ref={groupRef} scale={[1.1, 1.1, 1.1]}>
       {/* Main globe with land masses only */}
       <mesh 
         ref={meshRef} 
@@ -222,18 +230,18 @@ const Globe3D = () => {
   };
 
   return (
-    <div className="relative w-full h-[450px] md:h-[550px] lg:h-[650px]">
+    <div className="relative h-[600px] w-full">
       <Canvas 
         camera={{ position: [0, 0, 8], fov: 45 }}
       >
         <Suspense fallback={null}>
           <OrbitControls
-            enableZoom={true}
-            enablePan={true}
+            enableZoom={false}
+            enablePan={false}
             autoRotate
             autoRotateSpeed={0.3}
-            minDistance={5}
-            maxDistance={12}
+            minDistance={8}
+            maxDistance={8}
             enableDamping={true}
             dampingFactor={0.1}
             target={[0, 0, 0]}
@@ -242,6 +250,12 @@ const Globe3D = () => {
           <Globe onLocationClick={handleLocationClick} />
         </Suspense>
       </Canvas>
+
+      <div className="absolute left-4 top-4 rounded-2xl bg-black/45 px-4 py-3 text-white backdrop-blur-md shadow-lg">
+        <span className="text-sm font-semibold uppercase tracking-wide text-white/85">
+          Click any location to get a quote
+        </span>
+      </div>
       
       {selectedLocation && (
         <div className="absolute top-4 right-4 bg-white p-6 rounded-lg shadow-2xl max-w-sm border-2" style={{ borderColor: '#f9b222' }}>

@@ -1,9 +1,14 @@
-import React from 'react';
+import { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Package, Plane, Ship, Truck, Shield, Clock, Globe, CheckCircle, Star, Users, Award, DoorOpen } from 'lucide-react';
-import Globe3D from '../components/Globe3D';
+
+// Lazy load Globe3D for better initial page load
+const Globe3D = lazy(() => import('../components/Globe3D'));
 
 const Home = () => {
+  const heroGlobeRef = useRef<HTMLDivElement | null>(null);
+  const [shouldLoadGlobe, setShouldLoadGlobe] = useState(false);
+
   const services = [
     {
       icon: Plane,
@@ -68,6 +73,59 @@ const Home = () => {
       rating: 5
     }
   ];
+
+  // Delay loading the heavy 3D globe until the hero is on screen and the browser is idle.
+  useEffect(() => {
+    if (typeof window === 'undefined') {
+      return;
+    }
+
+    const target = heroGlobeRef.current;
+    if (!target || shouldLoadGlobe) {
+      return;
+    }
+
+    let observer: IntersectionObserver | null = null;
+    let idleHandle: number | undefined;
+    let timeoutId: number | undefined;
+
+    const triggerLoad = () => {
+      if (shouldLoadGlobe) {
+        return;
+      }
+      const idleCallback = (window as unknown as { requestIdleCallback?: (cb: () => void, options?: { timeout: number }) => number }).requestIdleCallback;
+      if (typeof idleCallback === 'function') {
+        idleHandle = idleCallback(() => setShouldLoadGlobe(true), { timeout: 800 });
+      } else {
+        timeoutId = window.setTimeout(() => setShouldLoadGlobe(true), 400);
+      }
+    };
+
+    if ('IntersectionObserver' in window) {
+      observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            triggerLoad();
+            observer?.disconnect();
+          }
+        });
+      }, { rootMargin: '100px' });
+      observer.observe(target);
+    } else {
+      triggerLoad();
+    }
+
+    return () => {
+      observer?.disconnect();
+      const cancelIdle = (window as unknown as { cancelIdleCallback?: (handle: number) => void }).cancelIdleCallback;
+      if (typeof cancelIdle === 'function' && typeof idleHandle === 'number') {
+        cancelIdle(idleHandle);
+      }
+      if (typeof timeoutId === 'number') {
+        window.clearTimeout(timeoutId);
+      }
+    };
+  }, [shouldLoadGlobe]);
 
   return (
     <div>
@@ -134,6 +192,7 @@ const Home = () => {
               }}
             >
               <div
+                ref={heroGlobeRef}
                 style={{
                   position: 'relative',
                   width: '100%',
@@ -150,7 +209,19 @@ const Home = () => {
                   pointerEvents: 'auto',
                 }}
               >
-                <Globe3D />
+                {shouldLoadGlobe ? (
+                  <Suspense fallback={
+                    <div className="flex h-[320px] w-full items-center justify-center">
+                      <div className="h-12 w-12 animate-spin rounded-full border-b-2 border-white" />
+                    </div>
+                  }>
+                    <Globe3D />
+                  </Suspense>
+                ) : (
+                  <div className="flex h-[320px] w-full items-center justify-center rounded-3xl bg-white/10 backdrop-blur-sm">
+                    <span className="text-base font-medium text-white/80">Preparing interactive globe…</span>
+                  </div>
+                )}
               </div>
             </div>
           </div>

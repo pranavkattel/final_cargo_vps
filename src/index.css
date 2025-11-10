@@ -119,3 +119,17 @@ a:hover {
 .col-span-full {
   grid-column: 1 / -1;
 }
+
+.page-transition {
+  opacity: 0;
+  transition: opacity 0.35s ease-in-out;
+  will-change: opacity;
+}
+
+.page-transition.fadeIn {
+  opacity: 1;
+}
+
+.page-transition.fadeOut {
+  opacity: 0;
+}

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Mail, Phone, MapPin, Facebook, Twitter, Instagram, Linkedin } from 'lucide-react';
+import { Mail, Phone, MapPin, Facebook, Instagram, Linkedin } from 'lucide-react';
 import logo from '../assets/images/logo.png';
 
 const Footer = () => {
@@ -21,11 +21,34 @@ const Footer = () => {
               Connecting Nepal to the world with reliable, efficient, and secure cargo services. 
               Your trusted partner for international logistics.
             </p>
-            <div className="flex justify-center space-x-4">
-              <Facebook className="h-5 w-5 text-blue-200 hover:text-white cursor-pointer transition-colors" />
-              <Twitter className="h-5 w-5 text-blue-200 hover:text-white cursor-pointer transition-colors" />
-              <Instagram className="h-5 w-5 text-blue-200 hover:text-white cursor-pointer transition-colors" />
-              <Linkedin className="h-5 w-5 text-blue-200 hover:text-white cursor-pointer transition-colors" />
+            <div className="flex justify-center space-x-5">
+              <a
+                href="https://www.facebook.com/CapitalCargoNepal/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Capital Cargo on Facebook"
+                className="text-blue-200 transition-transform duration-200 hover:scale-110 hover:text-white"
+              >
+                <Facebook className="h-6 w-6" />
+              </a>
+              <a
+                href="https://www.instagram.com/capitalcargonepal/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Capital Cargo on Instagram"
+                className="text-blue-200 transition-transform duration-200 hover:scale-110 hover:text-white"
+              >
+                <Instagram className="h-6 w-6" />
+              </a>
+              <a
+                href="https://www.linkedin.com/company/ccipl-npl/?originalSubdomain=np"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Capital Cargo on LinkedIn"
+                className="text-blue-200 transition-transform duration-200 hover:scale-110 hover:text-white"
+              >
+                <Linkedin className="h-6 w-6" />
+              </a>
             </div>
           </div>
 
