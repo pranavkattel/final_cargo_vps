@@ -10,6 +10,7 @@ const Home = () => {
   const heroGlobeRef = useRef<HTMLDivElement | null>(null);
   const [shouldLoadGlobe, setShouldLoadGlobe] = useState(false);
   const [selectedRegion, setSelectedRegion] = useState<string | null>(null);
+  const [showInstructions, setShowInstructions] = useState(true);
   // Use public folder paths for large video files
   const videoSources = useMemo(() => ['/videos/vid1.mp4', '/videos/vid2.mp4'], []);
   const [activeVideo, setActiveVideo] = useState(() => videoSources[0]);
@@ -84,6 +85,15 @@ const Home = () => {
   ];
 
 
+
+  // Hide instructions after 5 seconds
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowInstructions(false);
+    }, 5000);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   // Delay loading the heavy 3D globe until the hero is on screen and the browser is idle.
   useEffect(() => {
@@ -195,14 +205,17 @@ const Home = () => {
                 onClick={() => setSelectedRegion(selectedRegion === point.label ? null : point.label)}
               >
                 <div className="relative">
-                  {/* Main Point */}
-                  <div className="w-6 h-6 bg-accent-orange rounded-full opacity-90 group-hover:opacity-100 group-hover:scale-125 transition-all duration-300 shadow-lg border-2 border-white"></div>
+                  {/* Main Point - Larger and more visible */}
+                  <div className="w-8 h-8 bg-accent-orange rounded-full opacity-95 group-hover:opacity-100 group-hover:scale-125 transition-all duration-300 shadow-2xl border-3 border-white"></div>
                   
-                  {/* Pulsing Ring */}
-                  <div className="absolute inset-0 w-6 h-6 bg-accent-orange rounded-full animate-ping opacity-30 group-hover:opacity-50"></div>
+                  {/* Pulsing Ring - More prominent */}
+                  <div className="absolute inset-0 w-8 h-8 bg-accent-orange rounded-full animate-ping opacity-50 group-hover:opacity-70"></div>
                   
-                  {/* Outer Glow */}
-                  <div className="absolute inset-0 w-6 h-6 bg-accent-orange rounded-full blur-sm opacity-50 group-hover:opacity-70 transition-opacity duration-300"></div>
+                  {/* Outer Glow - Stronger */}
+                  <div className="absolute inset-0 w-8 h-8 bg-accent-orange rounded-full blur-md opacity-70 group-hover:opacity-90 transition-opacity duration-300"></div>
+                  
+                  {/* Extra outer ring for visibility */}
+                  <div className="absolute -inset-1 w-10 h-10 border-2 border-white/50 rounded-full"></div>
                   
                   {/* Hover Tooltip */}
                   <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 translate-y-full px-3 py-1.5 bg-white text-smoke-dark text-xs font-semibold rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap pointer-events-none shadow-lg border border-accent-orange">
@@ -255,6 +268,31 @@ const Home = () => {
           </div>
         </div>
 
+        {/* Instruction Text - Visible for 5 seconds */}
+        {showInstructions && (
+          <div className="absolute bottom-0 left-0 right-0 z-20 pb-12 pointer-events-none">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="text-center">
+                <div 
+                  className="inline-block bg-gradient-to-r from-accent-orange/95 to-orange-600/95 px-6 py-3 rounded-xl backdrop-blur-md border-2 border-white/40 shadow-2xl"
+                  style={{
+                    animation: 'fadeInBounce 0.6s ease-out'
+                  }}
+                >
+                  <p className="text-base md:text-lg text-white font-bold flex items-center gap-2"
+                     style={{
+                       textShadow: '2px 2px 4px rgba(0,0,0,0.5)',
+                     }}>
+                    <span className="text-xl animate-pulse">👆</span>
+                    Click the glowing points to select your destination
+                    <span className="text-xl animate-pulse">👆</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Top text overlay with animations */}
         <div className="absolute top-0 left-0 right-0 z-10 pt-12 pointer-events-none">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -282,39 +320,7 @@ const Home = () => {
           </div>
         </div>
 
-        {/* Bottom text overlay with cargo elements */}
-        <div className="absolute bottom-0 left-0 right-0 z-10 pb-20 pointer-events-none">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center">
-              <div className="inline-block bg-gradient-to-r from-transparent via-black/30 to-transparent px-8 py-4 rounded-lg backdrop-blur-sm border-t border-b border-accent-orange/50">
-                <p className="text-xl md:text-2xl text-gray-200 max-w-3xl mx-auto font-semibold"
-                   style={{
-                     textShadow: '2px 2px 4px rgba(0,0,0,0.8)',
-                     animation: 'fadeInUp 1.5s ease-out'
-                   }}>
-                  Select your destination on the map to get an instant quote for our international shipping services
-                </p>
-              </div>
-              {/* Cargo container icons */}
-              <div className="flex justify-center gap-8 mt-6">
-                <div className="text-accent-orange opacity-70 animate-pulse" style={{ animationDelay: '0s' }}>
-                  <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M2 20h20v-4H2v4zm2-3h2v2H4v-2zM2 4v4h20V4H2zm4 3H4V5h2v2zm-4 7h20v-4H2v4zm2-3h2v2H4v-2z"/>
-                  </svg>
-                </div>
-                <div className="text-accent-orange opacity-70 animate-pulse" style={{ animationDelay: '0.3s' }}>
-                  <Plane className="w-8 h-8" />
-                </div>
-                <div className="text-accent-orange opacity-70 animate-pulse" style={{ animationDelay: '0.6s' }}>
-                  <Ship className="w-8 h-8" />
-                </div>
-                <div className="text-accent-orange opacity-70 animate-pulse" style={{ animationDelay: '0.9s' }}>
-                  <Truck className="w-8 h-8" />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+
       </section>
 
       <style>{`
@@ -336,6 +342,19 @@ const Home = () => {
           to {
             opacity: 1;
             transform: translateY(0);
+          }
+        }
+        @keyframes fadeInBounce {
+          0% {
+            opacity: 0;
+            transform: translateY(30px) scale(0.9);
+          }
+          50% {
+            transform: translateY(-5px) scale(1.02);
+          }
+          100% {
+            opacity: 1;
+            transform: translateY(0) scale(1);
           }
         }
         @keyframes slideInLeft {
