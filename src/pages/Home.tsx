@@ -372,7 +372,7 @@ const Home = () => {
                 fontFamily: '"Avenir Black", "Avenir", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
                 WebkitTextStroke: '1px rgba(113,128,150,0.3)'
               }}>
-            CARGO CAPITAL
+            CAPITAL CARGO 
           </h3>
         </div>
       </div>
