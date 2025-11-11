@@ -24,6 +24,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: var(--primary-white);
   color: var(--smoke-dark);
+  font-size: 81%; /* Scale to match 90% browser zoom at 100% */
 }
 
 /* Custom Scrollbar for Website */

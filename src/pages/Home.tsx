@@ -2,8 +2,6 @@ import { lazy, Suspense, useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Plane, Ship, Truck, Shield, Clock, Globe, CheckCircle, Star, Award, DoorOpen } from 'lucide-react';
 import earthTexture from '../assets/images/earth_texture.jpg';
-import vid1 from '../assets/video/vid1.mp4';
-import vid2 from '../assets/video/vid2.mp4';
 
 // Lazy load Globe3D for better initial page load
 const Globe3D = lazy(() => import('../components/Globe3D'));
@@ -12,7 +10,8 @@ const Home = () => {
   const heroGlobeRef = useRef<HTMLDivElement | null>(null);
   const [shouldLoadGlobe, setShouldLoadGlobe] = useState(false);
   const [selectedRegion, setSelectedRegion] = useState<string | null>(null);
-  const videoSources = useMemo(() => [vid1, vid2], []);
+  // Use public folder paths for large video files
+  const videoSources = useMemo(() => ['/videos/vid1.mp4', '/videos/vid2.mp4'], []);
   const [activeVideo, setActiveVideo] = useState(() => videoSources[0]);
 
   const regionCountries: Record<string, string[]> = {
@@ -21,7 +20,7 @@ const Home = () => {
     'Asia': ['China', 'Japan', 'South Korea', 'India', 'Singapore', 'Thailand', 'Malaysia'],
     'Oceania': ['Australia', 'New Zealand'],
     'East Asia': ['Japan', 'South Korea', 'Taiwan', 'Hong Kong'],
-    'Africa': ['South Africa', 'Egypt', 'Kenya', 'Nigeria', 'Morocco'],
+    'Africa': ['South Africa', 'Egypt', 'Kenya', 'Nigeria'],
     'Europe': ['United Kingdom', 'Germany', 'France', 'Italy', 'Spain', 'Netherlands', 'Belgium', 'Switzerland'],
     'Middle East': ['United Arab Emirates', 'Saudi Arabia', 'Qatar', 'Kuwait', 'Oman'],
   };
@@ -140,7 +139,7 @@ const Home = () => {
   }, [shouldLoadGlobe]);
 
   return (
-    <div>
+    <div style={{ fontSize: '90%' }}>
       {/* SEO Content - Hidden but crawlable */}
       <div className="sr-only">
         <h1>Capital Cargo - #1 Best Cargo Company in Nepal</h1>
@@ -177,13 +176,13 @@ const Home = () => {
           <div className="absolute inset-0">
             {[
               { top: '30%', left: '21%', delay: '0s', label: 'North America' },
-              { top: '55%', left: '32%', delay: '0.5s', label: 'South America' },
+              { top: '52%', left: '30%', delay: '0.5s', label: 'South America' },
               { top: '35%', left: '75%', delay: '1s', label: 'Asia' },
               { top: '68%', left: '88%', delay: '1.5s', label: 'Oceania' },
               { top: '32%', left: '89%', delay: '2s', label: 'East Asia' },
-              { top: '42%', left: '55%', delay: '2.5s', label: 'Africa' },
+              { top: '40%', left: '50%', delay: '2.5s', label: 'Africa' },
               { top: '24%', left: '57%', delay: '3s', label: 'Europe' },
-              { top: '38%', left: '63%', delay: '3.5s', label: 'Middle East' },
+              { top: '36%', left: '63%', delay: '3.5s', label: 'Middle East' },
             ].map((point, index) => (
               <div
                 key={index}
@@ -365,12 +364,14 @@ const Home = () => {
       <div className="relative h-2 bg-gradient-to-r from-accent-orange via-primary-blue to-accent-orange">
         {/* Cargo Capital text - absolute positioned touching the line */}
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50">
-          <h3 className="text-6xl md:text-8xl lg:text-9xl font-black whitespace-nowrap uppercase tracking-widest" 
+          <h3 className="text-5xl md:text-7xl lg:text-8xl font-black whitespace-nowrap uppercase tracking-widest" 
               style={{ 
-                color: '#F5F5F5',
-                textShadow: '0 4px 20px rgba(0,0,0,0.7), 0 0 60px rgba(113,128,150,0.8), 2px 2px 4px rgba(0,0,0,0.9), -1px -1px 2px rgba(255,255,255,0.3)',
+                color: '#CBD5E0',
+                textShadow: '0 8px 24px rgba(0,0,0,0.8), 0 0 80px rgba(113,128,150,0.6)',
                 fontFamily: '"Avenir Black", "Avenir", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
-                WebkitTextStroke: '1px rgba(113,128,150,0.3)'
+                WebkitTextStroke: '2px #000000',
+                paintOrder: 'stroke fill',
+                filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.9))'
               }}>
             CAPITAL CARGO 
           </h3>
