@@ -32,7 +32,7 @@ const AdminNav: React.FC<AdminNavProps> = ({
   const location = useLocation();
 
   const getRoleBadgeColor = (role: string) => {
-    return 'bg-blue-100 text-blue-800';
+    return 'bg-smoke-medium text-smoke-dark';
   };
 
   const formatRole = (role: string) => {
@@ -42,18 +42,18 @@ const AdminNav: React.FC<AdminNavProps> = ({
   return (
     <div className="flex h-screen bg-gray-50">
       {/* Sidebar */}
-      <div className={`${isSidebarOpen ? 'w-80' : 'w-20'} bg-white shadow-xl transition-all duration-300 flex flex-col border-r border-gray-200`}>
+      <div className={`${isSidebarOpen ? 'w-80' : 'w-20'} bg-primary-white shadow-xl transition-all duration-300 flex flex-col border-r border-gray-200`}>
         {/* Header */}
         <div className="p-6 border-b border-gray-100">
           <div className="flex items-center justify-between">
             <div className={`flex items-center ${!isSidebarOpen && 'justify-center'}`}>
-              <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-lg">
+              <div className="w-12 h-12 bg-gradient-to-br from-smoke-dark to-accent-orange-hover rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-lg">
                 CC
               </div>
               {isSidebarOpen && (
                 <div className="ml-4">
                   <h1 className="text-xl font-bold text-gray-900">Cargo Capital</h1>
-                  <p className="text-sm text-blue-600 font-medium">Admin Panel</p>
+                  <p className="text-sm text-accent-orange font-medium">Admin Panel</p>
                 </div>
               )}
             </div>
@@ -68,11 +68,11 @@ const AdminNav: React.FC<AdminNavProps> = ({
 
         {/* Welcome Message */}
         {isSidebarOpen && (
-          <div className="px-6 py-4 bg-gradient-to-r from-blue-50 to-blue-100 border-b border-blue-200">
-            <p className="text-sm text-blue-800 font-medium">
+          <div className="px-6 py-4 bg-gradient-to-r from-smoke-light to-smoke-medium border-b border-smoke-medium">
+            <p className="text-sm text-smoke-dark font-medium">
               Welcome back, {currentUser.name.split(' ')[0]}! 👋
             </p>
-            <p className="text-xs text-blue-600 mt-1">
+            <p className="text-xs text-accent-orange mt-1">
               Manage your cargo operations
             </p>
           </div>
@@ -81,14 +81,14 @@ const AdminNav: React.FC<AdminNavProps> = ({
         {/* User Profile */}
         <div className="mt-auto p-6 border-t border-gray-100 bg-gray-50">
           <div className={`flex items-center ${!isSidebarOpen && 'justify-center'}`}>
-            <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-blue-700 rounded-full flex items-center justify-center text-white font-bold shadow-lg">
+            <div className="w-12 h-12 bg-gradient-to-br from-smoke-dark to-accent-orange-hover rounded-full flex items-center justify-center text-white font-bold shadow-lg">
               {currentUser.avatar || currentUser.name.split(' ').map(n => n[0]).join('')}
             </div>
             {isSidebarOpen && (
               <div className="ml-3 flex-1">
                 <p className="font-semibold text-gray-900">{currentUser.name}</p>
                 <p className="text-sm text-gray-600">{currentUser.email}</p>
-                <span className="inline-block px-3 py-1 text-xs rounded-full mt-2 bg-blue-100 text-blue-800 font-medium">
+                <span className="inline-block px-3 py-1 text-xs rounded-full mt-2 bg-smoke-medium text-smoke-dark font-medium">
                   {formatRole(currentUser.role)}
                 </span>
               </div>
@@ -99,14 +99,14 @@ const AdminNav: React.FC<AdminNavProps> = ({
             <div className="mt-4 space-y-1">
               <button
                 onClick={() => {/* Handle profile settings */}}
-                className="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-white hover:shadow-sm rounded-lg transition-all duration-200 flex items-center"
+                className="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-primary-white hover:shadow-sm rounded-lg transition-all duration-200 flex items-center"
               >
                 <span className="mr-2">⚙️</span>
                 Settings
               </button>
               <button
                 onClick={() => {/* Handle help */}}
-                className="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-white hover:shadow-sm rounded-lg transition-all duration-200 flex items-center"
+                className="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-primary-white hover:shadow-sm rounded-lg transition-all duration-200 flex items-center"
               >
                 <span className="mr-2">❓</span>
                 Help & Support
@@ -126,7 +126,7 @@ const AdminNav: React.FC<AdminNavProps> = ({
       {/* Main Content */}
       <div className="flex-1 flex flex-col overflow-hidden">
         {/* Top Bar */}
-        <header className="bg-white shadow-sm border-b border-gray-200 px-8 py-6">
+        <header className="bg-primary-white shadow-sm border-b border-gray-200 px-8 py-6">
           <div className="flex items-center justify-between">
             {/* Page Title */}
             <div>

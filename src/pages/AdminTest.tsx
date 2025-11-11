@@ -51,7 +51,7 @@ const AdminTest: React.FC = () => {
           <h2 className="text-xl font-bold mb-4">Shipments ({data.length}):</h2>
           <div className="space-y-4">
             {data.map((shipment, index) => (
-              <div key={index} className="border p-4 rounded bg-white">
+              <div key={index} className="border p-4 rounded bg-primary-white">
                 <h3 className="font-bold">{shipment.trackingId}</h3>
                 <p>Customer: {shipment.customerInfo?.name}</p>
                 <p>Status: {shipment.status}</p>

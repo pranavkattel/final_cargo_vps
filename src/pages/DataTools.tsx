@@ -344,7 +344,7 @@ const DataTools: React.FC = () => {
       </div>
 
       {/* Tab Navigation */}
-      <div className="bg-white rounded-lg shadow-md border border-gray-200 mb-6">
+      <div className="bg-primary-white rounded-lg shadow-md border border-gray-200 mb-6">
         <div className="border-b border-gray-200">
           <nav className="flex space-x-8 px-6">
             {[
@@ -357,7 +357,7 @@ const DataTools: React.FC = () => {
                 onClick={() => setActiveTab(tab.id as any)}
                 className={`py-4 px-2 border-b-2 font-medium text-sm transition-colors ${
                   activeTab === tab.id
-                    ? 'border-blue-500 text-blue-600'
+                    ? 'border-smoke-light0 text-accent-orange'
                     : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
                 }`}
               >
@@ -372,7 +372,7 @@ const DataTools: React.FC = () => {
       {/* Export Tab */}
       {activeTab === 'export' && (
         <div className="space-y-6">
-          <div className="bg-white rounded-lg shadow-md border border-gray-200 p-6">
+          <div className="bg-primary-white rounded-lg shadow-md border border-gray-200 p-6">
             <h3 className="text-lg font-semibold mb-4">Export Configuration</h3>
             
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -530,18 +530,18 @@ const DataTools: React.FC = () => {
             </div>
 
             {/* Export Summary */}
-            <div className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+            <div className="mt-6 p-4 bg-smoke-light border border-smoke-medium rounded-lg">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="font-medium text-blue-900">Export Summary</p>
-                  <p className="text-sm text-blue-700">
+                  <p className="font-medium text-smoke-darker">Export Summary</p>
+                  <p className="text-sm text-smoke-dark">
                     {getFilteredOrders().length} orders will be exported with {exportConfig.fields.length} fields
                   </p>
                 </div>
                 <button
                   onClick={handleExport}
                   disabled={loading || exportConfig.fields.length === 0}
-                  className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                  className="px-6 py-3 bg-smoke-dark text-white rounded-lg hover:bg-accent-orange-hover disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                 >
                   {loading ? 'Exporting...' : '📤 Export Data'}
                 </button>
@@ -554,7 +554,7 @@ const DataTools: React.FC = () => {
       {/* Import Tab */}
       {activeTab === 'import' && (
         <div className="space-y-6">
-          <div className="bg-white rounded-lg shadow-md border border-gray-200 p-6">
+          <div className="bg-primary-white rounded-lg shadow-md border border-gray-200 p-6">
             <h3 className="text-lg font-semibold mb-4">Import Orders</h3>
             
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -585,7 +585,7 @@ const DataTools: React.FC = () => {
                 <div className="mt-4 space-y-2">
                   <button
                     onClick={generateSampleCSV}
-                    className="w-full px-4 py-2 text-blue-600 border border-blue-600 rounded-lg hover:bg-blue-50 transition-colors"
+                    className="w-full px-4 py-2 text-accent-orange border border-accent-orange rounded-lg hover:bg-smoke-light transition-colors"
                   >
                     📄 Download Sample CSV Template
                   </button>
@@ -627,9 +627,9 @@ const DataTools: React.FC = () => {
                     </ul>
                   </div>
 
-                  <div className="p-3 bg-blue-50 border border-blue-200 rounded-lg">
-                    <h5 className="font-medium text-blue-800 mb-1">🔄 Processing</h5>
-                    <ul className="list-disc list-inside text-blue-700 space-y-1">
+                  <div className="p-3 bg-smoke-light border border-smoke-medium rounded-lg">
+                    <h5 className="font-medium text-smoke-dark mb-1">🔄 Processing</h5>
+                    <ul className="list-disc list-inside text-smoke-dark space-y-1">
                       <li>Duplicates will be skipped</li>
                       <li>Invalid data will be reported</li>
                       <li>Existing orders can be updated</li>
@@ -716,7 +716,7 @@ const DataTools: React.FC = () => {
         <div className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {/* Daily Delivery Report */}
-            <div className="bg-white rounded-lg shadow-md border border-gray-200 p-6">
+            <div className="bg-primary-white rounded-lg shadow-md border border-gray-200 p-6">
               <div className="flex items-center mb-4">
                 <span className="text-3xl mr-3">📊</span>
                 <div>
@@ -748,14 +748,14 @@ const DataTools: React.FC = () => {
               
               <button
                 onClick={generateDeliveryReport}
-                className="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                className="w-full px-4 py-2 bg-smoke-dark text-white rounded-lg hover:bg-accent-orange-hover transition-colors"
               >
                 Generate Report
               </button>
             </div>
 
             {/* Performance Analytics */}
-            <div className="bg-white rounded-lg shadow-md border border-gray-200 p-6">
+            <div className="bg-primary-white rounded-lg shadow-md border border-gray-200 p-6">
               <div className="flex items-center mb-4">
                 <span className="text-3xl mr-3">📈</span>
                 <div>
@@ -788,7 +788,7 @@ const DataTools: React.FC = () => {
             </div>
 
             {/* Custom Reports */}
-            <div className="bg-white rounded-lg shadow-md border border-gray-200 p-6">
+            <div className="bg-primary-white rounded-lg shadow-md border border-gray-200 p-6">
               <div className="flex items-center mb-4">
                 <span className="text-3xl mr-3">📋</span>
                 <div>

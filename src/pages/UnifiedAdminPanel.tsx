@@ -84,9 +84,9 @@ const UnifiedAdminPanel: React.FC = () => {
   const getStatusColor = (status: string): string => {
     const colors: Record<string, string> = {
       'processing': 'bg-yellow-100 text-yellow-800',
-      'picked-up': 'bg-blue-100 text-blue-800',
-      'in-transit': 'bg-blue-200 text-blue-900',
-      'out-for-delivery': 'bg-orange-100 text-orange-800',
+      'picked-up': 'bg-smoke-medium text-smoke-dark',
+      'in-transit': 'bg-primary-blue text-smoke-darker',
+      'out-for-delivery': 'bg-smoke-medium text-smoke-dark',
       'delivered': 'bg-green-100 text-green-800',
       'failed-delivery': 'bg-red-100 text-red-800',
       'returned': 'bg-purple-100 text-purple-800',
@@ -316,7 +316,7 @@ const UnifiedAdminPanel: React.FC = () => {
 
     return (
       <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-        <div className="bg-white rounded-lg p-6 w-full max-w-md max-h-[90vh] overflow-y-auto">
+        <div className="bg-primary-white rounded-lg p-6 w-full max-w-md max-h-[90vh] overflow-y-auto">
           <div className="flex justify-between items-center mb-4">
             <h3 className="text-lg font-semibold">Add New Order</h3>
             <button onClick={() => setShowAddModal(false)} className="text-gray-500 hover:text-gray-700">
@@ -442,7 +442,7 @@ const UnifiedAdminPanel: React.FC = () => {
                   min={new Date().toISOString().split('T')[0]}
                   value={newOrder.estimatedDelivery}
                   onChange={(e) => setNewOrder({...newOrder, estimatedDelivery: e.target.value})}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg bg-white"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg bg-primary-white"
                 />
                 <p className="text-xs text-gray-400 mt-1">Enter the expected delivery date (required)</p>
               </div>
@@ -470,7 +470,7 @@ const UnifiedAdminPanel: React.FC = () => {
               </button>
               <button
                 type="submit"
-                className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+                className="flex-1 px-4 py-2 bg-smoke-dark text-white rounded-lg hover:bg-accent-orange-hover"
               >
                 Add Order
               </button>
@@ -561,7 +561,7 @@ const UnifiedAdminPanel: React.FC = () => {
 
     return (
       <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-        <div className="bg-white rounded-lg p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+        <div className="bg-primary-white rounded-lg p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto">
           <div className="flex justify-between items-center mb-4">
             <h3 className="text-lg font-semibold">Edit Order: {editingOrder.trackingId}</h3>
             <button onClick={() => setShowEditModal(false)} className="text-gray-500 hover:text-gray-700">
@@ -707,7 +707,7 @@ const UnifiedAdminPanel: React.FC = () => {
               </button>
               <button
                 type="submit"
-                className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+                className="flex-1 px-4 py-2 bg-smoke-dark text-white rounded-lg hover:bg-accent-orange-hover"
               >
                 Save Changes
               </button>
@@ -813,18 +813,18 @@ const UnifiedAdminPanel: React.FC = () => {
     <div className="p-8 max-w-7xl mx-auto">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-4xl font-bold text-blue-600 mb-3">Admin: Manage Tracking Orders</h1>
+        <h1 className="text-4xl font-bold text-accent-orange mb-3">Admin: Manage Tracking Orders</h1>
         <p className="text-gray-600 text-lg">Complete cargo management system with professional tools</p>
       </div>
 
       {/* View Toggle */}
       <div className="mb-8">
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-2 inline-flex">
+        <div className="bg-primary-white rounded-xl shadow-sm border border-gray-200 p-2 inline-flex">
           <button
             onClick={() => setActiveView('dashboard')}
             className={`px-6 py-3 rounded-lg transition-all duration-200 font-medium ${
               activeView === 'dashboard'
-                ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-lg transform scale-105'
+                ? 'bg-gradient-to-r from-smoke-dark to-accent-orange-hover text-white shadow-lg transform scale-105'
                 : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
             }`}
           >
@@ -835,7 +835,7 @@ const UnifiedAdminPanel: React.FC = () => {
             onClick={() => setActiveView('orders')}
             className={`px-6 py-3 rounded-lg transition-all duration-200 font-medium ${
               activeView === 'orders'
-                ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-lg transform scale-105'
+                ? 'bg-gradient-to-r from-smoke-dark to-accent-orange-hover text-white shadow-lg transform scale-105'
                 : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
             }`}
           >
@@ -846,7 +846,7 @@ const UnifiedAdminPanel: React.FC = () => {
             onClick={() => setActiveView('settings')}
             className={`px-6 py-3 rounded-lg transition-all duration-200 font-medium ${
               activeView === 'settings'
-                ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-lg transform scale-105'
+                ? 'bg-gradient-to-r from-smoke-dark to-accent-orange-hover text-white shadow-lg transform scale-105'
                 : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
             }`}
           >
@@ -861,33 +861,33 @@ const UnifiedAdminPanel: React.FC = () => {
         <>
           {/* Summary Cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-            <div className="bg-white rounded-xl shadow-lg p-6 border border-gray-100 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+            <div className="bg-primary-white rounded-xl shadow-lg p-6 border border-gray-100 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm font-medium text-gray-600 mb-1">Total Orders</p>
                   <p className="text-3xl font-bold text-gray-900">{stats.totalOrders}</p>
                   <p className="text-xs text-green-600 mt-1">↗ All time</p>
                 </div>
-                <div className="p-4 bg-gradient-to-br from-blue-100 to-blue-200 rounded-xl">
+                <div className="p-4 bg-gradient-to-br from-smoke-medium to-primary-blue rounded-xl">
                   <span className="text-3xl">📦</span>
                 </div>
               </div>
             </div>
 
-            <div className="bg-white rounded-xl shadow-lg p-6 border border-gray-100 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+            <div className="bg-primary-white rounded-xl shadow-lg p-6 border border-gray-100 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm font-medium text-gray-600 mb-1">In Transit</p>
-                  <p className="text-3xl font-bold text-blue-600">{stats.inTransit}</p>
-                  <p className="text-xs text-blue-600 mt-1">↗ Active shipments</p>
+                  <p className="text-3xl font-bold text-accent-orange">{stats.inTransit}</p>
+                  <p className="text-xs text-accent-orange mt-1">↗ Active shipments</p>
                 </div>
-                <div className="p-4 bg-gradient-to-br from-blue-100 to-blue-200 rounded-xl">
+                <div className="p-4 bg-gradient-to-br from-smoke-medium to-primary-blue rounded-xl">
                   <span className="text-3xl">🚚</span>
                 </div>
               </div>
             </div>
 
-            <div className="bg-white rounded-xl shadow-lg p-6 border border-gray-100 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+            <div className="bg-primary-white rounded-xl shadow-lg p-6 border border-gray-100 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm font-medium text-gray-600 mb-1">Delivered Today</p>
@@ -900,7 +900,7 @@ const UnifiedAdminPanel: React.FC = () => {
               </div>
             </div>
 
-            <div className="bg-white rounded-xl shadow-lg p-6 border border-gray-100 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+            <div className="bg-primary-white rounded-xl shadow-lg p-6 border border-gray-100 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm font-medium text-gray-600 mb-1">Delayed/Urgent</p>
@@ -915,7 +915,7 @@ const UnifiedAdminPanel: React.FC = () => {
           </div>
 
           {/* Status Distribution Chart */}
-          <div className="bg-white rounded-xl shadow-lg p-8 border border-gray-100 mb-8">
+          <div className="bg-primary-white rounded-xl shadow-lg p-8 border border-gray-100 mb-8">
             <h3 className="text-xl font-bold text-gray-900 mb-6 flex items-center">
               <span className="mr-3">📊</span>
               Status Distribution
@@ -932,7 +932,7 @@ const UnifiedAdminPanel: React.FC = () => {
                       <span className="text-gray-600 font-medium">{count} orders</span>
                       <div className="w-24 bg-gray-200 rounded-full h-3">
                         <div 
-                          className="bg-gradient-to-r from-blue-500 to-blue-600 h-3 rounded-full transition-all duration-500" 
+                          className="bg-gradient-to-r from-smoke-light0 to-smoke-dark h-3 rounded-full transition-all duration-500" 
                           style={{ width: `${(count / stats.totalOrders) * 100}%` }}
                         ></div>
                       </div>
@@ -947,32 +947,32 @@ const UnifiedAdminPanel: React.FC = () => {
           </div>
 
           {/* Login Credentials Info */}
-          <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl shadow-lg p-8 border border-blue-200 mb-8">
-            <h3 className="text-xl font-bold text-blue-900 mb-6 flex items-center">
+          <div className="bg-gradient-to-br from-smoke-light to-smoke-medium rounded-xl shadow-lg p-8 border border-smoke-medium mb-8">
+            <h3 className="text-xl font-bold text-smoke-darker mb-6 flex items-center">
               <span className="mr-3">🔑</span>
               Admin Login Credentials
             </h3>
-            <div className="bg-white rounded-lg p-6 border border-blue-200">
+            <div className="bg-primary-white rounded-lg p-6 border border-smoke-medium">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-4">
                   <div>
                     <label className="block text-sm font-semibold text-gray-700 mb-2">Email Address</label>
                     <div className="flex items-center bg-gray-50 rounded-lg p-3">
-                      <span className="text-blue-600 mr-3">📧</span>
+                      <span className="text-accent-orange mr-3">📧</span>
                       <span className="font-mono text-gray-800">info@cargocapital.com</span>
                     </div>
                   </div>
                   <div>
                     <label className="block text-sm font-semibold text-gray-700 mb-2">Password</label>
                     <div className="flex items-center bg-gray-50 rounded-lg p-3">
-                      <span className="text-blue-600 mr-3">🔒</span>
+                      <span className="text-accent-orange mr-3">🔒</span>
                       <span className="font-mono text-gray-800">password123</span>
                     </div>
                   </div>
                 </div>
                 <div className="flex items-center justify-center">
                   <div className="text-center">
-                    <div className="w-16 h-16 bg-gradient-to-br from-blue-600 to-blue-700 rounded-full flex items-center justify-center text-white font-bold text-xl mx-auto mb-3">
+                    <div className="w-16 h-16 bg-gradient-to-br from-smoke-dark to-accent-orange-hover rounded-full flex items-center justify-center text-white font-bold text-xl mx-auto mb-3">
                       CC
                     </div>
                     <p className="text-gray-700 font-medium">Admin Panel Access</p>
@@ -995,7 +995,7 @@ const UnifiedAdminPanel: React.FC = () => {
       {activeView === 'orders' && (
         <>
           {/* Controls */}
-          <div className="bg-white rounded-xl shadow-lg border border-gray-100 p-6 mb-8">
+          <div className="bg-primary-white rounded-xl shadow-lg border border-gray-100 p-6 mb-8">
             <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between space-y-4 lg:space-y-0">
               <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4">
                 <div className="relative">
@@ -1004,7 +1004,7 @@ const UnifiedAdminPanel: React.FC = () => {
                     placeholder="Search by Tracking ID or Customer..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 bg-gray-50 focus:bg-white w-full sm:w-80"
+                    className="pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-accent-orange focus:border-smoke-light0 transition-all duration-200 bg-gray-50 focus:bg-primary-white w-full sm:w-80"
                   />
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center">
                     <span className="text-gray-400">🔍</span>
@@ -1013,7 +1013,7 @@ const UnifiedAdminPanel: React.FC = () => {
                 <select
                   value={statusFilter}
                   onChange={(e) => setStatusFilter(e.target.value)}
-                  className="px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 bg-gray-50 focus:bg-white"
+                  className="px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-accent-orange focus:border-smoke-light0 transition-all duration-200 bg-gray-50 focus:bg-primary-white"
                 >
                   <option value="">All Statuses</option>
                   <option value="pending">📋 Pending</option>
@@ -1026,7 +1026,7 @@ const UnifiedAdminPanel: React.FC = () => {
               </div>
               <button
                 onClick={() => setShowAddModal(true)}
-                className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-3 rounded-xl hover:from-blue-700 hover:to-blue-800 transition-all duration-200 font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 flex items-center space-x-2"
+                className="bg-gradient-to-r from-smoke-dark to-accent-orange-hover text-white px-6 py-3 rounded-xl hover:from-accent-orange-hover hover:to-accent-orange-hover transition-all duration-200 font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 flex items-center space-x-2"
               >
                 <span className="text-lg">+</span>
                 <span>Add New Order</span>
@@ -1035,25 +1035,25 @@ const UnifiedAdminPanel: React.FC = () => {
           </div>
 
           {/* Orders Table */}
-          <div className="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden">
+          <div className="bg-primary-white rounded-xl shadow-lg border border-gray-100 overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead className="bg-gradient-to-r from-gray-50 to-gray-100 border-b border-gray-200">
                   <tr>
-                    <th className="px-6 py-4 text-left text-sm font-bold text-blue-600 uppercase tracking-wider">Tracking ID</th>
-                    <th className="px-6 py-4 text-left text-sm font-bold text-blue-600 uppercase tracking-wider">Customer</th>
-                    <th className="px-6 py-4 text-left text-sm font-bold text-blue-600 uppercase tracking-wider">Origin</th>
-                    <th className="px-6 py-4 text-left text-sm font-bold text-blue-600 uppercase tracking-wider">Destination</th>
-                    <th className="px-6 py-4 text-left text-sm font-bold text-blue-600 uppercase tracking-wider">Status</th>
-                    <th className="px-6 py-4 text-left text-sm font-bold text-blue-600 uppercase tracking-wider">Est. Delivery</th>
-                    <th className="px-6 py-4 text-left text-sm font-bold text-blue-600 uppercase tracking-wider">Actions</th>
+                    <th className="px-6 py-4 text-left text-sm font-bold text-accent-orange uppercase tracking-wider">Tracking ID</th>
+                    <th className="px-6 py-4 text-left text-sm font-bold text-accent-orange uppercase tracking-wider">Customer</th>
+                    <th className="px-6 py-4 text-left text-sm font-bold text-accent-orange uppercase tracking-wider">Origin</th>
+                    <th className="px-6 py-4 text-left text-sm font-bold text-accent-orange uppercase tracking-wider">Destination</th>
+                    <th className="px-6 py-4 text-left text-sm font-bold text-accent-orange uppercase tracking-wider">Status</th>
+                    <th className="px-6 py-4 text-left text-sm font-bold text-accent-orange uppercase tracking-wider">Est. Delivery</th>
+                    <th className="px-6 py-4 text-left text-sm font-bold text-accent-orange uppercase tracking-wider">Actions</th>
                   </tr>
                 </thead>
-                <tbody className="bg-white divide-y divide-gray-100">
+                <tbody className="bg-primary-white divide-y divide-gray-100">
                   {filteredOrders.map((order, index) => (
-                    <tr key={order.trackingId} className={`hover:bg-blue-50 transition-colors ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}>
+                    <tr key={order.trackingId} className={`hover:bg-smoke-light transition-colors ${index % 2 === 0 ? 'bg-primary-white' : 'bg-gray-50'}`}>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <span className="text-blue-600 font-bold text-lg">{order.trackingId}</span>
+                        <span className="text-accent-orange font-bold text-lg">{order.trackingId}</span>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div>
@@ -1061,10 +1061,10 @@ const UnifiedAdminPanel: React.FC = () => {
                           <div className="text-sm text-gray-500">{order.customerInfo.email}</div>
                         </div>
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-blue-600">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-accent-orange">
                         {order.shipmentDetails.origin}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-blue-600">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-accent-orange">
                         {order.shipmentDetails.destination}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
@@ -1132,7 +1132,7 @@ const UnifiedAdminPanel: React.FC = () => {
       {activeView === 'settings' && (
         <div className="space-y-8">
           {/* Profile Settings */}
-          <div className="bg-white rounded-xl shadow-lg border border-gray-100 p-8">
+          <div className="bg-primary-white rounded-xl shadow-lg border border-gray-100 p-8">
             <h3 className="text-xl font-bold text-gray-900 mb-6 flex items-center">
               <span className="mr-3">👤</span>
               Profile Settings
@@ -1148,7 +1148,7 @@ const UnifiedAdminPanel: React.FC = () => {
                     type="text"
                     value={adminSettings.name}
                     onChange={(e) => setAdminSettings({...adminSettings, name: e.target.value})}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-accent-orange focus:border-smoke-light0 transition-all duration-200"
                     placeholder="Enter your full name"
                   />
                 </div>
@@ -1161,7 +1161,7 @@ const UnifiedAdminPanel: React.FC = () => {
                     type="email"
                     value={adminSettings.email}
                     onChange={(e) => setAdminSettings({...adminSettings, email: e.target.value})}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-accent-orange focus:border-smoke-light0 transition-all duration-200"
                     placeholder="Enter your email"
                   />
                 </div>
@@ -1177,7 +1177,7 @@ const UnifiedAdminPanel: React.FC = () => {
                 <button
                   type="submit"
                   disabled={settingsLoading}
-                  className="px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-xl hover:from-blue-700 hover:to-blue-800 transition-all duration-200 shadow-lg disabled:opacity-50"
+                  className="px-6 py-3 bg-gradient-to-r from-smoke-dark to-accent-orange-hover text-white rounded-xl hover:from-accent-orange-hover hover:to-accent-orange-hover transition-all duration-200 shadow-lg disabled:opacity-50"
                 >
                   {settingsLoading ? 'Updating...' : 'Update Profile'}
                 </button>
@@ -1186,7 +1186,7 @@ const UnifiedAdminPanel: React.FC = () => {
           </div>
 
           {/* Password Change */}
-          <div className="bg-white rounded-xl shadow-lg border border-gray-100 p-8">
+          <div className="bg-primary-white rounded-xl shadow-lg border border-gray-100 p-8">
             <h3 className="text-xl font-bold text-gray-900 mb-6 flex items-center">
               <span className="mr-3">🔒</span>
               Change Password
@@ -1202,7 +1202,7 @@ const UnifiedAdminPanel: React.FC = () => {
                     type="password"
                     value={adminSettings.currentPassword}
                     onChange={(e) => setAdminSettings({...adminSettings, currentPassword: e.target.value})}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-accent-orange focus:border-smoke-light0 transition-all duration-200"
                     placeholder="Enter current password"
                   />
                 </div>
@@ -1216,7 +1216,7 @@ const UnifiedAdminPanel: React.FC = () => {
                       type="password"
                       value={adminSettings.newPassword}
                       onChange={(e) => setAdminSettings({...adminSettings, newPassword: e.target.value})}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-accent-orange focus:border-smoke-light0 transition-all duration-200"
                       placeholder="Enter new password"
                     />
                   </div>
@@ -1229,7 +1229,7 @@ const UnifiedAdminPanel: React.FC = () => {
                       type="password"
                       value={adminSettings.confirmPassword}
                       onChange={(e) => setAdminSettings({...adminSettings, confirmPassword: e.target.value})}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-accent-orange focus:border-smoke-light0 transition-all duration-200"
                       placeholder="Confirm new password"
                     />
                   </div>
@@ -1256,7 +1256,7 @@ const UnifiedAdminPanel: React.FC = () => {
           </div>
 
           {/* System Preferences */}
-          <div className="bg-white rounded-xl shadow-lg border border-gray-100 p-8">
+          <div className="bg-primary-white rounded-xl shadow-lg border border-gray-100 p-8">
             <h3 className="text-xl font-bold text-gray-900 mb-6 flex items-center">
               <span className="mr-3">⚙️</span>
               System Preferences
@@ -1275,7 +1275,7 @@ const UnifiedAdminPanel: React.FC = () => {
                     onChange={(e) => setAdminSettings({...adminSettings, notifications: e.target.checked})}
                     className="sr-only peer"
                   />
-                  <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                  <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-accent-orange rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-primary-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-smoke-dark"></div>
                 </label>
               </div>
               
@@ -1292,7 +1292,7 @@ const UnifiedAdminPanel: React.FC = () => {
                     className="sr-only peer"
                     disabled
                   />
-                  <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600 opacity-50"></div>
+                  <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-accent-orange rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-primary-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-smoke-dark opacity-50"></div>
                 </label>
               </div>
               
@@ -1305,7 +1305,7 @@ const UnifiedAdminPanel: React.FC = () => {
                   <select
                     value={adminSettings.autoLogout}
                     onChange={(e) => setAdminSettings({...adminSettings, autoLogout: parseInt(e.target.value)})}
-                    className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-orange focus:border-smoke-light0"
                   >
                     <option value={15}>15 minutes</option>
                     <option value={30}>30 minutes</option>
@@ -1320,18 +1320,18 @@ const UnifiedAdminPanel: React.FC = () => {
 
           {/* Security Info */}
           <div className="bg-gradient-to-br from-yellow-50 to-orange-50 rounded-xl shadow-lg border border-yellow-200 p-8">
-            <h3 className="text-xl font-bold text-orange-900 mb-6 flex items-center">
+            <h3 className="text-xl font-bold text-smoke-darker mb-6 flex items-center">
               <span className="mr-3">🔒</span>
               Security Information
             </h3>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="bg-white rounded-lg p-4 border border-yellow-200">
+              <div className="bg-primary-white rounded-lg p-4 border border-yellow-200">
                 <h4 className="font-semibold text-gray-900 mb-2">Last Login</h4>
                 <p className="text-sm text-gray-600">{new Date().toLocaleString()}</p>
               </div>
               
-              <div className="bg-white rounded-lg p-4 border border-yellow-200">
+              <div className="bg-primary-white rounded-lg p-4 border border-yellow-200">
                 <h4 className="font-semibold text-gray-900 mb-2">Session Status</h4>
                 <div className="flex items-center">
                   <div className="w-2 h-2 bg-green-500 rounded-full mr-2"></div>
@@ -1339,12 +1339,12 @@ const UnifiedAdminPanel: React.FC = () => {
                 </div>
               </div>
               
-              <div className="bg-white rounded-lg p-4 border border-yellow-200">
+              <div className="bg-primary-white rounded-lg p-4 border border-yellow-200">
                 <h4 className="font-semibold text-gray-900 mb-2">IP Address</h4>
                 <p className="text-sm text-gray-600">192.168.1.100</p>
               </div>
               
-              <div className="bg-white rounded-lg p-4 border border-yellow-200">
+              <div className="bg-primary-white rounded-lg p-4 border border-yellow-200">
                 <h4 className="font-semibold text-gray-900 mb-2">Browser</h4>
                 <p className="text-sm text-gray-600">{navigator.userAgent.split(' ')[0]}</p>
               </div>

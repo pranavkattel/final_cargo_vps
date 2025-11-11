@@ -115,10 +115,10 @@ const AdminDashboard: React.FC = () => {
   const getStatusColor = (status: string): string => {
     const colors: Record<string, string> = {
       'delivered': 'bg-green-100 text-green-800',
-      'in-transit': 'bg-blue-100 text-blue-800',
+      'in-transit': 'bg-smoke-medium text-smoke-dark',
       'processing': 'bg-yellow-100 text-yellow-800',
       'pending': 'bg-gray-100 text-gray-800',
-      'out-for-delivery': 'bg-orange-100 text-orange-800',
+      'out-for-delivery': 'bg-smoke-medium text-smoke-dark',
       'cancelled': 'bg-red-100 text-red-800',
       'returned': 'bg-purple-100 text-purple-800'
     };
@@ -168,31 +168,31 @@ const AdminDashboard: React.FC = () => {
 
       {/* Summary Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200">
+        <div className="bg-primary-white rounded-lg shadow-md p-6 border border-gray-200">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-600">Total Orders</p>
               <p className="text-3xl font-bold text-gray-900">{stats.totalOrders}</p>
             </div>
-            <div className="p-3 bg-blue-100 rounded-full">
+            <div className="p-3 bg-smoke-medium rounded-full">
               <span className="text-2xl">📦</span>
             </div>
           </div>
         </div>
 
-        <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200">
+        <div className="bg-primary-white rounded-lg shadow-md p-6 border border-gray-200">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-600">In Transit</p>
-              <p className="text-3xl font-bold text-blue-600">{stats.inTransit}</p>
+              <p className="text-3xl font-bold text-accent-orange">{stats.inTransit}</p>
             </div>
-            <div className="p-3 bg-blue-100 rounded-full">
+            <div className="p-3 bg-smoke-medium rounded-full">
               <span className="text-2xl">🚚</span>
             </div>
           </div>
         </div>
 
-        <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200">
+        <div className="bg-primary-white rounded-lg shadow-md p-6 border border-gray-200">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-600">Delivered Today</p>
@@ -204,7 +204,7 @@ const AdminDashboard: React.FC = () => {
           </div>
         </div>
 
-        <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200">
+        <div className="bg-primary-white rounded-lg shadow-md p-6 border border-gray-200">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-600">Delayed/Urgent</p>
@@ -219,7 +219,7 @@ const AdminDashboard: React.FC = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
         {/* Status Distribution */}
-        <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200">
+        <div className="bg-primary-white rounded-lg shadow-md p-6 border border-gray-200">
           <h3 className="text-lg font-semibold text-gray-900 mb-4">Status Distribution</h3>
           <div className="space-y-3">
             {Object.entries(stats.statusDistribution).map(([status, count]) => (
@@ -232,7 +232,7 @@ const AdminDashboard: React.FC = () => {
                   <span className="text-gray-600">{count}</span>
                   <div className="w-20 bg-gray-200 rounded-full h-2">
                     <div 
-                      className="bg-blue-500 h-2 rounded-full" 
+                      className="bg-smoke-light0 h-2 rounded-full" 
                       style={{ width: `${(count / stats.totalOrders) * 100}%` }}
                     ></div>
                   </div>
@@ -243,12 +243,12 @@ const AdminDashboard: React.FC = () => {
         </div>
 
         {/* Admin Activity Feed */}
-        <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200">
+        <div className="bg-primary-white rounded-lg shadow-md p-6 border border-gray-200">
           <h3 className="text-lg font-semibold text-gray-900 mb-4">Recent Admin Activity</h3>
           <div className="space-y-4">
             {adminActivity.map((activity) => (
               <div key={activity.id} className="flex items-start space-x-3 p-3 bg-gray-50 rounded-lg">
-                <div className="flex-shrink-0 w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                <div className="flex-shrink-0 w-8 h-8 bg-smoke-medium rounded-full flex items-center justify-center">
                   <span className="text-sm">👤</span>
                 </div>
                 <div className="flex-1 min-w-0">
@@ -268,7 +268,7 @@ const AdminDashboard: React.FC = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Recent Orders */}
-        <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200">
+        <div className="bg-primary-white rounded-lg shadow-md p-6 border border-gray-200">
           <h3 className="text-lg font-semibold text-gray-900 mb-4">Recent Orders</h3>
           <div className="space-y-3">
             {recentOrders.map((order) => (
@@ -294,7 +294,7 @@ const AdminDashboard: React.FC = () => {
         </div>
 
         {/* Urgent/Delayed Orders */}
-        <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200">
+        <div className="bg-primary-white rounded-lg shadow-md p-6 border border-gray-200">
           <h3 className="text-lg font-semibold text-gray-900 mb-4">Urgent/Delayed Orders</h3>
           <div className="space-y-3">
             {urgentOrders.length > 0 ? urgentOrders.map((order) => (

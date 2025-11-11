@@ -40,7 +40,7 @@ const Tracking: React.FC = () => {
   const getStatusColor = (status: string) => {
     switch (status.toLowerCase()) {
       case 'delivered': return 'text-green-600 bg-green-50';
-      case 'in transit': return 'text-blue-600 bg-blue-50';
+      case 'in transit': return 'text-accent-orange bg-smoke-light';
       case 'processing': return 'text-yellow-600 bg-yellow-50';
       case 'out for delivery': return 'text-purple-600 bg-purple-50';
       default: return 'text-gray-600 bg-gray-50';
@@ -60,13 +60,13 @@ const Tracking: React.FC = () => {
   return (
     <div className="pt-16">
       {/* Hero Section */}
-      <section className="text-white py-20" style={{ background: 'linear-gradient(to right, #0096C7, #007bb3)' }}>
+      <section className="text-white py-20" style={{ background: 'linear-gradient(to right, #2D3748, #4A5568)' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-6">
               Track Your Cargo
             </h1>
-            <p className="text-xl text-blue-100 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-xl text-gray-200 max-w-3xl mx-auto leading-relaxed">
               Enter your tracking number to get real-time updates on your shipment's location and delivery status.
             </p>
           </div>
@@ -74,9 +74,9 @@ const Tracking: React.FC = () => {
       </section>
 
       {/* Tracking Form */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-primary-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-white rounded-xl shadow-lg border border-gray-200 p-8">
+          <div className="bg-primary-white rounded-xl shadow-lg border border-gray-200 p-8">
             <div className="flex flex-col md:flex-row gap-4">
               <div className="flex-1">
                 <input
@@ -84,15 +84,15 @@ const Tracking: React.FC = () => {
                   value={trackingId}
                   onChange={(e) => setTrackingId(e.target.value)}
                   placeholder="Enter your tracking number (e.g., DEMO123)"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-lg"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-orange focus:border-transparent text-lg"
                   onKeyPress={(e) => e.key === 'Enter' && handleTrack()}
                 />
               </div>
               <button
                 onClick={handleTrack}
                 disabled={isLoading || !trackingId.trim()}
-                className="px-8 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2 text-lg font-medium"
-                style={{ backgroundColor: '#0096C7' }}
+                className="px-8 py-3 bg-smoke-dark text-white rounded-lg hover:bg-accent-orange-hover disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2 text-lg font-medium"
+                style={{ backgroundColor: '#2D3748' }}
               >
                 {isLoading ? (
                   <>
@@ -134,11 +134,11 @@ const Tracking: React.FC = () => {
       {trackingResult && (
         <section className="py-16 bg-gray-50">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden">
+            <div className="bg-primary-white rounded-xl shadow-lg border border-gray-200 overflow-hidden">
               <div className="p-8">
                 <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-6">
                   <div>
-                    <h2 className="text-2xl font-bold mb-2" style={{ color: '#0096C7' }}>
+                    <h2 className="text-2xl font-bold mb-2" style={{ color: '#2D3748' }}>
                       Tracking ID: {trackingResult.trackingId}
                     </h2>
                     <div className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${getStatusColor(trackingResult.status)}`}>
@@ -148,33 +148,33 @@ const Tracking: React.FC = () => {
                   </div>
                   <div className="mt-4 lg:mt-0 text-right">
                     <p className="text-sm text-gray-500">Service Type</p>
-                    <p className="text-lg font-semibold" style={{ color: '#0096C7' }}>{trackingResult.shipmentDetails.serviceType}</p>
+                    <p className="text-lg font-semibold" style={{ color: '#2D3748' }}>{trackingResult.shipmentDetails.serviceType}</p>
                   </div>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
                   <div className="flex items-center space-x-3">
-                    <MapPin className="h-5 w-5" style={{ color: '#F9B222' }} />
+                    <MapPin className="h-5 w-5" style={{ color: '#718096' }} />
                     <div>
                       <p className="text-sm text-gray-500">From</p>
                       <p className="font-semibold">{trackingResult.shipmentDetails.origin}</p>
                     </div>
                   </div>
                   <div className="flex items-center space-x-3">
-                    <MapPin className="h-5 w-5" style={{ color: '#F9B222' }} />
+                    <MapPin className="h-5 w-5" style={{ color: '#718096' }} />
                     <div>
                       <p className="text-sm text-gray-500">To</p>
                       <p className="font-semibold">{trackingResult.shipmentDetails.destination}</p>
                     </div>
                   </div>
                   <div className="flex items-center space-x-3">
-                    <Package className="h-5 w-5" style={{ color: '#F9B222' }} />
+                    <Package className="h-5 w-5" style={{ color: '#718096' }} />
                     <div>
                       <p className="text-sm text-gray-500">Weight</p>
                       <p className="font-semibold">{trackingResult.shipmentDetails.weight} kg</p>
                     </div>
                   </div>
                   <div className="flex items-center space-x-3">
-                    <Calendar className="h-5 w-5" style={{ color: '#F9B222' }} />
+                    <Calendar className="h-5 w-5" style={{ color: '#718096' }} />
                     <div>
                       <p className="text-sm text-gray-500">Est. Delivery</p>
                       <p className="font-semibold">{formatDate(trackingResult.estimatedDelivery)}</p>
@@ -183,7 +183,7 @@ const Tracking: React.FC = () => {
                 </div>
                 {/* Customer Information */}
                 <div className="border-t border-gray-200 pt-6 mb-8">
-                  <h3 className="text-lg font-semibold mb-4" style={{ color: '#0096C7' }}>Shipment Details</h3>
+                  <h3 className="text-lg font-semibold mb-4" style={{ color: '#2D3748' }}>Shipment Details</h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                       <h4 className="font-medium mb-2">Customer Information</h4>
@@ -200,7 +200,7 @@ const Tracking: React.FC = () => {
                 </div>
                 {/* Tracking Timeline */}
                 <div className="border-t border-gray-200 pt-6">
-                  <h3 className="text-lg font-semibold mb-6" style={{ color: '#0096C7' }}>Tracking History</h3>
+                  <h3 className="text-lg font-semibold mb-6" style={{ color: '#2D3748' }}>Tracking History</h3>
                   <div className="space-y-6">
                     {trackingResult.events.map((event, index) => (
                       <div key={index} className="flex items-start space-x-4">
@@ -232,15 +232,15 @@ const Tracking: React.FC = () => {
       )}
 
       {/* Help Section */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-primary-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h2 className="text-3xl font-bold mb-8" style={{ color: '#0096C7' }}>
+            <h2 className="text-3xl font-bold mb-8" style={{ color: '#2D3748' }}>
               Need Help with Tracking?
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div className="text-center">
-                <div className="w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center" style={{ backgroundColor: '#F9B222' }}>
+                <div className="w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center" style={{ backgroundColor: '#718096' }}>
                   <Package className="h-8 w-8 text-white" />
                 </div>
                 <h3 className="text-lg font-semibold mb-2">Track Multiple Packages</h3>
@@ -249,7 +249,7 @@ const Tracking: React.FC = () => {
                 </p>
               </div>
               <div className="text-center">
-                <div className="w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center" style={{ backgroundColor: '#F9B222' }}>
+                <div className="w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center" style={{ backgroundColor: '#718096' }}>
                   <Clock className="h-8 w-8 text-white" />
                 </div>
                 <h3 className="text-lg font-semibold mb-2">Real-time Updates</h3>
@@ -258,7 +258,7 @@ const Tracking: React.FC = () => {
                 </p>
               </div>
               <div className="text-center">
-                <div className="w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center" style={{ backgroundColor: '#F9B222' }}>
+                <div className="w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center" style={{ backgroundColor: '#718096' }}>
                   <Truck className="h-8 w-8 text-white" />
                 </div>
                 <h3 className="text-lg font-semibold mb-2">Delivery Information</h3>

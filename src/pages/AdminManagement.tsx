@@ -68,7 +68,7 @@ const AdminManagement: React.FC = () => {
     },
     'editor': {
       name: 'Editor',
-      color: 'bg-blue-100 text-blue-800',
+      color: 'bg-smoke-medium text-smoke-dark',
       icon: '✏️',
       description: 'Can create and edit orders',
       permissions: ['orders.view', 'orders.create', 'orders.edit', 'orders.status', 'customers.view', 'customers.edit', 'reports.view']
@@ -242,7 +242,7 @@ const AdminManagement: React.FC = () => {
     const colors = {
       'low': 'bg-green-100 text-green-800',
       'medium': 'bg-yellow-100 text-yellow-800',
-      'high': 'bg-orange-100 text-orange-800',
+      'high': 'bg-smoke-medium text-smoke-dark',
       'critical': 'bg-red-100 text-red-800'
     };
     return colors[severity as keyof typeof colors] || 'bg-gray-100 text-gray-800';
@@ -289,7 +289,7 @@ const AdminManagement: React.FC = () => {
       </div>
 
       {/* Tab Navigation */}
-      <div className="bg-white rounded-lg shadow-md border border-gray-200 mb-6">
+      <div className="bg-primary-white rounded-lg shadow-md border border-gray-200 mb-6">
         <div className="border-b border-gray-200">
           <nav className="flex space-x-8 px-6">
             {[
@@ -302,7 +302,7 @@ const AdminManagement: React.FC = () => {
                 onClick={() => setActiveTab(tab.id as any)}
                 className={`py-4 px-2 border-b-2 font-medium text-sm transition-colors ${
                   activeTab === tab.id
-                    ? 'border-blue-500 text-blue-600'
+                    ? 'border-smoke-light0 text-accent-orange'
                     : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
                 }`}
               >
@@ -321,13 +321,13 @@ const AdminManagement: React.FC = () => {
             <h2 className="text-xl font-semibold">Administrators</h2>
             <button
               onClick={() => setShowAddAdmin(true)}
-              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+              className="px-4 py-2 bg-smoke-dark text-white rounded-lg hover:bg-accent-orange-hover transition-colors"
             >
               + Add Administrator
             </button>
           </div>
 
-          <div className="bg-white rounded-lg shadow-md border border-gray-200 overflow-hidden">
+          <div className="bg-primary-white rounded-lg shadow-md border border-gray-200 overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead className="bg-gray-50 border-b border-gray-200">
@@ -349,14 +349,14 @@ const AdminManagement: React.FC = () => {
                     </th>
                   </tr>
                 </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
+                <tbody className="bg-primary-white divide-y divide-gray-200">
                   {admins.map(admin => (
                     <tr key={admin.id} className="hover:bg-gray-50">
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center">
                           <div className="flex-shrink-0 h-10 w-10">
-                            <div className="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center">
-                              <span className="text-sm font-medium text-blue-600">
+                            <div className="h-10 w-10 rounded-full bg-smoke-medium flex items-center justify-center">
+                              <span className="text-sm font-medium text-accent-orange">
                                 {admin.name.split(' ').map(n => n[0]).join('')}
                               </span>
                             </div>
@@ -396,7 +396,7 @@ const AdminManagement: React.FC = () => {
                         <div className="flex space-x-2">
                           <button
                             onClick={() => setSelectedAdmin(admin)}
-                            className="text-blue-600 hover:text-blue-900 transition-colors"
+                            className="text-accent-orange hover:text-smoke-darker transition-colors"
                             title="Edit Admin"
                           >
                             ✏️
@@ -429,7 +429,7 @@ const AdminManagement: React.FC = () => {
           <h2 className="text-xl font-semibold">Audit Trail</h2>
           
           {/* Audit Filters */}
-          <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200">
+          <div className="bg-primary-white rounded-lg shadow-md p-6 border border-gray-200">
             <h3 className="text-lg font-medium mb-4">Filters</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               <div>
@@ -506,7 +506,7 @@ const AdminManagement: React.FC = () => {
           </div>
 
           {/* Audit Log Table */}
-          <div className="bg-white rounded-lg shadow-md border border-gray-200 overflow-hidden">
+          <div className="bg-primary-white rounded-lg shadow-md border border-gray-200 overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead className="bg-gray-50 border-b border-gray-200">
@@ -531,7 +531,7 @@ const AdminManagement: React.FC = () => {
                     </th>
                   </tr>
                 </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
+                <tbody className="bg-primary-white divide-y divide-gray-200">
                   {getFilteredAuditLogs().map(log => (
                     <tr key={log.id} className="hover:bg-gray-50">
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
@@ -577,7 +577,7 @@ const AdminManagement: React.FC = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {Object.entries(roleConfigs).map(([roleKey, roleConfig]) => (
-              <div key={roleKey} className="bg-white rounded-lg shadow-md border border-gray-200 p-6">
+              <div key={roleKey} className="bg-primary-white rounded-lg shadow-md border border-gray-200 p-6">
                 <div className="flex items-center mb-4">
                   <span className="text-2xl mr-3">{roleConfig.icon}</span>
                   <div>

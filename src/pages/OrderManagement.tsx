@@ -76,7 +76,7 @@ const OrderManagement: React.FC = () => {
   // Custom status flow
   const customStatusFlow = [
     { value: 'pending', label: 'Pending', color: 'bg-gray-100 text-gray-800', icon: '📋' },
-    { value: 'received', label: 'Received', color: 'bg-blue-100 text-blue-800', icon: '📥' },
+    { value: 'received', label: 'Received', color: 'bg-smoke-medium text-smoke-dark', icon: '📥' },
     { value: 'in-transit', label: 'In Transit', color: 'bg-yellow-100 text-yellow-800', icon: '🚚' },
     { value: 'delivered', label: 'Delivered', color: 'bg-green-100 text-green-800', icon: '✅' }
   ];
@@ -282,7 +282,7 @@ const OrderManagement: React.FC = () => {
   const getPriorityColor = (priority: string): string => {
     const colors: Record<string, string> = {
       'low': 'bg-green-100 text-green-800',
-      'normal': 'bg-blue-100 text-blue-800',
+      'normal': 'bg-smoke-medium text-smoke-dark',
       'high': 'bg-yellow-100 text-yellow-800',
       'urgent': 'bg-red-100 text-red-800'
     };
@@ -318,7 +318,7 @@ const OrderManagement: React.FC = () => {
       )}
 
       {/* Filters Section */}
-      <div className="bg-white rounded-lg shadow-md p-6 mb-6 border border-gray-200">
+      <div className="bg-primary-white rounded-lg shadow-md p-6 mb-6 border border-gray-200">
         <h3 className="text-lg font-semibold mb-4">Filters & Search</h3>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-4">
@@ -330,7 +330,7 @@ const OrderManagement: React.FC = () => {
               placeholder="Tracking ID, customer, phone..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-orange focus:border-transparent"
             />
           </div>
 
@@ -340,7 +340,7 @@ const OrderManagement: React.FC = () => {
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-orange focus:border-transparent"
             >
               <option value="">All Statuses</option>
               {customStatusFlow.map(status => (
@@ -358,7 +358,7 @@ const OrderManagement: React.FC = () => {
               type="date"
               value={dateFilter}
               onChange={(e) => setDateFilter(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-orange focus:border-transparent"
             />
           </div>
 
@@ -368,7 +368,7 @@ const OrderManagement: React.FC = () => {
             <select
               value={personnelFilter}
               onChange={(e) => setPersonnelFilter(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-orange focus:border-transparent"
             >
               <option value="">All Personnel</option>
               {deliveryPersonnel.map(person => (
@@ -385,7 +385,7 @@ const OrderManagement: React.FC = () => {
             <select
               value={hubFilter}
               onChange={(e) => setHubFilter(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-orange focus:border-transparent"
             >
               <option value="">All Hubs</option>
               {hubs.map(hub => (
@@ -402,7 +402,7 @@ const OrderManagement: React.FC = () => {
             <select
               value={priorityFilter}
               onChange={(e) => setPriorityFilter(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-orange focus:border-transparent"
             >
               <option value="">All Priorities</option>
               <option value="low">🟢 Low</option>
@@ -430,7 +430,7 @@ const OrderManagement: React.FC = () => {
       </div>
 
       {/* Results Summary */}
-      <div className="bg-white rounded-lg shadow-md p-4 mb-6 border border-gray-200">
+      <div className="bg-primary-white rounded-lg shadow-md p-4 mb-6 border border-gray-200">
         <div className="flex items-center justify-between">
           <div>
             <p className="text-sm text-gray-600">
@@ -456,7 +456,7 @@ const OrderManagement: React.FC = () => {
       </div>
 
       {/* Orders Table */}
-      <div className="bg-white rounded-lg shadow-md border border-gray-200 overflow-hidden">
+      <div className="bg-primary-white rounded-lg shadow-md border border-gray-200 overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead className="bg-gray-50 border-b border-gray-200">
@@ -509,7 +509,7 @@ const OrderManagement: React.FC = () => {
                 </th>
               </tr>
             </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
+            <tbody className="bg-primary-white divide-y divide-gray-200">
               {paginatedOrders.map((order) => (
                 <tr key={order.trackingId} className="hover:bg-gray-50">
                   <td className="px-6 py-4 whitespace-nowrap">
@@ -552,7 +552,7 @@ const OrderManagement: React.FC = () => {
                           setSelectedOrder(order);
                           setShowOrderModal(true);
                         }}
-                        className="text-blue-600 hover:text-blue-900 transition-colors"
+                        className="text-accent-orange hover:text-smoke-darker transition-colors"
                         title="View Details"
                       >
                         👁️
@@ -574,7 +574,7 @@ const OrderManagement: React.FC = () => {
       </div>
 
       {/* Pagination */}
-      <div className="bg-white rounded-lg shadow-md p-4 mt-6 border border-gray-200">
+      <div className="bg-primary-white rounded-lg shadow-md p-4 mt-6 border border-gray-200">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-2">
             <button
@@ -594,7 +594,7 @@ const OrderManagement: React.FC = () => {
                     onClick={() => setCurrentPage(page)}
                     className={`px-3 py-1 text-sm border border-gray-300 rounded ${
                       currentPage === page
-                        ? 'bg-blue-500 text-white border-blue-500'
+                        ? 'bg-smoke-light0 text-white border-smoke-light0'
                         : 'hover:bg-gray-50'
                     }`}
                   >
@@ -622,7 +622,7 @@ const OrderManagement: React.FC = () => {
       {/* Order Detail Modal */}
       {showOrderModal && selectedOrder && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-auto">
+          <div className="bg-primary-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-auto">
             <div className="p-6 border-b border-gray-200">
               <div className="flex items-center justify-between">
                 <h3 className="text-lg font-semibold">Order Details - {selectedOrder.trackingId}</h3>
@@ -647,7 +647,7 @@ const OrderManagement: React.FC = () => {
                       className={`px-3 py-2 rounded text-sm font-medium transition-colors ${
                         selectedOrder.status === status.value
                           ? status.color
-                          : 'bg-white border border-gray-300 hover:bg-gray-50'
+                          : 'bg-primary-white border border-gray-300 hover:bg-gray-50'
                       }`}
                     >
                       {status.icon} {status.label}
@@ -737,7 +737,7 @@ const OrderManagement: React.FC = () => {
                           </p>
                         </div>
                       </div>
-                      <button className="text-blue-600 hover:text-blue-800 text-sm">
+                      <button className="text-accent-orange hover:text-smoke-dark text-sm">
                         View
                       </button>
                     </div>
@@ -758,7 +758,7 @@ const OrderManagement: React.FC = () => {
                 <div className="space-y-3 max-h-40 overflow-y-auto">
                   {selectedOrder.history?.map(entry => (
                     <div key={entry.id} className="flex items-start space-x-3 p-3 bg-gray-50 rounded-lg">
-                      <div className="flex-shrink-0 w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                      <div className="flex-shrink-0 w-8 h-8 bg-smoke-medium rounded-full flex items-center justify-center">
                         <span className="text-xs">📝</span>
                       </div>
                       <div className="flex-1">
@@ -790,7 +790,7 @@ const OrderManagement: React.FC = () => {
               >
                 Close
               </button>
-              <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+              <button className="px-4 py-2 bg-smoke-dark text-white rounded-lg hover:bg-accent-orange-hover transition-colors">
                 Save Changes
               </button>
             </div>
@@ -801,7 +801,7 @@ const OrderManagement: React.FC = () => {
       {/* Delete Confirmation Modal */}
       {showDeleteConfirm && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg p-6 max-w-md w-full mx-4">
+          <div className="bg-primary-white rounded-lg p-6 max-w-md w-full mx-4">
             <h3 className="text-lg font-semibold mb-4">Confirm Delete</h3>
             <p className="text-gray-600 mb-6">
               Are you sure you want to delete order {showDeleteConfirm}? This action cannot be undone.

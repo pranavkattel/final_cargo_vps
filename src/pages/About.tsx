@@ -60,13 +60,13 @@ const About = () => {
   return (
     <div className="pt-16">
       {/* Hero Section */}
-      <section className="text-white py-20" style={{ background: 'linear-gradient(to right, #0096C7, #007bb3)' }}>
+      <section className="text-white py-20" style={{ background: 'linear-gradient(to right, #2D3748, #4A5568)' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-6">
               About Capital Cargo
             </h1>
-            <p className="text-xl text-blue-100 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-xl text-gray-200 max-w-3xl mx-auto leading-relaxed">
               For over a decade, we've been Nepal's trusted partner in international logistics, 
               connecting the heart of the Himalayas to markets around the world.
             </p>
@@ -75,7 +75,7 @@ const About = () => {
       </section>
 
       {/* From the Managing Director */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-primary-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div className="flex justify-center md:justify-end">
@@ -87,7 +87,7 @@ const About = () => {
               />
             </div>
             <div className="flex flex-col justify-center md:pl-8">
-              <h2 className="text-3xl md:text-4xl font-bold mb-6" style={{ color: '#0096C7', fontFamily: 'Inter, Lato, sans-serif' }}>
+              <h2 className="text-3xl md:text-4xl font-bold mb-6" style={{ color: '#2D3748', fontFamily: 'Inter, Lato, sans-serif' }}>
                 From the Managing Director
               </h2>
               <div className="text-gray-700 text-lg leading-relaxed" style={{ fontFamily: 'Inter, Lato, sans-serif' }}>
@@ -95,13 +95,13 @@ const About = () => {
                   Welcome to Capital Cargo. Our journey is built on trust, reliability, and a relentless drive to deliver the best for our clients. We believe every shipment is a promise — and we keep our promises with precision, care, and a personal touch.
                 </p>
                 <p className="mb-4">
-                  <span className="font-bold italic text-[#F9B222]">“Excellent Service to Client — We’re the right way to Reliant”</span>
+                  <span className="font-bold italic text-[#718096]">“Excellent Service to Client — We’re the right way to Reliant”</span>
                 </p>
                 <p className="mb-6">
                   Our team is dedicated to making your logistics experience seamless and successful, whether you’re shipping across the city or around the world. Thank you for trusting us to move what matters most to you.
                 </p>
                 <div className="mt-6">
-                  <span className="font-bold text-xl" style={{ color: '#0096C7' }}>Mr. Bharat Dahal</span>
+                  <span className="font-bold text-xl" style={{ color: '#2D3748' }}>Mr. Bharat Dahal</span>
                   <br />
                   <span className="font-bold text-gray-600">Managing Director</span>
                 </div>
@@ -134,7 +134,7 @@ const About = () => {
       <section className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{ color: '#0096C7', fontFamily: 'Inter, Lato, sans-serif' }}>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{ color: '#2D3748', fontFamily: 'Inter, Lato, sans-serif' }}>
               What We Stand For
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto" style={{ fontFamily: 'Inter, Lato, sans-serif' }}>
@@ -163,15 +163,15 @@ const About = () => {
                   <value.icon
                     className="h-16 w-16 transition-all duration-300 icon-glow"
                     style={{
-                      color: '#F9B222',
-                      filter: 'drop-shadow(0 0 18px #F9B22288)',
+                      color: '#718096',
+                      filter: 'drop-shadow(0 0 18px #71809688)',
                       transition: 'transform 0.3s cubic-bezier(.4,0,.2,1), filter 0.3s cubic-bezier(.4,0,.2,1)',
                     }}
                   />
                 </div>
                 <h3
                   className="font-bold text-xl md:text-2xl mb-2 text-center"
-                  style={{ color: '#0096C7', letterSpacing: '0.01em' }}
+                  style={{ color: '#2D3748', letterSpacing: '0.01em' }}
                 >
                   {value.title}
                 </h3>
@@ -187,7 +187,7 @@ const About = () => {
           {`
             .icon-glow:hover {
               transform: translateY(-8px) scale(1.08);
-              filter: drop-shadow(0 0 28px #F9B222cc);
+              filter: drop-shadow(0 0 28px #718096cc);
             }
             .icon-glow {
               will-change: transform, filter;
@@ -199,10 +199,10 @@ const About = () => {
       </section>
 
       {/* The Capital Cargo Way */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-primary-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{ color: '#0096C7', fontFamily: 'Inter, Lato, sans-serif' }}>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{ color: '#2D3748', fontFamily: 'Inter, Lato, sans-serif' }}>
               The Capital Cargo Way
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
@@ -214,22 +214,22 @@ const About = () => {
             style={{ fontFamily: 'Inter, Lato, sans-serif' }}
           >
             {/* Step 01 */}
-            <div className="relative bg-white rounded-xl shadow-lg p-8 flex flex-col items-start group hover:shadow-2xl transition-all duration-300">
+            <div className="relative bg-primary-white rounded-xl shadow-lg p-8 flex flex-col items-start group hover:shadow-2xl transition-all duration-300">
               <span className="absolute text-6xl font-bold text-gray-200 top-6 left-6 select-none pointer-events-none" style={{ zIndex: 0 }}>01</span>
               <div className="flex flex-col items-center mb-3 z-10 w-full">
-                <UserSearch className="h-10 w-10 mb-2 text-[#F9B222] transition-transform duration-300 group-hover:scale-110 group-hover:-translate-y-1" strokeWidth={2.2} />
-                <span className="font-bold text-xl" style={{ color: '#0096C7' }}>Understand</span>
+                <UserSearch className="h-10 w-10 mb-2 text-[#718096] transition-transform duration-300 group-hover:scale-110 group-hover:-translate-y-1" strokeWidth={2.2} />
+                <span className="font-bold text-xl" style={{ color: '#2D3748' }}>Understand</span>
               </div>
               <p className="text-gray-600 z-10">
                 We don’t just take orders - we listen. Every shipment starts with a deep understanding of your priorities, pain points, and expectations, so we can deliver exactly what matters most to you.
               </p>
             </div>
             {/* Step 02 */}
-            <div className="relative bg-white rounded-xl shadow-lg p-8 flex flex-col items-start group hover:shadow-2xl transition-all duration-300">
+            <div className="relative bg-primary-white rounded-xl shadow-lg p-8 flex flex-col items-start group hover:shadow-2xl transition-all duration-300">
               <span className="absolute text-6xl font-bold text-gray-200 top-6 left-6 select-none pointer-events-none" style={{ zIndex: 0 }}>02</span>
               <div className="flex flex-col items-center mb-3 z-10 w-full">
-                <Compass className="h-10 w-10 mb-2 text-[#F9B222] transition-transform duration-300 group-hover:scale-110 group-hover:-translate-y-1" strokeWidth={2.2} />
-                <span className="font-bold text-xl" style={{ color: '#0096C7' }}>Strategize</span>
+                <Compass className="h-10 w-10 mb-2 text-[#718096] transition-transform duration-300 group-hover:scale-110 group-hover:-translate-y-1" strokeWidth={2.2} />
+                <span className="font-bold text-xl" style={{ color: '#2D3748' }}>Strategize</span>
               </div>
               <p className="text-gray-600 z-10">
                 Behind every smooth delivery is a smart game plan. We design custom logistics strategies that cut delays, dodge red tape, and move your shipments with precision.
@@ -238,11 +238,11 @@ const About = () => {
               </p>
             </div>
             {/* Step 03 */}
-            <div className="relative bg-white rounded-xl shadow-lg p-8 flex flex-col items-start group hover:shadow-2xl transition-all duration-300">
+            <div className="relative bg-primary-white rounded-xl shadow-lg p-8 flex flex-col items-start group hover:shadow-2xl transition-all duration-300">
               <span className="absolute text-6xl font-bold text-gray-200 top-6 left-6 select-none pointer-events-none" style={{ zIndex: 0 }}>03</span>
               <div className="flex flex-col items-center mb-3 z-10 w-full">
-                <Settings className="h-10 w-10 mb-2 text-[#F9B222] transition-transform duration-300 group-hover:scale-110 group-hover:-translate-y-1" strokeWidth={2.2} />
-                <span className="font-bold text-xl" style={{ color: '#0096C7' }}>Optimize</span>
+                <Settings className="h-10 w-10 mb-2 text-[#718096] transition-transform duration-300 group-hover:scale-110 group-hover:-translate-y-1" strokeWidth={2.2} />
+                <span className="font-bold text-xl" style={{ color: '#2D3748' }}>Optimize</span>
               </div>
               <p className="text-gray-600 z-10">
                 We turn good into exceptional. Every step from documents to delivery is streamlined for speed, accuracy, and zero waste. No delays. No guesswork. Just results.
@@ -251,11 +251,11 @@ const About = () => {
               </p>
             </div>
             {/* Step 04 */}
-            <div className="relative bg-white rounded-xl shadow-lg p-8 flex flex-col items-start group hover:shadow-2xl transition-all duration-300">
+            <div className="relative bg-primary-white rounded-xl shadow-lg p-8 flex flex-col items-start group hover:shadow-2xl transition-all duration-300">
               <span className="absolute text-6xl font-bold text-gray-200 top-6 left-6 select-none pointer-events-none" style={{ zIndex: 0 }}>04</span>
               <div className="flex flex-col items-center mb-3 z-10 w-full">
-                <Truck className="h-10 w-10 mb-2 text-[#F9B222] transition-transform duration-300 group-hover:scale-110 group-hover:-translate-y-1" strokeWidth={2.2} />
-                <span className="font-bold text-xl" style={{ color: '#0096C7' }}>Execute</span>
+                <Truck className="h-10 w-10 mb-2 text-[#718096] transition-transform duration-300 group-hover:scale-110 group-hover:-translate-y-1" strokeWidth={2.2} />
+                <span className="font-bold text-xl" style={{ color: '#2D3748' }}>Execute</span>
               </div>
               <p className="text-gray-600 z-10">
                 No delays. No excuses. We get it done. With precision handling, real-time tracking, and global coordination your shipment moves exactly how and when it should.
@@ -264,22 +264,22 @@ const About = () => {
               </p>
             </div>
             {/* Step 05 */}
-            <div className="relative bg-white rounded-xl shadow-lg p-8 flex flex-col items-start group hover:shadow-2xl transition-all duration-300">
+            <div className="relative bg-primary-white rounded-xl shadow-lg p-8 flex flex-col items-start group hover:shadow-2xl transition-all duration-300">
               <span className="absolute text-6xl font-bold text-gray-200 top-6 left-6 select-none pointer-events-none" style={{ zIndex: 0 }}>05</span>
               <div className="flex flex-col items-center mb-3 z-10 w-full">
-                <MessageCircle className="h-10 w-10 mb-2 text-[#F9B222] transition-transform duration-300 group-hover:scale-110 group-hover:-translate-y-1" strokeWidth={2.2} />
-                <span className="font-bold text-xl" style={{ color: '#0096C7' }}>Communicate</span>
+                <MessageCircle className="h-10 w-10 mb-2 text-[#718096] transition-transform duration-300 group-hover:scale-110 group-hover:-translate-y-1" strokeWidth={2.2} />
+                <span className="font-bold text-xl" style={{ color: '#2D3748' }}>Communicate</span>
               </div>
               <p className="text-gray-600 z-10">
                 Silence isn’t service. We keep you in the loop with real-time updates, clear answers, and zero chasing. You’ll always know where your shipment is and what’s next.
               </p>
             </div>
             {/* Step 06 */}
-            <div className="relative bg-white rounded-xl shadow-lg p-8 flex flex-col items-start group hover:shadow-2xl transition-all duration-300">
+            <div className="relative bg-primary-white rounded-xl shadow-lg p-8 flex flex-col items-start group hover:shadow-2xl transition-all duration-300">
               <span className="absolute text-6xl font-bold text-gray-200 top-6 left-6 select-none pointer-events-none" style={{ zIndex: 0 }}>06</span>
               <div className="flex flex-col items-center mb-3 z-10 w-full">
-                <RefreshCw className="h-10 w-10 mb-2 text-[#F9B222] transition-transform duration-300 group-hover:scale-110 group-hover:-translate-y-1" strokeWidth={2.2} />
-                <span className="font-bold text-xl" style={{ color: '#0096C7' }}>Refine</span>
+                <RefreshCw className="h-10 w-10 mb-2 text-[#718096] transition-transform duration-300 group-hover:scale-110 group-hover:-translate-y-1" strokeWidth={2.2} />
+                <span className="font-bold text-xl" style={{ color: '#2D3748' }}>Refine</span>
               </div>
               <p className="text-gray-600 z-10">
                 Good isn’t good enough. After every delivery, we review, improve, and upgrade, so your next shipment moves even smoother than the last.
@@ -292,53 +292,53 @@ const About = () => {
       </section>
 
       {/* Why Choose Us */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-primary-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="text-3xl md:text-4xl font-bold mb-6" style={{ color: '#0096C7' }}>
+              <h2 className="text-3xl md:text-4xl font-bold mb-6" style={{ color: '#2D3748' }}>
                 Why Choose Capital Cargo?
               </h2>
               <div className="space-y-4">
                 <div className="flex items-start space-x-3">
-                  <CheckCircle className="h-6 w-6 mt-1 flex-shrink-0" style={{ color: '#F9B222' }} />
+                  <CheckCircle className="h-6 w-6 mt-1 flex-shrink-0" style={{ color: '#718096' }} />
                   <div>
-                    <h3 className="font-semibold" style={{ color: '#0096C7' }}>Local Expertise, Global Reach</h3>
+                    <h3 className="font-semibold" style={{ color: '#2D3748' }}>Local Expertise, Global Reach</h3>
                     <p className="text-gray-600">Deep understanding of Nepali markets combined with international logistics expertise.</p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-3">
-                  <CheckCircle className="h-6 w-6 mt-1 flex-shrink-0" style={{ color: '#F9B222' }} />
+                  <CheckCircle className="h-6 w-6 mt-1 flex-shrink-0" style={{ color: '#718096' }} />
                   <div>
-                    <h3 className="font-semibold" style={{ color: '#0096C7' }}>Specialized in Nepali Products</h3>
+                    <h3 className="font-semibold" style={{ color: '#2D3748' }}>Specialized in Nepali Products</h3>
                     <p className="text-gray-600">Expert handling of traditional crafts, textiles, herbs, and specialty items from Nepal.</p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-3">
-                  <CheckCircle className="h-6 w-6 mt-1 flex-shrink-0" style={{ color: '#F9B222' }} />
+                  <CheckCircle className="h-6 w-6 mt-1 flex-shrink-0" style={{ color: '#718096' }} />
                   <div>
-                    <h3 className="font-semibold" style={{ color: '#0096C7' }}>Space Promise Even In Peak Season</h3>
+                    <h3 className="font-semibold" style={{ color: '#2D3748' }}>Space Promise Even In Peak Season</h3>
                     <p className="text-gray-600">Closely cooperating with airlines & Shipping lines, we make it convenient for taking our service throughout the year.</p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-3">
-                  <CheckCircle className="h-6 w-6 mt-1 flex-shrink-0" style={{ color: '#F9B222' }} />
+                  <CheckCircle className="h-6 w-6 mt-1 flex-shrink-0" style={{ color: '#718096' }} />
                   <div>
-                    <h3 className="font-semibold" style={{ color: '#0096C7' }}>Technology-Driven Service</h3>
+                    <h3 className="font-semibold" style={{ color: '#2D3748' }}>Technology-Driven Service</h3>
                     <p className="text-gray-600">Modern tracking systems and digital platforms for seamless experience.</p>
                   </div> 
                 </div>
                 <div className="flex items-start space-x-3">
-                  <CheckCircle className="h-6 w-6 mt-1 flex-shrink-0" style={{ color: '#F9B222' }} />
+                  <CheckCircle className="h-6 w-6 mt-1 flex-shrink-0" style={{ color: '#718096' }} />
                   <div>
-                    <h3 className="font-semibold" style={{ color: '#0096C7' }}>Honest, Trustworthy, Professional</h3>
+                    <h3 className="font-semibold" style={{ color: '#2D3748' }}>Honest, Trustworthy, Professional</h3>
                     <p className="text-gray-600">We carefully follow every quotation and keep you informed about your goods' real status. With our experience, we offer honest advice to help you save costs.</p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-3">
-                  <CheckCircle className="h-6 w-6 mt-1 flex-shrink-0" style={{ color: '#F9B222' }} />
+                  <CheckCircle className="h-6 w-6 mt-1 flex-shrink-0" style={{ color: '#718096' }} />
                   <div>
-                    <h3 className="font-semibold" style={{ color: '#0096C7' }}>Different Schedule Choice</h3>
+                    <h3 className="font-semibold" style={{ color: '#2D3748' }}>Different Schedule Choice</h3>
                     <p className="text-gray-600">We use the most suitable schedule to ensure your needs.</p>
                   </div>
                 </div>
@@ -350,7 +350,7 @@ const About = () => {
                 alt="Cargo Operations"
                 className="rounded-xl shadow-xl"
               />
-              <div className="absolute inset-0 opacity-10 rounded-xl" style={{ backgroundColor: '#0096C7' }}></div>
+              <div className="absolute inset-0 opacity-10 rounded-xl" style={{ backgroundColor: '#2D3748' }}></div>
             </div>
           </div>
         </div>

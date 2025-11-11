@@ -218,18 +218,18 @@ export const MapDestinationSelector: React.FC<MapDestinationSelectorProps> = ({
             placeholder="Search for a destination..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-orange focus:border-transparent"
           />
           {isSearching && (
             <div className="absolute right-3 top-2.5">
-              <div className="animate-spin h-5 w-5 border-2 border-blue-500 border-t-transparent rounded-full"></div>
+              <div className="animate-spin h-5 w-5 border-2 border-smoke-light0 border-t-transparent rounded-full"></div>
             </div>
           )}
         </div>
 
         {/* Search Results */}
         {searchResults.length > 0 && (
-          <div className="absolute z-10 w-full bg-white border border-gray-300 rounded-lg shadow-lg max-h-48 overflow-y-auto">
+          <div className="absolute z-10 w-full bg-primary-white border border-gray-300 rounded-lg shadow-lg max-h-48 overflow-y-auto">
             {searchResults.map((result, index) => (
               <button
                 key={index}
@@ -249,7 +249,7 @@ export const MapDestinationSelector: React.FC<MapDestinationSelectorProps> = ({
         <div className="flex space-x-2">
           <button
             onClick={getCurrentLocation}
-            className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors flex items-center space-x-2"
+            className="px-4 py-2 bg-smoke-light0 text-white rounded-lg hover:bg-accent-orange transition-colors flex items-center space-x-2"
           >
             <span>📍</span>
             <span>Use My Location</span>

@@ -102,7 +102,7 @@ const NepaliCalendar: React.FC = () => {
       <button
         onClick={() => setIsOpen(true)}
         className="fixed bottom-24 right-6 z-40 p-4 rounded-full shadow-2xl hover:scale-110 transition-all duration-300 flex items-center space-x-2 group"
-        style={{ backgroundColor: '#F9B222' }}
+        style={{ backgroundColor: '#718096' }}
         title="Nepali Calendar & Holidays"
       >
         <Calendar className="h-6 w-6 text-white" />
@@ -120,21 +120,21 @@ const NepaliCalendar: React.FC = () => {
       {/* Calendar Modal */}
       {isOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+          <div className="bg-primary-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto no-scrollbar">
             {/* Header */}
             <div style={{ zIndex: 100 }}
-              className="sticky top-0 bg-gradient-to-r from-blue-600 to-blue-700 text-white p-6 rounded-t-2xl"
+              className="sticky top-0 bg-gradient-to-r from-smoke-dark to-accent-orange-hover text-white p-6 rounded-t-2xl"
             >
               <div className="flex justify-between items-center mb-4">
                 <div className="flex-1">
                   <h2 className="text-2xl font-bold mb-2">{monthNames[currentMonth]} {currentYear}</h2>
-                  <p className="text-blue-100 text-sm">
+                  <p className="text-gray-200 text-sm">
                     Nepali: {nepaliMonths[nepaliDate.month - 1]} {nepaliDate.year} BS
                   </p>
                 </div>
                 <button
                   onClick={() => setIsOpen(false)}
-                  className="p-2 hover:bg-blue-800 rounded-full transition-colors"
+                  className="p-2 hover:bg-accent-orange-hover rounded-full transition-colors"
                 >
                   <X className="h-6 w-6" />
                 </button>
@@ -151,7 +151,7 @@ const NepaliCalendar: React.FC = () => {
                       setCurrentMonth(currentMonth - 1);
                     }
                   }}
-                  className="flex items-center gap-2 px-4 py-2 bg-blue-500 hover:bg-blue-400 rounded-lg transition-colors font-semibold"
+                  className="flex items-center gap-2 px-4 py-2 bg-smoke-light0 hover:bg-accent-orange rounded-lg transition-colors font-semibold"
                 >
                   <span>←</span>
                   <span className="hidden sm:inline">Previous</span>
@@ -162,7 +162,7 @@ const NepaliCalendar: React.FC = () => {
                     setCurrentMonth(currentDate.getMonth());
                     setCurrentYear(currentDate.getFullYear());
                   }}
-                  className="px-4 py-2 bg-blue-500 hover:bg-blue-400 rounded-lg transition-colors font-semibold text-sm"
+                  className="px-4 py-2 bg-smoke-light0 hover:bg-accent-orange rounded-lg transition-colors font-semibold text-sm"
                 >
                   Today
                 </button>
@@ -176,7 +176,7 @@ const NepaliCalendar: React.FC = () => {
                       setCurrentMonth(currentMonth + 1);
                     }
                   }}
-                  className="flex items-center gap-2 px-4 py-2 bg-blue-500 hover:bg-blue-400 rounded-lg transition-colors font-semibold"
+                  className="flex items-center gap-2 px-4 py-2 bg-smoke-light0 hover:bg-accent-orange rounded-lg transition-colors font-semibold"
                 >
                   <span className="hidden sm:inline">Next</span>
                   <span>→</span>
@@ -245,7 +245,7 @@ const NepaliCalendar: React.FC = () => {
               )}
 
               {/* Calendar Grid */}
-              <div className="bg-white rounded-lg border border-gray-200 p-4">
+              <div className="bg-primary-white rounded-lg border border-gray-200 p-4">
                 <div className="grid grid-cols-7 gap-2">
                   {/* Day headers */}
                   {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day, index) => (
@@ -271,7 +271,7 @@ const NepaliCalendar: React.FC = () => {
                         key={day}
                         className={`aspect-square flex flex-col items-center justify-center rounded-lg text-sm relative ${
                           isToday 
-                            ? 'bg-blue-600 text-white font-bold shadow-lg' 
+                            ? 'bg-smoke-dark text-white font-bold shadow-lg' 
                             : holiday || isSat
                             ? 'bg-red-50 text-red-600 font-semibold'
                             : 'hover:bg-gray-100'
@@ -292,7 +292,7 @@ const NepaliCalendar: React.FC = () => {
                 {/* Legend */}
                 <div className="mt-4 pt-4 border-t border-gray-200 flex flex-wrap gap-4 text-xs">
                   <div className="flex items-center gap-2">
-                    <div className="w-4 h-4 bg-blue-600 rounded"></div>
+                    <div className="w-4 h-4 bg-smoke-dark rounded"></div>
                     <span>Today</span>
                   </div>
                   <div className="flex items-center gap-2">
@@ -309,7 +309,7 @@ const NepaliCalendar: React.FC = () => {
               {/* Upcoming Holidays */}
               {upcomingHolidays.length > 0 && (
                 <div>
-                  <h3 className="text-xl font-bold mb-4" style={{ color: '#0096C7' }}>
+                  <h3 className="text-xl font-bold mb-4" style={{ color: '#4A5568' }}>
                     📅 Upcoming Holidays (Next 7 Days)
                   </h3>
                   <div className="space-y-3">
@@ -342,14 +342,14 @@ const NepaliCalendar: React.FC = () => {
 
               {/* All Holidays List */}
               <div>
-                <h3 className="text-xl font-bold mb-4" style={{ color: '#0096C7' }}>
+                <h3 className="text-xl font-bold mb-4" style={{ color: '#4A5568' }}>
                   🎊 All Public Holidays 2082 (2025-2026)
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                   {NEPALI_HOLIDAYS.map((holiday: HolidayInfo, index: number) => (
                     <div
                       key={index}
-                      className="bg-gray-50 border border-gray-200 rounded-lg p-3 hover:border-blue-300 transition-colors"
+                      className="bg-gray-50 border border-gray-200 rounded-lg p-3 hover:border-primary-blue transition-colors"
                     >
                       <div className="flex justify-between items-start">
                         <div>
@@ -366,9 +366,9 @@ const NepaliCalendar: React.FC = () => {
               </div>
 
               {/* Important Notes */}
-              <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                <h4 className="font-semibold text-blue-900 mb-2">📌 Important Information</h4>
-                <ul className="text-sm text-blue-800 space-y-1 list-disc list-inside">
+              <div className="bg-smoke-light border border-smoke-medium rounded-lg p-4">
+                <h4 className="font-semibold text-smoke-darker mb-2">📌 Important Information</h4>
+                <ul className="text-sm text-smoke-dark space-y-1 list-disc list-inside">
                   <li>Capital Cargo is closed on Saturdays and all public holidays</li>
                   <li>During Dashain & Tihar, services may be limited for 7-10 days</li>
                   <li>For urgent shipments during holidays, please call us in advance</li>
@@ -377,15 +377,15 @@ const NepaliCalendar: React.FC = () => {
               </div>
 
               {/* Contact CTA */}
-              <div className="text-center p-4 bg-gradient-to-r from-blue-600 to-blue-700 rounded-lg text-white">
+              <div className="text-center p-4 bg-gradient-to-r from-smoke-dark to-accent-orange-hover rounded-lg text-white">
                 <p className="font-semibold mb-2">Need to ship during a holiday period?</p>
-                <p className="text-sm text-blue-100 mb-3">Contact us in advance to arrange special handling</p>
+                <p className="text-sm text-gray-200 mb-3">Contact us in advance to arrange special handling</p>
                 <a
                   href="tel:+97715367883"
                   className="inline-block px-6 py-2 rounded-lg font-semibold transition-colors"
-                  style={{ backgroundColor: '#F9B222' }}
-                  onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#e6a01e'}
-                  onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#F9B222'}
+                  style={{ backgroundColor: '#718096' }}
+                  onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#2D3748'}
+                  onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#718096'}
                 >
                   📞 Call Us Now
                 </a>

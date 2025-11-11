@@ -95,17 +95,17 @@ const AdminApp: React.FC<AdminAppProps> = ({
     };
 
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-50 flex items-center justify-center px-4">
+      <div className="min-h-screen bg-gradient-to-br from-smoke-light via-white to-smoke-light flex items-center justify-center px-4">
         <div className="max-w-md w-full">
-          <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-8">
+          <div className="bg-primary-white rounded-2xl shadow-xl border border-gray-100 p-8">
             {/* Header */}
             <div className="text-center mb-8">
-              <div className="w-20 h-20 bg-gradient-to-br from-blue-600 to-blue-700 rounded-2xl flex items-center justify-center text-white font-bold text-2xl mx-auto mb-6 shadow-lg">
+              <div className="w-20 h-20 bg-gradient-to-br from-smoke-dark to-accent-orange-hover rounded-2xl flex items-center justify-center text-white font-bold text-2xl mx-auto mb-6 shadow-lg">
                 CC
               </div>
               <h1 className="text-3xl font-bold text-gray-900 mb-2">Cargo Capital</h1>
               <p className="text-gray-600 text-lg">Admin Panel</p>
-              <div className="w-16 h-1 bg-gradient-to-r from-blue-600 to-blue-700 rounded-full mx-auto mt-4"></div>
+              <div className="w-16 h-1 bg-gradient-to-r from-smoke-dark to-accent-orange-hover rounded-full mx-auto mt-4"></div>
             </div>
 
             {/* Login Form */}
@@ -120,7 +120,7 @@ const AdminApp: React.FC<AdminAppProps> = ({
                     required
                     value={credentials.email}
                     onChange={(e) => setCredentials({...credentials, email: e.target.value})}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 bg-gray-50 focus:bg-white"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-accent-orange focus:border-smoke-light0 transition-all duration-200 bg-gray-50 focus:bg-primary-white"
                     placeholder="info@cargocapital.com"
                   />
                   <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
@@ -139,7 +139,7 @@ const AdminApp: React.FC<AdminAppProps> = ({
                     required
                     value={credentials.password}
                     onChange={(e) => setCredentials({...credentials, password: e.target.value})}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 bg-gray-50 focus:bg-white"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-accent-orange focus:border-smoke-light0 transition-all duration-200 bg-gray-50 focus:bg-primary-white"
                     placeholder="Enter your password"
                   />
                   <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
@@ -151,7 +151,7 @@ const AdminApp: React.FC<AdminAppProps> = ({
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-3 px-4 rounded-xl hover:from-blue-700 hover:to-blue-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 font-semibold text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+                className="w-full bg-gradient-to-r from-smoke-dark to-accent-orange-hover text-white py-3 px-4 rounded-xl hover:from-accent-orange-hover hover:to-accent-orange-hover disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 font-semibold text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
               >
                 {loading ? (
                   <div className="flex items-center justify-center">
@@ -174,7 +174,7 @@ const AdminApp: React.FC<AdminAppProps> = ({
                     <span className="text-yellow-600 mr-2">⚠️</span>
                     <p className="font-semibold">Admin Access</p>
                   </div>
-                  <div className="bg-white rounded-lg p-3 border border-yellow-200">
+                  <div className="bg-primary-white rounded-lg p-3 border border-yellow-200">
                     <p className="text-gray-700">Demo credentials have been removed from the public UI for security. If you need access, please run the backend admin-update script or contact the administrator.</p>
                   </div>
                 </div>

@@ -95,11 +95,11 @@ export const EnhancedDropdown: React.FC<EnhancedDropdownProps> = ({
         onClick={() => !disabled && setIsOpen(!isOpen)}
         disabled={disabled}
         className={`
-          w-full px-4 py-3 text-left bg-white border rounded-lg shadow-sm
+          w-full px-4 py-3 text-left bg-primary-white border rounded-lg shadow-sm
           ${disabled ? 'bg-gray-100 cursor-not-allowed' : 'hover:border-gray-400 cursor-pointer'}
           ${error ? 'border-red-500' : 'border-gray-300'}
-          ${isOpen ? 'ring-2 ring-blue-500 border-blue-500' : ''}
-          focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500
+          ${isOpen ? 'ring-2 ring-accent-orange border-smoke-light0' : ''}
+          focus:outline-none focus:ring-2 focus:ring-accent-orange focus:border-smoke-light0
           transition-all duration-200
         `}
       >
@@ -150,7 +150,7 @@ export const EnhancedDropdown: React.FC<EnhancedDropdownProps> = ({
 
       {/* Dropdown Options */}
       {isOpen && (
-        <div className="absolute z-50 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-80 overflow-hidden">
+        <div className="absolute z-50 w-full mt-1 bg-primary-white border border-gray-300 rounded-lg shadow-lg max-h-80 overflow-hidden">
           {/* Search Input */}
           {options.length > 5 && (
             <div className="p-3 border-b border-gray-200">
@@ -159,7 +159,7 @@ export const EnhancedDropdown: React.FC<EnhancedDropdownProps> = ({
                 placeholder="Search options..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-accent-orange focus:border-transparent"
                 onClick={(e) => e.stopPropagation()}
               />
             </div>
@@ -175,7 +175,7 @@ export const EnhancedDropdown: React.FC<EnhancedDropdownProps> = ({
                   onClick={() => handleSelect(option)}
                   className={`
                     w-full px-4 py-3 text-left hover:bg-gray-50 focus:bg-gray-50
-                    ${selectedOption?.value === option.value ? 'bg-blue-50 border-r-4 border-blue-500' : ''}
+                    ${selectedOption?.value === option.value ? 'bg-smoke-light border-r-4 border-smoke-light0' : ''}
                     border-b border-gray-100 last:border-b-0
                     focus:outline-none transition-colors duration-150
                   `}
@@ -196,7 +196,7 @@ export const EnhancedDropdown: React.FC<EnhancedDropdownProps> = ({
                             </span>
                           )}
                           {option.popular && (
-                            <span className="bg-orange-100 text-orange-800 text-xs px-2 py-1 rounded-full">
+                            <span className="bg-smoke-medium text-smoke-dark text-xs px-2 py-1 rounded-full">
                               Popular
                             </span>
                           )}

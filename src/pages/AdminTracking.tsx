@@ -288,7 +288,7 @@ const AdminTracking: React.FC = () => {
         </div>
       )}
       <button
-        className="mb-6 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 shadow-md"
+        className="mb-6 px-6 py-3 bg-smoke-dark hover:bg-accent-orange-hover text-white rounded-lg font-medium transition-colors focus:ring-2 focus:ring-accent-orange focus:ring-offset-2 shadow-md"
         onClick={() => {
           setShowForm(true);
           setEditOrder(null);
@@ -316,7 +316,7 @@ const AdminTracking: React.FC = () => {
         + Add New Order
       </button>
       {showForm && (
-        <form className="bg-white p-6 rounded-lg shadow-lg mb-6 border border-gray-200" onSubmit={handleSubmit}>
+        <form className="bg-primary-white p-6 rounded-lg shadow-lg mb-6 border border-gray-200" onSubmit={handleSubmit}>
           <div className="mb-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
             <h3 className="text-lg font-semibold text-gray-800 mb-2">
               {editOrder ? '✏️ Edit Shipment' : '🆕 Create New Shipment'}
@@ -352,7 +352,7 @@ const AdminTracking: React.FC = () => {
                 value={form.customerName} 
                 onChange={handleInput} 
                 placeholder="Enter customer name" 
-                className="w-full border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
+                className="w-full border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-accent-orange focus:border-transparent" 
                 required 
               />
             </div>
@@ -364,7 +364,7 @@ const AdminTracking: React.FC = () => {
                 onChange={handleInput} 
                 placeholder="Enter email address" 
                 type="email"
-                className="w-full border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
+                className="w-full border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-accent-orange focus:border-transparent" 
                 required 
               />
             </div>
@@ -375,7 +375,7 @@ const AdminTracking: React.FC = () => {
                 value={form.customerPhone} 
                 onChange={handleInput} 
                 placeholder="Enter phone number" 
-                className="w-full border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
+                className="w-full border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-accent-orange focus:border-transparent" 
                 required 
               />
             </div>
@@ -386,7 +386,7 @@ const AdminTracking: React.FC = () => {
                 value={form.customerAddress} 
                 onChange={handleInput} 
                 placeholder="Enter customer address" 
-                className="w-full border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
+                className="w-full border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-accent-orange focus:border-transparent" 
                 required 
               />
             </div>
@@ -397,7 +397,7 @@ const AdminTracking: React.FC = () => {
                 value={form.origin} 
                 onChange={handleInput} 
                 placeholder="Enter pickup location" 
-                className="w-full border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
+                className="w-full border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-accent-orange focus:border-transparent" 
                 required 
               />
             </div>
@@ -409,7 +409,7 @@ const AdminTracking: React.FC = () => {
                   value={form.destination}
                   onChange={handleInput}
                   placeholder="Enter destination address"
-                  className="flex-1 border border-gray-300 p-3 rounded-l-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="flex-1 border border-gray-300 p-3 rounded-l-lg focus:ring-2 focus:ring-accent-orange focus:border-transparent"
                   required
                 />
                 <button
@@ -418,7 +418,7 @@ const AdminTracking: React.FC = () => {
                   className={`px-4 py-3 border-t border-r border-b rounded-r-lg font-medium transition-colors ${
                     showMapDestination 
                       ? 'bg-green-500 text-white border-green-500' 
-                      : 'bg-blue-500 text-white border-blue-500 hover:bg-blue-600'
+                      : 'bg-smoke-light0 text-white border-smoke-light0 hover:bg-accent-orange'
                   }`}
                   title={showMapDestination ? 'Hide map selection' : 'Select on map'}
                 >
@@ -426,8 +426,8 @@ const AdminTracking: React.FC = () => {
                 </button>
               </div>
               {selectedLocation && (
-                <div className="mt-2 p-2 bg-blue-50 border border-blue-200 rounded text-sm">
-                  <span className="text-blue-800">📍 Selected: {selectedLocation.city}, {selectedLocation.country}</span>
+                <div className="mt-2 p-2 bg-smoke-light border border-smoke-medium rounded text-sm">
+                  <span className="text-smoke-dark">📍 Selected: {selectedLocation.city}, {selectedLocation.country}</span>
                 </div>
               )}
             </div>
@@ -441,7 +441,7 @@ const AdminTracking: React.FC = () => {
                 type="number"
                 step="0.1"
                 min="0"
-                className="w-full border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
+                className="w-full border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-accent-orange focus:border-transparent" 
                 required 
               />
             </div>
@@ -484,7 +484,7 @@ const AdminTracking: React.FC = () => {
                 value={form.description} 
                 onChange={handleInput} 
                 placeholder="Describe the package contents and any special instructions (optional)" 
-                className="w-full border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
+                className="w-full border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-accent-orange focus:border-transparent" 
                 rows={3}
               />
             </div>
@@ -495,7 +495,7 @@ const AdminTracking: React.FC = () => {
                 value={form.estimatedDelivery} 
                 onChange={handleInput} 
                 type="date"
-                className="w-full border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
+                className="w-full border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-accent-orange focus:border-transparent" 
                 required 
               />
             </div>
@@ -518,7 +518,7 @@ const AdminTracking: React.FC = () => {
         </form>
       )}
       {showMapDestination && (
-        <div className="bg-white p-4 rounded shadow mb-6">
+        <div className="bg-primary-white p-4 rounded shadow mb-6">
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-xl font-semibold">Select Destination on Map</h2>
             <button
@@ -548,7 +548,7 @@ const AdminTracking: React.FC = () => {
       {loading ? (
         <div>Loading...</div>
       ) : (
-        <table className="w-full bg-white rounded shadow">
+        <table className="w-full bg-primary-white rounded shadow">
           <thead>
             <tr className="bg-gray-100">
               <th className="p-2">Tracking ID</th>

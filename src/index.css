@@ -4,10 +4,15 @@
 @tailwind utilities;
 
 :root {
-  --primary-white: #FFFFFF;     /* 60% - White */
-  --primary-blue: #0096C7;      /* 30% - Blue */
-  --accent-orange: #F9B222;     /* 10% - Orange */
-  --accent-orange-hover: #e6a01e;
+  /* Smoke Grey Color Scheme - 60-30-10 Rule */
+  --primary-white: #F5F5F5;     /* 60% - Light smoke grey (main background) */
+  --primary-blue: #4A5568;      /* 30% - Medium grey (secondary elements) */
+  --accent-orange: #718096;     /* 10% - Dark grey (accent/highlights) */
+  --accent-orange-hover: #2D3748; /* Darker grey for hover states */
+  --smoke-light: #F7FAFC;       /* Extra light grey */
+  --smoke-medium: #E2E8F0;      /* Medium light grey */
+  --smoke-dark: #2D3748;        /* Dark grey for text */
+  --smoke-darker: #1A202C;      /* Darkest grey */
 }
 
 body {
@@ -18,7 +23,40 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: var(--primary-white);
-  color: var(--primary-blue);
+  color: var(--smoke-dark);
+}
+
+/* Custom Scrollbar for Website */
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--smoke-light);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--accent-orange) 0%, var(--accent-orange-hover) 100%);
+  border-radius: 10px;
+  border: 2px solid var(--smoke-light);
+  transition: all 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, var(--accent-orange-hover) 0%, var(--smoke-darker) 100%);
+  border-color: var(--smoke-medium);
+}
+
+::-webkit-scrollbar-corner {
+  background: var(--smoke-light);
+}
+
+/* Firefox Scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent-orange) var(--smoke-light);
 }
 
 code {
@@ -59,9 +97,8 @@ code {
 input:focus, 
 textarea:focus, 
 select:focus {
-  outline: none;
-  ring: 2px;
-  ring-color: var(--accent-orange);
+  outline: 2px solid var(--accent-orange);
+  outline-offset: 2px;
   border-color: var(--accent-orange);
 }
 
@@ -132,4 +169,66 @@ a:hover {
 
 .page-transition.fadeOut {
   opacity: 0;
+}
+
+/* Hide scrollbars while preserving scrollability */
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
+}
+
+/* Custom Scrollbar for Dropdown */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--accent-orange);
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-orange-hover);
+}
+
+/* Fade in animation */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(-10px) translateX(-50%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) translateX(-50%);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.3s ease-out forwards;
+}
+
+/* Slow Zoom In/Out Animation for Hero Background */
+@keyframes slow-zoom {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.animate-slow-zoom {
+  animation: slow-zoom 20s ease-in-out infinite;
 }

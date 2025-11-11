@@ -444,7 +444,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = () => {
                         onClick={() => setShowMap(false)}
                         className={`px-4 py-2 rounded-lg transition-colors ${
                           !showMap 
-                            ? 'bg-blue-500 text-white' 
+                            ? 'bg-smoke-light0 text-white' 
                             : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
                         }`}
                       >
@@ -455,7 +455,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = () => {
                         onClick={() => setShowMap(true)}
                         className={`px-4 py-2 rounded-lg transition-colors ${
                           showMap 
-                            ? 'bg-blue-500 text-white' 
+                            ? 'bg-smoke-light0 text-white' 
                             : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
                         }`}
                       >
@@ -471,7 +471,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = () => {
                           shipmentDetails: { ...formData.shipmentDetails, destination: e.target.value }
                         })}
                         required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-orange focus:border-transparent"
                       >
                         <option value="">Select Destination Country</option>
                         {dropdownOptions.countries?.map(country => (
@@ -496,12 +496,12 @@ export const AdminPanel: React.FC<AdminPanelProps> = () => {
                           className="mb-4"
                         />
                         {selectedLocation && (
-                          <div className="mt-2 p-3 bg-blue-50 border border-blue-200 rounded-lg">
-                            <h4 className="font-medium text-blue-800 mb-1">Selected Destination</h4>
-                            <p className="text-sm text-blue-700">
+                          <div className="mt-2 p-3 bg-smoke-light border border-smoke-medium rounded-lg">
+                            <h4 className="font-medium text-smoke-dark mb-1">Selected Destination</h4>
+                            <p className="text-sm text-smoke-dark">
                               📍 {selectedLocation.city}, {selectedLocation.country}
                             </p>
-                            <p className="text-xs text-blue-600">
+                            <p className="text-xs text-accent-orange">
                               Coordinates: {selectedLocation.lat.toFixed(6)}, {selectedLocation.lng.toFixed(6)}
                             </p>
                           </div>

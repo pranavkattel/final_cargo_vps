@@ -68,7 +68,7 @@ const TestAPI: React.FC = () => {
     <div className="p-8 max-w-6xl mx-auto">
       <h1 className="text-3xl font-bold mb-6">🔧 API Connection Test</h1>
       
-      <div className="mb-4 p-4 bg-blue-100 rounded">
+      <div className="mb-4 p-4 bg-smoke-medium rounded">
         <h2 className="font-bold text-lg mb-2">Current Status:</h2>
         <p className={`text-lg ${error ? 'text-red-600' : 'text-green-600'}`}>
           {apiStatus}
@@ -97,7 +97,7 @@ const TestAPI: React.FC = () => {
         {shipments.length > 0 ? (
           <div className="space-y-4">
             {shipments.map((shipment, index) => (
-              <div key={index} className="border p-4 rounded bg-white shadow">
+              <div key={index} className="border p-4 rounded bg-primary-white shadow">
                 <h3 className="font-bold text-lg text-green-600">{shipment.trackingId}</h3>
                 <p><strong>Customer:</strong> {shipment.customerInfo?.name}</p>
                 <p><strong>Status:</strong> <span className="font-semibold">{shipment.status}</span></p>
@@ -116,19 +116,19 @@ const TestAPI: React.FC = () => {
         <div className="space-y-2">
           <div>
             <strong>Backend Health:</strong> 
-            <a href="http://localhost:5000/api/health" target="_blank" rel="noopener noreferrer" className="text-blue-600 underline ml-2">
+            <a href="http://localhost:5000/api/health" target="_blank" rel="noopener noreferrer" className="text-accent-orange underline ml-2">
               Test in new tab
             </a>
           </div>
           <div>
             <strong>All Shipments:</strong> 
-            <a href="http://localhost:5000/api/shipments" target="_blank" rel="noopener noreferrer" className="text-blue-600 underline ml-2">
+            <a href="http://localhost:5000/api/shipments" target="_blank" rel="noopener noreferrer" className="text-accent-orange underline ml-2">
               Test in new tab
             </a>
           </div>
           <div>
             <strong>Track Sample:</strong> 
-            <a href="http://localhost:5000/api/track/CC001TEST" target="_blank" rel="noopener noreferrer" className="text-blue-600 underline ml-2">
+            <a href="http://localhost:5000/api/track/CC001TEST" target="_blank" rel="noopener noreferrer" className="text-accent-orange underline ml-2">
               Test in new tab
             </a>
           </div>

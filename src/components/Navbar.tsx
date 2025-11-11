@@ -20,7 +20,7 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="bg-white shadow-lg sticky top-0 z-50 transition-all duration-300 w-full">
+    <nav className="bg-primary-white shadow-lg sticky top-0 z-50 transition-all duration-300 w-full">
       <div className="w-full px-4 sm:px-6 lg:px-8">
         <div className="flex items-center h-20">
           {/* Company Logo - Far Left */}
@@ -47,17 +47,17 @@ const Navbar = () => {
                       : 'hover:scale-105'
                   }`}
                   style={{
-                    color: location.pathname === item.href ? '#F9B222' : '#0096C7',
-                    borderColor: location.pathname === item.href ? '#F9B222' : 'transparent'
+                    color: location.pathname === item.href ? '#718096' : '#2D3748',
+                    borderColor: location.pathname === item.href ? '#718096' : 'transparent'
                   }}
                   onMouseEnter={(e) => {
                     if (location.pathname !== item.href) {
-                      e.currentTarget.style.color = '#F9B222';
+                      e.currentTarget.style.color = '#718096';
                     }
                   }}
                   onMouseLeave={(e) => {
                     if (location.pathname !== item.href) {
-                      e.currentTarget.style.color = '#0096C7';
+                      e.currentTarget.style.color = '#2D3748';
                     }
                   }}
                 >
@@ -67,7 +67,7 @@ const Navbar = () => {
                     className={`absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full ${
                       location.pathname === item.href ? 'hidden' : ''
                     }`}
-                    style={{ backgroundColor: '#F9B222' }}
+                    style={{ backgroundColor: '#718096' }}
                   ></span>
                 </Link>
               ))}
@@ -78,7 +78,7 @@ const Navbar = () => {
           <div className="hidden lg:flex flex-shrink-0">
             <div 
               className="flex items-center space-x-2 px-3 py-2 rounded-lg transition-all duration-300 hover:scale-105 cursor-pointer group" 
-              style={{ color: '#F9B222' }}
+              style={{ color: '#718096' }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.backgroundColor = '#f0f0f0';
                 e.currentTarget.style.transform = 'scale(1.05)';
@@ -98,14 +98,14 @@ const Navbar = () => {
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="p-2 rounded-lg transition-all duration-300 hover:scale-110 active:scale-95"
-              style={{ color: '#0096C7' }}
+              style={{ color: '#2D3748' }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.backgroundColor = '#f0f0f0';
-                e.currentTarget.style.color = '#F9B222';
+                e.currentTarget.style.color = '#718096';
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.backgroundColor = 'transparent';
-                e.currentTarget.style.color = '#0096C7';
+                e.currentTarget.style.color = '#2D3748';
               }}
             >
               <div className="relative w-6 h-6">
@@ -127,7 +127,7 @@ const Navbar = () => {
 
       {/* Mobile Navigation */}
       <div 
-        className={`lg:hidden bg-white border-t border-gray-200 transition-all duration-300 ease-in-out w-full ${
+        className={`lg:hidden bg-primary-white border-t border-gray-200 transition-all duration-300 ease-in-out w-full ${
           isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
         } overflow-hidden`}
       >
@@ -143,7 +143,7 @@ const Navbar = () => {
                   : 'hover:shadow-sm'
               }`}
               style={{
-                color: location.pathname === item.href ? '#F9B222' : '#0096C7',
+                color: location.pathname === item.href ? '#718096' : '#2D3748',
                 backgroundColor: location.pathname === item.href ? '#f0f0f0' : 'transparent',
                 transitionDelay: `${index * 50}ms`,
                 transform: isOpen ? 'translateX(0)' : 'translateX(-20px)',
@@ -152,13 +152,13 @@ const Navbar = () => {
               onMouseEnter={(e) => {
                 if (location.pathname !== item.href) {
                   e.currentTarget.style.backgroundColor = '#f0f0f0';
-                  e.currentTarget.style.color = '#F9B222';
+                  e.currentTarget.style.color = '#718096';
                 }
               }}
               onMouseLeave={(e) => {
                 if (location.pathname !== item.href) {
                   e.currentTarget.style.backgroundColor = 'transparent';
-                  e.currentTarget.style.color = '#0096C7';
+                  e.currentTarget.style.color = '#2D3748';
                 }
               }}
             >
@@ -168,7 +168,7 @@ const Navbar = () => {
           <div 
             className="px-3 py-2 flex items-center space-x-2 rounded-lg transition-all duration-300 hover:scale-105 cursor-pointer group" 
             style={{ 
-              color: '#F9B222',
+              color: '#718096',
               transitionDelay: `${navigation.length * 50}ms`,
               transform: isOpen ? 'translateX(0)' : 'translateX(-20px)',
               opacity: isOpen ? 1 : 0

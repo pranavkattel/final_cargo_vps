@@ -5,7 +5,7 @@ import logo from '../assets/images/logo.png';
 
 const Footer = () => {
   return (
-    <footer className="text-white w-full" style={{ backgroundColor: '#0096C7' }}>
+    <footer className="text-white w-full" style={{ backgroundColor: '#2D3748' }}>
       <div className="w-full px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
           {/* Company Info */}
@@ -17,7 +17,7 @@ const Footer = () => {
                 className="h-16 max-w-full object-contain" 
               />
             </div>
-            <p className="text-blue-100 text-sm">
+            <p className="text-gray-200 text-sm">
               Connecting Nepal to the world with reliable, efficient, and secure cargo services. 
               Your trusted partner for international logistics.
             </p>
@@ -27,7 +27,7 @@ const Footer = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Capital Cargo on Facebook"
-                className="text-blue-200 transition-transform duration-200 hover:scale-110 hover:text-white"
+                className="text-gray-300 transition-transform duration-200 hover:scale-110 hover:text-white"
               >
                 <Facebook className="h-6 w-6" />
               </a>
@@ -36,7 +36,7 @@ const Footer = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Capital Cargo on Instagram"
-                className="text-blue-200 transition-transform duration-200 hover:scale-110 hover:text-white"
+                className="text-gray-300 transition-transform duration-200 hover:scale-110 hover:text-white"
               >
                 <Instagram className="h-6 w-6" />
               </a>
@@ -45,7 +45,7 @@ const Footer = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Capital Cargo on LinkedIn"
-                className="text-blue-200 transition-transform duration-200 hover:scale-110 hover:text-white"
+                className="text-gray-300 transition-transform duration-200 hover:scale-110 hover:text-white"
               >
                 <Linkedin className="h-6 w-6" />
               </a>
@@ -56,11 +56,10 @@ const Footer = () => {
           <div className="space-y-4">
             <h3 className="text-lg font-semibold">Quick Links</h3>
             <div className="space-y-2">
-              <Link to="/about" className="block text-blue-100 hover:text-white transition-colors text-sm">About Us</Link>
-              <Link to="/services" className="block text-blue-100 hover:text-white transition-colors text-sm">Services</Link>
-              <Link to="/destinations" className="block text-blue-100 hover:text-white transition-colors text-sm">Destinations</Link>
-              <Link to="/tracking" className="block text-blue-100 hover:text-white transition-colors text-sm">Track Cargo</Link>
-              <Link to="/quote" className="block text-blue-100 hover:text-white transition-colors text-sm">Get Quote</Link>
+              <Link to="/about" className="block text-gray-200 hover:text-white transition-colors text-sm">About Us</Link>
+              <Link to="/services" className="block text-gray-200 hover:text-white transition-colors text-sm">Services</Link>
+              <Link to="/tracking" className="block text-gray-200 hover:text-white transition-colors text-sm">Track Cargo</Link>
+              <Link to="/quote" className="block text-gray-200 hover:text-white transition-colors text-sm">Get Quote</Link>
             </div>
           </div>
 
@@ -68,11 +67,11 @@ const Footer = () => {
           <div className="space-y-4">
             <h3 className="text-lg font-semibold">Our Services</h3>
             <div className="space-y-2">
-              <p className="text-blue-100 text-sm">Air Cargo</p>
-              <p className="text-blue-100 text-sm">Sea Freight</p>
-              <p className="text-blue-100 text-sm">Land Transport</p>
-              <p className="text-blue-100 text-sm">Customs Clearance</p>
-              <p className="text-blue-100 text-sm">Door-to-Door</p>
+              <p className="text-gray-200 text-sm">Air Cargo</p>
+              <p className="text-gray-200 text-sm">Sea Freight</p>
+              <p className="text-gray-200 text-sm">Land Transport</p>
+              <p className="text-gray-200 text-sm">Customs Clearance</p>
+              <p className="text-gray-200 text-sm">Door-to-Door</p>
             </div>
           </div>
 
@@ -81,23 +80,23 @@ const Footer = () => {
             <h3 className="text-lg font-semibold">Contact Us</h3>
             <div className="space-y-3">
               <div className="flex items-center justify-center space-x-3">
-                <MapPin className="h-4 w-4 flex-shrink-0" style={{ color: '#F9B222' }} />
-                <span className="text-blue-100 text-sm">Thamel, Kathmandu, Nepal</span>
+                <MapPin className="h-4 w-4 flex-shrink-0" style={{ color: '#718096' }} />
+                <span className="text-gray-200 text-sm">Thamel, Kathmandu, Nepal</span>
               </div>
               <div className="flex items-center justify-center space-x-3">
-                <Phone className="h-4 w-4 flex-shrink-0" style={{ color: '#F9B222' }} />
-                <span className="text-blue-100 text-sm">+977-01-5367883, 01-5368837</span>
+                <Phone className="h-4 w-4 flex-shrink-0" style={{ color: '#718096' }} />
+                <span className="text-gray-200 text-sm">+977-01-5367883, 01-5368837</span>
               </div>
               <div className="flex items-center justify-center space-x-3">
-                <Mail className="h-4 w-4 flex-shrink-0" style={{ color: '#F9B222' }} />
-                <span className="text-blue-100 text-sm">info@cargocapital.com</span>
+                <Mail className="h-4 w-4 flex-shrink-0" style={{ color: '#718096' }} />
+                <span className="text-gray-200 text-sm">info@cargocapital.com</span>
               </div>
             </div>
           </div>
         </div>
 
-        <div className="border-t border-blue-400 mt-8 pt-8 text-center">
-          <p className="text-blue-200 text-sm">
+        <div className="border-t border-primary-blue mt-8 pt-8 text-center">
+          <p className="text-gray-300 text-sm">
             © 2024 Capital Cargo. All rights reserved. | Connecting Nepal to the World
           </p>
         </div>
