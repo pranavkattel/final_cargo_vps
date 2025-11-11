@@ -4,7 +4,6 @@ import { ArrowRight, Plane, Ship, Truck, Shield, Clock, Globe, CheckCircle, Star
 import earthTexture from '../assets/images/earth_texture.jpg';
 import vid1 from '../assets/video/vid1.mp4';
 import vid2 from '../assets/video/vid2.mp4';
-import vid3 from '../assets/video/vid3.mp4';
 
 // Lazy load Globe3D for better initial page load
 const Globe3D = lazy(() => import('../components/Globe3D'));
@@ -13,7 +12,7 @@ const Home = () => {
   const heroGlobeRef = useRef<HTMLDivElement | null>(null);
   const [shouldLoadGlobe, setShouldLoadGlobe] = useState(false);
   const [selectedRegion, setSelectedRegion] = useState<string | null>(null);
-  const videoSources = useMemo(() => [vid1, vid2, vid3], []);
+  const videoSources = useMemo(() => [vid1, vid2], []);
   const [activeVideo, setActiveVideo] = useState(() => videoSources[0]);
 
   const regionCountries: Record<string, string[]> = {
