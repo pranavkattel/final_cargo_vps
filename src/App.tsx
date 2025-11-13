@@ -148,6 +148,7 @@ function App() {
       return;
     }
 
+    // Only preload user-facing pages, NOT admin pages
     const preloadRoutes = () => {
       Promise.all([
         import('./pages/About'),
@@ -156,14 +157,8 @@ function App() {
         import('./pages/Quote'),
         import('./pages/FAQ'),
         import('./pages/Blog'),
-        import('./pages/BlogPost'),
         import('./pages/Contact'),
-        import('./pages/AdminTracking'),
-        import('./pages/AdminApp'),
-        import('./pages/UnifiedAdminPanel'),
-        import('./pages/DataTools'),
-        import('./pages/AdminTest'),
-        import('./pages/TestAPI'),
+        // Admin pages and test pages will load on-demand only
       ]).catch(() => {
         // Ignore preload errors; navigation will fallback to lazy loading.
       });
@@ -184,7 +179,7 @@ function App() {
     }
 
     hasPrefetched.current = true;
-    const timeoutId = window.setTimeout(preloadRoutes, 300);
+    const timeoutId = window.setTimeout(preloadRoutes, 2000); // Delay preload to 2 seconds after initial load
     return () => window.clearTimeout(timeoutId);
   }, [isSplashVisible]);
 
