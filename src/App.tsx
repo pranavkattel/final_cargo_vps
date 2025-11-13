@@ -35,6 +35,17 @@ function App() {
     const finalizeSplash = () => {
       if (isMounted && minimumDurationComplete && homeModuleLoaded) {
         setIsSplashVisible(false);
+        
+        // Remove the initial HTML loader
+        setTimeout(() => {
+          const initialLoader = document.getElementById('initial-loader');
+          if (initialLoader) {
+            document.body.classList.add('app-loaded');
+            setTimeout(() => {
+              initialLoader.remove();
+            }, 500);
+          }
+        }, 100);
       }
     };
 

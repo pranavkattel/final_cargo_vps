@@ -105,6 +105,24 @@ const Home = () => {
     }
   }, [selectedRegion]);
 
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (selectedRegion) {
+        const target = event.target as HTMLElement;
+        // Check if click is outside dropdown
+        if (!target.closest('.country-dropdown') && !target.closest('.point-marker')) {
+          setSelectedRegion(null);
+        }
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [selectedRegion]);
+
   // Delay loading the heavy 3D globe until the hero is on screen and the browser is idle.
   useEffect(() => {
     if (typeof window === 'undefined') {
@@ -257,7 +275,7 @@ const Home = () => {
             ].map((point, index) => (
               <div
                 key={index}
-                className={`absolute group cursor-pointer transition-all duration-300 z-10 ${selectedRegion === point.label ? '' : 'animate-pulse hover:animate-none'}`}
+                className={`absolute group cursor-pointer transition-all duration-300 z-10 point-marker ${selectedRegion === point.label ? '' : 'animate-pulse hover:animate-none'}`}
                 style={{
                   top: point.top,
                   left: point.left,
@@ -301,7 +319,7 @@ const Home = () => {
                   {/* Country Dropdown - Responsive */}
                   {selectedRegion === point.label && (
                     <div 
-                      className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 sm:mt-4 bg-white rounded-lg sm:rounded-xl shadow-2xl p-3 sm:p-4 min-w-[200px] sm:min-w-[240px] max-h-[280px] sm:max-h-[320px] overflow-hidden border border-gray-100 z-[9999]"
+                      className="country-dropdown absolute top-full right-0 mt-2 sm:mt-4 bg-white rounded-lg sm:rounded-xl shadow-2xl p-3 sm:p-4 min-w-[200px] sm:min-w-[240px] max-h-[280px] sm:max-h-[320px] overflow-hidden border border-gray-100 z-[9999]"
                       style={{
                         backdropFilter: 'blur(10px)',
                         backgroundColor: 'rgba(255, 255, 255, 0.98)',
@@ -350,14 +368,15 @@ const Home = () => {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="text-center">
                 <div 
-                  className="inline-block bg-gradient-to-r from-accent-orange/95 to-orange-600/95 px-6 py-3 rounded-xl backdrop-blur-md border-2 border-white/40 shadow-2xl"
+                  className="inline-block bg-white/90 px-6 py-3 rounded-xl backdrop-blur-md border border-gray-300/50 shadow-lg"
                   style={{
                     animation: 'fadeInBounce 0.6s ease-out'
                   }}
                 >
-                  <p className="text-base md:text-lg text-white font-bold flex items-center gap-2"
+                  <p className="text-base md:text-lg font-semibold flex items-center gap-2"
                      style={{
-                       textShadow: '2px 2px 4px rgba(0,0,0,0.5)',
+                       color: '#4A5568',
+                       textShadow: '0 1px 2px rgba(255,255,255,0.5)',
                      }}>
                     <span className="text-xl animate-pulse">👆</span>
                     Click the glowing points to select your destination
@@ -481,10 +500,12 @@ const Home = () => {
         {/* Cargo Capital text - absolute positioned touching the line - responsive */}
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 px-4">
           <h3 className="text-3xl sm:text-4xl md:text-6xl lg:text-8xl xl:text-9xl font-black whitespace-nowrap uppercase tracking-wider sm:tracking-wide md:tracking-widest" 
-              style={{ 
+              style={{
                 color: '#CBD5E0',
                 textShadow: '0 6px 18px rgba(0,0,0,0.8), 0 0 60px rgba(113,128,150,0.6)',
-                fontFamily: '"Avenir Black", "Avenir", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+                fontFamily: '"Times New Roman", Times, serif',
+                fontWeight: 'bold',
+                letterSpacing: '0.05em',
                 WebkitTextStroke: '1.5px #000000',
                 paintOrder: 'stroke fill',
                 filter: 'drop-shadow(0 3px 6px rgba(0,0,0,0.9))'

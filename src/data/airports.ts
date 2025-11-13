@@ -1,893 +1,232 @@
-// Major international airports by country
+// Complete airport database for all countries from CSV data
 export const COUNTRY_AIRPORTS: Record<string, string[]> = {
-  'United States': [
-    'John F. Kennedy International Airport (JFK) - New York',
-    'Los Angeles International Airport (LAX) - Los Angeles',
-    'O\'Hare International Airport (ORD) - Chicago',
-    'Dallas/Fort Worth International Airport (DFW) - Dallas',
-    'Denver International Airport (DEN) - Denver',
-    'San Francisco International Airport (SFO) - San Francisco',
-    'Seattle-Tacoma International Airport (SEA) - Seattle',
-    'Miami International Airport (MIA) - Miami',
-    'Atlanta Hartsfield-Jackson Airport (ATL) - Atlanta',
-    'Boston Logan International Airport (BOS) - Boston'
-  ],
-  'United Kingdom': [
-    'Heathrow Airport (LHR) - London',
-    'Gatwick Airport (LGW) - London',
-    'Manchester Airport (MAN) - Manchester',
-    'Edinburgh Airport (EDI) - Edinburgh',
-    'Birmingham Airport (BHX) - Birmingham',
-    'Glasgow Airport (GLA) - Glasgow'
-  ],
-  'Germany': [
-    'Frankfurt Airport (FRA) - Frankfurt',
-    'Munich Airport (MUC) - Munich',
-    'Berlin Brandenburg Airport (BER) - Berlin',
-    'Düsseldorf Airport (DUS) - Düsseldorf',
-    'Hamburg Airport (HAM) - Hamburg'
-  ],
-  'Japan': [
-    'Narita International Airport (NRT) - Tokyo',
-    'Haneda Airport (HND) - Tokyo',
-    'Kansai International Airport (KIX) - Osaka',
-    'Chubu Centrair International Airport (NGO) - Nagoya',
-    'New Chitose Airport (CTS) - Sapporo'
-  ],
-  'Australia': [
-    'Sydney Kingsford Smith Airport (SYD) - Sydney',
-    'Melbourne Airport (MEL) - Melbourne',
-    'Brisbane Airport (BNE) - Brisbane',
-    'Perth Airport (PER) - Perth',
-    'Adelaide Airport (ADL) - Adelaide'
-  ],
-  'India': [
-    'Indira Gandhi International Airport (DEL) - New Delhi',
-    'Chhatrapati Shivaji International Airport (BOM) - Mumbai',
-    'Kempegowda International Airport (BLR) - Bangalore',
-    'Chennai International Airport (MAA) - Chennai',
-    'Netaji Subhas Chandra Bose International Airport (CCU) - Kolkata',
-    'Rajiv Gandhi International Airport (HYD) - Hyderabad'
-  ],
-  'China': [
-    'Beijing Capital International Airport (PEK) - Beijing',
-    'Shanghai Pudong International Airport (PVG) - Shanghai',
-    'Guangzhou Baiyun International Airport (CAN) - Guangzhou',
-    'Chengdu Shuangliu International Airport (CTU) - Chengdu',
-    'Shenzhen Bao\'an International Airport (SZX) - Shenzhen'
-  ],
-  'United Arab Emirates': [
-    'Dubai International Airport (DXB) - Dubai',
-    'Abu Dhabi International Airport (AUH) - Abu Dhabi',
-    'Sharjah International Airport (SHJ) - Sharjah',
-    'Al Maktoum International Airport (DWC) - Dubai'
-  ],
-  'Canada': [
-    'Toronto Pearson International Airport (YYZ) - Toronto',
-    'Vancouver International Airport (YVR) - Vancouver',
-    'Montreal-Pierre Elliott Trudeau Airport (YUL) - Montreal',
-    'Calgary International Airport (YYC) - Calgary',
-    'Edmonton International Airport (YEG) - Edmonton'
-  ],
-  'France': [
-    'Charles de Gaulle Airport (CDG) - Paris',
-    'Orly Airport (ORY) - Paris',
-    'Nice Côte d\'Azur Airport (NCE) - Nice',
-    'Lyon-Saint Exupéry Airport (LYS) - Lyon',
-    'Marseille Provence Airport (MRS) - Marseille'
-  ],
-  'South Korea': [
-    'Incheon International Airport (ICN) - Seoul',
-    'Gimpo International Airport (GMP) - Seoul',
-    'Gimhae International Airport (PUS) - Busan',
-    'Jeju International Airport (CJU) - Jeju'
-  ],
-  'Singapore': [
-    'Singapore Changi Airport (SIN) - Singapore'
-  ],
-  'Netherlands': [
-    'Amsterdam Airport Schiphol (AMS) - Amsterdam',
-    'Rotterdam The Hague Airport (RTM) - Rotterdam',
-    'Eindhoven Airport (EIN) - Eindhoven'
-  ],
-  'Italy': [
-    'Leonardo da Vinci-Fiumicino Airport (FCO) - Rome',
-    'Milan Malpensa Airport (MXP) - Milan',
-    'Venice Marco Polo Airport (VCE) - Venice',
-    'Naples International Airport (NAP) - Naples',
-    'Bergamo Orio al Serio Airport (BGY) - Bergamo'
-  ],
-  'Spain': [
-    'Adolfo Suárez Madrid-Barajas Airport (MAD) - Madrid',
-    'Barcelona-El Prat Airport (BCN) - Barcelona',
-    'Palma de Mallorca Airport (PMI) - Palma de Mallorca',
-    'Málaga-Costa del Sol Airport (AGP) - Málaga',
-    'Alicante-Elche Airport (ALC) - Alicante'
-  ],
-  'Saudi Arabia': [
-    'King Khalid International Airport (RUH) - Riyadh',
-    'King Abdulaziz International Airport (JED) - Jeddah',
-    'King Fahd International Airport (DMM) - Dammam',
-    'Prince Mohammad bin Abdulaziz Airport (MED) - Medina'
-  ],
-  'Malaysia': [
-    'Kuala Lumpur International Airport (KUL) - Kuala Lumpur',
-    'Kota Kinabalu International Airport (BKI) - Kota Kinabalu',
-    'Penang International Airport (PEN) - Penang',
-    'Langkawi International Airport (LGK) - Langkawi'
-  ],
-  'Thailand': [
-    'Suvarnabhumi Airport (BKK) - Bangkok',
-    'Don Mueang International Airport (DMK) - Bangkok',
-    'Phuket International Airport (HKT) - Phuket',
-    'Chiang Mai International Airport (CNX) - Chiang Mai'
-  ],
-  'Qatar': [
-    'Hamad International Airport (DOH) - Doha'
-  ],
-  'New Zealand': [
-    'Auckland Airport (AKL) - Auckland',
-    'Wellington International Airport (WLG) - Wellington',
-    'Christchurch International Airport (CHC) - Christchurch',
-    'Queenstown Airport (ZQN) - Queenstown'
-  ],
-  'Brazil': [
-    'São Paulo/Guarulhos International Airport (GRU) - São Paulo',
-    'Rio de Janeiro-Galeão International Airport (GIG) - Rio de Janeiro',
-    'Brasília International Airport (BSB) - Brasília',
-    'Confins International Airport (CNF) - Belo Horizonte'
-  ],
-  'Mexico': [
-    'Mexico City International Airport (MEX) - Mexico City',
-    'Cancún International Airport (CUN) - Cancún',
-    'Guadalajara International Airport (GDL) - Guadalajara',
-    'Monterrey International Airport (MTY) - Monterrey'
-  ],
-  'Turkey': [
-    'Istanbul Airport (IST) - Istanbul',
-    'Sabiha Gökçen International Airport (SAW) - Istanbul',
-    'Antalya Airport (AYT) - Antalya',
-    'Ankara Esenboğa Airport (ESB) - Ankara'
-  ],
-  'Switzerland': [
-    'Zurich Airport (ZRH) - Zurich',
-    'Geneva Airport (GVA) - Geneva',
-    'EuroAirport Basel-Mulhouse-Freiburg (BSL) - Basel'
-  ],
-  'Belgium': [
-    'Brussels Airport (BRU) - Brussels',
-    'Brussels South Charleroi Airport (CRL) - Charleroi',
-    'Antwerp International Airport (ANR) - Antwerp'
-  ],
-  'Austria': [
-    'Vienna International Airport (VIE) - Vienna',
-    'Salzburg Airport (SZG) - Salzburg',
-    'Innsbruck Airport (INN) - Innsbruck'
-  ],
-  'Sweden': [
-    'Stockholm Arlanda Airport (ARN) - Stockholm',
-    'Göteborg Landvetter Airport (GOT) - Gothenburg',
-    'Copenhagen Airport (CPH) - Copenhagen (serves Sweden)'
-  ],
-  'Norway': [
-    'Oslo Airport, Gardermoen (OSL) - Oslo',
-    'Bergen Airport, Flesland (BGO) - Bergen',
-    'Stavanger Airport, Sola (SVG) - Stavanger'
-  ],
-  'Denmark': [
-    'Copenhagen Airport (CPH) - Copenhagen',
-    'Billund Airport (BLL) - Billund',
-    'Aalborg Airport (AAL) - Aalborg'
-  ],
-  'Finland': [
-    'Helsinki-Vantaa Airport (HEL) - Helsinki',
-    'Oulu Airport (OUL) - Oulu',
-    'Rovaniemi Airport (RVN) - Rovaniemi'
-  ],
-  'Poland': [
-    'Warsaw Chopin Airport (WAW) - Warsaw',
-    'Kraków John Paul II International Airport (KRK) - Kraków',
-    'Gdańsk Lech Wałęsa Airport (GDN) - Gdańsk'
-  ],
-  'Portugal': [
-    'Lisbon Portela Airport (LIS) - Lisbon',
-    'Porto Airport (OPO) - Porto',
-    'Faro Airport (FAO) - Faro'
-  ],
-  'Greece': [
-    'Athens International Airport (ATH) - Athens',
-    'Thessaloniki Airport (SKG) - Thessaloniki',
-    'Heraklion International Airport (HER) - Heraklion'
-  ],
-  'Ireland': [
-    'Dublin Airport (DUB) - Dublin',
-    'Cork Airport (ORK) - Cork',
-    'Shannon Airport (SNN) - Shannon'
-  ],
-  'Russia': [
-    'Sheremetyevo International Airport (SVO) - Moscow',
-    'Domodedovo International Airport (DME) - Moscow',
-    'Pulkovo Airport (LED) - Saint Petersburg',
-    'Koltsovo Airport (SVX) - Yekaterinburg'
-  ],
-  'South Africa': [
-    'O.R. Tambo International Airport (JNB) - Johannesburg',
-    'Cape Town International Airport (CPT) - Cape Town',
-    'King Shaka International Airport (DUR) - Durban'
-  ],
-  'Egypt': [
-    'Cairo International Airport (CAI) - Cairo',
-    'Hurghada International Airport (HRG) - Hurghada',
-    'Sharm El Sheikh International Airport (SSH) - Sharm El Sheikh'
-  ],
-  'Israel': [
-    'Ben Gurion Airport (TLV) - Tel Aviv',
-    'Ramon Airport (ETM) - Eilat',
-    'Haifa Airport (HFA) - Haifa'
-  ],
-  'Philippines': [
-    'Ninoy Aquino International Airport (MNL) - Manila',
-    'Mactan-Cebu International Airport (CEB) - Cebu',
-    'Clark International Airport (CRK) - Clark'
-  ],
-  'Indonesia': [
-    'Soekarno-Hatta International Airport (CGK) - Jakarta',
-    'Ngurah Rai International Airport (DPR) - Bali',
-    'Juanda International Airport (SUB) - Surabaya'
-  ],
-  'Vietnam': [
-    'Tan Son Nhat International Airport (SGN) - Ho Chi Minh City',
-    'Noi Bai International Airport (HAN) - Hanoi',
-    'Da Nang International Airport (DAD) - Da Nang'
-  ],
-  'Taiwan': [
-    'Taiwan Taoyuan International Airport (TPE) - Taipei',
-    'Taipei Songshan Airport (TSA) - Taipei',
-    'Kaohsiung International Airport (KHH) - Kaohsiung'
-  ],
-  'Hong Kong': [
-    'Hong Kong International Airport (HKG) - Hong Kong'
-  ],
-  'Kuwait': [
-    'Kuwait International Airport (KWI) - Kuwait City'
-  ],
-  'Oman': [
-    'Muscat International Airport (MCT) - Muscat',
-    'Salalah Airport (SLL) - Salalah'
-  ],
-  'Bahrain': [
-    'Bahrain International Airport (BAH) - Manama'
-  ],
-  'Argentina': [
-    'Ministro Pistarini International Airport (EZE) - Buenos Aires',
-    'Jorge Newbery Airpark (AEP) - Buenos Aires',
-    'Córdoba International Airport (COR) - Córdoba'
-  ],
-  'Chile': [
-    'Arturo Merino Benítez International Airport (SCL) - Santiago',
-    'El Tepual Airport (PMC) - Puerto Montt'
-  ],
-  'Colombia': [
-    'El Dorado International Airport (BOG) - Bogotá',
-    'José María Córdova International Airport (MDE) - Medellín',
-    'Rafael Núñez International Airport (CTG) - Cartagena'
-  ],
-  'Peru': [
-    'Jorge Chávez International Airport (LIM) - Lima',
-    'Alejandro Velasco Astete International Airport (CUZ) - Cusco'
-  ],
-  'Pakistan': [
-    'Jinnah International Airport (KHI) - Karachi',
-    'Allama Iqbal International Airport (LHE) - Lahore',
-    'Islamabad International Airport (ISB) - Islamabad'
-  ],
-  'Bangladesh': [
-    'Hazrat Shahjalal International Airport (DAC) - Dhaka',
-    'Shah Amanat International Airport (CGP) - Chittagong'
-  ],
-  'Sri Lanka': [
-    'Bandaranaike International Airport (CMB) - Colombo',
-    'Mattala Rajapaksa International Airport (HRI) - Hambantota'
-  ],
-  'Nepal': [
-    'Tribhuvan International Airport (KTM) - Kathmandu',
-    'Gautam Buddha International Airport (BWA) - Bhairahawa',
-    'Pokhara International Airport (PKR) - Pokhara'
-  ],
-  'Kenya': [
-    'Jomo Kenyatta International Airport (NBO) - Nairobi',
-    'Moi International Airport (MBA) - Mombasa'
-  ],
-  'Nigeria': [
-    'Murtala Muhammed International Airport (LOS) - Lagos',
-    'Nnamdi Azikiwe International Airport (ABV) - Abuja',
-    'Port Harcourt International Airport (PHC) - Port Harcourt'
-  ],
-  'Morocco': [
-    'Mohammed V International Airport (CMN) - Casablanca',
-    'Marrakesh Menara Airport (RAK) - Marrakesh',
-    'Rabat-Salé Airport (RBA) - Rabat'
-  ],
-  'Afghanistan': [
-    'Hamid Karzai International Airport (KBL) - Kabul',
-    'Herat International Airport (HEA) - Herat',
-    'Kandahar International Airport (KDH) - Kandahar'
-  ],
-  'Albania': [
-    'Tirana International Airport (TIA) - Tirana',
-    'Kukës International Airport (KFZ) - Kukës'
-  ],
-  'Algeria': [
-    'Houari Boumediene Airport (ALG) - Algiers',
-    'Oran Es Sénia Airport (ORN) - Oran',
-    'Constantine Mohamed Boudiaf Airport (CZL) - Constantine'
-  ],
-  'Andorra': [
-    'La Seu d\'Urgell Airport (LEU) - La Seu d\'Urgell (Spain, near Andorra)',
-    'Toulouse-Blagnac Airport (TLS) - Toulouse (France, serves Andorra)'
-  ],
-  'Angola': [
-    'Quatro de Fevereiro Airport (LAD) - Luanda',
-    'Lubango Airport (SDD) - Lubango',
-    'Catumbela Airport (CBT) - Catumbela'
-  ],
-  'Antigua and Barbuda': [
-    'V.C. Bird International Airport (ANU) - St. John\'s'
-  ],
-  'Armenia': [
-    'Zvartnots International Airport (EVN) - Yerevan',
-    'Shirak Airport (LWN) - Gyumri'
-  ],
-  'Azerbaijan': [
-    'Heydar Aliyev International Airport (GYD) - Baku',
-    'Ganja International Airport (KVD) - Ganja',
-    'Nakhchivan International Airport (NAJ) - Nakhchivan'
-  ],
-  'Bahamas': [
-    'Lynden Pindling International Airport (NAS) - Nassau',
-    'Grand Bahama International Airport (FPO) - Freeport'
-  ],
-  'Barbados': [
-    'Grantley Adams International Airport (BGI) - Bridgetown'
-  ],
-  'Belarus': [
-    'Minsk National Airport (MSQ) - Minsk',
-    'Gomel Airport (GME) - Gomel'
-  ],
-  'Belize': [
-    'Philip S. W. Goldson International Airport (BZE) - Belize City',
-    'Sir Barry Bowen Municipal Airport (TZA) - Belize City'
-  ],
-  'Benin': [
-    'Cadjehoun Airport (COO) - Cotonou'
-  ],
-  'Bhutan': [
-    'Paro International Airport (PBH) - Paro',
-    'Bathpalathang Airport (BUT) - Bumthang'
-  ],
-  'Bolivia': [
-    'Viru Viru International Airport (VVI) - Santa Cruz',
-    'El Alto International Airport (LPB) - La Paz',
-    'Jorge Wilstermann International Airport (CBB) - Cochabamba'
-  ],
-  'Bosnia and Herzegovina': [
-    'Sarajevo International Airport (SJJ) - Sarajevo',
-    'Mostar International Airport (OMO) - Mostar',
-    'Banja Luka International Airport (BNX) - Banja Luka'
-  ],
-  'Botswana': [
-    'Sir Seretse Khama International Airport (GBE) - Gaborone',
-    'Maun Airport (MUB) - Maun',
-    'Kasane Airport (BBK) - Kasane'
-  ],
-  'Brunei': [
-    'Brunei International Airport (BWN) - Bandar Seri Begawan'
-  ],
-  'Bulgaria': [
-    'Sofia Airport (SOF) - Sofia',
-    'Varna Airport (VAR) - Varna',
-    'Burgas Airport (BOJ) - Burgas'
-  ],
-  'Burkina Faso': [
-    'Ouagadougou Airport (OUA) - Ouagadougou',
-    'Bobo Dioulasso Airport (BOY) - Bobo Dioulasso'
-  ],
-  'Burundi': [
-    'Melchior Ndadaye International Airport (BJM) - Bujumbura'
-  ],
-  'Cabo Verde': [
-    'Amilcar Cabral International Airport (SID) - Sal',
-    'Nelson Mandela International Airport (RAI) - Praia'
-  ],
-  'Cambodia': [
-    'Phnom Penh International Airport (PNH) - Phnom Penh',
-    'Siem Reap International Airport (REP) - Siem Reap',
-    'Sihanoukville International Airport (KOS) - Sihanoukville'
-  ],
-  'Cameroon': [
-    'Douala International Airport (DLA) - Douala',
-    'Yaoundé Nsimalen International Airport (NSI) - Yaoundé',
-    'Garoua International Airport (GOU) - Garoua'
-  ],
-  'Central African Republic': [
-    'Bangui M\'Poko International Airport (BGF) - Bangui'
-  ],
-  'Chad': [
-    'N\'Djamena International Airport (NDJ) - N\'Djamena',
-    'Abéché Airport (AEH) - Abéché'
-  ],
-  'Comoros': [
-    'Prince Said Ibrahim International Airport (HAH) - Moroni'
-  ],
-  'Congo (Congo-Brazzaville)': [
-    'Maya-Maya Airport (BZV) - Brazzaville',
-    'Pointe-Noire Airport (PNR) - Pointe-Noire'
-  ],
-  'Costa Rica': [
-    'Juan Santamaría International Airport (SJO) - San José',
-    'Daniel Oduber Quirós International Airport (LIR) - Liberia',
-    'Limón International Airport (LIO) - Limón'
-  ],
-  'Croatia': [
-    'Zagreb Airport (ZAG) - Zagreb',
-    'Split Airport (SPU) - Split',
-    'Dubrovnik Airport (DBV) - Dubrovnik'
-  ],
-  'Cuba': [
-    'José Martí International Airport (HAV) - Havana',
-    'Juan Gualberto Gómez Airport (VRA) - Varadero',
-    'Antonio Maceo Airport (SCU) - Santiago de Cuba'
-  ],
-  'Cyprus': [
-    'Larnaca International Airport (LCA) - Larnaca',
-    'Paphos International Airport (PFO) - Paphos',
-    'Ercan International Airport (ECN) - Nicosia (Northern Cyprus)'
-  ],
-  'Czech Republic': [
-    'Václav Havel Airport Prague (PRG) - Prague',
-    'Brno-Tuřany Airport (BRQ) - Brno',
-    'Ostrava Leoš Janáček Airport (OSR) - Ostrava'
-  ],
-  'Democratic Republic of the Congo': [
-    'N\'djili Airport (FIH) - Kinshasa',
-    'Lubumbashi International Airport (FBM) - Lubumbashi',
-    'Goma International Airport (GOM) - Goma'
-  ],
-  'Djibouti': [
-    'Djibouti-Ambouli International Airport (JIB) - Djibouti City'
-  ],
-  'Dominica': [
-    'Douglas-Charles Airport (DOM) - Marigot',
-    'Canefield Airport (DCF) - Canefield'
-  ],
-  'Dominican Republic': [
-    'Las Américas International Airport (SDQ) - Santo Domingo',
-    'Punta Cana International Airport (PUJ) - Punta Cana',
-    'Gregorio Luperón International Airport (POP) - Puerto Plata'
-  ],
-  'Ecuador': [
-    'Mariscal Sucre International Airport (UIO) - Quito',
-    'José Joaquín de Olmedo International Airport (GYE) - Guayaquil',
-    'Seymour Airport (GPS) - Galápagos Islands'
-  ],
-  'El Salvador': [
-    'Monseñor Óscar Arnulfo Romero International Airport (SAL) - San Salvador'
-  ],
-  'Equatorial Guinea': [
-    'Malabo International Airport (SSG) - Malabo',
-    'Bata Airport (BSG) - Bata'
-  ],
-  'Eritrea': [
-    'Asmara International Airport (ASM) - Asmara',
-    'Massawa International Airport (MSW) - Massawa'
-  ],
-  'Estonia': [
-    'Tallinn Airport (TLL) - Tallinn',
-    'Tartu Airport (TAY) - Tartu'
-  ],
-  'Eswatini': [
-    'King Mswati III International Airport (SHO) - Manzini',
-    'Matsapha International Airport (MTS) - Manzini'
-  ],
-  'Ethiopia': [
-    'Addis Ababa Bole International Airport (ADD) - Addis Ababa',
-    'Mekele Airport (MQX) - Mekele',
-    'Bahir Dar Airport (BJR) - Bahir Dar'
-  ],
-  'Fiji': [
-    'Nadi International Airport (NAN) - Nadi',
-    'Nausori International Airport (SUV) - Suva'
-  ],
-  'Gabon': [
-    'Libreville International Airport (LBV) - Libreville',
-    'Port-Gentil Airport (POG) - Port-Gentil'
-  ],
-  'Gambia': [
-    'Banjul International Airport (BJL) - Banjul'
-  ],
-  'Georgia': [
-    'Tbilisi International Airport (TBS) - Tbilisi',
-    'Batumi International Airport (BUS) - Batumi',
-    'Kutaisi International Airport (KUT) - Kutaisi'
-  ],
-  'Ghana': [
-    'Kotoka International Airport (ACC) - Accra',
-    'Kumasi Airport (KMS) - Kumasi',
-    'Tamale Airport (TML) - Tamale'
-  ],
-  'Grenada': [
-    'Maurice Bishop International Airport (GND) - St. George\'s'
-  ],
-  'Guatemala': [
-    'La Aurora International Airport (GUA) - Guatemala City',
-    'Mundo Maya International Airport (FRS) - Flores'
-  ],
-  'Guinea': [
-    'Conakry International Airport (CKY) - Conakry',
-    'Labé Airport (LEK) - Labé'
-  ],
-  'Guinea-Bissau': [
-    'Osvaldo Vieira International Airport (OXB) - Bissau'
-  ],
-  'Guyana': [
-    'Cheddi Jagan International Airport (GEO) - Georgetown',
-    'Eugene F. Correia International Airport (OGL) - Georgetown'
-  ],
-  'Haiti': [
-    'Toussaint Louverture International Airport (PAP) - Port-au-Prince',
-    'Cap-Haïtien International Airport (CAP) - Cap-Haïtien'
-  ],
-  'Honduras': [
-    'Toncontín International Airport (TGU) - Tegucigalpa',
-    'Ramón Villeda Morales International Airport (SAP) - San Pedro Sula',
-    'Juan Manuel Gálvez International Airport (RTB) - Roatán'
-  ],
-  'Hungary': [
-    'Budapest Ferenc Liszt International Airport (BUD) - Budapest',
-    'Debrecen International Airport (DEB) - Debrecen'
-  ],
-  'Iceland': [
-    'Keflavík International Airport (KEF) - Reykjavik',
-    'Reykjavik Airport (RKV) - Reykjavik'
-  ],
-  'Iran': [
-    'Imam Khomeini International Airport (IKA) - Tehran',
-    'Mehrabad International Airport (THR) - Tehran',
-    'Mashhad International Airport (MHD) - Mashhad',
-    'Shiraz International Airport (SYZ) - Shiraz'
-  ],
-  'Iraq': [
-    'Baghdad International Airport (BGW) - Baghdad',
-    'Erbil International Airport (EBL) - Erbil',
-    'Basra International Airport (BSR) - Basra'
-  ],
-  'Ivory Coast': [
-    'Félix-Houphouët-Boigny International Airport (ABJ) - Abidjan',
-    'Yamoussoukro Airport (ASK) - Yamoussoukro'
-  ],
-  'Jamaica': [
-    'Norman Manley International Airport (KIN) - Kingston',
-    'Sangster International Airport (MBJ) - Montego Bay'
-  ],
-  'Jordan': [
-    'Queen Alia International Airport (AMM) - Amman',
-    'King Hussein International Airport (AQJ) - Aqaba',
-    'Marka International Airport (ADJ) - Amman'
-  ],
-  'Kazakhstan': [
-    'Nursultan Nazarbayev International Airport (NQZ) - Nur-Sultan',
-    'Almaty International Airport (ALA) - Almaty',
-    'Shymkent International Airport (CIT) - Shymkent'
-  ],
-  'Kiribati': [
-    'Bonriki International Airport (TRW) - Tarawa',
-    'Cassidy International Airport (CXI) - Christmas Island'
-  ],
-  'Kyrgyzstan': [
-    'Manas International Airport (FRU) - Bishkek',
-    'Osh Airport (OSS) - Osh'
-  ],
-  'Laos': [
-    'Wattay International Airport (VTE) - Vientiane',
-    'Luang Prabang International Airport (LPQ) - Luang Prabang',
-    'Pakse International Airport (PKZ) - Pakse'
-  ],
-  'Latvia': [
-    'Riga International Airport (RIX) - Riga',
-    'Liepāja International Airport (LPX) - Liepāja'
-  ],
-  'Lebanon': [
-    'Beirut-Rafic Hariri International Airport (BEY) - Beirut'
-  ],
-  'Lesotho': [
-    'Moshoeshoe I International Airport (MSU) - Maseru'
-  ],
-  'Liberia': [
-    'Roberts International Airport (ROB) - Monrovia',
-    'Spriggs Payne Airport (MLW) - Monrovia'
-  ],
-  'Libya': [
-    'Tripoli International Airport (TIP) - Tripoli',
-    'Benina International Airport (BEN) - Benghazi',
-    'Mitiga International Airport (MJI) - Tripoli'
-  ],
-  'Liechtenstein': [
-    'St. Gallen-Altenrhein Airport (ACH) - Altenrhein (Switzerland, serves Liechtenstein)',
-    'Zurich Airport (ZRH) - Zurich (Switzerland, serves Liechtenstein)'
-  ],
-  'Lithuania': [
-    'Vilnius Airport (VNO) - Vilnius',
-    'Kaunas Airport (KUN) - Kaunas',
-    'Palanga International Airport (PLQ) - Palanga'
-  ],
-  'Luxembourg': [
-    'Luxembourg Airport (LUX) - Luxembourg City'
-  ],
-  'Madagascar': [
-    'Ivato International Airport (TNR) - Antananarivo',
-    'Fascene Airport (NOS) - Nosy Be',
-    'Toamasina Airport (TMM) - Toamasina'
-  ],
-  'Malawi': [
-    'Kamuzu International Airport (LLW) - Lilongwe',
-    'Chileka International Airport (BLZ) - Blantyre'
-  ],
-  'Maldives': [
-    'Velana International Airport (MLE) - Malé',
-    'Gan International Airport (GAN) - Gan'
-  ],
-  'Mali': [
-    'Modibo Keita International Airport (BKO) - Bamako',
-    'Mopti Airport (MZI) - Mopti'
-  ],
-  'Malta': [
-    'Malta International Airport (MLA) - Valletta'
-  ],
-  'Marshall Islands': [
-    'Marshall Islands International Airport (MAJ) - Majuro',
-    'Bucholz Army Airfield (KWA) - Kwajalein'
-  ],
-  'Mauritania': [
-    'Nouakchott–Oumtounsy International Airport (NKC) - Nouakchott',
-    'Nouadhibou International Airport (NDB) - Nouadhibou'
-  ],
-  'Mauritius': [
-    'Sir Seewoosagur Ramgoolam International Airport (MRU) - Port Louis',
-    'Sir Gaëtan Duval Airport (RRG) - Rodrigues'
-  ],
-  'Micronesia': [
-    'Pohnpei International Airport (PNI) - Pohnpei',
-    'Chuuk International Airport (TKK) - Chuuk'
-  ],
-  'Moldova': [
-    'Chișinău International Airport (KIV) - Chișinău'
-  ],
-  'Monaco': [
-    'Nice Côte d\'Azur Airport (NCE) - Nice (France, serves Monaco)',
-    'Monaco Heliport (MCM) - Monaco'
-  ],
-  'Mongolia': [
-    'Chinggis Khaan International Airport (ULN) - Ulaanbaatar',
-    'Buyant-Ukhaa International Airport (UBN) - Ulaanbaatar'
-  ],
-  'Montenegro': [
-    'Podgorica Airport (TGD) - Podgorica',
-    'Tivat Airport (TIV) - Tivat'
-  ],
-  'Mozambique': [
-    'Maputo International Airport (MPM) - Maputo',
-    'Beira Airport (BEW) - Beira',
-    'Nampula Airport (APL) - Nampula'
-  ],
-  'Myanmar': [
-    'Yangon International Airport (RGN) - Yangon',
-    'Mandalay International Airport (MDL) - Mandalay',
-    'Naypyidaw International Airport (NYT) - Naypyidaw'
-  ],
-  'Namibia': [
-    'Hosea Kutako International Airport (WDH) - Windhoek',
-    'Eros Airport (ERS) - Windhoek',
-    'Walvis Bay Airport (WVB) - Walvis Bay'
-  ],
-  'Nauru': [
-    'Nauru International Airport (INU) - Yaren'
-  ],
-  'Nicaragua': [
-    'Augusto C. Sandino International Airport (MGA) - Managua',
-    'Bluefields Airport (BEF) - Bluefields'
-  ],
-  'Niger': [
-    'Diori Hamani International Airport (NIM) - Niamey',
-    'Agadez Airport (AJY) - Agadez'
-  ],
-  'North Korea': [
-    'Pyongyang Sunan International Airport (FNJ) - Pyongyang',
-    'Wonsan Kalma International Airport (WOS) - Wonsan'
-  ],
-  'North Macedonia': [
-    'Skopje International Airport (SKP) - Skopje',
-    'Ohrid St. Paul the Apostle Airport (OHD) - Ohrid'
-  ],
-  'Palau': [
-    'Roman Tmetuchl International Airport (ROR) - Koror'
-  ],
-  'Palestine': [
-    'Yasser Arafat International Airport (GZA) - Gaza (currently inactive)',
-    'Ben Gurion Airport (TLV) - Tel Aviv (serves West Bank)'
-  ],
-  'Panama': [
-    'Tocumen International Airport (PTY) - Panama City',
-    'Marcos A. Gelabert International Airport (PAC) - Panama City',
-    'Enrique Malek International Airport (DAV) - David'
-  ],
-  'Papua New Guinea': [
-    'Jacksons International Airport (POM) - Port Moresby',
-    'Mount Hagen Kagamuga Airport (HGU) - Mount Hagen',
-    'Madang Airport (MAG) - Madang'
-  ],
-  'Paraguay': [
-    'Silvio Pettirossi International Airport (ASU) - Asunción',
-    'Guaraní International Airport (AGT) - Ciudad del Este'
-  ],
-  'Romania': [
-    'Henri Coandă International Airport (OTP) - Bucharest',
-    'Cluj-Napoca International Airport (CLJ) - Cluj-Napoca',
-    'Timișoara Traian Vuia International Airport (TSR) - Timișoara'
-  ],
-  'Rwanda': [
-    'Kigali International Airport (KGL) - Kigali',
-    'Kamembe Airport (KME) - Kamembe'
-  ],
-  'Saint Kitts and Nevis': [
-    'Robert L. Bradshaw International Airport (SKB) - Basseterre',
-    'Vance W. Amory International Airport (NEV) - Nevis'
-  ],
-  'Saint Lucia': [
-    'Hewanorra International Airport (UVF) - Vieux Fort',
-    'George F. L. Charles Airport (SLU) - Castries'
-  ],
-  'Saint Vincent and the Grenadines': [
-    'Argyle International Airport (SVD) - Kingstown'
-  ],
-  'Samoa': [
-    'Faleolo International Airport (APW) - Apia'
-  ],
-  'San Marino': [
-    'Federico Fellini International Airport (RMI) - Rimini (Italy, serves San Marino)',
-    'Bologna Guglielmo Marconi Airport (BLQ) - Bologna (Italy, serves San Marino)'
-  ],
-  'Sao Tome and Principe': [
-    'São Tomé International Airport (TMS) - São Tomé'
-  ],
-  'Senegal': [
-    'Blaise Diagne International Airport (DSS) - Dakar',
-    'Léopold Sédar Senghor International Airport (DKR) - Dakar',
-    'Cap Skirring Airport (CSK) - Cap Skirring'
-  ],
-  'Serbia': [
-    'Belgrade Nikola Tesla Airport (BEG) - Belgrade',
-    'Niš Constantine the Great Airport (INI) - Niš'
-  ],
-  'Seychelles': [
-    'Seychelles International Airport (SEZ) - Victoria',
-    'Praslin Island Airport (PRI) - Praslin'
-  ],
-  'Sierra Leone': [
-    'Freetown International Airport (FNA) - Freetown',
-    'Lungi International Airport (FNA) - Freetown'
-  ],
-  'Slovakia': [
-    'M. R. Štefánik Airport (BTS) - Bratislava',
-    'Košice International Airport (KSC) - Košice'
-  ],
-  'Slovenia': [
-    'Ljubljana Jože Pučnik Airport (LJU) - Ljubljana',
-    'Maribor Edvard Rusjan Airport (MBX) - Maribor'
-  ],
-  'Solomon Islands': [
-    'Honiara International Airport (HIR) - Honiara',
-    'Munda Airport (MUA) - Munda'
-  ],
-  'Somalia': [
-    'Aden Adde International Airport (MGQ) - Mogadishu',
-    'Hargeisa Egal International Airport (HGA) - Hargeisa',
-    'Berbera Airport (BBO) - Berbera'
-  ],
-  'South Sudan': [
-    'Juba International Airport (JUB) - Juba',
-    'Malakal Airport (MAK) - Malakal'
-  ],
-  'Sudan': [
-    'Khartoum International Airport (KRT) - Khartoum',
-    'Port Sudan New International Airport (PZU) - Port Sudan'
-  ],
-  'Suriname': [
-    'Johan Adolf Pengel International Airport (PBM) - Paramaribo',
-    'Zorg en Hoop Airport (ORG) - Paramaribo'
-  ],
-  'Syria': [
-    'Damascus International Airport (DAM) - Damascus',
-    'Aleppo International Airport (ALP) - Aleppo',
-    'Latakia Bassel Al-Assad Airport (LTK) - Latakia'
-  ],
-  'Tajikistan': [
-    'Dushanbe International Airport (DYU) - Dushanbe',
-    'Khujand Airport (LBD) - Khujand'
-  ],
-  'Tanzania': [
-    'Julius Nyerere International Airport (DAR) - Dar es Salaam',
-    'Kilimanjaro International Airport (JRO) - Kilimanjaro',
-    'Abeid Amani Karume International Airport (ZNZ) - Zanzibar'
-  ],
-  'Timor-Leste': [
-    'Presidente Nicolau Lobato International Airport (DIL) - Dili'
-  ],
-  'Togo': [
-    'Gnassingbé Eyadéma International Airport (LFW) - Lomé'
-  ],
-  'Tonga': [
-    'Fua\'amotu International Airport (TBU) - Nuku\'alofa'
-  ],
-  'Trinidad and Tobago': [
-    'Piarco International Airport (POS) - Port of Spain',
-    'A.N.R. Robinson International Airport (TAB) - Tobago'
-  ],
-  'Tunisia': [
-    'Tunis-Carthage International Airport (TUN) - Tunis',
-    'Enfidha-Hammamet International Airport (NBE) - Enfidha',
-    'Djerba-Zarzis International Airport (DJE) - Djerba'
-  ],
-  'Turkmenistan': [
-    'Ashgabat International Airport (ASB) - Ashgabat',
-    'Turkmenbashi International Airport (KRW) - Turkmenbashi'
-  ],
-  'Tuvalu': [
-    'Funafuti International Airport (FUN) - Funafuti'
-  ],
-  'Uganda': [
-    'Entebbe International Airport (EBB) - Entebbe',
-    'Arua Airport (RUA) - Arua'
-  ],
-  'Ukraine': [
-    'Boryspil International Airport (KBP) - Kyiv',
-    'Lviv Danylo Halytskyi International Airport (LWO) - Lviv',
-    'Odesa International Airport (ODS) - Odesa'
-  ],
-  'Uruguay': [
-    'Carrasco International Airport (MVD) - Montevideo',
-    'Capitán de Corbeta Carlos A. Curbelo International Airport (PDP) - Punta del Este'
-  ],
-  'Uzbekistan': [
-    'Tashkent International Airport (TAS) - Tashkent',
-    'Samarkand International Airport (SKD) - Samarkand',
-    'Bukhara International Airport (BHK) - Bukhara'
-  ],
-  'Vanuatu': [
-    'Bauerfield International Airport (VLI) - Port Vila',
-    'Pekoa International Airport (SON) - Luganville'
-  ],
-  'Vatican City': [
-    'Ciampino Airport (CIA) - Rome (Italy, serves Vatican City)',
-    'Leonardo da Vinci-Fiumicino Airport (FCO) - Rome (Italy, serves Vatican City)'
-  ],
-  'Venezuela': [
-    'Simón Bolívar International Airport (CCS) - Caracas',
-    'La Chinita International Airport (MAR) - Maracaibo',
-    'José Antonio Anzoátegui International Airport (BLA) - Barcelona'
-  ],
-  'Yemen': [
-    'Sana\'a International Airport (SAH) - Sana\'a',
-    'Aden International Airport (ADE) - Aden',
-    'Seiyun Airport (GXF) - Seiyun'
-  ],
-  'Zambia': [
-    'Kenneth Kaunda International Airport (LUN) - Lusaka',
-    'Harry Mwanga Nkumbula International Airport (LVI) - Livingstone',
-    'Simon Mwansa Kapwepwe International Airport (NLA) - Ndola'
-  ],
-  'Zimbabwe': [
-    'Robert Gabriel Mugabe International Airport (HRE) - Harare',
-    'Joshua Mqabuko Nkomo International Airport (BUQ) - Bulawayo',
-    'Victoria Falls International Airport (VFA) - Victoria Falls'
-  ]
+  'Afghanistan': ['Ahmad Shah Baba International Airport / Kandahar Airfield', 'Herat - Khwaja Abdullah Ansari International Airport', 'Kabul International Airport', 'Mazar-i-Sharif International Airport'],
+  'Albania': ['Tirana International Airport Mother Teresa'],
+  'Algeria': ['Ain Arnat Airport', 'Annaba Rabah Bitat Airport', 'Batna Mostefa Ben Boulaid Airport', 'Biskra - Mohamed Khider Airport', 'Chlef Aboubakr Belkaid International Airport', 'Hassi Messaoud-Oued Irara Krim Belkacem Airport', 'Houari Boumediene Airport', 'Mohamed Boudiaf International Airport', 'Oran Es-Sénia (Ahmed Ben Bella) International Airport', 'Soummam–Abane Ramdane Airport', 'Zenata – Messali El Hadj Airport'],
+  'American Samoa': ['Pago Pago International Airport'],
+  'Angola': ['Lubango Airport', 'Quatro de Fevereiro International Airport'],
+  'Anguilla': ['Clayton J Lloyd International Airport'],
+  'Antigua and Barbuda': ['V C Bird International Airport'],
+  'Argentina': ['El Plumerillo Airport', 'Ingeniero Ambrosio Taravella Airport', 'Jorge Newbery Airpark', 'Minister Pistarini International Airport', 'Piloto Civil N. Fernández Airport', 'Rosario Islas Malvinas International Airport'],
+  'Armenia': ['Shirak International Airport', 'Zvartnots International Airport'],
+  'Aruba': ['Queen Beatrix International Airport'],
+  'Australia': ['Adelaide International Airport', 'Brisbane International Airport', 'Cairns International Airport', 'Darwin International Airport / RAAF Darwin', 'Gold Coast Airport', 'Melbourne Airport', 'Perth International Airport', 'Port Hedland International Airport', 'Sydney Kingsford Smith International Airport'],
+  'Austria': ['Graz Airport', 'Innsbruck Airport', 'Klagenfurt Airport', 'Linz-Hörsching Airport / Vogler Air Base', 'Salzburg Airport', 'Vienna International Airport'],
+  'Azerbaijan': ['Gabala International Airport', 'Heydar Aliyev International Airport', 'Lankaran International Airport', 'Nakhchivan Airport'],
+  'Bahamas': ['Exuma International Airport', 'Governor\'s Harbour Airport', 'Grand Bahama International Airport', 'Leonard M Thompson International Airport', 'Lynden Pindling International Airport', 'North Eleuthera Airport', 'San Salvador Airport', 'South Bimini Airport', 'Treasure Cay Airport'],
+  'Bahrain': ['Bahrain International Airport'],
+  'Bangladesh': ['Hazrat Shahjalal International Airport', 'Osmany International Airport', 'Shah Amanat International Airport'],
+  'Barbados': ['Grantley Adams International Airport'],
+  'Belarus': ['Minsk National Airport'],
+  'Belgium': ['Antwerp International Airport (Deurne)', 'Brussels Airport', 'Brussels South Charleroi Airport', 'Liège Airport', 'Oostende-Brugge International Airport'],
+  'Belize': ['Philip S. W. Goldson International Airport'],
+  'Benin': ['Cadjehoun Airport'],
+  'Bermuda': ['L.F. Wade International Airport'],
+  'Bhutan': ['Paro International Airport'],
+  'Bolivia': ['El Alto International Airport', 'Jorge Wilsterman International Airport', 'Viru Viru International Airport'],
+  'Bonaire, Sint Eustatius and Saba': ['Flamingo International Airport', 'Juancho E. Yrausquin Airport'],
+  'Bosnia and Herzegovina': ['Banja Luka International Airport', 'Mostar International Airport', 'Sarajevo International Airport', 'Tuzla International Airport'],
+  'Botswana': ['Kasane Airport', 'Maun Airport', 'P G Matante Intl', 'Sir Seretse Khama International Airport'],
+  'Brazil': ['Afonso Pena Airport', 'Cataratas International Airport', 'Deputado Luiz Eduardo Magalhães International Airport', 'Eduardo Gomes International Airport', 'Guarulhos - Governador André Franco Montoro International Airport', 'Hercílio Luz International Airport', 'Pinto Martins International Airport', 'Presidente Juscelino Kubitschek International Airport', 'Recife/Guararapes - Gilberto Freyre International Airport', 'Rio Galeão – Tom Jobim International Airport', 'Salgado Filho International Airport', 'São Gonçalo do Amarante - Governador Aluízio Alves International Airport', 'Tancredo Neves International Airport', 'Val de Cans/Júlio Cezar Ribeiro International Airport', 'Viracopos International Airport'],
+  'British Virgin Islands': ['Terrance B. Lettsome International Airport', 'Virgin Gorda Airport'],
+  'Brunei': ['Brunei International Airport'],
+  'Bulgaria': ['Burgas Airport', 'Plovdiv International Airport', 'Sofia Airport', 'Varna Airport'],
+  'Burkina Faso': ['Bobo Dioulasso Airport', 'Ouagadougou Airport'],
+  'Burundi': ['Bujumbura Melchior Ndadaye International Airport'],
+  'Cabo Verde': ['Amílcar Cabral International Airport', 'Rabil Airport', 'São Pedro Airport'],
+  'Cambodia': ['Phnom Penh International Airport'],
+  'Cameroon': ['Douala International Airport', 'Garoua International Airport', 'N\'Gaoundéré Airport', 'Yaoundé Nsimalen International Airport'],
+  'Canada': ['Billy Bishop Toronto City Centre Airport', 'Calgary International Airport', 'Edmonton International Airport', 'Fort McMurray Airport', 'Greater Moncton Roméo LeBlanc International Airport', 'Halifax / Stanfield International Airport', 'Kelowna International Airport', 'London Airport', 'Montreal / Pierre Elliott Trudeau International Airport', 'Ottawa Macdonald-Cartier International Airport', 'Quebec Jean Lesage International Airport', 'Regina International Airport', 'Region of Waterloo International Airport', 'Saskatoon John G. Diefenbaker International Airport', 'St. John\'s International Airport', 'Toronto Lester B. Pearson International Airport', 'Vancouver International Airport', 'Victoria International Airport', 'Winnipeg / James Armstrong Richardson International Airport'],
+  'Cayman Islands': ['Charles Kirkconnell International Airport', 'Owen Roberts International Airport'],
+  'Central African Republic': ['Bangui M\'Poko International Airport'],
+  'Chad': ['N\'Djamena International Airport'],
+  'Chile': ['Andrés Sabella Gálvez International Airport', 'Chacalluta Airport', 'Comodoro Arturo Merino Benítez International Airport', 'Diego Aracena Airport', 'Mataveri Airport', 'President Carlos Ibañez del Campo International Airport'],
+  'China': ['Beijing Capital International Airport', 'Changchun Longjia International Airport', 'Changsha Huanghua International Airport', 'Chengdu Shuangliu International Airport', 'Chongqing Jiangbei International Airport', 'Dalian Zhoushuizi International Airport', 'Fuzhou Changle International Airport', 'Guangzhou Baiyun International Airport', 'Guilin Liangjiang International Airport', 'Guiyang Longdongbao International Airport', 'Haikou Meilan International Airport', 'Hangzhou Xiaoshan International Airport', 'Harbin Taiping International Airport', 'Hefei Xinqiao International Airport', 'Hohhot Baita International Airport', 'Huai\'an Lianshui International Airport', 'Hulunbuir Hailar Airport', 'Jiamusi Dongjiao Airport', 'Jieyang Chaoshan International Airport', 'Jinan Yaoqiang International Airport', 'Kunming Changshui International Airport', 'Lanzhou Zhongchuan International Airport', 'Lhasa Gonggar Airport', 'Lianyungang Huaguoshan International Airport', 'Lijiang Sanyi International Airport', 'Manzhouli Xijiao Airport', 'Meizhou Meixian Changgangji International Airport', 'Mudanjiang Hailang International Airport', 'Nanchang Changbei International Airport', 'Nanjing Lukou International Airport', 'Nanning Wuxu Airport', 'Nanping Wuyishan Airport', 'Ningbo Lishe International Airport', 'Qingdao Jiaodong International Airport', 'Quanzhou Jinjiang International Airport', 'Sanya Phoenix International Airport', 'Shanghai Hongqiao International Airport', 'Shanghai Pudong International Airport', 'Shenyang Taoxian International Airport', 'Shenzhen Bao\'an International Airport', 'Shijiazhuang Zhengding International Airport', 'Sunan Shuofang International Airport', 'Taiyuan Wusu International Airport', 'Tianjin Binhai International Airport', 'Tunxi International Airport', 'Wenzhou Longwan International Airport', 'Wuhan Tianhe International Airport', 'Xi\'an Xianyang International Airport', 'Xiamen Gaoqi International Airport', 'Xishuangbanna Gasa International Airport', 'Xuzhou Guanyin International Airport', 'Yancheng Nanyang International Airport', 'Yanji Chaoyangchuan Airport', 'Yantai Penglai International Airport', 'Yichang Sanxia Airport', 'Zhangjiajie Hehua International Airport', 'Zhanjiang Wuchuan Airport', 'Zhengzhou Xinzheng International Airport', 'Ürümqi Tianshan International Airport'],
+  'Christmas Island': ['Christmas Island Airport'],
+  'Cocos (Keeling) Islands': ['Cocos (Keeling) Islands Airport'],
+  'Colombia': ['Alfonso Bonilla Aragon International Airport', 'Camilo Daza International Airport', 'El Dorado International Airport', 'El Eden Airport', 'Ernesto Cortissoz International Airport', 'Gustavo Rojas Pinilla International Airport', 'Jose Maria Córdova International Airport', 'Matecaña International Airport', 'Palonegro Airport', 'Rafael Nuñez International Airport'],
+  'Comoros': ['Prince Said Ibrahim International Airport'],
+  'Congo': ['Antonio Agostinho-Neto International Airport', 'Maya-Maya Airport'],
+  'Cook Islands': ['Rarotonga International Airport'],
+  'Costa Rica': ['Guanacaste Airport', 'Juan Santamaría International Airport'],
+  'Croatia': ['Dubrovnik Ruđer Bošković Airport', 'Osijek Airport', 'Pula Airport', 'Rijeka Airport', 'Split Airport', 'Zadar Airport', 'Zagreb Franjo Tuđman International Airport'],
+  'Cuba': ['Abel Santamaria Airport', 'Antonio Maceo International Airport', 'Frank Pais International Airport', 'Ignacio Agramonte International Airport', 'Jardines Del Rey Airport', 'José Martí International Airport', 'Juan Gualberto Gomez International Airport', 'Vilo Acuña International Airport'],
+  'Curaçao': ['Hato International Airport'],
+  'Cyprus': ['Larnaca International Airport', 'Nicosia (Lefkoşa) Ercan International Airport', 'Paphos International Airport'],
+  'Czech Republic': ['Brno-Tuřany Airport', 'Karlovy Vary Airport', 'Ostrava Leos Janáček Airport', 'Pardubice Airport', 'Václav Havel Airport Prague'],
+  'Democratic Republic of the Congo': ['Lubumbashi International Airport', 'Ndjili International Airport'],
+  'Denmark': ['Aalborg Airport', 'Aarhus Airport', 'Billund Airport', 'Copenhagen Kastrup Airport', 'Esbjerg Airport'],
+  'Djibouti': ['Djibouti-Ambouli Airport'],
+  'Dominica': ['Douglas-Charles Airport'],
+  'Dominican Republic': ['Casa De Campo International Airport', 'Cibao International Airport', 'Gregorio Luperon International Airport', 'La Isabela International Airport', 'Las Américas International Airport', 'Punta Cana International Airport', 'Samaná El Catey International Airport'],
+  'Ecuador': ['Carlos Concha Torres International Airport', 'José Joaquín de Olmedo International Airport', 'Mariscal Sucre International Airport'],
+  'Egypt': ['Alexandria International Airport', 'Aswan International Airport', 'Asyut International Airport', 'Cairo International Airport', 'Hurghada International Airport', 'Luxor International Airport', 'Marsa Alam International Airport', 'Sharm El Sheikh International Airport', 'Sohag International Airport'],
+  'El Salvador': ['Monseñor Óscar Arnulfo Romero International Airport'],
+  'Equatorial Guinea': ['Bata Airport', 'Malabo Airport'],
+  'Eritrea': ['Asmara International Airport'],
+  'Estonia': ['Lennart Meri Tallinn Airport', 'Tartu Airport'],
+  'Eswatini': ['Matsapha Airport'],
+  'Ethiopia': ['Aba Tenna Dejazmach Yilma International Airport', 'Addis Ababa Bole International Airport'],
+  'Falkland Islands (Malvinas)': ['Mount Pleasant Airport'],
+  'Faroe Islands': ['Vágar Airport'],
+  'Fiji': ['Nadi International Airport', 'Nausori International Airport'],
+  'Finland': ['Helsinki Vantaa Airport', 'Lappeenranta Airport', 'Mariehamn Airport', 'Oulu Airport', 'Pori Airport', 'Tampere-Pirkkala Airport', 'Turku Airport', 'Vaasa Airport'],
+  'France': ['Ajaccio Napoléon Bonaparte airport', 'Bastia Poretta airport', 'Beauvais Tillé airport', 'Bergerac Dordogne-Périgord airport', 'Biarritz Pays Basque airport', 'Bordeaux–Mérignac Airport', 'Brest Bretagne airport', 'Brive Souillac airport', 'Béziers Vias airport', 'Calvi Sainte Catherine Airport', 'Carcassonne Salvaza Airport', 'Chalons Vatry airport', 'Charles de Gaulle International Airport', 'Clermont-Ferrand Auvergne airport', 'Deauville Normandie airport', 'Dinard Pleurtuit Saint-Malo airport', 'Dole Tavaux Airport', 'EuroAirport Basel–Mulhouse–Freiburg', 'Figari Sud-Corse Airport', 'La Rochelle Île de Ré Airport', 'Lille Airport', 'Limoges Airport', 'Lyon Saint-Exupéry Airport', 'Marseille Provence Airport', 'Metz-Nancy-Lorraine Airport', 'Montpellier-Méditerranée Airport', 'Nantes Atlantique Airport', 'Nice-Côte d\'Azur Airport', 'Nîmes-Arles-Camargue Airport', 'Paris-Orly Airport', 'Perpignan-Rivesaltes (Llabanère) Airport', 'Poitiers-Biard Airport', 'Rennes-Saint-Jacques Airport', 'Rodez–Aveyron Airport', 'Saint-Étienne-Bouthéon Airport', 'Strasbourg Airport', 'Tarbes-Lourdes-Pyrénées Airport', 'Toulon-Hyères Airport', 'Toulouse-Blagnac Airport', 'Tours Val de Loire Airport'],
+  'French Guiana': ['Cayenne – Félix Eboué Airport'],
+  'French Polynesia': ['Faa\'a International Airport'],
+  'Gabon': ['Libreville Leon M\'ba International Airport', 'Port Gentil Airport'],
+  'Gambia': ['Banjul International Airport'],
+  'Georgia': ['Batumi International Airport', 'David the Builder Kutaisi International Airport', 'Tbilisi International Airport'],
+  'Germany': ['Augsburg Airport', 'Bremen Airport', 'Cologne Bonn Airport', 'Dortmund Airport', 'Dresden Airport', 'Düsseldorf Airport', 'Erfurt-Weimar Airport', 'Frankfurt Airport', 'Frankfurt-Hahn Airport', 'Friedrichshafen Airport', 'Hamburg Helmut Schmidt Airport', 'Hamburg-Finkenwerder Airport', 'Hannover Airport', 'Karlsruhe Baden-Baden Airport', 'Kassel Airport', 'Leipzig/Halle Airport', 'Lübeck Blankensee Airport', 'Memmingen Allgau Airport', 'Munich Airport', 'Münster Osnabrück Airport', 'Nuremberg Airport', 'Paderborn Lippstadt Airport', 'Rostock-Laage Airport', 'Saarbrücken Airport', 'Stuttgart Airport', 'Weeze Airport', 'Westerland Sylt Airport', 'Zweibrücken Airport'],
+  'Ghana': ['Kotoka International Airport'],
+  'Gibraltar': ['Gibraltar Airport'],
+  'Greece': ['Aktion National Airport', 'Athens Eleftherios Venizelos International Airport', 'Chania International Airport', 'Chios Island National Airport', 'Corfu Ioannis Kapodistrias International Airport', 'Diagoras Airport', 'Heraklion International Nikos Kazantzakis Airport', 'Kalamata Airport', 'Karpathos Airport', 'Kavala Alexander the Great International Airport', 'Kefallinia Airport', 'Kithira Airport', 'Kos Airport', 'Mykonos Island National Airport', 'Mytilene International Airport', 'Nea Anchialos National Airport', 'Patras Araxos Agamemnon Airport', 'Samos Airport', 'Santorini Airport', 'Thessaloniki Macedonia International Airport', 'Zakynthos International Airport Dionysios Solomos'],
+  'Greenland': ['Kangerlussuaq Airport', 'Nuuk Airport'],
+  'Grenada': ['Maurice Bishop International Airport'],
+  'Guadeloupe': ['Guadeloupe - Maryse Condé International Airport'],
+  'Guam': ['Antonio B. Won Pat International Airport'],
+  'Guatemala': ['La Aurora Airport', 'Mundo Maya International Airport'],
+  'Guernsey': ['Alderney Airport', 'Guernsey Airport'],
+  'Guinea': ['Conakry International Airport'],
+  'Guinea-Bissau': ['Osvaldo Vieira International Airport'],
+  'Guyana': ['Cheddi Jagan International Airport', 'Eugene F. Correia International Airport'],
+  'Haiti': ['Cap Haitien International Airport', 'Toussaint Louverture International Airport'],
+  'Honduras': ['Goloson International Airport', 'Juan Manuel Gálvez International Airport', 'Ramón Villeda Morales International Airport', 'Toncontín International Airport'],
+  'Hong Kong': ['Hong Kong International Airport'],
+  'Hungary': ['Budapest Liszt Ferenc International Airport', 'Debrecen International Airport'],
+  'Iceland': ['Keflavik International Airport', 'Reykjavík Domestic Airport'],
+  'India': ['Bagdogra Airport', 'Calicut International Airport', 'Chaudhary Charan Singh International Airport', 'Chennai International Airport', 'Chhatrapati Shivaji International Airport', 'Cochin International Airport', 'Coimbatore International Airport', 'Dabolim Airport', 'Dr. Babasaheb Ambedkar International Airport', 'Indira Gandhi International Airport', 'Jaipur International Airport', 'Kempegowda International Airport', 'Lal Bahadur Shastri Airport', 'Lokpriya Gopinath Bordoloi International Airport', 'Madurai Airport', 'Mangalore International Airport', 'Netaji Subhash Chandra Bose International Airport', 'Pune Airport / Lohagaon Air Force Station', 'Rajiv Gandhi International Airport', 'Sardar Vallabh Bhai Patel International Airport', 'Sri Guru Ram Dass Jee International Airport', 'Thiruvananthapuram International Airport', 'Tiruchirappalli International Airport', 'Visakhapatnam Airport'],
+  'Indonesia': ['Achmad Yani Airport', 'Adisumarmo Airport', 'Adisutjipto Airport', 'Denpasar I Gusti Ngurah Rai International Airport', 'Hang Nadim International Airport', 'Hasanuddin International Airport', 'Husein Sastranegara International Airport', 'Juanda International Airport', 'Juwata International Airport / Suharnoko Harbani AFB', 'Lombok International Airport', 'Minangkabau International Airport', 'Sam Ratulangi Airport', 'Soekarno-Hatta International Airport', 'Sultan Aji Muhammad Sulaiman Sepinggan International Airport', 'Sultan Iskandar Muda International Airport', 'Sultan Mahmud Badaruddin II Airport', 'Sultan Syarif Kasim II International Airport / Roesmin Nurjadin AFB', 'Supadio Airport'],
+  'Iran': ['Bandar Abbas International Airport', 'Bandar Lengeh International Airport', 'Bushehr Airport', 'Chabahar Konarak International Airport', 'Gorgan Airport', 'Imam Khomeini International Airport', 'Isfahan Shahid Beheshti International Airport', 'Kish International Airport', 'Lamerd Airport', 'Lar Airport', 'Lieutenant General Qasem Soleimani International Airport', 'Mashhad International Airport', 'Mehrabad International Airport', 'Sardar-e-Jangal Airport', 'Shahid Ashrafi Esfahani Airport', 'Shahid Sadooghi Airport', 'Shiraz Shahid Dastghaib International Airport', 'Tabriz International Airport', 'Urmia Airport', 'Zahedan International Airport'],
+  'Iraq': ['Al Najaf International Airport', 'Baghdad International Airport / New Al Muthana Air Base', 'Basra International Airport', 'Erbil International Airport', 'Mosul International Airport', 'Sulaymaniyah International Airport'],
+  'Ireland': ['Cork Airport', 'Donegal Airport', 'Dublin Airport', 'Ireland West Knock Airport', 'Kerry Airport', 'Shannon Airport', 'Waterford Airport'],
+  'Isle of Man': ['Isle of Man Airport'],
+  'Israel': ['Ben Gurion International Airport', 'Ovda Airport'],
+  'Italy': ['Abruzzo Airport', 'Alghero-Fertilia Airport', 'Bari Karol Wojtyła International Airport', 'Bologna Guglielmo Marconi Airport', 'Brindisi Airport', 'Cagliari Elmas Airport', 'Catania-Fontanarossa Airport', 'Ciampino–G. B. Pastine International Airport', 'Comiso Airport', 'Cuneo International Airport', 'Falcone–Borsellino Airport', 'Federico Fellini International Airport', 'Florence Airport, Peretola', 'Genoa Cristoforo Colombo Airport', 'Lamezia Terme Sant\'Eufemia International Airport', 'Marche Airport', 'Marina di Campo Airport', 'Milan Bergamo Airport / Antonio Locatelli Air Base', 'Milan Malpensa International Airport', 'Milano Linate Airport', 'Naples International Airport', 'Olbia Costa Smeralda Airport', 'Parma Airport', 'Perugia San Francesco d\'Assisi – Umbria International Airport', 'Pisa International Airport', 'Rome–Fiumicino Leonardo da Vinci International Airport', 'Treviso Antonio Canova Airport', 'Trieste–Friuli Venezia Giulia Airport', 'Turin Airport', 'Venice Marco Polo Airport', 'Verona Villafranca Valerio Catullo Airport', 'Vincenzo Florio Airport Trapani-Birgi'],
+  'Ivory Coast': ['Félix-Houphouët-Boigny International Airport'],
+  'Jamaica': ['Norman Manley International Airport', 'Sangster International Airport'],
+  'Japan': ['Akita Airport', 'Aomori Airport', 'Asahikawa Airport', 'Chubu Centrair International Airport', 'Fukuoka Airport', 'Hakodate Airport', 'Hiroshima Airport', 'Ibaraki Airport / JASDF Hyakuri Air Base', 'Kagoshima Airport', 'Kansai International Airport', 'Komatsu Airport / JASDF Komatsu Air Base', 'Kumamoto Airport', 'Kushiro Airport', 'Matsuyama Airport', 'Miyazaki Airport', 'Nagasaki Airport', 'Naha Airport / JASDF Naha Air Base', 'Narita International Airport', 'New Chitose Airport', 'New Ishigaki Airport', 'Niigata Airport', 'Oita Airport', 'Okayama Momotaro Airport', 'Saga Airport', 'Sendai Airport', 'Takamatsu Airport', 'Tokyo Haneda International Airport', 'Toyama Airport', 'Yamaguchi Ube Airport', 'Yonago Kitaro Airport / JASDF Miho Air Base'],
+  'Jersey': ['Jersey Airport'],
+  'Jordan': ['Aqaba King Hussein International Airport', 'Queen Alia International Airport'],
+  'Kazakhstan': ['Aktau Airport', 'Aktobe Airport', 'Almaty International Airport', 'Atyrau International Airport', 'Kokshetau Airport', 'Kostanay West Airport', 'Pavlodar Airport', 'Sary-Arka Airport', 'Shymkent Airport', 'Taraz Airport', 'Ust-Kamenogorsk Airport'],
+  'Kenya': ['Jomo Kenyatta International Airport', 'Moi International Airport', 'Nairobi Wilson Airport', 'Wajir Airport'],
+  'Kiribati': ['Bonriki International Airport', 'Cassidy International Airport'],
+  'Kuwait': ['Kuwait International Airport'],
+  'Kyrgyzstan': ['Osh Airport'],
+  'Laos': ['Luang Phabang International Airport', 'Pakse International Airport', 'Savannakhet Airport', 'Wattay International Airport'],
+  'Latvia': ['Riga International Airport'],
+  'Lebanon': ['Beirut Rafic Hariri International Airport'],
+  'Lesotho': ['Moshoeshoe I International Airport'],
+  'Liberia': ['Roberts International Airport', 'Spriggs Payne Airport'],
+  'Libya': ['Al Abraq International Airport', 'Benina International Airport', 'Sirt International Airport / Ghardabiya Airbase', 'Tobruk International Airport'],
+  'Lithuania': ['Kaunas International Airport', 'Palanga International Airport', 'Vilnius International Airport'],
+  'Luxembourg': ['Luxembourg-Findel International Airport'],
+  'Macao': ['Macau International Airport'],
+  'Madagascar': ['Amborovy Airport', 'Arrachart Airport', 'Fascene Airport', 'Ivato Airport', 'Sainte Marie Airport', 'Toamasina Ambalamanasy Airport'],
+  'Malawi': ['Chileka International Airport', 'Kamuzu International Airport'],
+  'Malaysia': ['Kota Kinabalu International Airport', 'Kuala Lumpur International Airport', 'Kuantan Airport', 'Kuching International Airport', 'LTS Pulau Redang Airport', 'Langkawi International Airport', 'Miri Airport', 'Mulu Airport', 'Penang International Airport', 'Senai International Airport', 'Sultan Abdul Aziz Shah International Airport', 'Sultan Azlan Shah Airport', 'Sultan Ismail Petra Airport', 'Sultan Mahmud Airport', 'Tawau Airport'],
+  'Maldives': ['Gan International Airport', 'Hanimaadhoo Airport', 'Malé International Airport'],
+  'Mali': ['Modibo Keita International Airport'],
+  'Malta': ['Malta International Airport'],
+  'Marshall Islands': ['Bucholz Army Air Field', 'Marshall Islands International Airport'],
+  'Martinique': ['Martinique Aimé Césaire International Airport'],
+  'Mauritania': ['Nouadhibou International Airport', 'Nouakchott–Oumtounsy International Airport', 'Tazadit Airport'],
+  'Mauritius': ['Sir Seewoosagur Ramgoolam International Airport'],
+  'Mayotte': ['Dzaoudzi Pamandzi International Airport'],
+  'Mexico': ['Adolfo López Mateos International Airport', 'Bahías de Huatulco International Airport', 'Benito Juárez International Airport', 'Cancún International Airport', 'Carlos Rovirosa Pérez International Airport', 'Ciudad del Carmen International Airport', 'Cozumel International Airport', 'Del Bajío International Airport', 'Francisco Sarabia Tinoco International Airport', 'General Abelardo L. Rodriguez International Airport', 'General Francisco J. Mujica International Airport', 'General Francisco Javier Mina International Airport', 'General Guadalupe Victoria International Airport', 'General Heriberto Jara International Airport', 'General Ignacio P. Garcia International Airport', 'General Juan N. Álvarez International Airport', 'General Leobardo C. Ruiz International Airport', 'General Rafael Buelna International Airport', 'General Roberto Fierro Villalobos International Airport', 'Guadalajara International Airport', 'Hermanos Serdán International Airport', 'Ixtapa-Zihuatanejo International Airport', 'Jesús Terán Peredo International Airport', 'Loreto International Airport', 'Los Cabos International Airport', 'Manuel Crescencio Rejón International Airport', 'Monterrey International Airport', 'Plan De Guadalupe International Airport', 'Playa de Oro International Airport', 'Ponciano Arriaga International Airport', 'Puerto Vallarta International Airport', 'Querétaro Intercontinental Airport', 'Tapachula International Airport', 'Uruapan - Licenciado y General Ignacio Lopez Rayon International Airport', 'Xoxocotlán International Airport'],
+  'Micronesia': ['Chuuk International Airport', 'Kosrae International Airport', 'Pohnpei International Airport', 'Yap International Airport'],
+  'Mongolia': ['Buyant-Ukhaa International Airport', 'Choibalsan Airport'],
+  'Montenegro': ['Podgorica Airport / Podgorica Golubovci Airbase', 'Tivat Airport'],
+  'Morocco': ['Al Massira Airport', 'Essaouira-Mogador Airport', 'Fes Saïss International Airport', 'Menara Airport', 'Mohammed V International Airport', 'Nador Al Aaroui International Airport', 'Ouarzazate Airport', 'Oujda Angads Airport', 'Rabat-Salé Airport', 'Tangier Ibn Battuta Airport'],
+  'Mozambique': ['Beira Airport', 'Chingozi Airport', 'Inhambane Airport', 'Maputo Airport', 'Nampula Airport', 'Pemba Airport', 'Vilankulo Airport'],
+  'Myanmar': ['Mandalay International Airport', 'Nay Pyi Taw International Airport', 'Yangon International Airport'],
+  'Namibia': ['Hosea Kutako International Airport', 'Walvis Bay Airport'],
+  'Nauru': ['Nauru International Airport'],
+  'Nepal': ['Tribhuvan International Airport'],
+  'Netherlands': ['Amsterdam Airport Schiphol', 'Eindhoven Airport', 'Groningen Airport Eelde', 'Maastricht Aachen Airport', 'Rotterdam The Hague Airport'],
+  'New Caledonia': ['La Tontouta International Airport'],
+  'New Zealand': ['Auckland International Airport', 'Christchurch International Airport', 'Dunedin International Airport', 'Queenstown International Airport', 'Wellington International Airport'],
+  'Nicaragua': ['Augusto C. Sandino (Managua) International Airport'],
+  'Niger': ['Diori Hamani International Airport'],
+  'Nigeria': ['Akanu Ibiam International Airport', 'Mallam Aminu International Airport', 'Murtala Muhammed International Airport', 'Nnamdi Azikiwe International Airport'],
+  'Niue': ['Niue International Airport'],
+  'Norfolk Island': ['Norfolk Island International Airport'],
+  'North Korea': ['Pyongyang Sunan International Airport'],
+  'North Macedonia': ['Skopje International Airport'],
+  'Northern Mariana Islands': ['Rota International Airport', 'Saipan International Airport'],
+  'Norway': ['Bergen Airport, Flesland', 'Haugesund Airport, Karmøy', 'Kristiansand Airport, Kjevik', 'Kristiansund Airport, Kvernberget', 'Molde Airport, Årø', 'Oslo Airport, Gardermoen', 'Stavanger Airport, Sola', 'Trondheim Airport, Værnes', 'Ålesund Airport, Vigra'],
+  'Oman': ['Muscat International Airport', 'Salalah Airport'],
+  'Pakistan': ['Allama Iqbal International Airport', 'Dera Ghazi Khan Airport', 'Islamabad International Airport', 'Jinnah International Airport', 'Multan International Airport', 'New Gwadar International Airport', 'Peshawar International Airport', 'Quetta International Airport', 'Shaikh Zaid Airport', 'Sialkot International Airport', 'Turbat International Airport'],
+  'Palau': ['Palau International Airport'],
+  'Panama': ['Bocas del Toro International Airport', 'Enrique Malek International Airport', 'Tocumen International Airport'],
+  'Papua New Guinea': ['Port Moresby Jacksons International Airport', 'Tokua Airport'],
+  'Paraguay': ['Aeropuerto Internacional Guaraní', 'Aeropuerto Internacional Silvio Pettirossi'],
+  'Peru': ['Alejandro Velasco Astete International Airport', 'Coronel FAP Francisco Secada Vignetta International Airport', 'Jorge Chávez International Airport', 'Rodríguez Ballón International Airport'],
+  'Philippines': ['Clark International Airport / Clark Air Base', 'Francisco Bangoy International Airport', 'Iloilo International Airport', 'Kalibo International Airport', 'Mactan Cebu International Airport', 'Ninoy Aquino International Airport', 'Puerto Princesa International Airport / PAF Antonio Bautista Air Base'],
+  'Poland': ['Bydgoszcz Ignacy Jan Paderewski Airport', 'Copernicus Wrocław Airport', 'Gdańsk Lech Wałęsa Airport', 'Katowice Wojciech Korfanty International Airport', 'Kraków John Paul II International Airport', 'Lublin Airport', 'Modlin Airport', 'Poznań-Ławica Airport', 'Rzeszów-Jasionka Airport', 'Solidarity Szczecin–Goleniów Airport', 'Warsaw Chopin Airport'],
+  'Portugal': ['Faro Airport', 'Francisco de Sá Carneiro Airport', 'João Paulo II Airport', 'Lisbon Humberto Delgado Airport', 'Madeira International Airport Cristiano Ronaldo'],
+  'Puerto Rico': ['Antonio Rivera Rodriguez Airport', 'Luis Munoz Marin International Airport', 'Mercedita Airport', 'Rafael Hernández International Airport'],
+  'Qatar': ['Hamad International Airport'],
+  'Romania': ['Arad International Airport', 'Bucharest Henri Coandă International Airport', 'Cluj Avram Iancu International Airport', 'Craiova International Airport', 'Iaşi Airport', 'Mihail Kogălniceanu International Airport', 'Sibiu International Airport', 'Timişoara Traian Vuia Airport', 'Târgu Mureş Transilvania International Airport'],
+  'Russia': ['Astrakhan Narimanovo Boris M. Kustodiev International Airport', 'Baikal International Airport', 'Begishevo Airport', 'Belgorod International Airport', 'Chelyabinsk Balandino Airport', 'Cherepovets Airport', 'Chita-Kadala International Airport', 'Domodedovo International Airport', 'Irkutsk International Airport', 'Kazan International Airport', 'Khabarovsk Novy Airport', 'Khanty Mansiysk Airport', 'Khrabrovo Airport', 'Koltsovo Airport', 'Krasnodar Pashkovsky International Airport', 'Krasnoyarsk International Airport', 'Kurumoch International Airport', 'Makhachkala Uytash International Airport', 'Mineralnyye Vody Airport', 'Nizhnevartovsk Airport', 'Nizhny Novgorod / Strigino International Airport', 'Novosibirsk Tolmachevo Airport', 'Omsk Central Airport', 'Orenburg Central Airport', 'Perm International Airport', 'Platov International Airport', 'Pulkovo Airport', 'Roshchino International Airport', 'Sheremetyevo International Airport', 'Sochi International Airport', 'Stavropol Shpakovskoye Airport', 'Surgut Airport', 'Ufa International Airport', 'Vladivostok International Airport', 'Vnukovo International Airport', 'Volgograd International Airport', 'Voronezh International Airport', 'Yakutsk Airport', 'Yuzhno-Sakhalinsk Airport'],
+  'Rwanda': ['Kigali International Airport'],
+  'Réunion': ['Pierrefonds Airport', 'Roland Garros Airport'],
+  'Saint Barthélemy': ['Saint Barthélemy - Gustaf III Airport'],
+  'Saint Kitts and Nevis': ['Robert L. Bradshaw International Airport', 'Vance W. Amory International Airport'],
+  'Saint Lucia': ['George F. L. Charles Airport', 'Hewanorra International Airport'],
+  'Saint Martin (French part)': ['Grand Case-l\'Espérance Airport'],
+  'Saint Pierre and Miquelon': ['St Pierre Airport'],
+  'Saint Vincent and the Grenadines': ['Argyle International Airport'],
+  'Samoa': ['Faleolo International Airport'],
+  'Sao Tome and Principe': ['São Tomé International Airport'],
+  'Saudi Arabia': ['Abha International Airport', 'Al-Ahsa International Airport', 'Gassim Airport', 'Ha\'il Airport', 'King Abdulaziz International Airport', 'King Fahd International Airport', 'King Khaled International Airport', 'Prince Abdul Mohsin bin Abdulaziz International Airport / Yanbu Airport', 'Prince Mohammad Bin Abdulaziz Airport', 'Tabuk Airport', 'Ta’if Regional Airport'],
+  'Senegal': ['Léopold Sédar Senghor International Airport'],
+  'Serbia': ['Belgrade Nikola Tesla Airport'],
+  'Seychelles': ['Seychelles International Airport'],
+  'Sierra Leone': ['Lungi International Airport'],
+  'Singapore': ['Singapore Changi Airport'],
+  'Sint Maarten (Dutch part)': ['Princess Juliana International Airport'],
+  'Slovakia': ['Košice International Airport', 'M. R. Štefánik Airport'],
+  'Slovenia': ['Ljubljana Jože Pučnik Airport'],
+  'Solomon Islands': ['Honiara International Airport'],
+  'Somalia': ['Aden Adde International Airport', 'Berbera Airport', 'Egal International Airport', 'Galcaio Airport'],
+  'South Africa': ['Cape Town International Airport', 'King Shaka International Airport', 'Kruger Mpumalanga International Airport', 'O.R. Tambo International Airport'],
+  'South Korea': ['Cheongju International Airport/Cheongju Air Base (K-59/G-513)', 'Daegu Airport', 'Gimhae International Airport', 'Gimpo International Airport', 'Incheon International Airport', 'Jeju International Airport', 'Muan International Airport', 'Yangyang International Airport'],
+  'South Sudan': ['Juba International Airport'],
+  'Spain': ['A Coruña Airport', 'Adolfo Suárez Madrid–Barajas Airport', 'Alicante-Elche Miguel Hernández Airport', 'Almería Airport', 'Asturias Airport', 'Bilbao Airport', 'César Manrique-Lanzarote Airport', 'F.G.L. Airport Granada-Jaén Airport', 'Fuerteventura Airport', 'Girona-Costa Brava Airport', 'Gran Canaria Airport', 'Ibiza Airport', 'Jerez Airport', 'Josep Tarradellas Barcelona-El Prat Airport', 'La Palma Airport', 'Menorca Airport', 'Málaga-Costa del Sol Airport', 'Palma de Mallorca Airport', 'Reus Airport', 'Santiago-Rosalía de Castro Airport', 'Seve Ballesteros-Santander Airport', 'Sevilla Airport', 'Tenerife Norte-Ciudad de La Laguna Airport', 'Tenerife Sur Airport', 'Valencia Airport', 'Vigo Airport', 'Zaragoza Airport'],
+  'Sri Lanka': ['Bandaranaike International Colombo Airport', 'Mattala Rajapaksa International Airport'],
+  'Sudan': ['Khartoum International Airport', 'Port Sudan New International Airport'],
+  'Suriname': ['Johan Adolf Pengel International Airport'],
+  'Sweden': ['Göteborg Landvetter Airport', 'Karlstad Airport', 'Linköping City Airport', 'Malmö Sturup Airport', 'Norrköping Airport', 'Pajala Airport', 'Skellefteå Airport', 'Stockholm Skavsta Airport', 'Stockholm Västerås Airport', 'Stockholm-Arlanda Airport', 'Stockholm-Bromma Airport', 'Säve Airport', 'Torsby Airport', 'Umeå Airport', 'Växjö Kronoberg Airport'],
+  'Switzerland': ['Bern Airport', 'Geneva Cointrin International Airport', 'Sankt Gallen Altenrhein Airport', 'Zürich Airport'],
+  'Taiwan': ['Hualien Airport', 'Kaohsiung International Airport', 'Taichung International Airport / Ching Chuang Kang Air Base', 'Tainan International Airport / Tainan Air Base', 'Taipei Songshan Airport', 'Taiwan Taoyuan International Airport'],
+  'Tajikistan': ['Dushanbe International Airport', 'Khujand Airport', 'Kulob Airport', 'Qurghonteppa International Airport'],
+  'Tanzania': ['Abeid Amani Karume International Airport', 'Julius Nyerere International Airport', 'Kilimanjaro International Airport', 'Mwanza Airport'],
+  'Thailand': ['Chiang Mai International Airport', 'Don Mueang International Airport', 'Hat Yai International Airport', 'Krabi Airport', 'Mae Fah Luang - Chiang Rai International Airport', 'Phuket International Airport', 'Samui Airport', 'Surat Thani Airport', 'Suvarnabhumi Airport'],
+  'Timor-Leste': ['Presidente Nicolau Lobato International Airport'],
+  'Togo': ['Lomé–Tokoin International Airport'],
+  'Tonga': ['Fua\'amotu International Airport'],
+  'Trinidad and Tobago': ['A.N.R. Robinson International Airport', 'Piarco International Airport'],
+  'Tunisia': ['Djerba Zarzis International Airport', 'Enfidha - Hammamet International Airport', 'Monastir Habib Bourguiba International Airport', 'Sfax Thyna International Airport', 'Tozeur Nefta International Airport', 'Tunis Carthage International Airport'],
+  'Turkey': ['Adana Şakirpaşa Airport', 'Adnan Menderes International Airport', 'Anadolu Airport', 'Antalya International Airport', 'Dalaman International Airport', 'Esenboğa International Airport', 'Gaziantep International Airport', 'Gazipaşa-Alanya Airport', 'Hatay Airport', 'Istanbul Sabiha Gökçen International Airport', 'Kayseri Erkilet Airport', 'Konya Airport', 'Milas Bodrum International Airport', 'Trabzon International Airport', 'Zonguldak Çaycuma Airport', 'İstanbul Airport'],
+  'Turkmenistan': ['Ashgabat International Airport'],
+  'Turks and Caicos Islands': ['Providenciales International Airport'],
+  'Tuvalu': ['Funafuti International Airport'],
+  'U.S. Virgin Islands': ['Cyril E. King Airport', 'Henry E Rohlsen Airport'],
+  'Uganda': ['Entebbe International Airport'],
+  'Ukraine': ['Boryspil International Airport', 'Dnipro International Airport', 'Ihor Sikorsky Kyiv International Airport (Zhuliany)', 'Kharkiv International Airport', 'Lviv International Airport', 'Odessa International Airport', 'Sevastopol International Airport / Belbek Air Base', 'Simferopol International Airport', 'Vinnytsia/Gavyryshivka International Airport', 'Zaporizhzhia International Airport'],
+  'United Arab Emirates': ['Al Ain International Airport', 'Al Maktoum International Airport', 'Dubai International Airport', 'Sharjah International Airport', 'Zayed International Airport'],
+  'United Kingdom': ['Aberdeen International Airport', 'Belfast International Airport', 'Birmingham Airport', 'Blackpool Airport', 'Bournemouth Airport', 'Bristol Airport', 'Cardiff International Airport', 'City of Derry Airport', 'Cornwall Airport Newquay', 'East Midlands Airport', 'Edinburgh Airport', 'Exeter International Airport', 'George Best Belfast City Airport', 'Glasgow Airport', 'Glasgow Prestwick Airport', 'Gloucestershire Airport', 'Hawarden Airport', 'Humberside Airport', 'Inverness Airport', 'Leeds Bradford Airport', 'Liverpool John Lennon Airport', 'London City Airport', 'London Gatwick Airport', 'London Heathrow Airport', 'London Luton Airport', 'London Southend Airport', 'London Stansted Airport', 'Manchester Airport', 'Newcastle International Airport', 'Norwich Airport', 'Southampton Airport', 'Teesside International Airport'],
+  'United States': ['Austin Bergstrom International Airport', 'Baltimore/Washington International Thurgood Marshall Airport', 'Birmingham-Shuttlesworth International Airport', 'Bradley International Airport', 'Charlotte Douglas International Airport', 'Chicago Midway International Airport', 'Chicago O\'Hare International Airport', 'Cincinnati Northern Kentucky International Airport', 'Cleveland Hopkins International Airport', 'Dallas Fort Worth International Airport', 'Daniel K Inouye International Airport', 'Denver International Airport', 'Detroit Metropolitan Wayne County Airport', 'Ellison Onizuka Kona International Airport at Keahole', 'Fort Lauderdale Hollywood International Airport', 'Frederick Douglass Greater Rochester International Airport', 'Fresno Yosemite International Airport', 'General Mitchell International Airport', 'George Bush Intercontinental Houston Airport', 'Harrisburg International Airport', 'Harry Reid International Airport', 'Hartsfield Jackson Atlanta International Airport', 'Indianapolis International Airport', 'Jacksonville International Airport', 'John F Kennedy International Airport', 'John Glenn Columbus International Airport', 'John Wayne Orange County International Airport', 'Kahului International Airport', 'Kansas City International Airport', 'LaGuardia Airport', 'Lihue Airport', 'Logan International Airport', 'Los Angeles International Airport', 'Louis Armstrong New Orleans International Airport', 'McAllen Miller International Airport', 'Miami International Airport', 'Minneapolis–Saint Paul International Airport / Wold–Chamberlain Field', 'Myrtle Beach International Airport', 'Nashville International Airport', 'Newark Liberty International Airport', 'Norman Y. Mineta San Jose International Airport', 'Ontario International Airport', 'Orlando International Airport', 'Orlando Sanford International Airport', 'Palm Beach International Airport', 'Palm Springs International Airport', 'Philadelphia International Airport', 'Phoenix Sky Harbor International Airport', 'Pittsburgh International Airport', 'Portland International Airport', 'Raleigh Durham International Airport', 'Richmond International Airport', 'Ronald Reagan Washington National Airport', 'Sacramento International Airport', 'Salt Lake City International Airport', 'San Antonio International Airport', 'San Diego International Airport', 'San Francisco Bay Oakland International Airport', 'San Francisco International Airport', 'Seattle–Tacoma International Airport', 'Southwest Florida International Airport', 'St. Louis Lambert International Airport', 'Syracuse Hancock International Airport', 'Tampa International Airport', 'Washington Dulles International Airport'],
+  'Uruguay': ['Capitan Corbeta CA Curbelo International Airport', 'Carrasco General Cesáreo L. Berisso International Airport'],
+  'Uzbekistan': ['Andizhan Airport', 'Bukhara International Airport', 'Fergana International Airport', 'Karshi Airport', 'Namangan Airport', 'Navoi Airport', 'Nukus Airport', 'Samarkand Airport', 'Tashkent International Airport', 'Termez Airport', 'Urgench Airport'],
+  'Vanuatu': ['Bauerfield International Airport', 'Santo Pekoa International Airport'],
+  'Venezuela': ['Arturo Michelena International Airport', 'Barquisimeto International Airport', 'Del Caribe Santiago Mariño International Airport', 'General José Antonio Anzoategui International Airport', 'General Manuel Carlos Piar International Airport', 'Josefa Camejo International Airport', 'La Chinita International Airport', 'Maiquetía Simón Bolívar International Airport'],
+  'Vietnam': ['Cam Ranh International Airport / Cam Ranh Air Base', 'Da Nang International Airport', 'Noi Bai International Airport', 'Tan Son Nhat International Airport', 'Vinh Airport'],
+  'Wallis and Futuna': ['Hihifo Airport'],
+  'Western Sahara': ['Dakhla Airport', 'Hassan I Airport'],
+  'XK': ['Priština Adem Jashari International Airport'],
+  'Yemen': ['Aden International Airport', 'Riyan Mukalla International Airport', 'Sanaa International Airport', 'Seiyun Hadhramaut International Airport', 'Ta\'izz International Airport'],
+  'Zambia': ['Harry Mwanga Nkumbula International Airport', 'Kenneth Kaunda International Airport', 'Simon Mwansa Kapwepwe International Airport'],
+  'Zimbabwe': ['Joshua Mqabuko Nkomo International Airport', 'Robert Gabriel Mugabe International Airport', 'Victoria Falls International Airport']
 };
