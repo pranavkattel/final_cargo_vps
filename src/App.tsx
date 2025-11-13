@@ -55,7 +55,7 @@ function App() {
       console.log('Force completing loading after maximum timeout');
       allResourcesLoaded = true;
       finalizeSplash();
-    }, 8000); // Maximum 8 seconds total
+    }, 4000); // Maximum 4 seconds total (reduced from 8s)
 
     // Wait for all images and videos to load
     const waitForAllResources = () => {
@@ -76,7 +76,7 @@ function App() {
 
       // Secondary check: monitor resources
       let checkCount = 0;
-      const maxChecks = 30; // 3 seconds max for this check
+      const maxChecks = 15; // 1.5 seconds max for this check (reduced from 3s)
       
       const intervalId = setInterval(() => {
         checkCount++;
@@ -119,13 +119,13 @@ function App() {
     const timeoutId = window.setTimeout(() => {
       minimumDurationComplete = true;
       finalizeSplash();
-    }, 800); // Reduced from 1500ms to 800ms for faster loading
+    }, 500); // Minimum 500ms for smooth loading experience
 
     import('./pages/Home')
       .then(() => {
         homeModuleLoaded = true;
         // Start checking for resources after Home module is loaded
-        setTimeout(waitForAllResources, 200);
+        setTimeout(waitForAllResources, 100);
         finalizeSplash();
       })
       .catch(() => {
@@ -144,33 +144,43 @@ function App() {
   }, []);
 
   useEffect(() => {
-    // Start preloading ALL pages and components immediately while loading screen is visible
-    if (hasPrefetched.current) {
+    // Preload Globe3D immediately during loading screen (critical for home page)
+    if (!hasPrefetched.current) {
+      console.log('Preloading Globe3D for home page...');
+      import('./components/Globe3D')
+        .then(() => console.log('Globe3D preloaded successfully'))
+        .catch((err) => console.error('Error preloading Globe3D:', err));
+      hasPrefetched.current = true;
+    }
+  }, []);
+
+  useEffect(() => {
+    // After splash screen is gone, preload other pages in background
+    if (isSplashVisible) {
       return;
     }
 
-    hasPrefetched.current = true;
-
-    // Preload Globe3D and pages during loading screen
-    const preloadAllRoutes = () => {
-      console.log('Starting to preload Globe3D and routes...');
+    console.log('Home page loaded! Preloading other pages in background...');
+    
+    // Small delay to ensure home page is fully rendered first
+    const timeoutId = setTimeout(() => {
       Promise.all([
-        // Preload Globe3D FIRST (critical for home page)
-        import('./components/Globe3D'),
-        // Preload pages
-      
-        
+        import('./pages/About'),
+        import('./pages/Services'),
+        import('./pages/Tracking'),
+        import('./pages/Quote'),
+        import('./pages/FAQ'),
+        import('./pages/Blog'),
+        import('./pages/BlogPost'),
+        import('./pages/Contact'),
         // Admin pages load on-demand only
       ])
-        .then(() => console.log('Globe3D and routes preloaded successfully'))
-        .catch((err) => {
-          console.error('Error preloading:', err);
-        });
-    };
+        .then(() => console.log('All other pages preloaded successfully in background'))
+        .catch((err) => console.error('Error preloading pages:', err));
+    }, 500); // Wait 500ms after home loads
 
-    // Start immediately during loading screen
-    preloadAllRoutes();
-  }, []);
+    return () => clearTimeout(timeoutId);
+  }, [isSplashVisible]);
 
   return (
     <Router>

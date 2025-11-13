@@ -392,12 +392,12 @@ const Home = () => {
         <div className="absolute top-2 left-2 z-20 pointer-events-auto">
           <div
             ref={heroGlobeRef}
-            className="relative w-[150px] h-[150px] sm:w-[180px] sm:h-[180px] md:w-[227px] md:h-[227px] lg:w-[284px] lg:h-[284px]"
+            className="relative w-[100px] h-[100px] sm:w-[140px] sm:h-[140px] md:w-[180px] md:h-[180px] lg:w-[227px] lg:h-[227px] xl:w-[284px] xl:h-[284px]"
           >
             {shouldLoadGlobe ? (
               <Suspense fallback={
                 <div className="flex h-full w-full items-center justify-center">
-                  <div className="h-6 w-6 sm:h-8 sm:w-8 animate-spin rounded-full border-b-2 border-accent-orange" />
+                  <div className="h-4 w-4 sm:h-6 sm:w-6 md:h-8 md:w-8 animate-spin rounded-full border-b-2 border-accent-orange" />
                 </div>
               }>
                 <Globe3D />

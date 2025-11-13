@@ -259,7 +259,7 @@ a:hover {
 
 @media (max-width: 768px) {
   .animate-map-slide-mobile {
-    animation: map-slide-mobile 35s ease-in-out infinite;
+    animation: map-slide-mobile 50s linear infinite;
   }
 }
 

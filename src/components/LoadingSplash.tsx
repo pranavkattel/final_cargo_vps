@@ -11,15 +11,15 @@ const LoadingSplash = ({ onFinish }: LoadingSplashProps) => {
     const originalOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
 
-    // Force complete after 5 seconds as safety fallback
+    // Force complete after 3 seconds as safety fallback
     const maxTimeout = setTimeout(() => {
       setProgress(100);
-    }, 5000);
+    }, 3000);
 
     // Track resource loading progress
     const trackResourceLoading = () => {
       let checkCount = 0;
-      const maxChecks = 40; // 4 seconds max
+      const maxChecks = 20; // 2 seconds max
 
       const checkProgress = () => {
         checkCount++;
