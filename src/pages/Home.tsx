@@ -11,6 +11,7 @@ const Home = () => {
   const [shouldLoadGlobe, setShouldLoadGlobe] = useState(false);
   const [selectedRegion, setSelectedRegion] = useState<string | null>(null);
   const [showInstructions, setShowInstructions] = useState(true);
+  const [isAnimationPaused, setIsAnimationPaused] = useState(false);
   // Use public folder paths for large video files
   const videoSources = useMemo(() => ['/videos/vid1.mp4', '/videos/vid2.mp4'], []);
   const [activeVideo, setActiveVideo] = useState(() => videoSources[0]);
@@ -95,6 +96,15 @@ const Home = () => {
     return () => clearTimeout(timer);
   }, []);
 
+  // Resume animation when no region is selected
+  useEffect(() => {
+    if (selectedRegion === null) {
+      setIsAnimationPaused(false);
+    } else {
+      setIsAnimationPaused(true);
+    }
+  }, [selectedRegion]);
+
   // Delay loading the heavy 3D globe until the hero is on screen and the browser is idle.
   useEffect(() => {
     if (typeof window === 'undefined') {
@@ -160,13 +170,20 @@ const Home = () => {
       {/* Hero Section - Earth Texture with Clickable Points */}
       <section className="relative text-white min-h-[70vh] flex items-center overflow-hidden">
         {/* Earth texture background */}
-        <div className="absolute inset-0">
-          <img
-            src={earthTexture}
-            alt="Earth"
-            className="absolute inset-0 h-full w-full object-fill animate-slow-zoom"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/50"></div>
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute inset-0 md:animate-slow-zoom">
+            <div 
+              className="absolute inset-0 md:w-full md:h-full w-[250%] h-full md:left-0 left-0 animate-map-slide-mobile"
+              style={{ animationPlayState: isAnimationPaused ? 'paused' : 'running' }}
+            >
+              <img
+                src={earthTexture}
+                alt="Earth"
+                className="absolute inset-0 h-full w-full object-cover object-center"
+              />
+            </div>
+          </div>
+          <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/50 pointer-events-none"></div>
           
           {/* Animated grid overlay for cargo tech feel */}
           <div className="absolute inset-0 opacity-10" 
@@ -177,15 +194,59 @@ const Home = () => {
           </div>
           
           {/* Animated corner accents */}
-          <div className="absolute top-0 left-0 w-32 h-32 border-t-4 border-l-4 border-accent-orange animate-pulse"></div>
-          <div className="absolute top-0 right-0 w-32 h-32 border-t-4 border-r-4 border-accent-orange animate-pulse"></div>
-          <div className="absolute bottom-0 left-0 w-32 h-32 border-b-4 border-l-4 border-accent-orange animate-pulse"></div>
-          <div className="absolute bottom-0 right-0 w-32 h-32 border-b-4 border-r-4 border-accent-orange animate-pulse"></div>
+          <div className="absolute top-0 left-0 w-20 h-20 sm:w-28 sm:h-28 md:w-32 md:h-32 border-t-4 border-l-4 border-accent-orange animate-pulse"></div>
+          <div className="absolute top-0 right-0 w-20 h-20 sm:w-28 sm:h-28 md:w-32 md:h-32 border-t-4 border-r-4 border-accent-orange animate-pulse"></div>
+          <div className="absolute bottom-0 left-0 w-20 h-20 sm:w-28 sm:h-28 md:w-32 md:h-32 border-b-4 border-l-4 border-accent-orange animate-pulse"></div>
+          <div className="absolute bottom-0 right-0 w-20 h-20 sm:w-28 sm:h-28 md:w-32 md:h-32 border-b-4 border-r-4 border-accent-orange animate-pulse"></div>
 
-          {/* Clickable animated location points overlay */}
-          <div className="absolute inset-0">
-            {[
-              { top: '30%', left: '21%', delay: '0s', label: 'North America' },
+          <div 
+            className="absolute inset-0 md:w-full md:h-full w-[250%] h-full animate-map-slide-mobile md:animate-slow-zoom pointer-events-none"
+            style={{ animationPlayState: isAnimationPaused ? 'paused' : 'running' }}
+          >
+            {/* Animated connection lines between icons */}
+            <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-30" style={{ zIndex: 5 }}>
+              <defs>
+                <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" style={{ stopColor: '#ffffff', stopOpacity: 0 }} />
+                  <stop offset="50%" style={{ stopColor: '#ffffff', stopOpacity: 0.8 }} />
+                  <stop offset="100%" style={{ stopColor: '#ffffff', stopOpacity: 0 }} />
+                </linearGradient>
+              </defs>
+            {/* All lines converging to Asia point (75%, 35%) */}
+            {/* From North America point */}
+            <line x1="21%" y1="30%" x2="75%" y2="35%" stroke="url(#lineGradient)" strokeWidth="1.5" className="animate-dash">
+              <animate attributeName="stroke-dashoffset" from="1000" to="0" dur="4s" repeatCount="indefinite" begin="0.3s" />
+            </line>
+            {/* From Europe point */}
+            <line x1="57%" y1="24%" x2="75%" y2="35%" stroke="url(#lineGradient)" strokeWidth="1.5" className="animate-dash">
+              <animate attributeName="stroke-dashoffset" from="1000" to="0" dur="4s" repeatCount="indefinite" begin="0.8s" />
+            </line>
+            {/* From South America point */}
+            <line x1="30%" y1="52%" x2="75%" y2="35%" stroke="url(#lineGradient)" strokeWidth="1.5" className="animate-dash">
+              <animate attributeName="stroke-dashoffset" from="1000" to="0" dur="4s" repeatCount="indefinite" begin="1.3s" />
+            </line>
+            {/* From Middle East point */}
+            <line x1="63%" y1="36%" x2="75%" y2="35%" stroke="url(#lineGradient)" strokeWidth="1.5" className="animate-dash">
+              <animate attributeName="stroke-dashoffset" from="1000" to="0" dur="4s" repeatCount="indefinite" begin="1.8s" />
+            </line>
+            {/* From East Asia point */}
+            <line x1="89%" y1="32%" x2="75%" y2="35%" stroke="url(#lineGradient)" strokeWidth="1.5" className="animate-dash">
+              <animate attributeName="stroke-dashoffset" from="1000" to="0" dur="4s" repeatCount="indefinite" begin="2.3s" />
+            </line>
+            {/* From Africa point */}
+            <line x1="50%" y1="40%" x2="75%" y2="35%" stroke="url(#lineGradient)" strokeWidth="1.5" className="animate-dash">
+              <animate attributeName="stroke-dashoffset" from="1000" to="0" dur="4s" repeatCount="indefinite" begin="2.8s" />
+            </line>
+            {/* From Oceania point */}
+            <line x1="88%" y1="68%" x2="75%" y2="35%" stroke="url(#lineGradient)" strokeWidth="1.5" className="animate-dash">
+              <animate attributeName="stroke-dashoffset" from="1000" to="0" dur="4s" repeatCount="indefinite" begin="3.3s" />
+            </line>
+            </svg>
+
+            {/* Clickable animated location points overlay */}
+            <div className="absolute inset-0 w-full h-full pointer-events-auto md:scale-100 scale-105" style={{ transformOrigin: 'top left' }}>
+              {[
+              { top: '27%', left: '20%', delay: '0s', label: 'North America' },
               { top: '52%', left: '30%', delay: '0.5s', label: 'South America' },
               { top: '35%', left: '75%', delay: '1s', label: 'Asia' },
               { top: '68%', left: '88%', delay: '1.5s', label: 'Oceania' },
@@ -196,61 +257,75 @@ const Home = () => {
             ].map((point, index) => (
               <div
                 key={index}
-                className="absolute group cursor-pointer animate-pulse hover:animate-none transition-all duration-300 z-10"
+                className={`absolute group cursor-pointer transition-all duration-300 z-10 ${selectedRegion === point.label ? '' : 'animate-pulse hover:animate-none'}`}
                 style={{
                   top: point.top,
                   left: point.left,
                   animationDelay: point.delay,
                 }}
-                onClick={() => setSelectedRegion(selectedRegion === point.label ? null : point.label)}
+                onClick={() => {
+                  if (selectedRegion === point.label) {
+                    // Closing the dropdown
+                    setSelectedRegion(null);
+                    setIsAnimationPaused(false);
+                  } else {
+                    // Opening a dropdown
+                    setSelectedRegion(point.label);
+                    setIsAnimationPaused(true);
+                  }
+                }}
               >
                 <div className="relative">
-                  {/* Main Point - Larger and more visible */}
-                  <div className="w-8 h-8 bg-accent-orange rounded-full opacity-95 group-hover:opacity-100 group-hover:scale-125 transition-all duration-300 shadow-2xl border-3 border-white"></div>
-                  
-                  {/* Pulsing Ring - More prominent */}
-                  <div className="absolute inset-0 w-8 h-8 bg-accent-orange rounded-full animate-ping opacity-50 group-hover:opacity-70"></div>
-                  
-                  {/* Outer Glow - Stronger */}
-                  <div className="absolute inset-0 w-8 h-8 bg-accent-orange rounded-full blur-md opacity-70 group-hover:opacity-90 transition-opacity duration-300"></div>
-                  
-                  {/* Extra outer ring for visibility */}
-                  <div className="absolute -inset-1 w-10 h-10 border-2 border-white/50 rounded-full"></div>
-                  
-                  {/* Hover Tooltip */}
-                  <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 translate-y-full px-3 py-1.5 bg-white text-smoke-dark text-xs font-semibold rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap pointer-events-none shadow-lg border border-accent-orange">
-                    {point.label}
-                    <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-b-white"></div>
-                  </div>
+                  {/* Main Point - Responsive and more visible - Hidden when ANY dropdown is open */}
+                  {!selectedRegion && (
+                    <>
+                      <div className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 lg:w-8 lg:h-8 bg-accent-orange rounded-full opacity-95 group-hover:opacity-100 group-hover:scale-125 transition-all duration-300 shadow-2xl border-2 sm:border-3 border-white"></div>
+                      
+                      {/* Pulsing Ring - Responsive */}
+                      <div className="absolute inset-0 w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 lg:w-8 lg:h-8 bg-accent-orange rounded-full animate-ping opacity-50 group-hover:opacity-70"></div>
+                      
+                      {/* Outer Glow - Responsive */}
+                      <div className="absolute inset-0 w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 lg:w-8 lg:h-8 bg-accent-orange rounded-full blur-md opacity-70 group-hover:opacity-90 transition-opacity duration-300"></div>
+                      
+                      {/* Extra outer ring for visibility - Responsive */}
+                      <div className="absolute -inset-1 w-7 h-7 sm:w-8 sm:h-8 md:w-9 md:h-9 lg:w-10 lg:h-10 border-2 border-white/50 rounded-full"></div>
+                      
+                      {/* Hover Tooltip - Responsive */}
+                      <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 translate-y-full px-2 py-1 sm:px-3 sm:py-1.5 bg-white text-smoke-dark text-[10px] sm:text-xs font-semibold rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap pointer-events-none shadow-lg border border-accent-orange">
+                        {point.label}
+                        <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 border-[3px] sm:border-4 border-transparent border-b-white"></div>
+                      </div>
+                    </>
+                  )}
 
-                  {/* Country Dropdown */}
+                  {/* Country Dropdown - Responsive */}
                   {selectedRegion === point.label && (
                     <div 
-                      className="absolute top-full left-1/2 transform -translate-x-1/2 mt-4 bg-white rounded-xl shadow-2xl p-4 min-w-[240px] max-h-[320px] overflow-hidden border border-gray-100 z-[9999] animate-fade-in"
+                      className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 sm:mt-4 bg-white rounded-lg sm:rounded-xl shadow-2xl p-3 sm:p-4 min-w-[200px] sm:min-w-[240px] max-h-[280px] sm:max-h-[320px] overflow-hidden border border-gray-100 z-[9999]"
                       style={{
                         backdropFilter: 'blur(10px)',
                         backgroundColor: 'rgba(255, 255, 255, 0.98)',
                       }}
                       onClick={(e) => e.stopPropagation()}
                     >
-                      <div className="flex justify-between items-center mb-3 pb-3 border-b-2 border-gradient-to-r from-accent-orange to-transparent">
-                        <h4 className="font-bold text-smoke-dark text-base flex items-center gap-2">
-                          <span className="text-accent-orange">📍</span>
+                      <div className="flex justify-between items-center mb-2 sm:mb-3 pb-2 sm:pb-3 border-b-2 border-gradient-to-r from-accent-orange to-transparent">
+                        <h4 className="font-bold text-smoke-dark text-sm sm:text-base flex items-center gap-1 sm:gap-2">
+                          <span className="text-accent-orange text-sm sm:text-base">📍</span>
                           {point.label}
                         </h4>
                         <button 
                           onClick={() => setSelectedRegion(null)}
-                          className="text-gray-400 hover:text-accent-orange text-2xl leading-none transition-colors duration-200 w-6 h-6 flex items-center justify-center rounded-full hover:bg-gray-100"
+                          className="text-gray-400 hover:text-accent-orange text-xl sm:text-2xl leading-none transition-colors duration-200 w-5 h-5 sm:w-6 sm:h-6 flex items-center justify-center rounded-full hover:bg-gray-100"
                         >
                           ×
                         </button>
                       </div>
-                      <div className="space-y-1 max-h-[220px] overflow-y-auto custom-scrollbar pr-1">
+                      <div className="space-y-1 max-h-[200px] sm:max-h-[220px] overflow-y-auto custom-scrollbar pr-1">
                         {regionCountries[point.label]?.map((country, idx) => (
                           <Link
                             key={idx}
                             to={`/quote?destination=${encodeURIComponent(country)}`}
-                            className="block px-4 py-2.5 rounded-lg text-sm transition-all duration-200 hover:bg-gradient-to-r hover:from-accent-orange hover:to-orange-500 hover:text-white text-smoke-dark font-medium hover:shadow-md hover:scale-[1.02] transform group"
+                            className="block px-3 py-2 sm:px-4 sm:py-2.5 rounded-lg text-xs sm:text-sm transition-all duration-200 hover:bg-gradient-to-r hover:from-accent-orange hover:to-orange-500 hover:text-white text-smoke-dark font-medium hover:shadow-md hover:scale-[1.02] transform group"
                           >
                             <span className="flex items-center gap-2">
                               <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-200">✈️</span>
@@ -259,12 +334,13 @@ const Home = () => {
                           </Link>
                         ))}
                       </div>
-                      <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-8 border-r-8 border-b-8 border-transparent border-b-white" style={{ filter: 'drop-shadow(0 -2px 2px rgba(0,0,0,0.05))' }}></div>
+                      <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-6 border-r-6 border-b-6 sm:border-l-8 sm:border-r-8 sm:border-b-8 border-transparent border-b-white" style={{ filter: 'drop-shadow(0 -2px 2px rgba(0,0,0,0.05))' }}></div>
                     </div>
                   )}
                 </div>
               </div>
             ))}
+            </div>
           </div>
         </div>
 
@@ -293,30 +369,25 @@ const Home = () => {
           </div>
         )}
 
-        {/* Top text overlay with animations */}
-        <div className="absolute top-0 left-0 right-0 z-10 pt-12 pointer-events-none">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center">
-              {/* Animated shipping icon */}
-              <div className="inline-block mb-4 animate-bounce">
-                <svg className="w-16 h-16 mx-auto text-accent-orange" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
-                </svg>
+        {/* Globe in top left corner - responsive */}
+        <div className="absolute top-2 left-2 z-20 pointer-events-auto">
+          <div
+            ref={heroGlobeRef}
+            className="relative w-[150px] h-[150px] sm:w-[180px] sm:h-[180px] md:w-[227px] md:h-[227px] lg:w-[284px] lg:h-[284px]"
+          >
+            {shouldLoadGlobe ? (
+              <Suspense fallback={
+                <div className="flex h-full w-full items-center justify-center">
+                  <div className="h-6 w-6 sm:h-8 sm:w-8 animate-spin rounded-full border-b-2 border-accent-orange" />
+                </div>
+              }>
+                <Globe3D />
+              </Suspense>
+            ) : (
+              <div className="flex h-full w-full items-center justify-center rounded-2xl bg-smoke-dark/30 backdrop-blur-sm">
+                <span className="text-xs font-medium text-white">Loading...</span>
               </div>
-              <h2 className="text-4xl md:text-6xl font-bold leading-tight animate-fade-in" 
-                  style={{
-                    animation: 'fadeInDown 1s ease-out',
-                    textShadow: '2px 2px 4px rgba(0,0,0,0.8)'
-                  }}>
-                Ship Anywhere in the <span style={{ color: '#718096' }} className="animate-pulse">World</span>
-              </h2>
-              {/* Decorative lines */}
-              <div className="flex items-center justify-center gap-4 mt-4">
-                <div className="h-0.5 w-16 bg-accent-orange animate-[slideInLeft_1s_ease-out]"></div>
-                <div className="h-1 w-24 bg-accent-orange"></div>
-                <div className="h-0.5 w-16 bg-accent-orange animate-[slideInRight_1s_ease-out]"></div>
-              </div>
-            </div>
+            )}
           </div>
         </div>
 
@@ -377,20 +448,46 @@ const Home = () => {
             width: 4rem;
           }
         }
+        @keyframes float {
+          0%, 100% {
+            transform: translateY(0px) rotate(0deg);
+          }
+          25% {
+            transform: translateY(-15px) rotate(2deg);
+          }
+          50% {
+            transform: translateY(-25px) rotate(0deg);
+          }
+          75% {
+            transform: translateY(-15px) rotate(-2deg);
+          }
+        }
+        .animate-float {
+          animation: float 6s ease-in-out infinite;
+        }
+        @keyframes dash {
+          to {
+            stroke-dashoffset: 0;
+          }
+        }
+        .animate-dash {
+          stroke-dasharray: 1000;
+          stroke-dashoffset: 1000;
+        }
       `}</style>
 
       {/* Decorative separator */}
       <div className="relative h-2 bg-gradient-to-r from-accent-orange via-primary-blue to-accent-orange">
-        {/* Cargo Capital text - absolute positioned touching the line */}
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50">
-          <h3 className="text-5xl md:text-7xl lg:text-8xl font-black whitespace-nowrap uppercase tracking-widest" 
+        {/* Cargo Capital text - absolute positioned touching the line - responsive */}
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 px-4">
+          <h3 className="text-3xl sm:text-4xl md:text-6xl lg:text-8xl xl:text-9xl font-black whitespace-nowrap uppercase tracking-wider sm:tracking-wide md:tracking-widest" 
               style={{ 
                 color: '#CBD5E0',
-                textShadow: '0 8px 24px rgba(0,0,0,0.8), 0 0 80px rgba(113,128,150,0.6)',
+                textShadow: '0 6px 18px rgba(0,0,0,0.8), 0 0 60px rgba(113,128,150,0.6)',
                 fontFamily: '"Avenir Black", "Avenir", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
-                WebkitTextStroke: '2px #000000',
+                WebkitTextStroke: '1.5px #000000',
                 paintOrder: 'stroke fill',
-                filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.9))'
+                filter: 'drop-shadow(0 3px 6px rgba(0,0,0,0.9))'
               }}>
             CAPITAL CARGO 
           </h3>
@@ -415,9 +512,9 @@ const Home = () => {
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            {/* Left side - Main text and buttons */}
-            <div className="space-y-8 text-white">
+          <div className="flex items-center justify-center">
+            {/* Centered content - Main text and buttons */}
+            <div className="space-y-8 text-white text-center max-w-4xl">
               <h1 className="text-5xl md:text-7xl font-bold leading-tight">
                 Nepal's #1 Best Cargo & <span style={{ color: '#718096' }}>Logistics Company</span>
               </h1>
@@ -425,7 +522,7 @@ const Home = () => {
                 Top-rated international shipping and freight forwarding services in Kathmandu. 
                 Trusted cargo delivery company offering air freight, sea freight, and reliable logistics solutions across Nepal and worldwide.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 pt-4">
+              <div className="flex flex-col sm:flex-row gap-4 pt-4 justify-center">
                 <Link 
                   to="/quote"
                   className="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg"
@@ -451,26 +548,6 @@ const Home = () => {
                   Track Cargo
                 </Link>
               </div>
-            </div>
-
-            {/* Right side - Globe */}
-            <div
-              ref={heroGlobeRef}
-              className="relative flex justify-center items-center"
-            >
-              {shouldLoadGlobe ? (
-                <Suspense fallback={
-                  <div className="flex h-[600px] w-full items-center justify-center">
-                    <div className="h-12 w-12 animate-spin rounded-full border-b-2 border-accent-orange" />
-                  </div>
-                }>
-                  <Globe3D />
-                </Suspense>
-              ) : (
-                <div className="flex h-[600px] w-full items-center justify-center rounded-3xl bg-smoke-dark/50 backdrop-blur-sm">
-                  <span className="text-base font-medium text-white">Preparing interactive globe…</span>
-                </div>
-              )}
             </div>
           </div>
         </div>

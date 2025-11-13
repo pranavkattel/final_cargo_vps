@@ -72,25 +72,32 @@ const Contact = () => {
       icon: MapPin,
       title: 'Visit Our Office',
       details: ['Thamel, Kathmandu 44600', 'Nepal'],
-      color: 'text-accent-orange'
+      color: 'text-accent-orange',
+      action: null
     },
     {
       icon: Phone,
       title: 'Call Us',
       details: ['+977-01-5367883', '01-5368837'],
-      color: 'text-green-600'
+      color: 'text-green-600',
+      action: {
+        type: 'call',
+        value: '+97715367883'
+      }
     },
     {
       icon: Mail,
       title: 'Email Us',
       details: ['info@cargocapital.com'],
-      color: 'text-purple-600'
+      color: 'text-purple-600',
+      action: null
     },
     {
       icon: Clock,
       title: 'Business Hours',
       details: ['Mon - Fri: 9:00 AM - 6:00 PM', 'Sat: 9:00 AM - 4:00 PM'],
-      color: 'text-accent-orange'
+      color: 'text-accent-orange',
+      action: null
     }
   ];
 
@@ -160,6 +167,18 @@ const Contact = () => {
                     <p key={detailIndex} className="text-gray-600">{detail}</p>
                   ))}
                 </div>
+                {info.action && info.action.type === 'call' && (
+                  <a
+                    href={`tel:${info.action.value}`}
+                    className="inline-flex items-center space-x-2 mt-3 px-4 py-2 rounded-lg text-white font-semibold transition-all duration-200 hover:shadow-lg"
+                    style={{ backgroundColor: '#718096' }}
+                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#2D3748'}
+                    onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#718096'}
+                  >
+                    <Phone className="h-4 w-4" />
+                    <span>Call Now</span>
+                  </a>
+                )}
               </div>
             ))}
           </div>
@@ -370,12 +389,24 @@ const Contact = () => {
               <div className="bg-primary-white rounded-xl shadow-lg p-8">
                 <h3 className="text-xl font-bold mb-4" style={{ color: '#1a1a1a' }}>Quick Contact</h3>
                 <div className="space-y-4">
-                  <div className="flex items-center space-x-3 p-3 rounded-lg" style={{ backgroundColor: '#f6f6f6' }}>
-                    <Phone className="h-5 w-5" style={{ color: '#718096' }} />
-                    <div>
-                      <p className="font-medium" style={{ color: '#1a1a1a' }}>Emergency Hotline</p>
-                      <p className="font-semibold" style={{ color: '#718096' }}>+977-01-5367883, 01-5368837</p>
+                  <div className="flex items-center justify-between p-3 rounded-lg" style={{ backgroundColor: '#f6f6f6' }}>
+                    <div className="flex items-center space-x-3">
+                      <Phone className="h-5 w-5" style={{ color: '#718096' }} />
+                      <div>
+                        <p className="font-medium" style={{ color: '#1a1a1a' }}>Emergency Hotline</p>
+                        <p className="font-semibold" style={{ color: '#718096' }}>+977-01-5367883</p>
+                      </div>
                     </div>
+                    <a
+                      href="tel:+97715367883"
+                      className="flex items-center space-x-2 px-4 py-2 rounded-lg text-white font-semibold transition-all duration-200 hover:shadow-lg flex-shrink-0"
+                      style={{ backgroundColor: '#718096' }}
+                      onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#2D3748'}
+                      onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#718096'}
+                    >
+                      <Phone className="h-4 w-4" />
+                      <span>Call</span>
+                    </a>
                   </div>
                   
                   <div className="flex items-center space-x-3 p-3 rounded-lg" style={{ backgroundColor: '#f6f6f6' }}>

@@ -76,7 +76,8 @@ const Navbar = () => {
 
           {/* Contact Number - Far Right */}
           <div className="hidden lg:flex flex-shrink-0">
-            <div 
+            <a 
+              href="tel:+97715367883"
               className="flex items-center space-x-2 px-3 py-2 rounded-lg transition-all duration-300 hover:scale-105 cursor-pointer group" 
               style={{ color: '#718096' }}
               onMouseEnter={(e) => {
@@ -90,7 +91,7 @@ const Navbar = () => {
             >
               <Phone className="h-4 w-4 transition-transform duration-300 group-hover:rotate-12" />
               <span className="text-sm font-medium">+977-01-5367883, 01-5368837</span>
-            </div>
+            </a>
           </div>
 
           {/* Mobile menu button - Far Right on mobile */}
@@ -165,7 +166,8 @@ const Navbar = () => {
               {item.name}
             </Link>
           ))}
-          <div 
+          <a 
+            href="tel:+97715367883"
             className="px-3 py-2 flex items-center space-x-2 rounded-lg transition-all duration-300 hover:scale-105 cursor-pointer group" 
             style={{ 
               color: '#718096',
@@ -182,7 +184,7 @@ const Navbar = () => {
           >
             <Phone className="h-4 w-4 transition-transform duration-300 group-hover:rotate-12" />
             <span className="text-sm font-medium">+977-01-5367883, 01-5368837</span>
-          </div>
+          </a>
         </div>
       </div>
     </nav>

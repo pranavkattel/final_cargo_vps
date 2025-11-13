@@ -72,7 +72,7 @@ const Globe = () => {
 
 const Globe3D = () => {
   return (
-    <div className="relative h-[600px] w-full">
+    <div className="relative h-full w-full">
       <Canvas 
         camera={{ position: [0, 0, 8], fov: 45 }}
       >

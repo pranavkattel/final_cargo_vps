@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { Package, MapPin, DollarSign, Clock, Shield, CheckCircle } from 'lucide-react';
+import { Package, MapPin, DollarSign, Clock, Shield, CheckCircle, Plane } from 'lucide-react';
 import { ALL_COUNTRIES, POPULAR_DESTINATIONS } from '../data/countries';
+import { COUNTRY_AIRPORTS } from '../data/airports';
 
 interface QuoteForm {
   pickupAddress: string;
@@ -10,6 +11,7 @@ interface QuoteForm {
   destinationAddress: string;
   destinationCity: string;
   destinationCountry: string;
+  destinationAirport: string;
   weight: string;
   length: string;
   width: string;
@@ -40,6 +42,7 @@ const Quote = () => {
     destinationAddress: '',
     destinationCity: '',
     destinationCountry: getInitialDestination(),
+    destinationAirport: '',
     weight: '',
     length: '',
     width: '',
@@ -168,7 +171,7 @@ const Quote = () => {
           phone: formData.phone,
           company: '', // Not collected in current form
           origin: `${formData.pickupAddress}, ${formData.pickupCity}, ${formData.pickupCountry}`,
-          destination: `${formData.destinationAddress}, ${formData.destinationCity}, ${formData.destinationCountry}`,
+          destination: `${formData.destinationAddress}, ${formData.destinationCity}, ${formData.destinationCountry}${formData.destinationAirport ? ` - ${formData.destinationAirport}` : ''}`,
           weight: `${formData.weight} kg`,
           dimensions: `${formData.length}x${formData.width}x${formData.height} cm`,
           cargoType: formData.goodsType,
@@ -293,6 +296,27 @@ const Quote = () => {
                     ))}
                   </optgroup>
                 </select>
+
+                {/* Airport selection if country is selected and has airports */}
+                {formData.destinationCountry && COUNTRY_AIRPORTS[formData.destinationCountry] && (
+                  <div className="mt-4">
+                    <label className="block font-medium text-gray-900 mb-2 flex items-center">
+                      <Plane className="h-4 w-4 mr-2 text-blue-600" />
+                      Select Destination Airport (Optional)
+                    </label>
+                    <select
+                      name="destinationAirport"
+                      value={formData.destinationAirport}
+                      onChange={handleInputChange}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-orange focus:border-transparent bg-white"
+                    >
+                      <option value="">Choose an airport in {formData.destinationCountry}</option>
+                      {COUNTRY_AIRPORTS[formData.destinationCountry].map((airport, index) => (
+                        <option key={index} value={airport}>{airport}</option>
+                      ))}
+                    </select>
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -520,7 +544,7 @@ const Quote = () => {
                 <div><b>Email:</b> {formData.email}</div>
                 <div><b>Phone:</b> {formData.phone}</div>
                 <div><b>Pickup:</b> {formData.pickupAddress}, {formData.pickupCity}, {formData.pickupCountry}</div>
-                <div><b>Destination:</b> {formData.destinationAddress}, {formData.destinationCity}, {formData.destinationCountry}</div>
+                <div><b>Destination:</b> {formData.destinationAddress}, {formData.destinationCity}, {formData.destinationCountry}{formData.destinationAirport ? ` - ${formData.destinationAirport}` : ''}</div>
                 <div><b>Goods:</b> {formData.goodsType} (${formData.goodsValue})</div>
                 <div><b>Shipping:</b> {formData.shippingMethod}, {formData.urgency}, Insurance: {formData.insurance ? 'Yes' : 'No'}</div>
               </div>

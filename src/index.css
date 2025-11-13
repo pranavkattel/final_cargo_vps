@@ -233,3 +233,29 @@ a:hover {
 .animate-slow-zoom {
   animation: slow-zoom 20s ease-in-out infinite;
 }
+
+/* Mobile Map Sliding Animation - Left to Right */
+@keyframes map-slide-mobile {
+  0% {
+    transform: translateX(0%);
+  }
+  50% {
+    transform: translateX(-60%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+@media (max-width: 768px) {
+  .animate-map-slide-mobile {
+    animation: map-slide-mobile 35s ease-in-out infinite;
+  }
+}
+
+@media (min-width: 769px) {
+  .animate-map-slide-mobile {
+    animation: none !important;
+    width: 100% !important;
+  }
+}
