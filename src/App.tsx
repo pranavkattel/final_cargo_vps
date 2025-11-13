@@ -119,7 +119,7 @@ function App() {
     const timeoutId = window.setTimeout(() => {
       minimumDurationComplete = true;
       finalizeSplash();
-    }, 1500);
+    }, 800); // Reduced from 1500ms to 800ms for faster loading
 
     import('./pages/Home')
       .then(() => {
@@ -144,42 +144,33 @@ function App() {
   }, []);
 
   useEffect(() => {
-    if (isSplashVisible || hasPrefetched.current) {
+    // Start preloading ALL pages and components immediately while loading screen is visible
+    if (hasPrefetched.current) {
       return;
     }
 
-    // Only preload user-facing pages, NOT admin pages
-    const preloadRoutes = () => {
-      Promise.all([
-        import('./pages/About'),
-        import('./pages/Services'),
-        import('./pages/Tracking'),
-        import('./pages/Quote'),
-        import('./pages/FAQ'),
-        // Admin pages and test pages will load on-demand only
-      ]).catch(() => {
-        // Ignore preload errors; navigation will fallback to lazy loading.
-      });
-      hasPrefetched.current = true;
-    };
-
-    const extendedWindow = window as typeof window & {
-      requestIdleCallback?: (cb: () => void) => number;
-      cancelIdleCallback?: (handle: number) => void;
-    };
-
-    if (typeof extendedWindow.requestIdleCallback === 'function') {
-      hasPrefetched.current = true;
-      const idleHandle = extendedWindow.requestIdleCallback(preloadRoutes);
-      return () => {
-        extendedWindow.cancelIdleCallback?.(idleHandle);
-      };
-    }
-
     hasPrefetched.current = true;
-    const timeoutId = window.setTimeout(preloadRoutes, 2000); // Delay preload to 2 seconds after initial load
-    return () => window.clearTimeout(timeoutId);
-  }, [isSplashVisible]);
+
+    // Preload Globe3D and pages during loading screen
+    const preloadAllRoutes = () => {
+      console.log('Starting to preload Globe3D and routes...');
+      Promise.all([
+        // Preload Globe3D FIRST (critical for home page)
+        import('./components/Globe3D'),
+        // Preload pages
+      
+        
+        // Admin pages load on-demand only
+      ])
+        .then(() => console.log('Globe3D and routes preloaded successfully'))
+        .catch((err) => {
+          console.error('Error preloading:', err);
+        });
+    };
+
+    // Start immediately during loading screen
+    preloadAllRoutes();
+  }, []);
 
   return (
     <Router>

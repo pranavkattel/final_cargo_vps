@@ -330,6 +330,13 @@
   
     <meta name="msvalidate.01" content="C4B5B76AD518BB78665BC245EED2D9D5" />
     
+    <!-- Preload Critical Images - Load these FIRST before anything else -->
+    <link rel="preload" as="image" href="/src/assets/images/earth_texture.jpg" type="image/jpeg" fetchpriority="high" />
+    <link rel="preload" as="image" href="/src/assets/images/logo.png" type="image/png" />
+    
+    <!-- Preload Globe3D component for faster rendering -->
+    <link rel="modulepreload" href="/src/components/Globe3D.tsx" />
+    
     <!-- Preconnect to speed up loading -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -492,6 +499,20 @@
     </style>
 
     <script>
+      // Preload critical images immediately
+      (function() {
+        // Start preloading earth texture and other critical images
+        const criticalImages = [
+          '/src/assets/images/earth_texture.jpg',
+          '/src/assets/images/logo.png'
+        ];
+        
+        criticalImages.forEach(function(src) {
+          const img = new Image();
+          img.src = src;
+        });
+      })();
+      
       // Initial loading progress (0-90%)
       (function() {
         let progress = 0;
