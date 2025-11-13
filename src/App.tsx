@@ -156,8 +156,6 @@ function App() {
         import('./pages/Tracking'),
         import('./pages/Quote'),
         import('./pages/FAQ'),
-        import('./pages/Blog'),
-        import('./pages/Contact'),
         // Admin pages and test pages will load on-demand only
       ]).catch(() => {
         // Ignore preload errors; navigation will fallback to lazy loading.
