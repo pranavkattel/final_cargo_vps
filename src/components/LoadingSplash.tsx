@@ -11,10 +11,19 @@ const LoadingSplash = ({ onFinish }: LoadingSplashProps) => {
     const originalOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
 
+    // Force complete after 5 seconds as safety fallback
+    const maxTimeout = setTimeout(() => {
+      setProgress(100);
+    }, 5000);
+
     // Track resource loading progress
     const trackResourceLoading = () => {
+      let checkCount = 0;
+      const maxChecks = 40; // 4 seconds max
+
       const checkProgress = () => {
-        const images = Array.from(document.images);
+        checkCount++;
+        const images = Array.from(document.images).filter(img => !img.src.includes('favicon'));
         const videos = Array.from(document.querySelectorAll('video'));
         
         let loadedImages = 0;
@@ -37,12 +46,21 @@ const LoadingSplash = ({ onFinish }: LoadingSplashProps) => {
           const newProgress = Math.min(100, 90 + resourceProgress);
           setProgress(Math.round(newProgress));
 
-          if (newProgress >= 100) {
+          if (newProgress >= 100 || checkCount >= maxChecks) {
             clearInterval(intervalId);
+            clearTimeout(maxTimeout);
           }
         } else {
           // If no resources yet, gradually increase
-          setProgress(prev => Math.min(95, prev + 1));
+          setProgress(prev => {
+            const next = Math.min(98, prev + 1);
+            if (next >= 98 || checkCount >= maxChecks) {
+              clearInterval(intervalId);
+              clearTimeout(maxTimeout);
+              return 100;
+            }
+            return next;
+          });
         }
       };
 
@@ -54,6 +72,7 @@ const LoadingSplash = ({ onFinish }: LoadingSplashProps) => {
 
     return () => {
       clearInterval(intervalId);
+      clearTimeout(maxTimeout);
       document.body.style.overflow = originalOverflow;
       onFinish?.();
     };
