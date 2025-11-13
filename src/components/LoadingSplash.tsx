@@ -11,19 +11,49 @@ const LoadingSplash = ({ onFinish }: LoadingSplashProps) => {
     const originalOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
 
-    // Animate from 90% to 100% smoothly
-    const interval = setInterval(() => {
-      setProgress(prev => {
-        if (prev >= 100) {
-          clearInterval(interval);
-          return 100;
+    // Track resource loading progress
+    const trackResourceLoading = () => {
+      const checkProgress = () => {
+        const images = Array.from(document.images);
+        const videos = Array.from(document.querySelectorAll('video'));
+        
+        let loadedImages = 0;
+        let loadedVideos = 0;
+
+        images.forEach(img => {
+          if (img.complete) loadedImages++;
+        });
+
+        videos.forEach(video => {
+          if (video.readyState >= 3) loadedVideos++;
+        });
+
+        const totalResources = images.length + videos.length;
+        const loadedResources = loadedImages + loadedVideos;
+
+        if (totalResources > 0) {
+          // Calculate progress from 90% to 100% based on resource loading
+          const resourceProgress = (loadedResources / totalResources) * 10;
+          const newProgress = Math.min(100, 90 + resourceProgress);
+          setProgress(Math.round(newProgress));
+
+          if (newProgress >= 100) {
+            clearInterval(intervalId);
+          }
+        } else {
+          // If no resources yet, gradually increase
+          setProgress(prev => Math.min(95, prev + 1));
         }
-        return prev + 1;
-      });
-    }, 50);
+      };
+
+      const intervalId = setInterval(checkProgress, 100);
+      return intervalId;
+    };
+
+    const intervalId = trackResourceLoading();
 
     return () => {
-      clearInterval(interval);
+      clearInterval(intervalId);
       document.body.style.overflow = originalOverflow;
       onFinish?.();
     };

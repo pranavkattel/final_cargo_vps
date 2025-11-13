@@ -22,14 +22,14 @@ const Navbar = () => {
   return (
     <nav className="bg-primary-white shadow-lg sticky top-0 z-50 transition-all duration-300 w-full">
       <div className="w-full px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center h-20">
+        <div className="flex items-center justify-between h-20">
           {/* Company Logo - Far Left */}
           <div className="flex-shrink-0">
             <Link to="/" className="flex items-center group">
               <img 
                 src={logo} 
                 alt="Capital Cargo Logo" 
-                className="h-20 transition-all duration-300 group-hover:scale-105" 
+                className="h-16 sm:h-20 transition-all duration-300 group-hover:scale-105" 
               />
             </Link>
           </div>
@@ -95,7 +95,7 @@ const Navbar = () => {
           </div>
 
           {/* Mobile menu button - Far Right on mobile */}
-          <div className="lg:hidden flex items-center ml-auto">
+          <div className="lg:hidden flex items-center">
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="p-2 rounded-lg transition-all duration-300 hover:scale-110 active:scale-95"

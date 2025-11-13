@@ -31,9 +31,10 @@ function App() {
     let isMounted = true;
     let minimumDurationComplete = false;
     let homeModuleLoaded = false;
+    let allResourcesLoaded = false;
 
     const finalizeSplash = () => {
-      if (isMounted && minimumDurationComplete && homeModuleLoaded) {
+      if (isMounted && minimumDurationComplete && homeModuleLoaded && allResourcesLoaded) {
         setIsSplashVisible(false);
         
         // Remove the initial HTML loader
@@ -49,6 +50,60 @@ function App() {
       }
     };
 
+    // Wait for all images and videos to load
+    const waitForAllResources = () => {
+      const checkResources = () => {
+        const images = Array.from(document.images);
+        const videos = Array.from(document.querySelectorAll('video'));
+        
+        const imagePromises = images.map(img => {
+          if (img.complete) {
+            return Promise.resolve();
+          }
+          return new Promise((resolve) => {
+            img.onload = () => resolve(undefined);
+            img.onerror = () => resolve(undefined); // Resolve even on error to not block forever
+          });
+        });
+
+        const videoPromises = videos.map(video => {
+          if (video.readyState >= 3) { // HAVE_FUTURE_DATA or greater
+            return Promise.resolve();
+          }
+          return new Promise((resolve) => {
+            video.onloadeddata = () => resolve(undefined);
+            video.onerror = () => resolve(undefined); // Resolve even on error
+          });
+        });
+
+        return Promise.all([...imagePromises, ...videoPromises]);
+      };
+
+      // Check immediately and then periodically for dynamically loaded resources
+      const maxChecks = 50; // Maximum 5 seconds (50 * 100ms)
+      let checkCount = 0;
+
+      const intervalId = setInterval(() => {
+        checkCount++;
+        checkResources().then(() => {
+          if (document.images.length > 0 || checkCount >= maxChecks) {
+            clearInterval(intervalId);
+            allResourcesLoaded = true;
+            finalizeSplash();
+          }
+        });
+      }, 100);
+
+      // Also listen for window load event as backup
+      window.addEventListener('load', () => {
+        clearInterval(intervalId);
+        allResourcesLoaded = true;
+        finalizeSplash();
+      }, { once: true });
+
+      return () => clearInterval(intervalId);
+    };
+
     const timeoutId = window.setTimeout(() => {
       minimumDurationComplete = true;
       finalizeSplash();
@@ -57,11 +112,14 @@ function App() {
     import('./pages/Home')
       .then(() => {
         homeModuleLoaded = true;
+        // Start checking for resources after Home module is loaded
+        setTimeout(waitForAllResources, 100);
         finalizeSplash();
       })
       .catch(() => {
         // If preload fails, allow the splash to dismiss after the minimum duration.
         homeModuleLoaded = true;
+        allResourcesLoaded = true; // Don't block on error
         finalizeSplash();
       });
 
