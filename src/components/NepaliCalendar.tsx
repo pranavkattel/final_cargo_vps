@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Calendar, X } from 'lucide-react';
+import bannerImg from '../assets/images/banner.png';
 
 interface HolidayInfo {
   date: string; // Format: "MM-DD"
@@ -121,9 +122,18 @@ const NepaliCalendar: React.FC = () => {
       {isOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
           <div className="bg-primary-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto no-scrollbar">
+            {/* Banner Image */}
+            <div className="w-full rounded-t-2xl overflow-hidden">
+              <img 
+                src={bannerImg} 
+                alt="Capital Cargo Banner" 
+                className="w-full h-auto object-cover"
+              />
+            </div>
+            
             {/* Header */}
             <div style={{ zIndex: 100 }}
-              className="sticky top-0 bg-gradient-to-r from-smoke-dark to-accent-orange-hover text-white p-6 rounded-t-2xl"
+              className="sticky top-0 bg-gradient-to-r from-smoke-dark to-accent-orange-hover text-white p-6"
             >
               <div className="flex justify-between items-center mb-4">
                 <div className="flex-1">
