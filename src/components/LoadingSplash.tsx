@@ -85,14 +85,14 @@ const LoadingSplash = ({ onFinish }: LoadingSplashProps) => {
         <div className="absolute inset-0 rounded-full border-4 border-white/15" />
         <div
           className="absolute inset-4 rounded-full border-4 border-white/20 animate-spin"
-          style={{ animationDuration: '18s', borderTopColor: '#718096', borderLeftColor: 'transparent', borderBottomColor: '#718096', borderRightColor: 'transparent' }}
+          style={{ animationDuration: '18s', borderTopColor: '#F9B222', borderLeftColor: 'transparent', borderBottomColor: '#F9B222', borderRightColor: 'transparent' }}
         />
         <div
           className="absolute inset-8 rounded-full border-4 border-white/30 animate-spin"
-          style={{ animationDuration: '26s', animationDirection: 'reverse', borderRightColor: '#718096', borderTopColor: 'transparent', borderLeftColor: '#718096', borderBottomColor: 'transparent' }}
+          style={{ animationDuration: '26s', animationDirection: 'reverse', borderRightColor: '#F9B222', borderTopColor: 'transparent', borderLeftColor: '#F9B222', borderBottomColor: 'transparent' }}
         />
-        <div className="absolute inset-14 rounded-full bg-gradient-to-br from-smoke-medium/40 via-white/30 to-blue-400/40" />
-        <div className="absolute inset-[5.25rem] h-6 w-6 rounded-full bg-[#718096] shadow-lg shadow-orange-400/40 sm:inset-[6.5rem] md:inset-[8rem]" />
+        <div className="absolute inset-14 rounded-full bg-gradient-to-br from-blue-400/40 via-white/30 to-orange-400/40" />
+        <div className="absolute inset-[5.25rem] h-6 w-6 rounded-full bg-[#F9B222] shadow-lg shadow-orange-400/40 sm:inset-[6.5rem] md:inset-[8rem]" />
         <div className="absolute inset-0 animate-spin" style={{ animationDuration: '32s' }}>
           <div className="absolute left-1/2 top-1/2 h-[90%] w-[90%] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-white/10" />
         </div>
@@ -108,8 +108,8 @@ const LoadingSplash = ({ onFinish }: LoadingSplashProps) => {
       {/* Progress indicator */}
       <div className="w-full max-w-md">
         <div className="h-2 bg-white/20 rounded-full overflow-hidden mb-3">
-          <div 
-            className="h-full bg-gradient-to-r from-[#718096] to-[#4A5568] transition-all duration-300 ease-out rounded-full shadow-lg shadow-[#718096]/50"
+          <div
+            className="h-full bg-gradient-to-r from-[#0096C7] to-[#F9B222] transition-all duration-300 ease-out rounded-full shadow-lg shadow-[#0096C7]/50"
             style={{ width: `${progress}%` }}
           />
         </div>

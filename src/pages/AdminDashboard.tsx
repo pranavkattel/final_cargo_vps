@@ -115,10 +115,10 @@ const AdminDashboard: React.FC = () => {
   const getStatusColor = (status: string): string => {
     const colors: Record<string, string> = {
       'delivered': 'bg-green-100 text-green-800',
-      'in-transit': 'bg-smoke-medium text-smoke-dark',
+      'in-transit': 'bg-blue-100 text-blue-800',
       'processing': 'bg-yellow-100 text-yellow-800',
       'pending': 'bg-gray-100 text-gray-800',
-      'out-for-delivery': 'bg-smoke-medium text-smoke-dark',
+      'out-for-delivery': 'bg-orange-100 text-orange-800',
       'cancelled': 'bg-red-100 text-red-800',
       'returned': 'bg-purple-100 text-purple-800'
     };
@@ -156,7 +156,7 @@ const AdminDashboard: React.FC = () => {
   return (
     <div className="p-8 max-w-7xl mx-auto">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Admin Dashboard</h1>
+        <h1 className="text-3xl font-bold mb-2" style={{ color: '#0096C7' }}>Admin Dashboard</h1>
         <p className="text-gray-600">Overview of your cargo management system</p>
       </div>
 
@@ -172,9 +172,9 @@ const AdminDashboard: React.FC = () => {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-600">Total Orders</p>
-              <p className="text-3xl font-bold text-gray-900">{stats.totalOrders}</p>
+              <p className="text-3xl font-bold" style={{ color: '#0096C7' }}>{stats.totalOrders}</p>
             </div>
-            <div className="p-3 bg-smoke-medium rounded-full">
+            <div className="p-3 bg-blue-100 rounded-full">
               <span className="text-2xl">📦</span>
             </div>
           </div>
@@ -184,9 +184,9 @@ const AdminDashboard: React.FC = () => {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-600">In Transit</p>
-              <p className="text-3xl font-bold text-accent-orange">{stats.inTransit}</p>
+              <p className="text-3xl font-bold" style={{ color: '#F9B222' }}>{stats.inTransit}</p>
             </div>
-            <div className="p-3 bg-smoke-medium rounded-full">
+            <div className="p-3 bg-orange-100 rounded-full">
               <span className="text-2xl">🚚</span>
             </div>
           </div>
@@ -196,7 +196,7 @@ const AdminDashboard: React.FC = () => {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-600">Delivered Today</p>
-              <p className="text-3xl font-bold text-green-600">{stats.deliveredToday}</p>
+              <p className="text-3xl font-bold" style={{ color: '#10B981' }}>{stats.deliveredToday}</p>
             </div>
             <div className="p-3 bg-green-100 rounded-full">
               <span className="text-2xl">✅</span>
@@ -232,7 +232,7 @@ const AdminDashboard: React.FC = () => {
                   <span className="text-gray-600">{count}</span>
                   <div className="w-20 bg-gray-200 rounded-full h-2">
                     <div 
-                      className="bg-smoke-light0 h-2 rounded-full" 
+                      className="bg-primary-blue h-2 rounded-full" 
                       style={{ width: `${(count / stats.totalOrders) * 100}%` }}
                     ></div>
                   </div>
@@ -248,7 +248,7 @@ const AdminDashboard: React.FC = () => {
           <div className="space-y-4">
             {adminActivity.map((activity) => (
               <div key={activity.id} className="flex items-start space-x-3 p-3 bg-gray-50 rounded-lg">
-                <div className="flex-shrink-0 w-8 h-8 bg-smoke-medium rounded-full flex items-center justify-center">
+                <div className="flex-shrink-0 w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
                   <span className="text-sm">👤</span>
                 </div>
                 <div className="flex-1 min-w-0">

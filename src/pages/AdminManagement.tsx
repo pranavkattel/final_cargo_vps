@@ -68,7 +68,7 @@ const AdminManagement: React.FC = () => {
     },
     'editor': {
       name: 'Editor',
-      color: 'bg-smoke-medium text-smoke-dark',
+      color: 'bg-blue-100 text-blue-800',
       icon: '✏️',
       description: 'Can create and edit orders',
       permissions: ['orders.view', 'orders.create', 'orders.edit', 'orders.status', 'customers.view', 'customers.edit', 'reports.view']
@@ -242,7 +242,7 @@ const AdminManagement: React.FC = () => {
     const colors = {
       'low': 'bg-green-100 text-green-800',
       'medium': 'bg-yellow-100 text-yellow-800',
-      'high': 'bg-smoke-medium text-smoke-dark',
+      'high': 'bg-orange-100 text-orange-800',
       'critical': 'bg-red-100 text-red-800'
     };
     return colors[severity as keyof typeof colors] || 'bg-gray-100 text-gray-800';
@@ -302,7 +302,7 @@ const AdminManagement: React.FC = () => {
                 onClick={() => setActiveTab(tab.id as any)}
                 className={`py-4 px-2 border-b-2 font-medium text-sm transition-colors ${
                   activeTab === tab.id
-                    ? 'border-smoke-light0 text-accent-orange'
+                    ? 'border-primary-blue text-primary-blue'
                     : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
                 }`}
               >
@@ -321,7 +321,7 @@ const AdminManagement: React.FC = () => {
             <h2 className="text-xl font-semibold">Administrators</h2>
             <button
               onClick={() => setShowAddAdmin(true)}
-              className="px-4 py-2 bg-smoke-dark text-white rounded-lg hover:bg-accent-orange-hover transition-colors"
+              className="px-4 py-2 bg-primary-blue text-white rounded-lg hover:bg-accent-orange transition-colors"
             >
               + Add Administrator
             </button>
@@ -355,8 +355,8 @@ const AdminManagement: React.FC = () => {
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center">
                           <div className="flex-shrink-0 h-10 w-10">
-                            <div className="h-10 w-10 rounded-full bg-smoke-medium flex items-center justify-center">
-                              <span className="text-sm font-medium text-accent-orange">
+                            <div className="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center">
+                              <span className="text-sm font-medium text-primary-blue">
                                 {admin.name.split(' ').map(n => n[0]).join('')}
                               </span>
                             </div>
@@ -396,7 +396,7 @@ const AdminManagement: React.FC = () => {
                         <div className="flex space-x-2">
                           <button
                             onClick={() => setSelectedAdmin(admin)}
-                            className="text-accent-orange hover:text-smoke-darker transition-colors"
+                            className="text-primary-blue hover:text-accent-orange transition-colors"
                             title="Edit Admin"
                           >
                             ✏️

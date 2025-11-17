@@ -115,7 +115,7 @@ const FAQ = () => {
   return (
     <div className="pt-16">
       {/* Hero Section */}
-      <section className="text-white py-20" style={{ background: 'linear-gradient(to right, #2D3748, #4A5568)' }}>
+      <section className="text-white py-20" style={{ background: 'linear-gradient(to right, #0096C7, #0077B6)' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-6">
@@ -140,11 +140,7 @@ const FAQ = () => {
                 placeholder="Search FAQs..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:border-2"
-                style={{ 
-                  focusRingColor: '#718096',
-                  focusBorderColor: '#718096'
-                }}
+                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-orange focus:border-accent-orange"
               />
             </div>
             <div className="flex flex-wrap gap-2">
@@ -158,7 +154,7 @@ const FAQ = () => {
                       : 'text-gray-700 hover:bg-gray-200'
                   }`}
                   style={{
-                    backgroundColor: selectedCategory === category ? '#718096' : '#F5F5F5',
+                    backgroundColor: selectedCategory === category ? '#F9B222' : '#FFFFFF',
                     border: selectedCategory === category ? 'none' : '1px solid #e5e7eb'
                   }}
                 >
@@ -182,10 +178,10 @@ const FAQ = () => {
                     className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-gray-50 transition-colors duration-200"
                   >
                     <div className="flex-1">
-                      <h3 className="text-lg font-semibold mb-1" style={{ color: '#2D3748' }}>
+                      <h3 className="text-lg font-semibold mb-1" style={{ color: '#0096C7' }}>
                         {faq.question}
                       </h3>
-                      <span className="text-sm font-medium" style={{ color: '#718096' }}>
+                      <span className="text-sm font-medium" style={{ color: '#F9B222' }}>
                         {faq.category}
                       </span>
                     </div>
@@ -213,7 +209,7 @@ const FAQ = () => {
           ) : (
             <div className="text-center py-12">
               <HelpCircle className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-              <h3 className="text-lg font-semibold mb-2" style={{ color: '#2D3748' }}>No FAQs Found</h3>
+              <h3 className="text-lg font-semibold mb-2" style={{ color: '#0096C7' }}>No FAQs Found</h3>
               <p className="text-gray-600">
                 No questions match your search criteria. Try adjusting your search terms or category filter.
               </p>
@@ -226,7 +222,7 @@ const FAQ = () => {
       <section className="py-16 bg-primary-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4" style={{ color: '#2D3748' }}>Still Need Help?</h2>
+            <h2 className="text-3xl font-bold mb-4" style={{ color: '#0096C7' }}>Still Need Help?</h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
               Can't find the answer you're looking for? Our customer support team is here to help.
             </p>
@@ -234,30 +230,30 @@ const FAQ = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="text-center p-6 bg-gray-50 rounded-xl">
-              <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4" style={{ backgroundColor: '#718096' }}>
+              <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4" style={{ backgroundColor: '#F9B222' }}>
                 <span className="text-2xl">📞</span>
               </div>
-              <h3 className="text-lg font-semibold mb-2" style={{ color: '#2D3748' }}>Call Us</h3>
+              <h3 className="text-lg font-semibold mb-2" style={{ color: '#0096C7' }}>Call Us</h3>
               <p className="text-gray-600 mb-4">Speak directly with our support team</p>
-              <p className="font-semibold" style={{ color: '#718096' }}>+977-01-5367883, 01-5368837</p>
+              <p className="font-semibold" style={{ color: '#F9B222' }}>+977-01-5367883, 01-5368837</p>
             </div>
             
             <div className="text-center p-6 bg-gray-50 rounded-xl">
-              <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4" style={{ backgroundColor: '#718096' }}>
+              <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4" style={{ backgroundColor: '#F9B222' }}>
                 <span className="text-2xl">💬</span>
               </div>
-              <h3 className="text-lg font-semibold mb-2" style={{ color: '#2D3748' }}>Live Chat</h3>
+              <h3 className="text-lg font-semibold mb-2" style={{ color: '#0096C7' }}>Live Chat</h3>
               <p className="text-gray-600 mb-4">Chat with us in real-time</p>
-              <p className="font-semibold" style={{ color: '#718096' }}>Available 24/7</p>
+              <p className="font-semibold" style={{ color: '#F9B222' }}>Available 24/7</p>
             </div>
             
             <div className="text-center p-6 bg-gray-50 rounded-xl">
-              <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4" style={{ backgroundColor: '#718096' }}>
+              <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4" style={{ backgroundColor: '#F9B222' }}>
                 <span className="text-2xl">✉️</span>
               </div>
-              <h3 className="text-lg font-semibold mb-2" style={{ color: '#2D3748' }}>Email Us</h3>
+              <h3 className="text-lg font-semibold mb-2" style={{ color: '#0096C7' }}>Email Us</h3>
               <p className="text-gray-600 mb-4">Send us your questions</p>
-              <p className="font-semibold" style={{ color: '#718096' }}>info@cargocapital.com</p>
+              <p className="font-semibold" style={{ color: '#F9B222' }}>info@cargocapital.com</p>
             </div>
           </div>
         </div>
@@ -267,7 +263,7 @@ const FAQ = () => {
       <section className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4" style={{ color: '#2D3748' }}>Popular Help Topics</h2>
+            <h2 className="text-3xl font-bold mb-4" style={{ color: '#0096C7' }}>Popular Help Topics</h2>
             <p className="text-lg text-gray-600">
               Quick access to our most searched topics
             </p>
@@ -286,7 +282,7 @@ const FAQ = () => {
             ].map((topic, index) => (
               <div key={index} className="bg-primary-white rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow duration-200 cursor-pointer">
                 <div className="text-2xl mb-2">{topic.icon}</div>
-                <h3 className="font-semibold mb-1" style={{ color: '#2D3748' }}>{topic.title}</h3>
+                <h3 className="font-semibold mb-1" style={{ color: '#0096C7' }}>{topic.title}</h3>
                 <p className="text-sm text-gray-600">{topic.description}</p>
               </div>
             ))}

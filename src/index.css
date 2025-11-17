@@ -4,15 +4,15 @@
 @tailwind utilities;
 
 :root {
-  /* Smoke Grey Color Scheme - 60-30-10 Rule */
-  --primary-white: #F5F5F5;     /* 60% - Light smoke grey (main background) */
-  --primary-blue: #4A5568;      /* 30% - Medium grey (secondary elements) */
-  --accent-orange: #718096;     /* 10% - Dark grey (accent/highlights) */
-  --accent-orange-hover: #2D3748; /* Darker grey for hover states */
-  --smoke-light: #F7FAFC;       /* Extra light grey */
-  --smoke-medium: #E2E8F0;      /* Medium light grey */
-  --smoke-dark: #2D3748;        /* Dark grey for text */
-  --smoke-darker: #1A202C;      /* Darkest grey */
+  /* Blue, White, Orange Color Scheme - 60-30-10 Rule */
+  --primary-white: #FFFFFF;     /* 60% - White (main background) */
+  --primary-blue: #0096C7;      /* 30% - Blue (secondary elements) */
+  --accent-orange: #F9B222;     /* 10% - Orange (accent/highlights) */
+  --accent-orange-hover: #E09800; /* Darker orange for hover states */
+  --smoke-light: #F0F9FF;       /* Very light blue tint */
+  --smoke-medium: #E0F2FE;      /* Light blue tint */
+  --smoke-dark: #1E293B;        /* Dark blue-grey for text */
+  --smoke-darker: #0F172A;      /* Darkest blue-grey */
 }
 
 body {

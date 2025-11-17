@@ -236,7 +236,7 @@ export const MapDestinationSelector: React.FC<MapDestinationSelectorProps> = ({
           />
           {isSearching && (
             <div className="absolute right-3 top-2.5">
-              <div className="animate-spin h-5 w-5 border-2 border-smoke-light0 border-t-transparent rounded-full"></div>
+              <div className="animate-spin h-5 w-5 border-2 border-primary-blue border-t-transparent rounded-full"></div>
             </div>
           )}
         </div>
@@ -286,7 +286,7 @@ export const MapDestinationSelector: React.FC<MapDestinationSelectorProps> = ({
         <div className="flex space-x-2">
           <button
             onClick={getCurrentLocation}
-            className="px-4 py-2 bg-smoke-light0 text-white rounded-lg hover:bg-accent-orange transition-colors flex items-center space-x-2"
+            className="px-4 py-2 bg-primary-blue text-white rounded-lg hover:bg-accent-orange transition-colors flex items-center space-x-2"
           >
             <span>📍</span>
             <span>Use My Location</span>

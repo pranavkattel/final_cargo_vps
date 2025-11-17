@@ -50,7 +50,7 @@ const BlogPost = () => {
               <ArrowLeft className="h-4 w-4 mr-2" />
               Back to Blog
             </Link>
-            <span className="inline-block px-3 py-1 rounded-full text-sm font-medium mb-4" style={{ backgroundColor: '#718096' }}>
+            <span className="inline-block px-3 py-1 rounded-full text-sm font-medium mb-4" style={{ backgroundColor: '#F9B222' }}>
               {post.category}
             </span>
             <h1 className="text-3xl md:text-5xl font-bold mb-4">{post.title}</h1>
@@ -81,7 +81,7 @@ const BlogPost = () => {
               if (paragraph.startsWith('**') && paragraph.endsWith('**')) {
                 const text = paragraph.replace(/\*\*/g, '');
                 return (
-                  <h2 key={index} className="text-2xl md:text-3xl font-bold mt-8 mb-4" style={{ color: '#2D3748' }}>
+                  <h2 key={index} className="text-2xl md:text-3xl font-bold mt-8 mb-4" style={{ color: '#0096C7' }}>
                     {text}
                   </h2>
                 );
@@ -129,14 +129,14 @@ const BlogPost = () => {
               <Link
                 to="/quote"
                 className="inline-block text-white px-8 py-4 rounded-lg font-semibold transition-colors duration-200 text-center hover:opacity-90"
-                style={{ backgroundColor: '#718096' }}
+                style={{ backgroundColor: '#0096C7' }}
               >
                 Get Free Quote
               </Link>
               <Link
                 to="/contact"
                 className="inline-block border-2 px-8 py-4 rounded-lg font-semibold transition-colors duration-200 text-center hover:bg-gray-50"
-                style={{ borderColor: '#2D3748', color: '#2D3748' }}
+                style={{ borderColor: '#F9B222', color: '#F9B222' }}
               >
                 Contact Us: +977-01-5367883
               </Link>
@@ -147,7 +147,7 @@ const BlogPost = () => {
           <div className="mt-12 p-6 border-t border-gray-200">
             <div className="flex items-center gap-4">
               <div className="w-16 h-16 rounded-full flex items-center justify-center" style={{ backgroundColor: '#f6f6f6' }}>
-                <User className="h-8 w-8" style={{ color: '#718096' }} />
+                <User className="h-8 w-8" style={{ color: '#F9B222' }} />
               </div>
               <div>
                 <h4 className="font-bold text-lg">{post.author}</h4>
@@ -191,7 +191,7 @@ const BlogPost = () => {
       {/* Related Posts */}
       <section className="py-16" style={{ backgroundColor: '#f6f6f6' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold mb-8 text-center" style={{ color: '#2D3748' }}>
+          <h2 className="text-3xl font-bold mb-8 text-center" style={{ color: '#0096C7' }}>
             Related Articles
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">

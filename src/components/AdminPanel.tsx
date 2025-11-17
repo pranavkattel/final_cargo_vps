@@ -444,7 +444,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = () => {
                         onClick={() => setShowMap(false)}
                         className={`px-4 py-2 rounded-lg transition-colors ${
                           !showMap 
-                            ? 'bg-smoke-light0 text-white' 
+                            ? 'bg-primary-blue text-white' 
                             : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
                         }`}
                       >
@@ -455,7 +455,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = () => {
                         onClick={() => setShowMap(true)}
                         className={`px-4 py-2 rounded-lg transition-colors ${
                           showMap 
-                            ? 'bg-smoke-light0 text-white' 
+                            ? 'bg-primary-blue text-white' 
                             : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
                         }`}
                       >
@@ -496,9 +496,9 @@ export const AdminPanel: React.FC<AdminPanelProps> = () => {
                           className="mb-4"
                         />
                         {selectedLocation && (
-                          <div className="mt-2 p-3 bg-smoke-light border border-smoke-medium rounded-lg">
-                            <h4 className="font-medium text-smoke-dark mb-1">Selected Destination</h4>
-                            <p className="text-sm text-smoke-dark">
+                          <div className="mt-2 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                            <h4 className="font-medium text-gray-800 mb-1">Selected Destination</h4>
+                            <p className="text-sm text-gray-700">
                               📍 {selectedLocation.city}, {selectedLocation.country}
                             </p>
                             <p className="text-xs text-accent-orange">

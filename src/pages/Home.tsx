@@ -324,7 +324,7 @@ const Home = () => {
                       <div className="absolute -inset-1 w-7 h-7 sm:w-8 sm:h-8 md:w-9 md:h-9 lg:w-10 lg:h-10 border-2 border-white/50 rounded-full"></div>
                       
                       {/* Hover Tooltip - Responsive */}
-                      <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 translate-y-full px-2 py-1 sm:px-3 sm:py-1.5 bg-white text-smoke-dark text-[10px] sm:text-xs font-semibold rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap pointer-events-none shadow-lg border border-accent-orange">
+                      <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 translate-y-full px-2 py-1 sm:px-3 sm:py-1.5 bg-white text-gray-800 text-[10px] sm:text-xs font-semibold rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap pointer-events-none shadow-lg border border-accent-orange">
                         {point.label}
                         <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 border-[3px] sm:border-4 border-transparent border-b-white"></div>
                       </div>
@@ -342,7 +342,7 @@ const Home = () => {
                       onClick={(e) => e.stopPropagation()}
                     >
                       <div className="flex justify-between items-center mb-2 sm:mb-3 pb-2 sm:pb-3 border-b-2 border-gradient-to-r from-accent-orange to-transparent">
-                        <h4 className="font-bold text-smoke-dark text-sm sm:text-base flex items-center gap-1 sm:gap-2">
+                        <h4 className="font-bold text-gray-800 text-sm sm:text-base flex items-center gap-1 sm:gap-2">
                           <span className="text-accent-orange text-sm sm:text-base">📍</span>
                           {point.label}
                         </h4>
@@ -358,7 +358,7 @@ const Home = () => {
                           <Link
                             key={idx}
                             to={`/quote?destination=${encodeURIComponent(country)}`}
-                            className="block px-3 py-2 sm:px-4 sm:py-2.5 rounded-lg text-xs sm:text-sm transition-all duration-200 hover:bg-gradient-to-r hover:from-accent-orange hover:to-orange-500 hover:text-white text-smoke-dark font-medium hover:shadow-md hover:scale-[1.02] transform group"
+                            className="block px-3 py-2 sm:px-4 sm:py-2.5 rounded-lg text-xs sm:text-sm transition-all duration-200 hover:bg-gradient-to-r hover:from-accent-orange hover:to-orange-500 hover:text-white text-gray-800 font-medium hover:shadow-md hover:scale-[1.02] transform group"
                           >
                             <span className="flex items-center gap-2">
                               <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-200">✈️</span>
@@ -402,7 +402,7 @@ const Home = () => {
               onClick={(e) => e.stopPropagation()}
             >
               <div className="flex justify-between items-center mb-3 pb-3 border-b-2 border-gradient-to-r from-accent-orange to-transparent">
-                <h4 className="font-bold text-smoke-dark text-base flex items-center gap-2">
+                <h4 className="font-bold text-gray-800 text-base flex items-center gap-2">
                   <span className="text-accent-orange text-base">📍</span>
                   {selectedRegion}
                 </h4>
@@ -418,7 +418,7 @@ const Home = () => {
                   <Link
                     key={idx}
                     to={`/quote?destination=${encodeURIComponent(country)}`}
-                    className="block px-4 py-2.5 rounded-lg text-sm transition-all duration-200 hover:bg-gradient-to-r hover:from-accent-orange hover:to-orange-500 hover:text-white text-smoke-dark font-medium hover:shadow-md hover:scale-[1.02] transform group"
+                    className="block px-4 py-2.5 rounded-lg text-sm transition-all duration-200 hover:bg-gradient-to-r hover:from-accent-orange hover:to-orange-500 hover:text-white text-gray-800 font-medium hover:shadow-md hover:scale-[1.02] transform group"
                   >
                     <span className="flex items-center gap-2">
                       <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-200">✈️</span>
@@ -445,7 +445,7 @@ const Home = () => {
                 >
                   <p className="text-base md:text-lg font-semibold flex items-center gap-2"
                      style={{
-                       color: '#4A5568',
+                       color: '#0096C7',
                        textShadow: '0 1px 2px rgba(255,255,255,0.5)',
                      }}>
                     <span className="text-xl animate-pulse">👆</span>
@@ -473,7 +473,7 @@ const Home = () => {
                 <Globe3D />
               </Suspense>
             ) : (
-              <div className="flex h-full w-full items-center justify-center rounded-2xl bg-smoke-dark/30 backdrop-blur-sm">
+              <div className="flex h-full w-full items-center justify-center rounded-2xl bg-primary-blue/30 backdrop-blur-sm">
                 <span className="text-xs font-medium text-white">Loading...</span>
               </div>
             )}
@@ -566,13 +566,13 @@ const Home = () => {
       `}</style>
 
       {/* Decorative separator */}
-      <div className="relative h-2 bg-gradient-to-r from-accent-orange via-primary-blue to-accent-orange">
+      <div className="relative h-2 bg-accent-orange">
         {/* Cargo Capital text - absolute positioned touching the line - responsive */}
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 px-4">
           <h3 className="text-3xl sm:text-4xl md:text-6xl lg:text-8xl xl:text-9xl font-black whitespace-nowrap uppercase tracking-wider sm:tracking-wide md:tracking-widest" 
               style={{
-                color: '#CBD5E0',
-                textShadow: '0 6px 18px rgba(0,0,0,0.8), 0 0 60px rgba(113,128,150,0.6)',
+                color: '#FFFFFF',
+                textShadow: '0 6px 18px rgba(0,0,0,0.8), 0 0 60px rgba(0,0,0,0.4)',
                 fontFamily: '"Times New Roman", Times, serif',
                 fontWeight: 'bold',
                 letterSpacing: '0.05em',
@@ -599,7 +599,8 @@ const Home = () => {
             playsInline
             preload="auto"
           />
-          <div className="absolute inset-0 bg-black/70"></div>
+          <div className="absolute inset-0 bg-black/70" style={{ backgroundColor: 'rgba(0, 150, 199, 0.15)' }}></div>
+          <div className="absolute inset-0 bg-black/55"></div>
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
@@ -607,7 +608,7 @@ const Home = () => {
             {/* Centered content - Main text and buttons */}
             <div className="space-y-8 text-white text-center max-w-4xl">
               <h1 className="text-5xl md:text-7xl font-bold leading-tight">
-                Nepal's #1 Best Cargo & <span style={{ color: '#718096' }}>Logistics Company</span>
+                Nepal's #1 Best Cargo & <span style={{ color: '#0096C7' }}>Logistics Company</span>
               </h1>
               <p className="text-2xl text-gray-200 leading-relaxed">
                 Top-rated international shipping and freight forwarding services in Kathmandu. 
@@ -617,9 +618,9 @@ const Home = () => {
                 <Link 
                   to="/quote"
                   className="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg"
-                  style={{ backgroundColor: '#718096' }}
-                  onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#2D3748'}
-                  onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#718096'}
+                  style={{ backgroundColor: '#F9B222' }}
+                  onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#E09800'}
+                  onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#F9B222'}
                 >
                   Get Instant Quote
                   <ArrowRight className="ml-2 h-5 w-5" />
@@ -629,7 +630,7 @@ const Home = () => {
                   className="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold rounded-lg border-2 border-white text-white hover:bg-white transition-all duration-300"
                   onMouseEnter={(e) => {
                     e.currentTarget.style.backgroundColor = 'white';
-                    e.currentTarget.style.color = '#4A5568';
+                    e.currentTarget.style.color = '#0096C7';
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.backgroundColor = 'transparent';
@@ -649,7 +650,7 @@ const Home = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div>
-              <h2 className="text-4xl md:text-5xl font-bold mb-6" style={{ color: '#4A5568' }}>
+              <h2 className="text-4xl md:text-5xl font-bold mb-6" style={{ color: '#0096C7' }}>
                 About Capital Cargo
               </h2>
               <p className="text-lg text-gray-700 leading-relaxed mb-6">
@@ -659,20 +660,20 @@ const Home = () => {
                 As Nepal's #1 cargo company, we handle everything from small parcels to large commercial shipments across 110+ countries worldwide. Our expertise spans air freight, sea freight, land transport, and door-to-door delivery services.
               </p>
               <div className="grid grid-cols-2 gap-6 mt-8">
-                <div className="bg-smoke-light p-6 rounded-xl border border-smoke-medium">
-                  <div className="text-3xl font-bold mb-2" style={{ color: '#4A5568' }}>27+</div>
+                <div className="bg-blue-50 p-6 rounded-xl border border-blue-200">
+                  <div className="text-3xl font-bold mb-2" style={{ color: '#0096C7' }}>27+</div>
                   <div className="text-gray-700 font-medium">Years Experience</div>
                 </div>
-                <div className="bg-smoke-light p-6 rounded-xl border border-smoke-medium">
-                  <div className="text-3xl font-bold mb-2" style={{ color: '#4A5568' }}>110+</div>
+                <div className="bg-orange-50 p-6 rounded-xl border border-orange-200">
+                  <div className="text-3xl font-bold mb-2" style={{ color: '#0096C7' }}>110+</div>
                   <div className="text-gray-700 font-medium">Countries Served</div>
                 </div>
-                <div className="bg-smoke-light p-6 rounded-xl border border-smoke-medium">
-                  <div className="text-3xl font-bold mb-2" style={{ color: '#4A5568' }}>50K+</div>
+                <div className="bg-blue-50 p-6 rounded-xl border border-blue-200">
+                  <div className="text-3xl font-bold mb-2" style={{ color: '#0096C7' }}>50K+</div>
                   <div className="text-gray-700 font-medium">Happy Customers</div>
                 </div>
-                <div className="bg-smoke-light p-6 rounded-xl border border-smoke-medium">
-                  <div className="text-3xl font-bold mb-2" style={{ color: '#4A5568' }}>1M+</div>
+                <div className="bg-orange-50 p-6 rounded-xl border border-orange-200">
+                  <div className="text-3xl font-bold mb-2" style={{ color: '#0096C7' }}>1M+</div>
                   <div className="text-gray-700 font-medium">Packages Delivered</div>
                 </div>
               </div>
@@ -685,7 +686,7 @@ const Home = () => {
               />
               <div className="absolute -bottom-6 -left-6 bg-primary-white p-6 rounded-xl shadow-xl">
                 <div className="flex items-center space-x-4">
-                  <Award className="h-12 w-12" style={{ color: '#718096' }} />
+                  <Award className="h-12 w-12" style={{ color: '#F9B222' }} />
                   <div>
                     <div className="font-bold text-gray-900">ISO Certified</div>
                     <div className="text-sm text-gray-600">Quality Assured</div>
@@ -701,7 +702,7 @@ const Home = () => {
       <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4" style={{ color: '#4A5568' }}>
+            <h2 className="text-4xl md:text-5xl font-bold mb-4" style={{ color: '#0096C7' }}>
               Visit Our Office
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
@@ -728,7 +729,7 @@ const Home = () => {
             <div className="bg-primary-white rounded-2xl shadow-2xl p-8 flex flex-col justify-center">
               <div className="space-y-6">
                 <div>
-                  <h3 className="text-2xl font-bold mb-4" style={{ color: '#4A5568' }}>
+                  <h3 className="text-2xl font-bold mb-4" style={{ color: '#0096C7' }}>
                     Capital Cargo Nepal
                   </h3>
                   <p className="text-gray-600 leading-relaxed">
@@ -738,7 +739,7 @@ const Home = () => {
 
                 <div className="space-y-4">
                   <div className="flex items-start space-x-4">
-                    <div className="rounded-full p-3 mt-1" style={{ backgroundColor: '#718096' }}>
+                    <div className="rounded-full p-3 mt-1" style={{ backgroundColor: '#F9B222' }}>
                       <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -751,7 +752,7 @@ const Home = () => {
                   </div>
 
                   <div className="flex items-start space-x-4">
-                    <div className="rounded-full p-3 mt-1" style={{ backgroundColor: '#718096' }}>
+                    <div className="rounded-full p-3 mt-1" style={{ backgroundColor: '#F9B222' }}>
                       <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                       </svg>
@@ -764,7 +765,7 @@ const Home = () => {
                   </div>
 
                   <div className="flex items-start space-x-4">
-                    <div className="rounded-full p-3 mt-1" style={{ backgroundColor: '#718096' }}>
+                    <div className="rounded-full p-3 mt-1" style={{ backgroundColor: '#F9B222' }}>
                       <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                       </svg>
@@ -777,7 +778,7 @@ const Home = () => {
                   </div>
 
                   <div className="flex items-start space-x-4">
-                    <div className="rounded-full p-3 mt-1" style={{ backgroundColor: '#718096' }}>
+                    <div className="rounded-full p-3 mt-1" style={{ backgroundColor: '#F9B222' }}>
                       <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                       </svg>
@@ -793,9 +794,9 @@ const Home = () => {
                   <Link
                     to="/contact"
                     className="inline-flex items-center justify-center w-full px-6 py-3 text-lg font-semibold text-white rounded-lg transition-all duration-300 hover:scale-105"
-                    style={{ backgroundColor: '#718096' }}
-                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#2D3748'}
-                    onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#718096'}
+                    style={{ backgroundColor: '#0096C7' }}
+                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#F9B222'}
+                    onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#0096C7'}
                   >
                     Get Directions
                     <ArrowRight className="ml-2 h-5 w-5" />
@@ -811,7 +812,7 @@ const Home = () => {
       <section className="py-20 bg-primary-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4" style={{ color: '#4A5568' }}>
+            <h2 className="text-4xl md:text-5xl font-bold mb-4" style={{ color: '#0096C7' }}>
               Why Choose Capital Cargo?
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
@@ -819,32 +820,32 @@ const Home = () => {
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="bg-gradient-to-br from-smoke-light to-smoke-medium rounded-xl p-8 hover:shadow-xl transition-all duration-300 hover:scale-105">
-              <div className="rounded-full p-4 mb-4 w-fit" style={{ backgroundColor: '#718096' }}>
+            <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-8 hover:shadow-xl transition-all duration-300 hover:scale-105">
+              <div className="rounded-full p-4 mb-4 w-fit" style={{ backgroundColor: '#F9B222' }}>
                 <CheckCircle className="h-8 w-8 text-white" />
               </div>
-              <h3 className="text-xl font-bold mb-3" style={{ color: '#4A5568' }}>Expert Knowledge</h3>
+              <h3 className="text-xl font-bold mb-3" style={{ color: '#0096C7' }}>Expert Knowledge</h3>
               <p className="text-gray-700">27+ years of experience in international logistics and deep understanding of Nepali markets and customs procedures.</p>
             </div>
-            <div className="bg-gradient-to-br from-smoke-light to-smoke-medium rounded-xl p-8 hover:shadow-xl transition-all duration-300 hover:scale-105">
-              <div className="rounded-full p-4 mb-4 w-fit" style={{ backgroundColor: '#718096' }}>
+            <div className="bg-gradient-to-br from-orange-50 to-orange-100 rounded-xl p-8 hover:shadow-xl transition-all duration-300 hover:scale-105">
+              <div className="rounded-full p-4 mb-4 w-fit" style={{ backgroundColor: '#F9B222' }}>
                 <Shield className="h-8 w-8 text-white" />
               </div>
-              <h3 className="text-xl font-bold mb-3" style={{ color: '#4A5568' }}>Secure & Reliable</h3>
+              <h3 className="text-xl font-bold mb-3" style={{ color: '#0096C7' }}>Secure & Reliable</h3>
               <p className="text-gray-700">Advanced tracking systems, comprehensive insurance options, and secure packaging to ensure your cargo reaches safely.</p>
             </div>
-            <div className="bg-gradient-to-br from-smoke-light to-smoke-medium rounded-xl p-8 hover:shadow-xl transition-all duration-300 hover:scale-105">
-              <div className="rounded-full p-4 mb-4 w-fit" style={{ backgroundColor: '#718096' }}>
+            <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-8 hover:shadow-xl transition-all duration-300 hover:scale-105">
+              <div className="rounded-full p-4 mb-4 w-fit" style={{ backgroundColor: '#F9B222' }}>
                 <Clock className="h-8 w-8 text-white" />
               </div>
-              <h3 className="text-xl font-bold mb-3" style={{ color: '#4A5568' }}>On-Time Delivery</h3>
+              <h3 className="text-xl font-bold mb-3" style={{ color: '#0096C7' }}>On-Time Delivery</h3>
               <p className="text-gray-700">Committed to meeting delivery schedules with 99.9% on-time performance rate across all shipping methods.</p>
             </div>
-            <div className="bg-gradient-to-br from-smoke-light to-smoke-medium rounded-xl p-8 hover:shadow-xl transition-all duration-300 hover:scale-105">
-              <div className="rounded-full p-4 mb-4 w-fit" style={{ backgroundColor: '#718096' }}>
+            <div className="bg-gradient-to-br from-orange-50 to-orange-100 rounded-xl p-8 hover:shadow-xl transition-all duration-300 hover:scale-105">
+              <div className="rounded-full p-4 mb-4 w-fit" style={{ backgroundColor: '#F9B222' }}>
                 <Globe className="h-8 w-8 text-white" />
               </div>
-              <h3 className="text-xl font-bold mb-3" style={{ color: '#4A5568' }}>Global Network</h3>
+              <h3 className="text-xl font-bold mb-3" style={{ color: '#0096C7' }}>Global Network</h3>
               <p className="text-gray-700">Extensive network covering 110+ countries with trusted airline and shipping partners worldwide.</p>
             </div>
           </div>
@@ -852,10 +853,10 @@ const Home = () => {
       </section>
 
       {/* Services Section */}
-      <section className="py-20 bg-smoke-light">
+      <section className="py-20 bg-blue-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{ color: '#4A5568' }}>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{ color: '#0096C7' }}>
               Our Services
             </h2>
             <p className="text-xl text-primary-blue max-w-3xl mx-auto">
@@ -873,17 +874,17 @@ const Home = () => {
                     className="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-                  <div className="absolute bottom-4 left-4 rounded-full p-3 w-fit" style={{ backgroundColor: '#718096', color: 'white' }}>
+                  <div className="absolute bottom-4 left-4 rounded-full p-3 w-fit" style={{ backgroundColor: '#F9B222', color: 'white' }}>
                     <service.icon className="h-6 w-6" />
                   </div>
                 </div>
                 <div className="p-6">
-                  <h3 className="text-xl font-semibold mb-3" style={{ color: '#4A5568' }}>{service.title}</h3>
+                  <h3 className="text-xl font-semibold mb-3" style={{ color: '#0096C7' }}>{service.title}</h3>
                   <p className="text-primary-blue mb-4">{service.description}</p>
                   <ul className="space-y-2">
                     {service.features.map((feature, featureIndex) => (
                       <li key={featureIndex} className="flex items-center text-sm text-primary-blue">
-                        <CheckCircle className="h-4 w-4 mr-2" style={{ color: '#718096' }} />
+                        <CheckCircle className="h-4 w-4 mr-2" style={{ color: '#F9B222' }} />
                         {feature}
                       </li>
                     ))}
@@ -901,7 +902,7 @@ const Home = () => {
       <section className="py-20 bg-primary-white overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{ color: '#4A5568' }}>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{ color: '#0096C7' }}>
               What Our Clients Say
             </h2>
             <p className="text-xl text-primary-blue">
@@ -917,16 +918,16 @@ const Home = () => {
               }}
             >
               {Array(2).fill(testimonials).flat().map((testimonial, index) => (
-                <div key={index} className="bg-smoke-light rounded-xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300 min-w-[350px] max-w-[350px] flex-shrink-0 mx-2">
+                <div key={index} className="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300 min-w-[350px] max-w-[350px] flex-shrink-0 mx-2">
                   <div className="flex items-center mb-4">
                     {[...Array(testimonial.rating)].map((_, starIndex) => (
-                      <Star key={starIndex} className="h-5 w-5 fill-current" style={{ color: '#718096' }} />
+                      <Star key={starIndex} className="h-5 w-5 fill-current" style={{ color: '#F9B222' }} />
                     ))}
                   </div>
                   <p className="text-primary-blue mb-6 italic">"{testimonial.text}"</p>
                   <div>
-                    <div className="font-semibold" style={{ color: '#4A5568' }}>{testimonial.name}</div>
-                    <div className="text-sm text-smoke-medium">{testimonial.company}</div>
+                    <div className="font-semibold" style={{ color: '#0096C7' }}>{testimonial.name}</div>
+                    <div className="text-sm text-gray-500">{testimonial.company}</div>
                   </div>
                 </div>
               ))}
@@ -947,7 +948,7 @@ const Home = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 text-white" style={{ background: 'linear-gradient(135deg, #4A5568 0%, #2D3748 100%)' }}>
+      <section className="py-20 text-white" style={{ background: 'linear-gradient(135deg, #0096C7 0%, #0077A3 100%)' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
             Ready to Ship Your Cargo?
@@ -959,9 +960,9 @@ const Home = () => {
             <Link 
               to="/quote"
               className="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg"
-              style={{ backgroundColor: '#718096' }}
-              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#2D3748'}
-              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#718096'}
+              style={{ backgroundColor: '#F9B222' }}
+              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#E09800'}
+              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#F9B222'}
             >
               Get Free Quote
               <ArrowRight className="ml-2 h-5 w-5" />
@@ -970,8 +971,8 @@ const Home = () => {
               to="/contact"
               className="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold rounded-lg border-2 border-white text-white hover:bg-primary-white transition-all duration-300"
               onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = 'white';
-                e.currentTarget.style.color = '#4A5568';
+                e.currentTarget.style.backgroundColor = '#F9B222';
+                e.currentTarget.style.color = '#FFFFFF';
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.backgroundColor = 'transparent';

@@ -5,7 +5,7 @@ import logo from '../assets/images/logo.png';
 
 const Footer = () => {
   return (
-    <footer className="text-white w-full" style={{ backgroundColor: '#2D3748' }}>
+    <footer className="text-white w-full" style={{ backgroundColor: '#0096C7' }}>
       <div className="w-full px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
           {/* Company Info */}
@@ -80,15 +80,15 @@ const Footer = () => {
             <h3 className="text-lg font-semibold">Contact Us</h3>
             <div className="space-y-3">
               <div className="flex items-center justify-center space-x-3">
-                <MapPin className="h-4 w-4 flex-shrink-0" style={{ color: '#718096' }} />
+                <MapPin className="h-4 w-4 flex-shrink-0" style={{ color: '#F9B222' }} />
                 <span className="text-gray-200 text-sm">Thamel, Kathmandu, Nepal</span>
               </div>
               <div className="flex items-center justify-center space-x-3">
-                <Phone className="h-4 w-4 flex-shrink-0" style={{ color: '#718096' }} />
+                <Phone className="h-4 w-4 flex-shrink-0" style={{ color: '#F9B222' }} />
                 <span className="text-gray-200 text-sm">+977-01-5367883, 01-5368837</span>
               </div>
               <div className="flex items-center justify-center space-x-3">
-                <Mail className="h-4 w-4 flex-shrink-0" style={{ color: '#718096' }} />
+                <Mail className="h-4 w-4 flex-shrink-0" style={{ color: '#F9B222' }} />
                 <span className="text-gray-200 text-sm">info@cargocapital.com</span>
               </div>
             </div>

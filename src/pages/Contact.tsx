@@ -114,19 +114,19 @@ const Contact = () => {
 
   if (isSubmitted) {
     return (
-      <div className="pt-16 min-h-screen flex items-center justify-center" style={{ backgroundColor: '#f6f6f6' }}>
+      <div className="pt-16 min-h-screen flex items-center justify-center" style={{ backgroundColor: '#F0F9FF' }}>
         <div className="max-w-md mx-auto text-center bg-primary-white rounded-xl shadow-lg p-8">
-          <CheckCircle className="h-16 w-16 mx-auto mb-4" style={{ color: '#718096' }} />
-          <h2 className="text-2xl font-bold mb-4" style={{ color: '#1a1a1a' }}>Message Sent!</h2>
+          <CheckCircle className="h-16 w-16 mx-auto mb-4" style={{ color: '#0096C7' }} />
+          <h2 className="text-2xl font-bold mb-4" style={{ color: '#1E293B' }}>Message Sent!</h2>
           <p className="text-gray-600 mb-6">
             Thank you for contacting us. We'll get back to you within 24 hours.
           </p>
           <button
             onClick={() => setIsSubmitted(false)}
             className="text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-200"
-            style={{ backgroundColor: '#718096' }}
-            onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#2D3748'}
-            onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#718096'}
+            style={{ backgroundColor: '#0096C7' }}
+            onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#F9B222'}
+            onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#0096C7'}
           >
             Send Another Message
           </button>
@@ -138,7 +138,7 @@ const Contact = () => {
   return (
     <div className="pt-16">
       {/* Hero Section */}
-      <section className="text-white py-20" style={{ background: 'linear-gradient(135deg, #4A5568 0%, #2D3748 100%)' }}>
+      <section className="text-white py-20" style={{ background: 'linear-gradient(135deg, #0096C7 0%, #0077A3 100%)' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-6">
@@ -158,10 +158,10 @@ const Contact = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {contactInfo.map((info, index) => (
               <div key={index} className="text-center group">
-                <div className="rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4 transition-colors duration-200" style={{ backgroundColor: '#f6f6f6' }}>
-                  <info.icon className={`h-8 w-8`} style={{ color: '#718096' }} />
+                <div className="rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4 transition-colors duration-200" style={{ backgroundColor: '#E0F2FE' }}>
+                  <info.icon className={`h-8 w-8`} style={{ color: '#0096C7' }} />
                 </div>
-                <h3 className="text-lg font-semibold mb-3" style={{ color: '#1a1a1a' }}>{info.title}</h3>
+                <h3 className="text-lg font-semibold mb-3" style={{ color: '#1E293B' }}>{info.title}</h3>
                 <div className="space-y-1">
                   {info.details.map((detail, detailIndex) => (
                     <p key={detailIndex} className="text-gray-600">{detail}</p>
@@ -171,9 +171,9 @@ const Contact = () => {
                   <a
                     href={`tel:${info.action.value}`}
                     className="inline-flex items-center space-x-2 mt-3 px-4 py-2 rounded-lg text-white font-semibold transition-all duration-200 hover:shadow-lg"
-                    style={{ backgroundColor: '#718096' }}
-                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#2D3748'}
-                    onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#718096'}
+                    style={{ backgroundColor: '#F9B222' }}
+                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#E09800'}
+                    onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#F9B222'}
                   >
                     <Phone className="h-4 w-4" />
                     <span>Call Now</span>
@@ -186,17 +186,17 @@ const Contact = () => {
       </section>
 
       {/* Contact Form & Map */}
-      <section className="py-16" style={{ backgroundColor: '#f6f6f6' }}>
+      <section className="py-16" style={{ backgroundColor: '#F0F9FF' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Contact Form */}
             <div className="bg-primary-white rounded-xl shadow-lg p-8">
-              <h2 className="text-2xl font-bold mb-6" style={{ color: '#1a1a1a' }}>Send us a Message</h2>
+              <h2 className="text-2xl font-bold mb-6" style={{ color: '#1E293B' }}>Send us a Message</h2>
               
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label htmlFor="name" className="block text-sm font-medium mb-2" style={{ color: '#1a1a1a' }}>
+                    <label htmlFor="name" className="block text-sm font-medium mb-2" style={{ color: '#1E293B' }}>
                       Full Name *
                     </label>
                     <input
@@ -206,17 +206,13 @@ const Contact = () => {
                       required
                       value={formData.name}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:border-2"
-                      style={{ 
-                        focusRingColor: '#718096',
-                        focusBorderColor: '#718096'
-                      }}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-orange focus:border-accent-orange"
                       placeholder="Your full name"
                     />
                   </div>
                   
                   <div>
-                    <label htmlFor="email" className="block text-sm font-medium mb-2" style={{ color: '#1a1a1a' }}>
+                    <label htmlFor="email" className="block text-sm font-medium mb-2" style={{ color: '#1E293B' }}>
                       Email Address *
                     </label>
                     <input
@@ -226,11 +222,7 @@ const Contact = () => {
                       required
                       value={formData.email}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:border-2"
-                      style={{ 
-                        focusRingColor: '#718096',
-                        focusBorderColor: '#718096'
-                      }}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-orange focus:border-accent-orange"
                       placeholder="your@email.com"
                     />
                   </div>
@@ -238,7 +230,7 @@ const Contact = () => {
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label htmlFor="phone" className="block text-sm font-medium mb-2" style={{ color: '#1a1a1a' }}>
+                    <label htmlFor="phone" className="block text-sm font-medium mb-2" style={{ color: '#1E293B' }}>
                       Phone Number
                     </label>
                     <input
@@ -247,17 +239,13 @@ const Contact = () => {
                       name="phone"
                       value={formData.phone}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:border-2"
-                      style={{ 
-                        focusRingColor: '#718096',
-                        focusBorderColor: '#718096'
-                      }}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-orange focus:border-accent-orange"
                       placeholder="+977-xxx-xxx-xxx"
                     />
                   </div>
                   
                   <div>
-                    <label htmlFor="service" className="block text-sm font-medium mb-2" style={{ color: '#1a1a1a' }}>
+                    <label htmlFor="service" className="block text-sm font-medium mb-2" style={{ color: '#1E293B' }}>
                       Service Interest
                     </label>
                     <select
@@ -265,11 +253,7 @@ const Contact = () => {
                       name="service"
                       value={formData.service}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:border-2"
-                      style={{ 
-                        focusRingColor: '#718096',
-                        focusBorderColor: '#718096'
-                      }}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-orange focus:border-accent-orange"
                     >
                       <option value="">Select a service</option>
                       {services.map((service) => (
@@ -280,7 +264,7 @@ const Contact = () => {
                 </div>
                 
                 <div>
-                  <label htmlFor="subject" className="block text-sm font-medium mb-2" style={{ color: '#1a1a1a' }}>
+                  <label htmlFor="subject" className="block text-sm font-medium mb-2" style={{ color: '#1E293B' }}>
                     Subject *
                   </label>
                   <input
@@ -290,17 +274,13 @@ const Contact = () => {
                     required
                     value={formData.subject}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:border-2"
-                    style={{ 
-                      focusRingColor: '#718096',
-                      focusBorderColor: '#718096'
-                    }}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-orange focus:border-accent-orange"
                     placeholder="What can we help you with?"
                   />
                 </div>
                 
                 <div>
-                  <label htmlFor="message" className="block text-sm font-medium mb-2" style={{ color: '#1a1a1a' }}>
+                  <label htmlFor="message" className="block text-sm font-medium mb-2" style={{ color: '#1E293B' }}>
                     Message *
                   </label>
                   <textarea
@@ -310,11 +290,7 @@ const Contact = () => {
                     rows={5}
                     value={formData.message}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:border-2"
-                    style={{ 
-                      focusRingColor: '#718096',
-                      focusBorderColor: '#718096'
-                    }}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-orange focus:border-accent-orange"
                     placeholder="Please provide details about your shipping needs..."
                   ></textarea>
                 </div>
@@ -330,9 +306,9 @@ const Contact = () => {
                   type="submit"
                   disabled={isSubmitting}
                   className="w-full text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-200 flex items-center justify-center space-x-2"
-                  style={{ backgroundColor: isSubmitting ? '#ccc' : '#718096' }}
-                  onMouseEnter={(e) => !isSubmitting && (e.currentTarget.style.backgroundColor = '#2D3748')}
-                  onMouseLeave={(e) => !isSubmitting && (e.currentTarget.style.backgroundColor = '#718096')}
+                  style={{ backgroundColor: isSubmitting ? '#ccc' : '#F9B222' }}
+                  onMouseEnter={(e) => !isSubmitting && (e.currentTarget.style.backgroundColor = '#E09800')}
+                  onMouseLeave={(e) => !isSubmitting && (e.currentTarget.style.backgroundColor = '#F9B222')}
                 >
                   {isSubmitting ? (
                     <>
@@ -352,8 +328,8 @@ const Contact = () => {
             {/* Map & Office Info */}
             <div className="space-y-8">
               <div className="bg-primary-white rounded-xl shadow-lg p-8">
-                <h3 className="text-xl font-bold mb-4" style={{ color: '#1a1a1a' }}>Our Location</h3>
-                <div className="rounded-lg h-64 flex items-center justify-center mb-4" style={{ backgroundColor: '#f6f6f6' }}>
+                <h3 className="text-xl font-bold mb-4" style={{ color: '#1E293B' }}>Our Location</h3>
+                <div className="rounded-lg h-64 flex items-center justify-center mb-4" style={{ backgroundColor: '#E0F2FE' }}>
                   {/* Embed Google Map */}
                   <iframe
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3532.127667146611!2d85.30780757629569!3d27.713344225225356!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb18fc5a5517d7%3A0xa0035dd06a8b28e0!2sCAPITAL%20CARGO%20INT&#39;L%20PVT%20LTD!5e0!3m2!1sen!2snp!4v1751540133083!5m2!1sen!2snp"
@@ -368,16 +344,16 @@ const Contact = () => {
                 </div>
                 <div className="space-y-3">
                   <div className="flex items-start space-x-3">
-                    <MapPin className="h-5 w-5 mt-1 flex-shrink-0" style={{ color: '#718096' }} />
+                    <MapPin className="h-5 w-5 mt-1 flex-shrink-0" style={{ color: '#F9B222' }} />
                     <div>
-                      <p className="font-medium" style={{ color: '#1a1a1a' }}>NepalCargo Headquarters</p>
+                      <p className="font-medium" style={{ color: '#1E293B' }}>NepalCargo Headquarters</p>
                       <p className="text-gray-600">Thamel, Kathmandu 44600, Nepal</p>
                     </div>
                   </div>
                   <div className="flex items-start space-x-3">
-                    <Clock className="h-5 w-5 mt-1 flex-shrink-0" style={{ color: '#718096' }} />
+                    <Clock className="h-5 w-5 mt-1 flex-shrink-0" style={{ color: '#F9B222' }} />
                     <div>
-                      <p className="font-medium" style={{ color: '#1a1a1a' }}>Office Hours</p>
+                      <p className="font-medium" style={{ color: '#1E293B' }}>Office Hours</p>
                       <p className="text-gray-600">Sunday - Friday: 10:00 AM - 6:00 PM</p>
                       <p className="text-gray-600">Saturday: Closed</p>
                       
@@ -387,38 +363,38 @@ const Contact = () => {
               </div>
 
               <div className="bg-primary-white rounded-xl shadow-lg p-8">
-                <h3 className="text-xl font-bold mb-4" style={{ color: '#1a1a1a' }}>Quick Contact</h3>
+                <h3 className="text-xl font-bold mb-4" style={{ color: '#1E293B' }}>Quick Contact</h3>
                 <div className="space-y-4">
-                  <div className="flex items-center justify-between p-3 rounded-lg" style={{ backgroundColor: '#f6f6f6' }}>
+                  <div className="flex items-center justify-between p-3 rounded-lg" style={{ backgroundColor: '#E0F2FE' }}>
                     <div className="flex items-center space-x-3">
-                      <Phone className="h-5 w-5" style={{ color: '#718096' }} />
+                      <Phone className="h-5 w-5" style={{ color: '#0096C7' }} />
                       <div>
-                        <p className="font-medium" style={{ color: '#1a1a1a' }}>Emergency Hotline</p>
-                        <p className="font-semibold" style={{ color: '#718096' }}>+977-01-5367883</p>
+                        <p className="font-medium" style={{ color: '#1E293B' }}>Emergency Hotline</p>
+                        <p className="font-semibold" style={{ color: '#0096C7' }}>+977-01-5367883</p>
                       </div>
                     </div>
                     <a
                       href="tel:+97715367883"
                       className="flex items-center space-x-2 px-4 py-2 rounded-lg text-white font-semibold transition-all duration-200 hover:shadow-lg flex-shrink-0"
-                      style={{ backgroundColor: '#718096' }}
-                      onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#2D3748'}
-                      onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#718096'}
+                      style={{ backgroundColor: '#F9B222' }}
+                      onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#E09800'}
+                      onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#F9B222'}
                     >
                       <Phone className="h-4 w-4" />
                       <span>Call</span>
                     </a>
                   </div>
                   
-                  <div className="flex items-center space-x-3 p-3 rounded-lg" style={{ backgroundColor: '#f6f6f6' }}>
-                    <Mail className="h-5 w-5" style={{ color: '#718096' }} />
+                  <div className="flex items-center space-x-3 p-3 rounded-lg" style={{ backgroundColor: '#E0F2FE' }}>
+                    <Mail className="h-5 w-5" style={{ color: '#0096C7' }} />
                     <div>
-                      <p className="font-medium" style={{ color: '#1a1a1a' }}>Customer Support</p>
-                      <p className="font-semibold" style={{ color: '#718096' }}>info@cargocapital.com</p>
+                      <p className="font-medium" style={{ color: '#1E293B' }}>Customer Support</p>
+                      <p className="font-semibold" style={{ color: '#0096C7' }}>info@cargocapital.com</p>
                     </div>
                   </div>
                   
-                  <div className="border rounded-lg p-4" style={{ backgroundColor: '#f6f6f6', borderColor: '#718096' }}>
-                    <p className="text-sm" style={{ color: '#1a1a1a' }}>
+                  <div className="border rounded-lg p-4" style={{ backgroundColor: '#E0F2FE', borderColor: '#0096C7' }}>
+                    <p className="text-sm" style={{ color: '#1E293B' }}>
                       <strong>24/7 Support:</strong> Our customer service team is available 
                       around the clock for urgent shipping matters and tracking assistance.
                     </p>
@@ -434,7 +410,7 @@ const Contact = () => {
       <section className="py-16 bg-primary-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4" style={{ color: '#1a1a1a' }}>Before You Contact Us</h2>
+            <h2 className="text-3xl font-bold mb-4" style={{ color: '#1E293B' }}>Before You Contact Us</h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
               Check if your question is already answered in our frequently asked questions
             </p>
@@ -467,8 +443,8 @@ const Contact = () => {
                 answer: "Yes, we specialize in handling delicate items like handicrafts and artwork."
               }
             ].map((faq, index) => (
-              <div key={index} className="rounded-lg p-6" style={{ backgroundColor: '#f6f6f6' }}>
-                <h3 className="font-semibold mb-2" style={{ color: '#1a1a1a' }}>{faq.question}</h3>
+              <div key={index} className="rounded-lg p-6" style={{ backgroundColor: '#E0F2FE' }}>
+                <h3 className="font-semibold mb-2" style={{ color: '#1E293B' }}>{faq.question}</h3>
                 <p className="text-gray-600 text-sm">{faq.answer}</p>
               </div>
             ))}
@@ -478,7 +454,7 @@ const Contact = () => {
             <a
               href="/faq"
               className="inline-flex items-center space-x-2 font-medium"
-              style={{ color: '#718096' }}
+              style={{ color: '#0096C7' }}
             >
               <span>View All FAQs</span>
               <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

@@ -288,7 +288,7 @@ const AdminTracking: React.FC = () => {
         </div>
       )}
       <button
-        className="mb-6 px-6 py-3 bg-smoke-dark hover:bg-accent-orange-hover text-white rounded-lg font-medium transition-colors focus:ring-2 focus:ring-accent-orange focus:ring-offset-2 shadow-md"
+        className="mb-6 px-6 py-3 bg-primary-blue hover:bg-accent-orange text-white rounded-lg font-medium transition-colors focus:ring-2 focus:ring-accent-orange focus:ring-offset-2 shadow-md"
         onClick={() => {
           setShowForm(true);
           setEditOrder(null);
@@ -418,7 +418,7 @@ const AdminTracking: React.FC = () => {
                   className={`px-4 py-3 border-t border-r border-b rounded-r-lg font-medium transition-colors ${
                     showMapDestination 
                       ? 'bg-green-500 text-white border-green-500' 
-                      : 'bg-smoke-light0 text-white border-smoke-light0 hover:bg-accent-orange'
+                      : 'bg-primary-blue text-white border-primary-blue hover:bg-accent-orange'
                   }`}
                   title={showMapDestination ? 'Hide map selection' : 'Select on map'}
                 >
@@ -426,8 +426,8 @@ const AdminTracking: React.FC = () => {
                 </button>
               </div>
               {selectedLocation && (
-                <div className="mt-2 p-2 bg-smoke-light border border-smoke-medium rounded text-sm">
-                  <span className="text-smoke-dark">📍 Selected: {selectedLocation.city}, {selectedLocation.country}</span>
+                <div className="mt-2 p-2 bg-blue-50 border border-blue-200 rounded text-sm">
+                  <span className="text-gray-700">📍 Selected: {selectedLocation.city}, {selectedLocation.country}</span>
                 </div>
               )}
             </div>

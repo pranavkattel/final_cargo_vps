@@ -47,17 +47,17 @@ const Navbar = () => {
                       : 'hover:scale-105'
                   }`}
                   style={{
-                    color: location.pathname === item.href ? '#718096' : '#2D3748',
-                    borderColor: location.pathname === item.href ? '#718096' : 'transparent'
+                    color: location.pathname === item.href ? '#0096C7' : '#1E293B',
+                    borderColor: location.pathname === item.href ? '#0096C7' : 'transparent'
                   }}
                   onMouseEnter={(e) => {
                     if (location.pathname !== item.href) {
-                      e.currentTarget.style.color = '#718096';
+                      e.currentTarget.style.color = '#F9B222';
                     }
                   }}
                   onMouseLeave={(e) => {
                     if (location.pathname !== item.href) {
-                      e.currentTarget.style.color = '#2D3748';
+                      e.currentTarget.style.color = '#1E293B';
                     }
                   }}
                 >
@@ -67,7 +67,7 @@ const Navbar = () => {
                     className={`absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full ${
                       location.pathname === item.href ? 'hidden' : ''
                     }`}
-                    style={{ backgroundColor: '#718096' }}
+                    style={{ backgroundColor: '#F9B222' }}
                   ></span>
                 </Link>
               ))}
@@ -79,7 +79,7 @@ const Navbar = () => {
             <a 
               href="tel:+97715367883"
               className="flex items-center space-x-2 px-3 py-2 rounded-lg transition-all duration-300 hover:scale-105 cursor-pointer group" 
-              style={{ color: '#718096' }}
+              style={{ color: '#0096C7' }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.backgroundColor = '#f0f0f0';
                 e.currentTarget.style.transform = 'scale(1.05)';
@@ -99,14 +99,14 @@ const Navbar = () => {
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="p-2 rounded-lg transition-all duration-300 hover:scale-110 active:scale-95"
-              style={{ color: '#2D3748' }}
+              style={{ color: '#1E293B' }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = '#f0f0f0';
-                e.currentTarget.style.color = '#718096';
+                e.currentTarget.style.backgroundColor = '#E0F2FE';
+                e.currentTarget.style.color = '#0096C7';
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.backgroundColor = 'transparent';
-                e.currentTarget.style.color = '#2D3748';
+                e.currentTarget.style.color = '#1E293B';
               }}
             >
               <div className="relative w-6 h-6">
@@ -144,22 +144,22 @@ const Navbar = () => {
                   : 'hover:shadow-sm'
               }`}
               style={{
-                color: location.pathname === item.href ? '#718096' : '#2D3748',
-                backgroundColor: location.pathname === item.href ? '#f0f0f0' : 'transparent',
+                color: location.pathname === item.href ? '#0096C7' : '#1E293B',
+                backgroundColor: location.pathname === item.href ? '#E0F2FE' : 'transparent',
                 transitionDelay: `${index * 50}ms`,
                 transform: isOpen ? 'translateX(0)' : 'translateX(-20px)',
                 opacity: isOpen ? 1 : 0
               }}
               onMouseEnter={(e) => {
                 if (location.pathname !== item.href) {
-                  e.currentTarget.style.backgroundColor = '#f0f0f0';
-                  e.currentTarget.style.color = '#718096';
+                  e.currentTarget.style.backgroundColor = '#E0F2FE';
+                  e.currentTarget.style.color = '#F9B222';
                 }
               }}
               onMouseLeave={(e) => {
                 if (location.pathname !== item.href) {
                   e.currentTarget.style.backgroundColor = 'transparent';
-                  e.currentTarget.style.color = '#2D3748';
+                  e.currentTarget.style.color = '#1E293B';
                 }
               }}
             >
@@ -170,13 +170,13 @@ const Navbar = () => {
             href="tel:+97715367883"
             className="px-3 py-2 flex items-center space-x-2 rounded-lg transition-all duration-300 hover:scale-105 cursor-pointer group" 
             style={{ 
-              color: '#718096',
+              color: '#0096C7',
               transitionDelay: `${navigation.length * 50}ms`,
               transform: isOpen ? 'translateX(0)' : 'translateX(-20px)',
               opacity: isOpen ? 1 : 0
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = '#f0f0f0';
+              e.currentTarget.style.backgroundColor = '#E0F2FE';
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.backgroundColor = 'transparent';

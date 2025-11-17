@@ -98,8 +98,8 @@ export const EnhancedDropdown: React.FC<EnhancedDropdownProps> = ({
           w-full px-4 py-3 text-left bg-primary-white border rounded-lg shadow-sm
           ${disabled ? 'bg-gray-100 cursor-not-allowed' : 'hover:border-gray-400 cursor-pointer'}
           ${error ? 'border-red-500' : 'border-gray-300'}
-          ${isOpen ? 'ring-2 ring-accent-orange border-smoke-light0' : ''}
-          focus:outline-none focus:ring-2 focus:ring-accent-orange focus:border-smoke-light0
+          ${isOpen ? 'ring-2 ring-accent-orange border-accent-orange' : ''}
+          focus:outline-none focus:ring-2 focus:ring-accent-orange focus:border-accent-orange
           transition-all duration-200
         `}
       >
@@ -175,7 +175,7 @@ export const EnhancedDropdown: React.FC<EnhancedDropdownProps> = ({
                   onClick={() => handleSelect(option)}
                   className={`
                     w-full px-4 py-3 text-left hover:bg-gray-50 focus:bg-gray-50
-                    ${selectedOption?.value === option.value ? 'bg-smoke-light border-r-4 border-smoke-light0' : ''}
+                    ${selectedOption?.value === option.value ? 'bg-blue-50 border-r-4 border-primary-blue' : ''}
                     border-b border-gray-100 last:border-b-0
                     focus:outline-none transition-colors duration-150
                   `}
@@ -196,7 +196,7 @@ export const EnhancedDropdown: React.FC<EnhancedDropdownProps> = ({
                             </span>
                           )}
                           {option.popular && (
-                            <span className="bg-smoke-medium text-smoke-dark text-xs px-2 py-1 rounded-full">
+                            <span className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">
                               Popular
                             </span>
                           )}

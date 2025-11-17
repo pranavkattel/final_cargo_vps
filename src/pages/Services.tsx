@@ -125,7 +125,7 @@ const Services = () => {
   return (
     <div className="pt-16">
       {/* Hero Section */}
-      <section className="text-white py-20" style={{ background: 'linear-gradient(135deg, #4A5568 0%, #2D3748 100%)' }}>
+      <section className="text-white py-20" style={{ background: 'linear-gradient(135deg, #0096C7 0%, #0077A3 100%)' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-6">
@@ -147,10 +147,10 @@ const Services = () => {
               <div key={index} className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${index % 2 === 1 ? 'lg:grid-flow-col-dense' : ''}`}>
                 <div className={`space-y-6 ${index % 2 === 1 ? 'lg:col-start-2' : ''}`}>
                   <div className="flex items-center space-x-4">
-                    <div className="rounded-lg w-12 h-12 flex items-center justify-center" style={{ backgroundColor: '#718096' }}>
+                    <div className="rounded-lg w-12 h-12 flex items-center justify-center" style={{ backgroundColor: '#F9B222' }}>
                       <service.icon className="h-6 w-6 text-white" />
                     </div>
-                    <h2 className="text-3xl font-bold" style={{ color: '#1a1a1a' }}>{service.title}</h2>
+                    <h2 className="text-3xl font-bold" style={{ color: '#1E293B' }}>{service.title}</h2>
                   </div>
                   
                   <p className="text-lg text-gray-600 leading-relaxed">
@@ -158,11 +158,11 @@ const Services = () => {
                   </p>
                   
                   <div>
-                    <h3 className="text-lg font-semibold mb-3" style={{ color: '#1a1a1a' }}>Key Features:</h3>
+                    <h3 className="text-lg font-semibold mb-3" style={{ color: '#1E293B' }}>Key Features:</h3>
                     <ul className="space-y-2">
                       {service.features.map((feature, fIndex) => (
                         <li key={fIndex} className="flex items-center space-x-3">
-                          <CheckCircle className="h-5 w-5 flex-shrink-0" style={{ color: '#718096' }} />
+                          <CheckCircle className="h-5 w-5 flex-shrink-0" style={{ color: '#0096C7' }} />
                           <span className="text-gray-600">{feature}</span>
                         </li>
                       ))}
@@ -185,10 +185,10 @@ const Services = () => {
       </section>
 
       {/* Specialized Services */}
-      <section className="py-16" style={{ backgroundColor: '#f6f6f6' }}>
+      <section className="py-16" style={{ backgroundColor: '#F0F9FF' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{ color: '#1a1a1a' }}>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{ color: '#1E293B' }}>
               Specialized Nepal Exports
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
@@ -200,7 +200,7 @@ const Services = () => {
             {specializedServices.map((service, index) => (
               <div key={index} className="bg-primary-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300 text-center">
                 <div className="text-4xl mb-4">{service.icon}</div>
-                <h3 className="text-xl font-semibold mb-3" style={{ color: '#1a1a1a' }}>{service.title}</h3>
+                <h3 className="text-xl font-semibold mb-3" style={{ color: '#1E293B' }}>{service.title}</h3>
                 <p className="text-gray-600">{service.description}</p>
               </div>
             ))}
@@ -212,7 +212,7 @@ const Services = () => {
       <section className="py-16 bg-primary-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{ color: '#1a1a1a' }}>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{ color: '#1E293B' }}>
               Our Service Process
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
@@ -228,10 +228,10 @@ const Services = () => {
               { step: '04', title: 'Delivery', description: 'Safe delivery to final destination with tracking' }
             ].map((process, index) => (
               <div key={index} className="text-center relative group">
-                <div className="text-white rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4 transition-colors duration-200" style={{ backgroundColor: '#718096' }}>
+                <div className="text-white rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4 transition-colors duration-200" style={{ backgroundColor: '#0096C7' }}>
                   <span className="text-xl font-bold">{process.step}</span>
                 </div>
-                <h3 className="text-lg font-semibold mb-2" style={{ color: '#1a1a1a' }}>{process.title}</h3>
+                <h3 className="text-lg font-semibold mb-2" style={{ color: '#1E293B' }}>{process.title}</h3>
                 <p className="text-gray-600 text-sm">{process.description}</p>
                 {index < 3 && (
                   <ArrowRight className="hidden lg:block absolute top-8 -right-4 h-6 w-6 text-gray-300" />
@@ -243,7 +243,7 @@ const Services = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 text-white" style={{ background: 'linear-gradient(135deg, #4A5568 0%, #2D3748 100%)' }}>
+      <section className="py-16 text-white" style={{ background: 'linear-gradient(135deg, #0096C7 0%, #0077A3 100%)' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
             Need a Custom Solution?
@@ -255,16 +255,16 @@ const Services = () => {
             <a
               href="/quote"
               className="text-white px-8 py-4 rounded-lg font-semibold transition-colors duration-200 flex items-center justify-center space-x-2"
-              style={{ backgroundColor: '#718096' }}
-              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#2D3748'}
-              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#718096'}
+              style={{ backgroundColor: '#F9B222' }}
+              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#E09800'}
+              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#F9B222'}
             >
               <span>Get Custom Quote</span>
               <ArrowRight className="h-5 w-5" />
             </a>
             <a
               href="/contact"
-              className="border-2 border-white text-white hover:bg-primary-white hover:text-smoke-dark px-8 py-4 rounded-lg font-semibold transition-colors duration-200"
+              className="border-2 border-white text-white hover:bg-primary-white hover:text-primary-blue px-8 py-4 rounded-lg font-semibold transition-colors duration-200"
             >
               Speak with Expert
             </a>

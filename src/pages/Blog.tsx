@@ -16,7 +16,7 @@ const Blog = () => {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative py-20" style={{ background: 'linear-gradient(135deg, #2D3748 0%, #4A5568 100%)' }}>
+      <section className="relative py-20" style={{ background: 'linear-gradient(135deg, #0096C7 0%, #0077A3 100%)' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
           <h1 className="text-4xl md:text-5xl font-bold mb-6">Capital Cargo Blog</h1>
           <p className="text-xl text-gray-200 max-w-3xl mx-auto">
@@ -28,10 +28,10 @@ const Blog = () => {
 
       {/* Featured Post */}
       {featuredPost && (
-        <section className="py-16" style={{ backgroundColor: '#f6f6f6' }}>
+        <section className="py-16" style={{ backgroundColor: '#FFFFFF' }}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="mb-8 text-center">
-              <span className="inline-block px-4 py-2 rounded-full text-sm font-semibold" style={{ backgroundColor: '#718096', color: 'white' }}>
+              <span className="inline-block px-4 py-2 rounded-full text-sm font-semibold" style={{ backgroundColor: '#F9B222', color: 'white' }}>
                 Featured Article
               </span>
             </div>
@@ -53,7 +53,7 @@ const Blog = () => {
                 
                 <div className="p-8 lg:p-12 flex flex-col justify-between">
                   <div>
-                    <h2 className="text-3xl font-bold mb-4" style={{ color: '#1a1a1a' }}>
+                    <h2 className="text-3xl font-bold mb-4" style={{ color: '#1E293B' }}>
                       {featuredPost.title}
                     </h2>
                     
@@ -75,16 +75,18 @@ const Blog = () => {
                   
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-3">
-                      <div className="w-10 h-10 rounded-full flex items-center justify-center" style={{ backgroundColor: '#f6f6f6' }}>
-                        <User className="h-5 w-5" style={{ color: '#718096' }} />
+                      <div className="w-10 h-10 rounded-full flex items-center justify-center" style={{ backgroundColor: '#E0F2FE' }}>
+                        <User className="h-5 w-5" style={{ color: '#0096C7' }} />
                       </div>
                       <span className="text-gray-700 font-medium">{featuredPost.author}</span>
                     </div>
                     
                     <Link 
                       to={`/blog/${featuredPost.slug}`}
-                      className="text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-200 flex items-center space-x-2 hover:opacity-90" 
-                      style={{ backgroundColor: '#718096' }}
+                      className="text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-200 flex items-center space-x-2" 
+                      style={{ backgroundColor: '#0096C7' }}
+                      onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#F9B222'}
+                      onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#0096C7'}
                     >
                       <span>Read More</span>
                       <ArrowRight className="h-4 w-4" />
@@ -98,7 +100,7 @@ const Blog = () => {
       )}
 
       {/* Category Filter */}
-      <section className="py-8 border-b" style={{ backgroundColor: '#f6f6f6' }}>
+      <section className="py-8 border-b" style={{ backgroundColor: '#F0F9FF' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-wrap justify-center gap-3">
             {categories.map((category) => (
@@ -111,7 +113,7 @@ const Blog = () => {
                     : 'bg-primary-white text-gray-700 hover:bg-gray-100 border border-gray-200'
                 }`}
                 style={{
-                  backgroundColor: selectedCategory === category ? '#718096' : undefined
+                  backgroundColor: selectedCategory === category ? '#0096C7' : undefined
                 }}
               >
                 {category}
@@ -122,7 +124,7 @@ const Blog = () => {
       </section>
 
       {/* Blog Posts Grid */}
-      <section className="py-16" style={{ backgroundColor: '#f6f6f6' }}>
+      <section className="py-16" style={{ backgroundColor: '#FFFFFF' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredPosts.filter(post => !post.featured).map((post) => (
@@ -152,7 +154,7 @@ const Blog = () => {
                     </div>
                   </div>
                   
-                  <h3 className="text-xl font-bold mb-3 transition-colors duration-200" style={{ color: '#1a1a1a' }}>
+                  <h3 className="text-xl font-bold mb-3 transition-colors duration-200" style={{ color: '#1E293B' }}>
                     {post.title}
                   </h3>
                   
@@ -170,8 +172,10 @@ const Blog = () => {
                     
                     <Link 
                       to={`/blog/${post.slug}`}
-                      className="font-medium text-sm flex items-center space-x-1 transition-colors duration-200 hover:opacity-80" 
-                      style={{ color: '#718096' }}
+                      className="font-medium text-sm flex items-center space-x-1 transition-colors duration-200" 
+                      style={{ color: '#0096C7' }}
+                      onMouseEnter={(e) => e.currentTarget.style.color = '#F9B222'}
+                      onMouseLeave={(e) => e.currentTarget.style.color = '#0096C7'}
                     >
                       <span>Read More</span>
                       <ArrowRight className="h-4 w-4" />
@@ -185,10 +189,10 @@ const Blog = () => {
       </section>
 
       {/* Popular Topics */}
-      <section className="py-16" style={{ backgroundColor: '#f6f6f6' }}>
+      <section className="py-16" style={{ backgroundColor: '#F0F9FF' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4" style={{ color: '#1a1a1a' }}>Popular Topics</h2>
+            <h2 className="text-3xl font-bold mb-4" style={{ color: '#1E293B' }}>Popular Topics</h2>
             <p className="text-lg text-gray-600">
               Explore our most read articles and guides
             </p>
@@ -207,7 +211,7 @@ const Blog = () => {
             ].map((topic, index) => (
               <div key={index} className="bg-primary-white rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow duration-200 cursor-pointer text-center">
                 <div className="text-3xl mb-3">{topic.icon}</div>
-                <h3 className="font-semibold mb-2" style={{ color: '#1a1a1a' }}>{topic.title}</h3>
+                <h3 className="font-semibold mb-2" style={{ color: '#1E293B' }}>{topic.title}</h3>
                 <p className="text-sm text-gray-600">{topic.count}</p>
               </div>
             ))}

@@ -223,7 +223,7 @@ const Quote = () => {
                   placeholder="Pickup address (optional)"
                   value={formData.pickupAddress}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-orange focus:border-smoke-light0"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-orange focus:border-accent-orange"
                 />
                 <input
                   type="text"
@@ -231,14 +231,14 @@ const Quote = () => {
                   placeholder="City"
                   value={formData.pickupCity}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-orange focus:border-smoke-light0"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-orange focus:border-accent-orange"
                   required
                 />
                 <select
                   name="pickupCountry"
                   value={formData.pickupCountry}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-orange focus:border-smoke-light0"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-orange focus:border-accent-orange"
                   required
                 >
                   <option value="">Select pickup country</option>
@@ -266,7 +266,7 @@ const Quote = () => {
                   placeholder="Destination address (optional)"
                   value={formData.destinationAddress}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-orange focus:border-smoke-light0"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-orange focus:border-accent-orange"
                 />
                 <input
                   type="text"
@@ -274,14 +274,14 @@ const Quote = () => {
                   placeholder="City"
                   value={formData.destinationCity}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-orange focus:border-smoke-light0"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-orange focus:border-accent-orange"
                   required
                 />
                 <select
                   name="destinationCountry"
                   value={formData.destinationCountry}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-orange focus:border-smoke-light0"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-orange focus:border-accent-orange"
                   required
                 >
                   <option value="">Select destination country</option>
@@ -336,10 +336,10 @@ const Quote = () => {
                 <input
                   type="number"
                   name="weight"
-                  placeholder="Weight (kg) - optional"
+                  placeholder="Weight (kg)"
                   value={formData.weight}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-orange focus:border-smoke-light0"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-orange focus:border-accent-orange"
                 />
                 <div className="grid grid-cols-3 gap-2">
                   <input
@@ -348,7 +348,7 @@ const Quote = () => {
                     placeholder="Length (cm) - opt"
                     value={formData.length}
                     onChange={handleInputChange}
-                    className="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-orange focus:border-smoke-light0"
+                    className="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-orange focus:border-accent-orange"
                   />
                   <input
                     type="number"
@@ -356,7 +356,7 @@ const Quote = () => {
                     placeholder="Width (cm) - opt"
                     value={formData.width}
                     onChange={handleInputChange}
-                    className="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-orange focus:border-smoke-light0"
+                    className="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-orange focus:border-accent-orange"
                   />
                   <input
                     type="number"
@@ -364,7 +364,7 @@ const Quote = () => {
                     placeholder="Height (cm) - opt"
                     value={formData.height}
                     onChange={handleInputChange}
-                    className="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-orange focus:border-smoke-light0"
+                    className="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-orange focus:border-accent-orange"
                   />
                 </div>
               </div>
@@ -375,7 +375,7 @@ const Quote = () => {
                   name="goodsType"
                   value={formData.goodsType}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-orange focus:border-smoke-light0"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-orange focus:border-accent-orange"
                   required
                 >
                   <option value="">Select goods type</option>
@@ -389,7 +389,7 @@ const Quote = () => {
                   placeholder="Declared value (USD) - optional"
                   value={formData.goodsValue}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-orange focus:border-smoke-light0"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-orange focus:border-accent-orange"
                 />
               </div>
             </div>
@@ -421,7 +421,7 @@ const Quote = () => {
                     />
                     <div className={`p-4 border-2 rounded-lg cursor-pointer transition-colors ${
                       formData.shippingMethod === method.value 
-                        ? 'border-smoke-light0 bg-smoke-light' 
+                        ? 'border-primary-blue bg-blue-50' 
                         : 'border-gray-200 hover:border-gray-300'
                     }`}>
                       <div className="flex items-center justify-between">
@@ -472,7 +472,7 @@ const Quote = () => {
                 placeholder="Full Name"
                 value={formData.name}
                 onChange={handleInputChange}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-orange focus:border-smoke-light0"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-orange focus:border-accent-orange"
                 required
               />
               <input
@@ -481,7 +481,7 @@ const Quote = () => {
                 placeholder="Email Address"
                 value={formData.email}
                 onChange={handleInputChange}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-orange focus:border-smoke-light0"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-orange focus:border-accent-orange"
                 required
               />
               <input
@@ -490,7 +490,7 @@ const Quote = () => {
                 placeholder="Phone Number"
                 value={formData.phone}
                 onChange={handleInputChange}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-orange focus:border-smoke-light0"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-orange focus:border-accent-orange"
                 required
               />
             </div>
@@ -526,7 +526,7 @@ const Quote = () => {
   return (
     <div className="pt-16">
       {/* Hero Section */}
-      <section className="text-white py-20" style={{ background: 'linear-gradient(135deg, #4A5568 0%, #2D3748 100%)' }}>
+      <section className="text-white py-20" style={{ background: 'linear-gradient(135deg, #0096C7 0%, #0077A3 100%)' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-6">Request a Quote</h1>
@@ -536,7 +536,7 @@ const Quote = () => {
       </section>
 
       {/* Quote Form */}
-      <section className="py-16" style={{ backgroundColor: '#f6f6f6' }}>
+      <section className="py-16" style={{ backgroundColor: '#F0F9FF' }}>
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="bg-primary-white rounded-xl shadow-lg p-8">
             {/* Progress Bar */}
@@ -548,14 +548,14 @@ const Quote = () => {
                       currentStep >= step && !showThankYou
                         ? 'text-white'
                         : 'bg-gray-200 text-gray-500'
-                    }`} style={{ backgroundColor: currentStep >= step && !showThankYou ? '#718096' : undefined }}>
+                    }`} style={{ backgroundColor: currentStep >= step && !showThankYou ? '#0096C7' : undefined }}>
                       {/* Remove calculator icon, just show step number */}
                       {step}
                     </div>
                     {step < 5 && (
                       <div className={`w-full h-1 ml-2 ${
                         currentStep > step && !showThankYou ? '' : 'bg-gray-200'
-                      }`} style={{ backgroundColor: currentStep > step && !showThankYou ? '#718096' : undefined }}></div>
+                      }`} style={{ backgroundColor: currentStep > step && !showThankYou ? '#0096C7' : undefined }}></div>
                     )}
                   </div>
                 ))}
@@ -597,9 +597,9 @@ const Quote = () => {
                     <button
                       onClick={nextStep}
                       className="px-6 py-3 text-white rounded-lg transition-colors duration-200 flex items-center space-x-2"
-                      style={{ backgroundColor: '#718096' }}
-                      onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#2D3748'}
-                      onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#718096'}
+                      style={{ backgroundColor: '#F9B222' }}
+                      onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#E09800'}
+                      onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#F9B222'}
                     >
                       <span>Next</span>
                     </button>
@@ -608,7 +608,7 @@ const Quote = () => {
                       onClick={handleBookShipment}
                       disabled={isSubmitting}
                       className="px-6 py-3 text-white rounded-lg transition-colors duration-200 flex items-center space-x-2"
-                      style={{ backgroundColor: isSubmitting ? '#ccc' : '#718096' }}
+                      style={{ backgroundColor: isSubmitting ? '#ccc' : '#F9B222' }}
                     >
                       {isSubmitting ? (
                         <>
@@ -631,7 +631,7 @@ const Quote = () => {
       <section className="py-16 bg-primary-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4" style={{ color: '#1a1a1a' }}>Why Choose Our Quote System?</h2>
+            <h2 className="text-3xl font-bold mb-4" style={{ color: '#1E293B' }}>Why Choose Our Quote System?</h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
               Transparent pricing with no hidden fees
             </p>
@@ -639,26 +639,26 @@ const Quote = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="text-center">
-              <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4" style={{ backgroundColor: '#718096' }}>
+              <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4" style={{ backgroundColor: '#F9B222' }}>
                 <DollarSign className="h-8 w-8 text-white" />
               </div>
-              <h3 className="text-lg font-semibold mb-2" style={{ color: '#1a1a1a' }}>Transparent Pricing</h3>
+              <h3 className="text-lg font-semibold mb-2" style={{ color: '#1E293B' }}>Transparent Pricing</h3>
               <p className="text-gray-600">No hidden fees - see exactly what you're paying for</p>
             </div>
             
             <div className="text-center">
-              <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4" style={{ backgroundColor: '#718096' }}>
+              <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4" style={{ backgroundColor: '#F9B222' }}>
                 <Clock className="h-8 w-8 text-white" />
               </div>
-              <h3 className="text-lg font-semibold mb-2" style={{ color: '#1a1a1a' }}>Instant Quotes</h3>
+              <h3 className="text-lg font-semibold mb-2" style={{ color: '#1E293B' }}>Instant Quotes</h3>
               <p className="text-gray-600">Get your quote immediately - no waiting required</p>
             </div>
             
             <div className="text-center">
-              <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4" style={{ backgroundColor: '#718096' }}>
+              <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4" style={{ backgroundColor: '#F9B222' }}>
                 <Shield className="h-8 w-8 text-white" />
               </div>
-              <h3 className="text-lg font-semibold mb-2" style={{ color: '#1a1a1a' }}>Accurate Estimates</h3>
+              <h3 className="text-lg font-semibold mb-2" style={{ color: '#1E293B' }}>Accurate Estimates</h3>
               <p className="text-gray-600">Real-time pricing based on current market rates</p>
             </div>
           </div>
