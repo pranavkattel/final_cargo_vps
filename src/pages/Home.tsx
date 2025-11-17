@@ -1,4 +1,5 @@
 import { lazy, Suspense, useEffect, useMemo, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Plane, Ship, Truck, Shield, Clock, Globe, CheckCircle, Star, Award, DoorOpen } from 'lucide-react';
 import earthTexture from '../assets/images/earth_texture.jpg';
@@ -8,8 +9,10 @@ const Globe3D = lazy(() => import('../components/Globe3D'));
 
 const Home = () => {
   const heroGlobeRef = useRef<HTMLDivElement | null>(null);
+  const heroSectionRef = useRef<HTMLDivElement | null>(null);
   const [shouldLoadGlobe, setShouldLoadGlobe] = useState(false);
   const [selectedRegion, setSelectedRegion] = useState<string | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
   const [showInstructions, setShowInstructions] = useState(true);
   const [isAnimationPaused, setIsAnimationPaused] = useState(false);
   // Use public folder paths for large video files
@@ -94,6 +97,18 @@ const Home = () => {
     }, 5000);
 
     return () => clearTimeout(timer);
+  }, []);
+
+  // Detect mobile screen size
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
   // Resume animation when no region is selected
@@ -186,7 +201,7 @@ const Home = () => {
       </div>
       
       {/* Hero Section - Earth Texture with Clickable Points */}
-      <section className="relative text-white min-h-[70vh] flex items-center overflow-hidden">
+      <section ref={heroSectionRef} className="relative text-white min-h-[70vh] flex items-center overflow-hidden">
         {/* Earth texture background */}
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute inset-0 md:animate-slow-zoom">
@@ -317,7 +332,7 @@ const Home = () => {
                   )}
 
                   {/* Country Dropdown - Responsive */}
-                  {selectedRegion === point.label && (
+                  {selectedRegion === point.label && !isMobile && (
                     <div 
                       className="country-dropdown absolute top-full right-0 mt-2 sm:mt-4 bg-white rounded-lg sm:rounded-xl shadow-2xl p-3 sm:p-4 min-w-[200px] sm:min-w-[240px] max-h-[280px] sm:max-h-[320px] overflow-hidden border border-gray-100 z-[9999]"
                       style={{
@@ -362,6 +377,61 @@ const Home = () => {
           </div>
         </div>
 
+        {/* Mobile Centered Dropdown - Using Portal */}
+        {isMobile && selectedRegion && heroSectionRef.current && createPortal(
+          <div 
+            className="fixed inset-0 z-[99998] flex items-center justify-center p-4"
+            style={{
+              top: `${heroSectionRef.current.offsetTop}px`,
+              height: `${heroSectionRef.current.offsetHeight}px`,
+            }}
+          >
+            {/* Backdrop overlay - Click to close */}
+            <div 
+              className="absolute inset-0 bg-black bg-opacity-30"
+              onClick={() => setSelectedRegion(null)}
+            />
+            
+            {/* Centered Dropdown */}
+            <div 
+              className="country-dropdown relative bg-white rounded-xl shadow-2xl p-4 min-w-[280px] max-w-[90vw] max-h-[60vh] overflow-hidden border border-gray-100 z-[99999]"
+              style={{
+                backdropFilter: 'blur(10px)',
+                backgroundColor: 'rgba(255, 255, 255, 0.98)',
+              }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="flex justify-between items-center mb-3 pb-3 border-b-2 border-gradient-to-r from-accent-orange to-transparent">
+                <h4 className="font-bold text-smoke-dark text-base flex items-center gap-2">
+                  <span className="text-accent-orange text-base">📍</span>
+                  {selectedRegion}
+                </h4>
+                <button 
+                  onClick={() => setSelectedRegion(null)}
+                  className="text-gray-400 hover:text-accent-orange text-2xl leading-none transition-colors duration-200 w-6 h-6 flex items-center justify-center rounded-full hover:bg-gray-100"
+                >
+                  ×
+                </button>
+              </div>
+              <div className="space-y-1 max-h-[50vh] overflow-y-auto custom-scrollbar pr-1">
+                {regionCountries[selectedRegion]?.map((country, idx) => (
+                  <Link
+                    key={idx}
+                    to={`/quote?destination=${encodeURIComponent(country)}`}
+                    className="block px-4 py-2.5 rounded-lg text-sm transition-all duration-200 hover:bg-gradient-to-r hover:from-accent-orange hover:to-orange-500 hover:text-white text-smoke-dark font-medium hover:shadow-md hover:scale-[1.02] transform group"
+                  >
+                    <span className="flex items-center gap-2">
+                      <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-200">✈️</span>
+                      {country}
+                    </span>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>,
+          document.body
+        )}
+
         {/* Instruction Text - Visible for 5 seconds */}
         {showInstructions && (
           <div className="absolute bottom-0 left-0 right-0 z-20 pb-12 pointer-events-none">
@@ -388,8 +458,8 @@ const Home = () => {
           </div>
         )}
 
-        {/* Globe in top left corner - responsive */}
-        <div className="absolute top-2 left-2 z-20 pointer-events-auto">
+        {/* Globe in top right corner - responsive */}
+        <div className="absolute top-2 right-2 z-20 pointer-events-auto">
           <div
             ref={heroGlobeRef}
             className="relative w-[80px] h-[80px] sm:w-[112px] sm:h-[112px] md:w-[144px] md:h-[144px] lg:w-[182px] lg:h-[182px] xl:w-[227px] xl:h-[227px]"

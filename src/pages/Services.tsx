@@ -72,6 +72,20 @@ const Services = () => {
       ],
       regions: 'Available for all destinations',
       image: 'https://images.pexels.com/photos/4481532/pexels-photo-4481532.jpeg?auto=compress&cs=tinysrgb&w=800'
+    },
+    {
+      icon: Globe,
+      title: 'Product Sourcing',
+      description: 'Expert assistance in sourcing quality Nepali products for global markets',
+      features: [
+        'Supplier identification',
+        'Quality verification',
+        'Price negotiation',
+        'Sample coordination',
+        'Order management'
+      ],
+      regions: 'Nepal and South Asia',
+      image: 'https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=800'
     }
   ];
 
@@ -95,6 +109,16 @@ const Services = () => {
       title: 'Tea & Spices',
       description: 'Quality preservation for Himalayan tea and spices',
       icon: '🍃'
+    },
+    {
+      title: 'Pet Food (Dog Chew)',
+      description: 'Safe and hygienic transport of Himalayan dog chews and pet products',
+      icon: '🦴'
+    },
+    {
+      title: 'Buddhism Ritual Items',
+      description: 'Careful handling of religious artifacts, prayer items, and sacred objects',
+      icon: '🙏'
     }
   ];
 
@@ -172,7 +196,7 @@ const Services = () => {
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {specializedServices.map((service, index) => (
               <div key={index} className="bg-primary-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300 text-center">
                 <div className="text-4xl mb-4">{service.icon}</div>
@@ -240,8 +264,7 @@ const Services = () => {
             </a>
             <a
               href="/contact"
-              className="border-2 border-white text-white hover:bg-primary-white px-8 py-4 rounded-lg font-semibold transition-colors duration-200"
-              style={{ ':hover': { color: '#1a1a1a' } }}
+              className="border-2 border-white text-white hover:bg-primary-white hover:text-smoke-dark px-8 py-4 rounded-lg font-semibold transition-colors duration-200"
             >
               Speak with Expert
             </a>

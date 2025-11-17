@@ -82,7 +82,7 @@ export const EnhancedDropdown: React.FC<EnhancedDropdownProps> = ({
   }, [isOpen]);
 
   return (
-    <div className={`enhanced-dropdown relative ${className}`}>
+    <div className={`enhanced-dropdown relative overflow-visible ${className}`}>
       {/* Label */}
       <label className="block text-sm font-medium text-gray-700 mb-2">
         {label}
@@ -150,7 +150,7 @@ export const EnhancedDropdown: React.FC<EnhancedDropdownProps> = ({
 
       {/* Dropdown Options */}
       {isOpen && (
-        <div className="absolute z-50 w-full mt-1 bg-primary-white border border-gray-300 rounded-lg shadow-lg max-h-80 overflow-hidden">
+        <div className="absolute z-[9999] w-full mt-1 bg-primary-white border border-gray-300 rounded-lg shadow-lg max-h-80 overflow-visible">
           {/* Search Input */}
           {options.length > 5 && (
             <div className="p-3 border-b border-gray-200">
@@ -166,7 +166,7 @@ export const EnhancedDropdown: React.FC<EnhancedDropdownProps> = ({
           )}
 
           {/* Options List */}
-          <div className="max-h-64 overflow-y-auto">
+          <div className="max-h-64 overflow-y-auto overflow-x-hidden">
             {filteredOptions.length > 0 ? (
               filteredOptions.map((option) => (
                 <button

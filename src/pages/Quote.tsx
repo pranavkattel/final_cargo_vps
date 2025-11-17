@@ -101,26 +101,18 @@ const Quote = () => {
     switch (currentStep) {
       case 1:
         return (
-          formData.pickupAddress.trim() &&
           formData.pickupCity.trim() &&
           formData.pickupCountry.trim() &&
-          formData.destinationAddress.trim() &&
           formData.destinationCity.trim() &&
           formData.destinationCountry.trim()
         );
       case 2:
         return (
-          formData.weight.trim() &&
-          formData.length.trim() &&
-          formData.width.trim() &&
-          formData.height.trim() &&
-          formData.goodsType.trim() &&
-          formData.goodsValue.trim()
+          formData.goodsType.trim()
         );
       case 3:
         return (
-          formData.shippingMethod.trim() &&
-          formData.urgency.trim()
+          formData.shippingMethod.trim()
         );
       case 4:
         return (
@@ -223,16 +215,15 @@ const Quote = () => {
               <div className="space-y-4">
                 <h4 className="font-medium text-gray-900 flex items-center">
                   <MapPin className="h-4 w-4 mr-2 text-green-600" />
-                  Pickup Location
+                  Pickup From
                 </h4>
                 <input
                   type="text"
                   name="pickupAddress"
-                  placeholder="Pickup address"
+                  placeholder="Pickup address (optional)"
                   value={formData.pickupAddress}
                   onChange={handleInputChange}
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-orange focus:border-smoke-light0"
-                  required
                 />
                 <input
                   type="text"
@@ -250,7 +241,17 @@ const Quote = () => {
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-orange focus:border-smoke-light0"
                   required
                 >
-                  <option value="Nepal">Nepal</option>
+                  <option value="">Select pickup country</option>
+                  <optgroup label="🔥 Popular Destinations">
+                    {POPULAR_DESTINATIONS.map(country => (
+                      <option key={country} value={country}>✈️ {country}</option>
+                    ))}
+                  </optgroup>
+                  <optgroup label="🌍 All Countries (195 total)">
+                    {countries.map(country => (
+                      <option key={country} value={country}>{country}</option>
+                    ))}
+                  </optgroup>
                 </select>
               </div>
               
@@ -262,11 +263,10 @@ const Quote = () => {
                 <input
                   type="text"
                   name="destinationAddress"
-                  placeholder="Destination address"
+                  placeholder="Destination address (optional)"
                   value={formData.destinationAddress}
                   onChange={handleInputChange}
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-orange focus:border-smoke-light0"
-                  required
                 />
                 <input
                   type="text"
@@ -336,39 +336,35 @@ const Quote = () => {
                 <input
                   type="number"
                   name="weight"
-                  placeholder="Weight (kg)"
+                  placeholder="Weight (kg) - optional"
                   value={formData.weight}
                   onChange={handleInputChange}
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-orange focus:border-smoke-light0"
-                  required
                 />
                 <div className="grid grid-cols-3 gap-2">
                   <input
                     type="number"
                     name="length"
-                    placeholder="Length (cm)"
+                    placeholder="Length (cm) - opt"
                     value={formData.length}
                     onChange={handleInputChange}
                     className="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-orange focus:border-smoke-light0"
-                    required
                   />
                   <input
                     type="number"
                     name="width"
-                    placeholder="Width (cm)"
+                    placeholder="Width (cm) - opt"
                     value={formData.width}
                     onChange={handleInputChange}
                     className="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-orange focus:border-smoke-light0"
-                    required
                   />
                   <input
                     type="number"
                     name="height"
-                    placeholder="Height (cm)"
+                    placeholder="Height (cm) - opt"
                     value={formData.height}
                     onChange={handleInputChange}
                     className="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-orange focus:border-smoke-light0"
-                    required
                   />
                 </div>
               </div>
@@ -390,11 +386,10 @@ const Quote = () => {
                 <input
                   type="number"
                   name="goodsValue"
-                  placeholder="Declared value (USD)"
+                  placeholder="Declared value (USD) - optional"
                   value={formData.goodsValue}
                   onChange={handleInputChange}
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-orange focus:border-smoke-light0"
-                  required
                 />
               </div>
             </div>
@@ -410,7 +405,7 @@ const Quote = () => {
               <h4 className="font-medium text-gray-900">Select Shipping Method</h4>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {[
-                  { value: 'air-express', label: 'Air Express', time: '1-3 days', icon: '✈️' },
+                  { value: 'air-express', label: 'Air Express (Courier)', time: '1-3 days', icon: '✈️' },
                   { value: 'air-standard', label: 'Air Standard', time: '3-5 days', icon: '🛩️' },
                   { value: 'sea-freight', label: 'Sea Freight', time: '15-25 days', icon: '🚢' },
                   { value: 'land-transport', label: 'Land Transport', time: '5-10 days', icon: '🚛' }
@@ -458,36 +453,8 @@ const Quote = () => {
                     onChange={handleInputChange}
                     className="h-4 w-4 text-accent-orange focus:ring-accent-orange border-gray-300 rounded"
                   />
-                  <span className="text-gray-900">Add insurance coverage (2% of declared value)</span>
+                  <span className="text-gray-900">Add insurance coverage (1% of declared value)</span>
                 </label>
-                
-                <div className="space-y-2">
-                  <label className="font-medium text-gray-900">Urgency</label>
-                  <div className="flex space-x-4">
-                    <label className="flex items-center space-x-2">
-                      <input
-                        type="radio"
-                        name="urgency"
-                        value="standard"
-                        checked={formData.urgency === 'standard'}
-                        onChange={handleInputChange}
-                        className="h-4 w-4 text-accent-orange focus:ring-accent-orange border-gray-300"
-                      />
-                      <span className="text-gray-900">Standard</span>
-                    </label>
-                    <label className="flex items-center space-x-2">
-                      <input
-                        type="radio"
-                        name="urgency"
-                        value="urgent"
-                        checked={formData.urgency === 'urgent'}
-                        onChange={handleInputChange}
-                        className="h-4 w-4 text-accent-orange focus:ring-accent-orange border-gray-300"
-                      />
-                      <span className="text-gray-900">Urgent (+50% fee)</span>
-                    </label>
-                  </div>
-                </div>
               </div>
             </div>
           </div>

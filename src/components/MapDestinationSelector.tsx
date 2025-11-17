@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -105,7 +106,20 @@ export const MapDestinationSelector: React.FC<MapDestinationSelectorProps> = ({
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState<any[]>([]);
   const [isSearching, setIsSearching] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const mapRef = useRef<any>(null);
+
+  // Detect mobile screen size
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // Search for locations using OpenStreetMap Nominatim
   const searchLocation = async (query: string) => {
@@ -226,26 +240,49 @@ export const MapDestinationSelector: React.FC<MapDestinationSelectorProps> = ({
             </div>
           )}
         </div>
+      </div>
 
-        {/* Search Results */}
-        {searchResults.length > 0 && (
-          <div className="absolute z-10 w-full bg-primary-white border border-gray-300 rounded-lg shadow-lg max-h-48 overflow-y-auto">
-            {searchResults.map((result, index) => (
-              <button
-                key={index}
-                onClick={() => selectSearchResult(result)}
-                className="w-full px-4 py-2 text-left hover:bg-gray-100 border-b border-gray-200 last:border-b-0"
-              >
-                <div className="font-medium">{result.display_name}</div>
-                <div className="text-sm text-gray-600">
-                  {result.type} • {result.lat}, {result.lon}
-                </div>
-              </button>
-            ))}
+      {/* Search Results - Using React Portal to render outside parent DOM */}
+      {searchResults.length > 0 && createPortal(
+        <div className="fixed inset-0 z-[99998] flex items-center justify-center p-4">
+          {/* Backdrop overlay - Click to close */}
+          <div 
+            className="absolute inset-0 bg-black bg-opacity-50"
+            onClick={() => {
+              setSearchResults([]);
+            }}
+          />
+          
+          {/* Dropdown - ALWAYS CENTERED */}
+          <div 
+            className="relative bg-primary-white border border-gray-300 rounded-lg shadow-2xl overflow-hidden z-[99999]"
+            style={{
+              width: isMobile ? '90vw' : '500px',
+              maxWidth: '95vw',
+              maxHeight: '70vh'
+            }}
+          >
+            <div className="overflow-y-auto max-h-full">
+              {searchResults.map((result, index) => (
+                <button
+                  key={index}
+                  onClick={() => selectSearchResult(result)}
+                  className="w-full px-4 py-3 text-left hover:bg-gray-100 border-b border-gray-200 last:border-b-0 active:bg-gray-200 transition-colors"
+                >
+                  <div className="font-medium text-base">{result.display_name}</div>
+                  <div className="text-sm text-gray-600 mt-1">
+                    {result.type} • {result.lat.substring(0, 8)}, {result.lon.substring(0, 8)}
+                  </div>
+                </button>
+              ))}
+            </div>
           </div>
-        )}
+        </div>,
+        document.body
+      )}
 
-        {/* Control Buttons */}
+      {/* Control Buttons */}
+      <div className="mb-4">
         <div className="flex space-x-2">
           <button
             onClick={getCurrentLocation}
