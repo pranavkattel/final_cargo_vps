@@ -10,6 +10,21 @@ const NepaliCalendar: React.FC = () => {
   const dayOfWeek = currentDate.getDay();
   const isSaturday = dayOfWeek === 6;
   
+  // Responsive iframe height for calendar widgets
+  const [iframeHeight, setIframeHeight] = useState<number>(() => {
+    const w = typeof window !== 'undefined' ? window.innerWidth : 1200;
+    if (w < 420) return 480;
+    if (w < 640) return 520;
+    if (w < 1024) return 600;
+    return 840;
+  });
+  // Responsive iframe max width (used to constrain hamropatro iframe)
+  const [iframeMaxWidth, setIframeMaxWidth] = useState<number>(() => {
+    const w = typeof window !== 'undefined' ? window.innerWidth : 1200;
+    // subtract padding/margins (approx) so iframe fits comfortably
+    return Math.min(800, Math.max(280, w - 48));
+  });
+  
   // Format current date for display
   const formattedDate = currentDate.toLocaleDateString('en-US', { 
     month: 'long', 
@@ -17,7 +32,7 @@ const NepaliCalendar: React.FC = () => {
     year: 'numeric' 
   });
 
-  // Load the Nepali Calendar widget when modal opens
+  // Load the Nepali Calendar widget when modal opens — placed inside an iframe
   useEffect(() => {
     if (!isOpen || !widgetContainerRef.current) return;
 
@@ -26,9 +41,10 @@ const NepaliCalendar: React.FC = () => {
     // Create iframe to isolate the widget
     const iframe = document.createElement('iframe');
     iframe.style.width = '100%';
-    iframe.style.height = '350px';
+    iframe.style.height = `${iframeHeight}px`;
     iframe.style.border = 'none';
     iframe.style.overflow = 'hidden';
+    iframe.setAttribute('aria-hidden', 'false');
     
     container.appendChild(iframe);
 
@@ -41,16 +57,14 @@ const NepaliCalendar: React.FC = () => {
         <html>
         <head>
           <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
           <style>
-            body { 
-              margin: 0; 
-              padding: 0; 
-              font-family: Arial, sans-serif;
-              background: transparent;
-            }
+            html,body{height:100%;background:transparent;margin:0;padding:0}
+            .nc-wrap{box-sizing:border-box;padding:8px}
           </style>
         </head>
         <body>
+          <div class="nc-wrap"></div>
           <script type="text/javascript">
             var nc_ev_width = 'responsive';
             var nc_ev_height = 303;
@@ -64,11 +78,50 @@ const NepaliCalendar: React.FC = () => {
       iframeDoc.close();
     }
 
+    // Update height if iframeHeight changes while modal is open
+    const updateHeight = () => {
+      iframe.style.height = `${iframeHeight}px`;
+    };
+
+    updateHeight();
+
     return () => {
       // Cleanup
       container.innerHTML = '';
     };
-  }, [isOpen]);
+  }, [isOpen, iframeHeight]);
+
+  // Keep iframeHeight responsive to window size
+  useEffect(() => {
+    const compute = () => {
+      const w = window.innerWidth;
+      const h = window.innerHeight;
+      // Make iframe height take a larger portion of viewport on phones/tablets
+      let newH: number;
+      if (w < 420) {
+        // small phones: use 75% of viewport height but at least 420px
+        newH = Math.max(420, Math.round(h * 0.75));
+      } else if (w < 640) {
+        // mid phones: use 80% of viewport height
+        newH = Math.max(480, Math.round(h * 0.8));
+      } else if (w < 1024) {
+        // tablets/smaller laptops: use 85% of viewport height
+        newH = Math.min(900, Math.round(h * 0.85));
+      } else {
+        newH = 840;
+      }
+
+      setIframeHeight(newH);
+
+      // compute max width for hamropatro iframe so it fills more space but stays within modal
+      const maxW = Math.min(900, Math.max(300, w - 32));
+      setIframeMaxWidth(maxW);
+    };
+
+    compute();
+    window.addEventListener('resize', compute);
+    return () => window.removeEventListener('resize', compute);
+  }, []);
 
   return (
     <>
@@ -149,6 +202,59 @@ const NepaliCalendar: React.FC = () => {
                 </div>
               )}
 
+              {/* Hamropatro Calendar Widget */}
+              <div
+                className="bg-white rounded-lg border border-blue-200 overflow-hidden"
+                style={{
+                  // remove horizontal padding on small/medium screens so iframe can fill modal
+                  paddingLeft: iframeMaxWidth < 900 ? '0' : undefined,
+                  paddingRight: iframeMaxWidth < 900 ? '0' : undefined,
+                  paddingTop: '8px',
+                  paddingBottom: '8px'
+                }}
+              >
+                <div className="flex justify-center items-start w-full">
+                  {
+                    (() => {
+                      // Choose widget variant and target height per widget so iframe doesn't leave large blank area
+                      const useMedium = iframeMaxWidth <= 460;
+                      const hamroSrc = useMedium
+                        ? 'https://www.hamropatro.com/widgets/calender-medium.php'
+                        : 'https://www.hamropatro.com/widgets/calender-full.php';
+
+                      // Prefer a tighter height for medium widget; full widget uses computed iframeHeight but capped
+                      const hamroHeight = useMedium ? Math.max(420, Math.round(window.innerHeight * 0.55)) : Math.min(iframeHeight, 900);
+
+                      // Use the widget's natural width for the medium widget (295px)
+                      // and a tighter max for the full widget so the calendar centers visually.
+                      const wrapperWidth = useMedium ? Math.min(iframeMaxWidth, 295) : Math.min(iframeMaxWidth, 600);
+                      return (
+                        <div style={{ width: `${wrapperWidth}px`, margin: '0 auto', textAlign: 'center' }}>
+                          <iframe
+                            src={hamroSrc}
+                            frameBorder="0"
+                            scrolling="no"
+                            marginWidth={0}
+                            marginHeight={0}
+                            style={{
+                              border: 'none',
+                              overflow: 'hidden',
+                              width: '100%',
+                              height: `${hamroHeight}px`,
+                              minHeight: useMedium ? 360 : 480,
+                              display: 'block',
+                              background: 'transparent'
+                            }}
+                            allowTransparency={true}
+                            title="Hamropatro Nepali Calendar"
+                          />
+                        </div>
+                      );
+                    })()
+                  }
+                </div>
+              </div>
+
               {/* Upcoming Events & Holidays Widget */}
               <div className="bg-gradient-to-r from-orange-50 to-yellow-50 border-2 border-accent-orange rounded-lg p-4">
                 <h3 className="text-lg font-bold text-accent-orange mb-3 flex items-center gap-2">
@@ -157,28 +263,6 @@ const NepaliCalendar: React.FC = () => {
                 <div ref={widgetContainerRef} className="nepali-calendar-widget"></div>
                 <div id="ncwidgetlink" className="text-xs text-gray-500 mt-2">
                   Powered by © <a href="https://www.ashesh.com.np/nepali-calendar/" id="nclink" title="Nepali calendar" target="_blank" rel="noopener noreferrer" className="text-primary-blue hover:underline">Nepali Calendar</a>
-                </div>
-              </div>
-
-              {/* Hamropatro Calendar Widget */}
-              <div className="bg-white rounded-lg border border-blue-200 p-2 md:p-4 overflow-hidden">
-                <div className="flex justify-center items-center">
-                  <iframe 
-                    src="https://www.hamropatro.com/widgets/calender-full.php" 
-                    frameBorder="0" 
-                    scrolling="no" 
-                    marginWidth={0} 
-                    marginHeight={0} 
-                    style={{ 
-                      border: 'none', 
-                      overflow: 'hidden', 
-                      width: '100%',
-                      maxWidth: '800px',
-                      height: '840px'
-                    }} 
-                    allowTransparency={true}
-                    title="Hamropatro Nepali Calendar"
-                  />
                 </div>
               </div>
 

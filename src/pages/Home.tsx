@@ -791,16 +791,19 @@ const Home = () => {
                 </div>
 
                 <div className="pt-6 border-t border-gray-200">
-                  <Link
-                    to="/contact"
+                  {/* Open Google Maps directions in a new tab */}
+                  <a
+                    href={`https://maps.app.goo.gl/z5PiTxHyogpbQgWc9`}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="inline-flex items-center justify-center w-full px-6 py-3 text-lg font-semibold text-white rounded-lg transition-all duration-300 hover:scale-105"
                     style={{ backgroundColor: '#0096C7' }}
-                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#F9B222'}
-                    onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#0096C7'}
+                    onMouseEnter={(e) => (e.currentTarget as HTMLAnchorElement).style.backgroundColor = '#F9B222'}
+                    onMouseLeave={(e) => (e.currentTarget as HTMLAnchorElement).style.backgroundColor = '#0096C7'}
                   >
                     Get Directions
                     <ArrowRight className="ml-2 h-5 w-5" />
-                  </Link>
+                  </a>
                 </div>
               </div>
             </div>
