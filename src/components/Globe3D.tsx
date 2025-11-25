@@ -72,26 +72,42 @@ const Globe = () => {
 
 const Globe3D = () => {
   return (
-    <div className="relative h-full w-full">
-      <Canvas 
-        camera={{ position: [0, 0, 8], fov: 45 }}
+    <div className="flex items-center justify-center">
+      {/* Circular cutout using theme colors with inner shadow */}
+      <div
+        className="rounded-full overflow-hidden"
+        style={{
+          width: 'min(20rem, 40vw)',
+          aspectRatio: '1 / 1',
+          background: 'linear-gradient(180deg, #08306B 0%, #041226 100%)',
+          boxShadow: 'inset 0 0 40px rgba(4,18,38,0.85), 0 8px 30px rgba(4,18,38,0.25), 0 0 40px rgba(8,48,107,0.12)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          border: '3px solid rgba(2,6,23,0.6)'
+        }}
       >
-        <Suspense fallback={null}>
-          <OrbitControls
-            enableZoom={false}
-            enablePan={false}
-            autoRotate
-            autoRotateSpeed={0.3}
-            minDistance={8}
-            maxDistance={8}
-            enableDamping={true}
-            dampingFactor={0.1}
-            target={[0, 0, 0]}
-            makeDefault
-          />
-          <Globe />
-        </Suspense>
-      </Canvas>
+        <Canvas
+          style={{ width: '100%', height: '100%', background: 'transparent' }}
+          camera={{ position: [0, 0, 6], fov: 45 }}
+        >
+          <Suspense fallback={null}>
+            <OrbitControls
+              enableZoom={false}
+              enablePan={false}
+              autoRotate
+              autoRotateSpeed={0.3}
+              minDistance={8}
+              maxDistance={8}
+              enableDamping={true}
+              dampingFactor={0.1}
+              target={[0, 0, 0]}
+              makeDefault
+            />
+            <Globe />
+          </Suspense>
+        </Canvas>
+      </div>
     </div>
   );
 };
