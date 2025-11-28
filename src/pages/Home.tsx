@@ -3,6 +3,9 @@ import { createPortal } from 'react-dom';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Plane, Ship, Truck, Shield, Clock, Globe, CheckCircle, Star, Award, DoorOpen } from 'lucide-react';
 import earthTexture from '../assets/images/earth_texture.jpg';
+import cargoLoaded from '../assets/images/cargo loaded.JPG';
+import truckImg from '../assets/images/truck.JPG';
+import dsc05488 from '../assets/images/DSC05488.JPG';
 
 // Lazy load Globe3D for better initial page load
 const Globe3D = lazy(() => import('../components/Globe3D'));
@@ -43,21 +46,21 @@ const Home = () => {
       title: 'Sea Freight & Ocean Shipping',
       description: 'Top-rated sea freight forwarding services in Nepal',
       features: ['Bulk shipping', 'Container services', 'Port-to-port delivery'],
-      image: 'https://images.pexels.com/photos/906982/pexels-photo-906982.jpeg?auto=compress&cs=tinysrgb&w=800'
+      image: cargoLoaded
     },
     {
       icon: Truck,
       title: 'Land Transport & Logistics',
       description: 'Reliable cargo transport across Nepal and borders',
       features: ['Cross-border delivery', 'Flexible scheduling', 'Last-mile precision'],
-      image: 'https://images.pexels.com/photos/1095814/pexels-photo-1095814.jpeg?auto=compress&cs=tinysrgb&w=800'
+      image: truckImg
     },
     {
       icon: DoorOpen,
       title: 'Door-to-Door Delivery',
       description: 'Complete cargo solutions from pickup to delivery',
       features: ['Easy pickup', 'Direct delivery', 'Stress-free'],
-      image: 'https://images.pexels.com/photos/4481532/pexels-photo-4481532.jpeg?auto=compress&cs=tinysrgb&w=800'
+      image: dsc05488
     }
   ];
 
@@ -568,7 +571,7 @@ const Home = () => {
       {/* Decorative separator */}
       <div className="relative h-2 bg-accent-orange">
         {/* Cargo Capital text - absolute positioned touching the line - responsive */}
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 px-4">
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 px-4 text-center">
           <h3 className="text-3xl sm:text-4xl md:text-6xl lg:text-8xl xl:text-9xl font-black whitespace-nowrap uppercase tracking-wider sm:tracking-wide md:tracking-widest" 
               style={{
                 color: '#FFFFFF',
@@ -582,6 +585,18 @@ const Home = () => {
               }}>
             CAPITAL CARGO 
           </h3>
+          <p className="text-lg sm:text-xl md:text-3xl lg:text-4xl font-bold uppercase tracking-wide mt-2" 
+              style={{
+                color: '#FFFFFF',
+                textShadow: '0 4px 12px rgba(0,0,0,0.8), 0 0 40px rgba(0,0,0,0.4)',
+                fontFamily: '"Times New Roman", Times, serif',
+                letterSpacing: '0.1em',
+                WebkitTextStroke: '0.5px #000000',
+                paintOrder: 'stroke fill',
+                filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.9))'
+              }}>
+            INTERNATIONAL PVT LTD
+          </p>
         </div>
       </div>
 

@@ -28,6 +28,10 @@ const UnifiedAdminPanel: React.FC = () => {
   const [showAddModal, setShowAddModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [editingOrder, setEditingOrder] = useState<ShipmentData | null>(null);
+  
+  // Pagination states
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(25);
 
   useEffect(() => {
     fetchOrders();
@@ -36,7 +40,8 @@ const UnifiedAdminPanel: React.FC = () => {
   const fetchOrders = async () => {
     try {
       setLoading(true);
-      const response = await trackingAPI.getAllShipments();
+      // Fetch all orders with a large limit to get all records
+      const response = await trackingAPI.getAllShipments(1, 10000);
       const ordersData = response.data || [];
       setOrders(ordersData);
       
@@ -123,6 +128,16 @@ const UnifiedAdminPanel: React.FC = () => {
     const matchesStatus = statusFilter === '' || order.status === statusFilter;
     return matchesSearch && matchesStatus;
   });
+
+  // Pagination calculations
+  const totalPages = Math.ceil(filteredOrders.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const paginatedOrders = filteredOrders.slice(startIndex, startIndex + itemsPerPage);
+
+  // Reset to page 1 when filters change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchTerm, statusFilter]);
 
   const handleStatusUpdate = async (trackingId: string, newStatus: string) => {
     try {
@@ -846,48 +861,6 @@ const UnifiedAdminPanel: React.FC = () => {
             </div>
           </div>
 
-          {/* Login Credentials Info */}
-          <div className="bg-gradient-to-br from-blue-50 to-orange-50 rounded-xl shadow-lg p-8 border border-blue-200 mb-8">
-            <h3 className="text-xl font-bold text-primary-blue mb-6 flex items-center">
-              <span className="mr-3">🔑</span>
-              Admin Login Credentials
-            </h3>
-            <div className="bg-primary-white rounded-lg p-6 border border-blue-200">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="space-y-4">
-                  <div>
-                    <label className="block text-sm font-semibold text-primary-blue mb-2">Email Address</label>
-                    <div className="flex items-center bg-blue-50 rounded-lg p-3">
-                      <span className="text-accent-orange mr-3">📧</span>
-                      <span className="font-mono text-gray-800">info@cargocapital.com</span>
-                    </div>
-                  </div>
-                  <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-2">Password</label>
-                    <div className="flex items-center bg-gray-50 rounded-lg p-3">
-                      <span className="text-accent-orange mr-3">🔒</span>
-                      <span className="font-mono text-gray-800">password123</span>
-                    </div>
-                  </div>
-                </div>
-                <div className="flex items-center justify-center">
-                  <div className="text-center">
-                    <div className="w-16 h-16 bg-accent-orange rounded-full flex items-center justify-center text-white font-bold text-xl mx-auto mb-3">
-                      CC
-                    </div>
-                    <p className="text-gray-700 font-medium">Admin Panel Access</p>
-                    <p className="text-sm text-gray-500">Use these credentials to login</p>
-                  </div>
-                </div>
-              </div>
-              <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
-                <p className="text-sm text-primary-blue">
-                  <span className="font-semibold">⚠️ Security Note:</span> 
-                  For production use, please change the default password in Settings.
-                </p>
-              </div>
-            </div>
-          </div>
         </>
       )}
 
@@ -950,7 +923,7 @@ const UnifiedAdminPanel: React.FC = () => {
                   </tr>
                 </thead>
                 <tbody className="bg-primary-white divide-y divide-gray-100">
-                  {filteredOrders.map((order, index) => (
+                  {paginatedOrders.map((order, index) => (
                     <tr key={order.trackingId} className={`hover:bg-smoke-light transition-colors ${index % 2 === 0 ? 'bg-primary-white' : 'bg-gray-50'}`}>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <span className="text-primary-blue font-bold text-lg">{order.trackingId}</span>
@@ -1016,6 +989,79 @@ const UnifiedAdminPanel: React.FC = () => {
                 </tbody>
               </table>
             </div>
+
+            {/* Pagination Controls */}
+            {filteredOrders.length > 0 && (
+              <div className="bg-primary-white px-6 py-4 border-t border-gray-200">
+                <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+                  {/* Results info and items per page */}
+                  <div className="flex items-center gap-4">
+                    <div className="text-sm text-gray-600">
+                      Showing {startIndex + 1}-{Math.min(startIndex + itemsPerPage, filteredOrders.length)} of {filteredOrders.length} orders
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <label className="text-sm text-gray-600">Per page:</label>
+                      <select
+                        value={itemsPerPage}
+                        onChange={(e) => {
+                          setItemsPerPage(Number(e.target.value));
+                          setCurrentPage(1);
+                        }}
+                        className="px-3 py-1 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-accent-orange focus:border-transparent"
+                      >
+                        <option value={10}>10</option>
+                        <option value={25}>25</option>
+                        <option value={50}>50</option>
+                        <option value={100}>100</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  {/* Pagination buttons */}
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
+                      disabled={currentPage === 1}
+                      className="px-4 py-2 border border-gray-300 rounded-lg text-sm disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 transition-colors"
+                    >
+                      Previous
+                    </button>
+                    
+                    <div className="flex gap-1">
+                      {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+                        const page = Math.max(1, Math.min(totalPages - 4, currentPage - 2)) + i;
+                        if (page > totalPages) return null;
+                        return (
+                          <button
+                            key={page}
+                            onClick={() => setCurrentPage(page)}
+                            className={`px-3 py-2 text-sm border border-gray-300 rounded-lg ${
+                              currentPage === page
+                                ? 'bg-accent-orange text-white border-accent-orange'
+                                : 'hover:bg-gray-50'
+                            }`}
+                          >
+                            {page}
+                          </button>
+                        );
+                      })}
+                    </div>
+                    
+                    <button
+                      onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
+                      disabled={currentPage === totalPages}
+                      className="px-4 py-2 border border-gray-300 rounded-lg text-sm disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 transition-colors"
+                    >
+                      Next
+                    </button>
+                  </div>
+
+                  <div className="text-sm text-gray-600">
+                    Page {currentPage} of {totalPages}
+                  </div>
+                </div>
+              </div>
+            )}
 
             {filteredOrders.length === 0 && (
               <div className="text-center py-12">

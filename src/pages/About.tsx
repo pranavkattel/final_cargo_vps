@@ -15,7 +15,8 @@ import {
   MessageCircle,
   RefreshCw
 } from 'lucide-react';
-import mdImg from "../assets/images/md.jpg"; // If your image is in assets/images/md.jpg
+import mdImg from "../assets/images/about.JPG"; // Managing Director photo
+import cargoWithArms from "../assets/images/cargo with arms.JPG";
 
 const About = () => {
   const values = [
@@ -346,7 +347,7 @@ const About = () => {
             </div>
             <div className="relative">
               <img
-                src="https://images.pexels.com/photos/586744/pexels-photo-586744.jpeg?auto=compress&cs=tinysrgb&w=800"
+                src={cargoWithArms}
                 alt="Cargo Operations"
                 className="rounded-xl shadow-xl"
               />

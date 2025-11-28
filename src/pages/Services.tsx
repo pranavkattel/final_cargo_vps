@@ -1,5 +1,10 @@
 import React from 'react';
 import { Plane, Ship, Truck, Shield, Home, Clock, Globe, CheckCircle, ArrowRight } from 'lucide-react';
+import cargoLoaded2 from '../assets/images/cargo loaded 2.JPG';
+import truckFromFront from '../assets/images/truck from front.JPG';
+import packagingImg from '../assets/images/packaging.JPG';
+import dsc05489 from '../assets/images/DSC05489.JPG';
+import dsc05516 from '../assets/images/DSC05516.JPG';
 
 const Services = () => {
   const mainServices = [
@@ -29,7 +34,7 @@ const Services = () => {
         'Project cargo handling'
       ],
       regions: 'Global ports via India gateway',
-      image: 'https://images.pexels.com/photos/906982/pexels-photo-906982.jpeg?auto=compress&cs=tinysrgb&w=800'
+      image: cargoLoaded2
     },
     {
       icon: Truck,
@@ -43,7 +48,7 @@ const Services = () => {
         'Border clearance expertise'
       ],
       regions: 'India, China, Bangladesh',
-      image: 'https://images.pexels.com/photos/1095814/pexels-photo-1095814.jpeg?auto=compress&cs=tinysrgb&w=800'
+      image: truckFromFront
     },
     {
       icon: Shield,
@@ -57,7 +62,7 @@ const Services = () => {
         'Regulatory updates'
       ],
       regions: 'All international destinations',
-      image: 'https://images.pexels.com/photos/6801874/pexels-photo-6801874.jpeg?auto=compress&cs=tinysrgb&w=800'
+      image: packagingImg
     },
     {
       icon: Home,
@@ -71,7 +76,7 @@ const Services = () => {
         'Delivery confirmation'
       ],
       regions: 'Available for all destinations',
-      image: 'https://images.pexels.com/photos/4481532/pexels-photo-4481532.jpeg?auto=compress&cs=tinysrgb&w=800'
+      image: dsc05489
     },
     {
       icon: Globe,
@@ -85,7 +90,7 @@ const Services = () => {
         'Order management'
       ],
       regions: 'Nepal and South Asia',
-      image: 'https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=800'
+      image: dsc05516
     }
   ];
 
