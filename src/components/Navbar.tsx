@@ -30,6 +30,7 @@ const Navbar = () => {
                 src={logo} 
                 alt="Capital Cargo Logo" 
                 className="h-16 sm:h-20 transition-all duration-300 group-hover:scale-105" 
+                loading="lazy"
               />
             </Link>
           </div>

@@ -1,7 +1,19 @@
 {
-  "name": "cargo-capital",
+  "name": "cargo-capital-nepal",
+  "version": "1.0.0",
+  "description": "Capital Cargo - #1 Cargo Company Nepal & Best Logistics Company Nepal offering international freight forwarding, air cargo, sea freight, and shipping services from Kathmandu to worldwide destinations",
+  "keywords": [
+    "cargo company nepal",
+    "logistics company nepal",
+    "freight forwarding nepal",
+    "cargo services nepal",
+    "shipping company nepal",
+    "international cargo nepal",
+    "capital cargo"
+  ],
+  "author": "Capital Cargo Nepal",
+  "homepage": "https://cargocapital.com",
   "private": true,
-  "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -16,7 +28,8 @@
     "start-frontend": "npm run dev",
     "build-all": "npm run build && cd backend && npm install --production",
     "deploy-frontend": "npm run build:prod",
-    "test-build": "npm run build && npm run preview"
+    "test-build": "npm run build && npm run preview",
+    "compress:images": "node tools/compress-images.cjs"
   },
   "dependencies": {
     "@react-three/drei": "^9.107.0",
@@ -29,6 +42,7 @@
     "react-dom": "^18.2.0",
     "react-leaflet": "^4.2.1",
     "react-router-dom": "^6.23.1",
+    "sharp": "^0.33.5",
     "three": "^0.165.0"
   },
   "devDependencies": {

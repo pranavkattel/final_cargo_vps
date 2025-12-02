@@ -129,16 +129,23 @@ const Services = () => {
 
   return (
     <div className="pt-16">
+      {/* Hidden SEO Content */}
+      <div className="sr-only">
+        <h1>Cargo Services Nepal | Best Logistics Services Nepal | Capital Cargo</h1>
+        <p>Comprehensive cargo and logistics services in Nepal by Capital Cargo - the #1 cargo company Nepal. We offer air freight Nepal, sea cargo services, land transport, customs clearance, door-to-door delivery, and warehousing. Best freight forwarding company in Kathmandu serving all of Nepal.</p>
+        <p>Services: air cargo Nepal, sea freight Nepal, land transport logistics, international shipping Nepal, customs clearance Kathmandu, warehousing Nepal, door-to-door cargo service, express delivery Nepal, bulk cargo shipping, container services Nepal</p>
+      </div>
+
       {/* Hero Section */}
       <section className="text-white py-20" style={{ background: 'linear-gradient(135deg, #0096C7 0%, #0077A3 100%)' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-6">
-              Our Logistics Services
+              Cargo & Logistics Services Nepal
             </h1>
             <p className="text-xl text-gray-200 max-w-3xl mx-auto leading-relaxed">
-              Comprehensive cargo solutions designed to meet every shipping need, 
-              from small parcels to large industrial shipments.
+              Comprehensive cargo and logistics solutions by Nepal's #1 cargo company, 
+              from small parcels to large industrial shipments - serving all of Nepal and worldwide.
             </p>
           </div>
         </div>
@@ -176,11 +183,15 @@ const Services = () => {
                 </div>
                 
                 <div className={`relative ${index % 2 === 1 ? 'lg:col-start-1' : ''}`}>
-                  <img
-                    src={service.image}
-                    alt={service.title}
-                    className="rounded-xl shadow-xl w-full h-64 object-cover"
-                  />
+                    <picture>
+                      <source srcSet={`${service.image}.webp`} type="image/webp" />
+                      <img
+                        src={service.image}
+                        alt={service.title}
+                        className="rounded-xl shadow-xl w-full h-64 object-cover"
+                        loading="lazy"
+                      />
+                    </picture>
                   <div className="absolute inset-0 opacity-10 rounded-xl" style={{ backgroundColor: '#1a1a1a' }}></div>
                 </div>
               </div>

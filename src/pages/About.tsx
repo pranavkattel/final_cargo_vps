@@ -60,15 +60,21 @@ const About = () => {
 
   return (
     <div className="pt-16">
+      {/* Hidden SEO Content */}
+      <div className="sr-only">
+        <h1>About Capital Cargo - Best Cargo Company in Nepal & Top Logistics Company Nepal</h1>
+        <p>Learn about Capital Cargo, the #1 cargo company in Nepal and leading logistics company in Nepal. With over 25 years of experience, we are the most trusted freight forwarding company in Kathmandu serving 1000+ customers across Nepal and internationally.</p>
+      </div>
+
       {/* Hero Section */}
       <section className="text-white py-20" style={{ background: 'linear-gradient(to right, #0096C7, #0077B6)' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-6">
-              About Capital Cargo
+              About Capital Cargo - Leading Cargo Company Nepal
             </h1>
             <p className="text-xl text-gray-200 max-w-3xl mx-auto leading-relaxed">
-              For over a decade, we've been Nepal's trusted partner in international logistics, 
+              For over 25 years, we've been Nepal's #1 trusted cargo company and logistics partner in international freight forwarding, 
               connecting the heart of the Himalayas to markets around the world.
             </p>
           </div>
@@ -80,12 +86,17 @@ const About = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div className="flex justify-center md:justify-end">
-              <img
-                src={mdImg}
-                alt="Managing Director"
-                className="w-[320px] md:w-[400px] rounded-xl shadow-xl object-cover"
-                style={{ maxWidth: '100%', height: 'auto' }}
-              />
+              <div className="rounded-xl shadow-xl overflow-hidden w-[420px] md:w-[600px] aspect-square">
+                <picture>
+                  <source srcSet={`${mdImg}.webp`} type="image/webp" />
+                  <img
+                    src={mdImg}
+                    alt="Managing Director"
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                  />
+                </picture>
+              </div>
             </div>
             <div className="flex flex-col justify-center md:pl-8">
               <h2 className="text-3xl md:text-4xl font-bold mb-6" style={{ color: '#0096C7', fontFamily: 'Inter, Lato, sans-serif' }}>
@@ -346,12 +357,15 @@ const About = () => {
               </div>
             </div>
             <div className="relative">
-              <img
-                src={cargoWithArms}
-                alt="Cargo Operations"
-                className="rounded-xl shadow-xl"
-              />
-              <div className="absolute inset-0 opacity-10 rounded-xl" style={{ backgroundColor: '#0096C7' }}></div>
+              <div className="rounded-xl shadow-xl overflow-hidden w-full max-w-md mx-auto aspect-[3/4]">
+                <img
+                  src={cargoWithArms}
+                  alt="Cargo Operations"
+                  className="w-full h-full object-cover"
+                  style={{ transform: 'rotate(-90deg)', transformOrigin: 'center' }}
+                />
+              </div>
+              <div className="absolute inset-0 opacity-10 rounded-xl pointer-events-none" style={{ backgroundColor: '#0096C7' }}></div>
             </div>
           </div>
         </div>

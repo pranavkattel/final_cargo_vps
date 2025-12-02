@@ -15,6 +15,7 @@ const Footer = () => {
                 src={logo} 
                 alt="Capital Cargo Logo" 
                 className="h-16 max-w-full object-contain" 
+                loading="lazy"
               />
             </div>
             <p className="text-gray-200 text-sm">

@@ -314,7 +314,10 @@ const NepaliCalendar: React.FC = () => {
         <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
           <div className="bg-primary-white rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
             <div className="w-full rounded-t-2xl overflow-hidden">
-              <img src={bannerImg} alt="Capital Cargo Banner" className="w-full h-auto object-cover" />
+              <picture>
+                <source srcSet={`${bannerImg}.webp`} type="image/webp" />
+                <img src={bannerImg} alt="Capital Cargo Banner" className="w-full h-auto object-cover" loading="lazy" />
+              </picture>
             </div>
             
             <div className="sticky top-0 bg-gradient-to-r from-primary-blue to-blue-600 text-white p-4 md:p-6 z-10">

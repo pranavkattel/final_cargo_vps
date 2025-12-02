@@ -198,9 +198,10 @@ const Home = () => {
     <div style={{ fontSize: '90%' }}>
       {/* SEO Content - Hidden but crawlable */}
       <div className="sr-only">
-        <h1>Capital Cargo - #1 Best Cargo Company in Nepal</h1>
-        <p>Capital Cargo is Nepal's leading cargo company and top-rated logistics service provider based in Kathmandu. As the #1 freight forwarding company in Nepal, we offer best international shipping, air freight services, sea freight, and reliable cargo delivery across Nepal and worldwide. Trusted by thousands for import-export cargo solutions.</p>
-        <p>Services: Best air freight company Nepal, top cargo shipping, international shipping Nepal, freight forwarding services, logistics and cargo transport, import export services, door-to-door delivery Kathmandu</p>
+        <h1>Cargo Company Nepal | Best Logistics Company Nepal | Capital Cargo #1</h1>
+        <p>Capital Cargo is the #1 cargo company in Nepal and best logistics company in Nepal based in Kathmandu. As the leading freight forwarding company Nepal, we offer international shipping services, air cargo Nepal, sea freight Nepal, land transport and reliable cargo delivery across Nepal and worldwide. Trusted by 1000+ customers for import-export solutions.</p>
+        <p>Top Services: Best cargo company Nepal, logistics company Nepal, air freight Nepal, sea cargo services, international shipping from Nepal, freight forwarding Kathmandu, cargo transport Nepal, import export cargo Nepal, door-to-door delivery, customs clearance Nepal, warehousing services</p>
+        <p>Areas Served: Cargo company Kathmandu, logistics Pokhara, freight forwarding Biratnagar, shipping services Bhairahawa, cargo delivery throughout Nepal and international destinations including USA, UK, Australia, Europe, Middle East, Asia Pacific</p>
       </div>
       
       {/* Hero Section - Earth Texture with Clickable Points */}
@@ -886,11 +887,15 @@ const Home = () => {
             {services.map((service, index) => (
               <div key={index} className="bg-primary-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 hover:scale-105 border border-gray-100">
                 <div className="relative h-48 overflow-hidden">
-                  <img 
-                    src={service.image} 
-                    alt={service.title}
-                    className="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
-                  />
+                  <picture>
+                    <source srcSet={`${service.image}.webp`} type="image/webp" />
+                    <img 
+                      src={service.image} 
+                      alt={service.title}
+                      className="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
+                      loading="lazy"
+                    />
+                  </picture>
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
                   <div className="absolute bottom-4 left-4 rounded-full p-3 w-fit" style={{ backgroundColor: '#F9B222', color: 'white' }}>
                     <service.icon className="h-6 w-6" />
