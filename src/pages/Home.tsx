@@ -572,7 +572,7 @@ const Home = () => {
       <div className="relative h-2 bg-accent-orange">
         {/* Cargo Capital text - absolute positioned touching the line - responsive */}
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 px-4 text-center">
-          <h3 className="text-3xl sm:text-4xl md:text-6xl lg:text-8xl xl:text-9xl font-black whitespace-nowrap uppercase tracking-wider sm:tracking-wide md:tracking-widest" 
+          <h3 className="text-4xl sm:text-4xl md:text-6xl lg:text-8xl xl:text-9xl font-black whitespace-nowrap uppercase tracking-wider sm:tracking-wide md:tracking-widest" 
               style={{
                 color: '#FFFFFF',
                 textShadow: '0 6px 18px rgba(0,0,0,0.8), 0 0 60px rgba(0,0,0,0.4)',

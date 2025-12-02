@@ -339,14 +339,14 @@ const Contact = () => {
                     allowFullScreen
                     loading="lazy"
                     referrerPolicy="no-referrer-when-downgrade"
-                    title="Google Map - NepalCargo"
+                    title="Google Map - Capital Cargo"
                   />
                 </div>
                 <div className="space-y-3">
                   <div className="flex items-start space-x-3">
                     <MapPin className="h-5 w-5 mt-1 flex-shrink-0" style={{ color: '#F9B222' }} />
                     <div>
-                      <p className="font-medium" style={{ color: '#1E293B' }}>NepalCargo Headquarters</p>
+                      <p className="font-medium" style={{ color: '#1E293B' }}>Capital Cargo Headquarters</p>
                       <p className="text-gray-600">Thamel, Kathmandu 44600, Nepal</p>
                     </div>
                   </div>

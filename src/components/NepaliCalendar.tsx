@@ -1,29 +1,32 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Calendar, X } from 'lucide-react';
+import { Calendar, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import bannerImg from '../assets/images/banner.png';
+import { NepaliDate } from '@zener/nepali-datepicker-react';
+
+interface Holiday {
+  nepaliDate: string;
+  title: string;
+  type: string;
+}
 
 const NepaliCalendar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [currentDate] = useState(new Date());
+  const [calendarDays, setCalendarDays] = useState<any[]>([]);
+  const [holidays, setHolidays] = useState<Holiday[]>([]);
+  const [currentNepaliMonth, setCurrentNepaliMonth] = useState(8);
+  const [currentNepaliYear, setCurrentNepaliYear] = useState(2081);
   const widgetContainerRef = useRef<HTMLDivElement>(null);
   
   const dayOfWeek = currentDate.getDay();
   const isSaturday = dayOfWeek === 6;
-  
-  // Responsive iframe height for calendar widgets
-  const [iframeHeight, setIframeHeight] = useState<number>(() => {
-    const w = typeof window !== 'undefined' ? window.innerWidth : 1200;
-    if (w < 420) return 480;
-    if (w < 640) return 520;
-    if (w < 1024) return 600;
-    return 840;
-  });
-  // Responsive iframe max width (used to constrain hamropatro iframe)
-  const [iframeMaxWidth, setIframeMaxWidth] = useState<number>(() => {
-    const w = typeof window !== 'undefined' ? window.innerWidth : 1200;
-    // subtract padding/margins (approx) so iframe fits comfortably
-    return Math.min(800, Math.max(280, w - 48));
-  });
+
+  const nepaliMonthNames = [
+    'Baishakh', 'Jestha', 'Ashadh', 'Shrawan', 'Bhadra', 'Ashwin',
+    'Kartik', 'Mangsir', 'Poush', 'Magh', 'Falgun', 'Chaitra'
+  ];
+
+  const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   
   // Format current date for display
   const formattedDate = currentDate.toLocaleDateString('en-US', { 
@@ -32,23 +35,227 @@ const NepaliCalendar: React.FC = () => {
     year: 'numeric' 
   });
 
-  // Load the Nepali Calendar widget when modal opens — placed inside an iframe
+  // Convert English date to Nepali using @zener/nepali-datepicker-react
+  const englishToNepali = (englishDate: Date) => {
+    const nepaliDate = new NepaliDate(englishDate);
+    return {
+      year: Number(nepaliDate.getFullYear()),
+      month: Number(nepaliDate.getMonth()) + 1, // convert 0-indexed to 1-12
+      day: Number(nepaliDate.getDate())
+    };
+  };
+
+  // Convert Nepali date to English using @zener/nepali-datepicker-react
+  const nepaliToEnglish = (year: number, month: number, day: number) => {
+    // Create date string in YYYY-MM-DD format (month is already 1-12)
+    const dateStr = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+    const nepaliDate = new NepaliDate(dateStr);
+    return nepaliDate.toADasDate();
+  };
+
+  // Generate Nepali calendar days
+  const generateNepaliCalendar = (year: number, month: number) => {
+    // Accurate days per month for 2082 BS based on official Nepali calendar
+    const daysPerMonth2082: { [key: number]: number } = {
+      1: 31,  // Baishakh - 31 days (वैशाख)
+      2: 32,  // Jestha - 32 days (जेठ)
+      3: 31,  // Ashadh - 31 days (असार)
+      4: 32,  // Shrawan - 32 days (साउन)
+      5: 31,  // Bhadra - 31 days (भदौ)
+      6: 30,  // Ashwin - 30 days (असोज)
+      7: 30,  // Kartik - 30 days (कार्तिक)
+      8: 29,  // Mangsir - 29 days (मंसिर)
+      9: 30,  // Poush - 30 days (पुष)
+      10: 29, // Magh - 29 days (माघ)
+      11: 29, // Falgun - 29 days (फागुन)
+      12: 30  // Chaitra - 30 days (चैत)
+    };
+    
+    // Get days for current year and month
+    let daysInMonth = 30; // default
+    if (year === 2082 && daysPerMonth2082[month]) {
+      daysInMonth = daysPerMonth2082[month];
+    } else {
+      // Fallback: try to determine from library
+      try {
+        const testDate = `${year}-${String(month).padStart(2, '0')}-32`;
+        new NepaliDate(testDate);
+        daysInMonth = 32;
+      } catch {
+        try {
+          const testDate = `${year}-${String(month).padStart(2, '0')}-31`;
+          new NepaliDate(testDate);
+          daysInMonth = 31;
+        } catch {
+          try {
+            const testDate = `${year}-${String(month).padStart(2, '0')}-30`;
+            new NepaliDate(testDate);
+            daysInMonth = 30;
+          } catch {
+            daysInMonth = 29;
+          }
+        }
+      }
+    }
+    
+    // Get the English date for the 1st day of this Nepali month
+    const firstDayEnglish = nepaliToEnglish(year, month, 1);
+    const startingDayOfWeek = firstDayEnglish.getDay();
+    
+    const days = [];
+    
+    // Add empty cells for days before month starts
+    for (let i = 0; i < startingDayOfWeek; i++) {
+      days.push({ day: null, isCurrentMonth: false });
+    }
+    
+    // Get current Nepali date
+    const currentNepali = englishToNepali(currentDate);
+    
+    // Add days of current month
+    for (let day = 1; day <= daysInMonth; day++) {
+      const dateStr = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+      const holiday = holidays.find(h => h.nepaliDate === dateStr);
+      const dayEnglishDate = nepaliToEnglish(year, month, day);
+      const dayOfWeekIndex = dayEnglishDate.getDay();
+      
+      days.push({
+        day,
+        isCurrentMonth: true,
+        isToday: year === currentNepali.year && month === currentNepali.month && day === currentNepali.day,
+        isSaturday: dayOfWeekIndex === 6,
+        isHoliday: !!holiday,
+        holiday: holiday,
+        dayOfWeek: dayOfWeekIndex
+      });
+    }
+    
+    setCalendarDays(days);
+  };
+
+  // Nepali holidays (BS dates)
+  useEffect(() => {
+    if (isOpen) {
+      const nepaliHolidays: Holiday[] = [
+        // Baishakh 2082
+        { nepaliDate: '2082-01-01', title: 'Nepali New Year/Mesh Sankranti', type: 'public' },
+        { nepaliDate: '2082-01-18', title: 'International Labour Day', type: 'public' },
+        { nepaliDate: '2082-01-24', title: 'Provincial Language Day/Kirat Samaj Sudhar Diwas', type: 'public' },
+        { nepaliDate: '2082-01-29', title: 'Buddha Jayanti/Ubhauli Parwa', type: 'public' },
+        
+        // Jestha 2082
+        { nepaliDate: '2082-02-15', title: 'Republic Day', type: 'public' },
+        { nepaliDate: '2082-02-18', title: 'Bhoto Jatra/Sithi Nakha', type: 'public' },
+        { nepaliDate: '2082-02-24', title: 'Nirjala Ekadashi/Bakar Eid', type: 'public' },
+        
+        // Shrawan 2082
+        { nepaliDate: '2082-04-24', title: 'Janai Poornima/Rakshya Bandhan', type: 'public' },
+        { nepaliDate: '2082-04-25', title: 'Gaijatra', type: 'public' },
+        { nepaliDate: '2082-04-31', title: 'Krishna Janmashtami', type: 'public' },
+        
+        // Bhadra 2082
+        { nepaliDate: '2082-05-10', title: 'Haritalika Teej', type: 'public' },
+        { nepaliDate: '2082-05-15', title: 'Radha Janmotsav/Gaura Parva', type: 'public' },
+        { nepaliDate: '2082-05-21', title: 'Indra Jaatra', type: 'public' },
+        { nepaliDate: '2082-05-30', title: 'Nawami Shraddha/Jitiya Parva', type: 'public' },
+        
+        // Ashwin 2082
+        { nepaliDate: '2082-06-01', title: 'Gen Z Protest/Bishwakarma Pooja', type: 'public' },
+        { nepaliDate: '2082-06-03', title: 'Constitution Day', type: 'public' },
+        { nepaliDate: '2082-06-06', title: 'Ghatasthapana/Dashain Start', type: 'public' },
+        { nepaliDate: '2082-06-13', title: 'Fulpati', type: 'public' },
+        { nepaliDate: '2082-06-14', title: 'Maha Ashtami', type: 'public' },
+        { nepaliDate: '2082-06-15', title: 'Maha Nawami', type: 'public' },
+        { nepaliDate: '2082-06-16', title: 'Bijaya Dashami', type: 'public' },
+        { nepaliDate: '2082-06-17', title: 'Dashain Holiday', type: 'public' },
+        { nepaliDate: '2082-06-18', title: 'Dashain Holiday', type: 'public' },
+        
+        // Kartik 2082
+        { nepaliDate: '2082-07-03', title: 'Laxmi Pooja/Kukur Tihar', type: 'public' },
+        { nepaliDate: '2082-07-04', title: 'Tihar Holiday', type: 'public' },
+        { nepaliDate: '2082-07-05', title: 'Gobardan Puja/Mha Puja', type: 'public' },
+        { nepaliDate: '2082-07-06', title: 'Bhai Tika', type: 'public' },
+        { nepaliDate: '2082-07-07', title: 'Tihar Holiday', type: 'public' },
+        { nepaliDate: '2082-07-10', title: 'Chhath Parva', type: 'public' },
+        { nepaliDate: '2082-07-19', title: 'Kartik Poornima/Guru Nanak Jayanti', type: 'public' },
+        { nepaliDate: '2082-07-25', title: 'Falgunanda Jayanti', type: 'public' },
+        
+        // Mangsir 2082
+        { nepaliDate: '2082-08-17', title: 'International Day of Disabled Persons', type: 'public' },
+        { nepaliDate: '2082-08-18', title: 'Udhauli Parva/Yomari Punhi', type: 'public' },
+        
+        // Paush 2082
+        { nepaliDate: '2082-09-10', title: 'Christmas', type: 'public' },
+        { nepaliDate: '2082-09-15', title: 'Tamu Lhosar', type: 'public' },
+        { nepaliDate: '2082-09-27', title: 'Prithivi Jayanti/Rashtriya Ekata Diwas', type: 'public' },
+        
+        // Magh 2082
+        { nepaliDate: '2082-10-01', title: 'Maghe Sankranti', type: 'public' },
+        { nepaliDate: '2082-10-05', title: 'Sonam Lhochhar', type: 'public' },
+        { nepaliDate: '2082-10-09', title: 'Basanta Panchami/Saraswati Pooja', type: 'public' },
+        { nepaliDate: '2082-10-16', title: 'Sahid Diwas', type: 'public' },
+        
+        // Falgun 2082
+        { nepaliDate: '2082-11-03', title: 'Maha Shivaratri/Army Day', type: 'public' },
+        { nepaliDate: '2082-11-06', title: 'Gyalpo Lhosar', type: 'public' },
+        { nepaliDate: '2082-11-07', title: 'Prajatantra Diwas/Election Day', type: 'public' },
+        { nepaliDate: '2082-11-18', title: 'Fagu Poornima (Holi - Hilly)', type: 'public' },
+        { nepaliDate: '2082-11-19', title: 'Fagu Poornima (Holi - Terai)', type: 'public' },
+        { nepaliDate: '2082-11-24', title: 'International Womens Day', type: 'public' },
+        
+        // Chaitra 2082
+        { nepaliDate: '2082-12-04', title: 'Ghode Jaatra', type: 'public' },
+        { nepaliDate: '2082-12-13', title: 'Ram Nawami/World Theater Day', type: 'public' },
+      ];
+      
+      setHolidays(nepaliHolidays);
+      
+      // Set current Nepali date
+      const currentNepali = englishToNepali(currentDate);
+      setCurrentNepaliYear(currentNepali.year);
+      setCurrentNepaliMonth(currentNepali.month);
+      
+      generateNepaliCalendar(currentNepali.year, currentNepali.month);
+    }
+  }, [isOpen]);
+
+  useEffect(() => {
+    if (isOpen) {
+      generateNepaliCalendar(currentNepaliYear, currentNepaliMonth);
+    }
+  }, [currentNepaliYear, currentNepaliMonth, isOpen, holidays.length]);
+
+  const handlePrevMonth = () => {
+    if (currentNepaliMonth === 1) {
+      setCurrentNepaliMonth(12);
+      setCurrentNepaliYear(currentNepaliYear - 1);
+    } else {
+      setCurrentNepaliMonth(currentNepaliMonth - 1);
+    }
+  };
+
+  const handleNextMonth = () => {
+    if (currentNepaliMonth === 12) {
+      setCurrentNepaliMonth(1);
+      setCurrentNepaliYear(currentNepaliYear + 1);
+    } else {
+      setCurrentNepaliMonth(currentNepaliMonth + 1);
+    }
+  };
+
+  // Load the Nepali Calendar widget for upcoming events
   useEffect(() => {
     if (!isOpen || !widgetContainerRef.current) return;
 
     const container = widgetContainerRef.current;
-
-    // Create iframe to isolate the widget
     const iframe = document.createElement('iframe');
     iframe.style.width = '100%';
-    iframe.style.height = `${iframeHeight}px`;
+    iframe.style.height = '400px';
     iframe.style.border = 'none';
     iframe.style.overflow = 'hidden';
-    iframe.setAttribute('aria-hidden', 'false');
     
     container.appendChild(iframe);
 
-    // Write the widget code into the iframe
     const iframeDoc = iframe.contentDocument || iframe.contentWindow?.document;
     if (iframeDoc) {
       iframeDoc.open();
@@ -78,50 +285,10 @@ const NepaliCalendar: React.FC = () => {
       iframeDoc.close();
     }
 
-    // Update height if iframeHeight changes while modal is open
-    const updateHeight = () => {
-      iframe.style.height = `${iframeHeight}px`;
-    };
-
-    updateHeight();
-
     return () => {
-      // Cleanup
       container.innerHTML = '';
     };
-  }, [isOpen, iframeHeight]);
-
-  // Keep iframeHeight responsive to window size
-  useEffect(() => {
-    const compute = () => {
-      const w = window.innerWidth;
-      const h = window.innerHeight;
-      // Make iframe height take a larger portion of viewport on phones/tablets
-      let newH: number;
-      if (w < 420) {
-        // small phones: use 75% of viewport height but at least 420px
-        newH = Math.max(420, Math.round(h * 0.75));
-      } else if (w < 640) {
-        // mid phones: use 80% of viewport height
-        newH = Math.max(480, Math.round(h * 0.8));
-      } else if (w < 1024) {
-        // tablets/smaller laptops: use 85% of viewport height
-        newH = Math.min(900, Math.round(h * 0.85));
-      } else {
-        newH = 840;
-      }
-
-      setIframeHeight(newH);
-
-      // compute max width for hamropatro iframe so it fills more space but stays within modal
-      const maxW = Math.min(900, Math.max(300, w - 32));
-      setIframeMaxWidth(maxW);
-    };
-
-    compute();
-    window.addEventListener('resize', compute);
-    return () => window.removeEventListener('resize', compute);
-  }, []);
+  }, [isOpen]);
 
   return (
     <>
@@ -202,56 +369,139 @@ const NepaliCalendar: React.FC = () => {
                 </div>
               )}
 
-              {/* Hamropatro Calendar Widget */}
-              <div
-                className="bg-white rounded-lg border border-blue-200 overflow-hidden"
-                style={{
-                  // remove horizontal padding on small/medium screens so iframe can fill modal
-                  paddingLeft: iframeMaxWidth < 900 ? '0' : undefined,
-                  paddingRight: iframeMaxWidth < 900 ? '0' : undefined,
-                  paddingTop: '8px',
-                  paddingBottom: '8px'
-                }}
-              >
-                <div className="flex justify-center items-start w-full">
-                  {
-                    (() => {
-                      // Choose widget variant and target height per widget so iframe doesn't leave large blank area
-                      const useMedium = iframeMaxWidth <= 460;
-                      const hamroSrc = useMedium
-                        ? 'https://www.hamropatro.com/widgets/calender-medium.php'
-                        : 'https://www.hamropatro.com/widgets/calender-full.php';
+              {/* Custom Nepali BS Calendar with English Numbers */}
+              <div className="bg-white rounded-lg border border-blue-200 overflow-hidden p-4">
+                <div className="flex justify-between items-center mb-4">
+                  <button
+                    onClick={handlePrevMonth}
+                    className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+                  >
+                    <ChevronLeft className="h-5 w-5" />
+                  </button>
+                  <div className="text-center">
+                    <h3 className="text-xl font-bold text-gray-900">
+                      {nepaliMonthNames[currentNepaliMonth - 1]} {currentNepaliYear}
+                    </h3>
+                    <p className="text-sm text-gray-600">
+                      Bikram Sambat Calendar
+                    </p>
+                  </div>
+                  <button
+                    onClick={handleNextMonth}
+                    className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+                  >
+                    <ChevronRight className="h-5 w-5" />
+                  </button>
+                </div>
 
-                      // Prefer a tighter height for medium widget; full widget uses computed iframeHeight but capped
-                      const hamroHeight = useMedium ? Math.max(420, Math.round(window.innerHeight * 0.55)) : Math.min(iframeHeight, 900);
+                {/* Calendar Grid */}
+                <div className="grid grid-cols-7 gap-1">
+                  {/* Day headers */}
+                  {dayNames.map((day) => (
+                    <div
+                      key={day}
+                      className="text-center font-semibold text-gray-700 py-2 text-sm"
+                    >
+                      {day}
+                    </div>
+                  ))}
 
-                      // Use the widget's natural width for the medium widget (295px)
-                      // and a tighter max for the full widget so the calendar centers visually.
-                      const wrapperWidth = useMedium ? Math.min(iframeMaxWidth, 295) : Math.min(iframeMaxWidth, 600);
-                      return (
-                        <div style={{ width: `${wrapperWidth}px`, margin: '0 auto', textAlign: 'center' }}>
-                          <iframe
-                            src={hamroSrc}
-                            frameBorder="0"
-                            scrolling="no"
-                            marginWidth={0}
-                            marginHeight={0}
-                            style={{
-                              border: 'none',
-                              overflow: 'hidden',
-                              width: '100%',
-                              height: `${hamroHeight}px`,
-                              minHeight: useMedium ? 360 : 480,
-                              display: 'block',
-                              background: 'transparent'
-                            }}
-                            allowTransparency={true}
-                            title="Hamropatro Nepali Calendar"
-                          />
+                  {/* Calendar days */}
+                  {calendarDays.map((dayInfo, index) => {
+                    if (!dayInfo.isCurrentMonth) {
+                      return <div key={index} className="aspect-square p-1"></div>;
+                    }
+
+                    return (
+                      <div
+                        key={index}
+                        className={`aspect-square p-1 border rounded-lg text-center cursor-pointer transition-all ${
+                          dayInfo.isToday
+                            ? 'bg-accent-orange text-white font-bold shadow-lg'
+                            : dayInfo.isSaturday
+                            ? 'bg-red-50 hover:bg-red-100 border-red-200'
+                            : dayInfo.isHoliday
+                            ? 'bg-red-100 hover:bg-red-200 border-red-300'
+                            : 'hover:bg-gray-100'
+                        }`}
+                        title={dayInfo.holiday ? dayInfo.holiday.title : `${nepaliMonthNames[currentNepaliMonth - 1]} ${dayInfo.day}, ${currentNepaliYear} BS`}
+                      >
+                        <div className="flex flex-col items-center justify-center h-full">
+                          <span className={`text-base sm:text-lg font-semibold ${dayInfo.isToday ? 'text-white' : 'text-gray-900'}`}>
+                            {dayInfo.day}
+                          </span>
+                          {dayInfo.isHoliday && (
+                            <span className="text-xs mt-1">🎉</span>
+                          )}
+                          {dayInfo.isSaturday && !dayInfo.isHoliday && (
+                            <span className="text-xs mt-1">🏖️</span>
+                          )}
                         </div>
-                      );
-                    })()
-                  }
+                      </div>
+                    );
+                  })}
+                </div>
+
+                {/* Legend */}
+                <div className="mt-4 flex flex-wrap gap-3 text-xs text-gray-600 justify-center">
+                  <div className="flex items-center gap-1">
+                    <div className="w-4 h-4 bg-accent-orange rounded"></div>
+                    <span>Today</span>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <div className="w-4 h-4 bg-red-50 border border-red-200 rounded"></div>
+                    <span>Saturday</span>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <div className="w-4 h-4 bg-red-100 border border-red-300 rounded"></div>
+                    <span>Holiday</span>
+                  </div>
+                </div>
+
+                {/* Holidays list for current month */}
+                <div className="mt-4 border-t pt-4">
+                  <h4 className="font-semibold text-gray-800 mb-2">
+                    📅 Holidays This Month 
+                    <span className="ml-2 text-sm font-normal text-gray-600">
+                      ({holidays.filter(h => {
+                        const [year, month] = h.nepaliDate.split('-').map(Number);
+                        return month === currentNepaliMonth && year === currentNepaliYear;
+                      }).length} holidays)
+                    </span>
+                  </h4>
+                  <div className="space-y-2 max-h-32 overflow-y-auto">
+                    {holidays
+                      .filter(h => {
+                        const [year, month] = h.nepaliDate.split('-').map(Number);
+                        return month === currentNepaliMonth && year === currentNepaliYear;
+                      })
+                      .map((holiday, idx) => {
+                        const day = holiday.nepaliDate.split('-')[2];
+                        return (
+                          <div key={idx} className="flex items-center gap-2 text-sm p-2 bg-red-50 rounded">
+                            <span className="text-red-600 text-base">🎉</span>
+                            <div className="flex-1">
+                              <span className="text-gray-800 font-medium">{holiday.title}</span>
+                              <span className="text-gray-500 text-xs ml-2">
+                                ({nepaliMonthNames[currentNepaliMonth - 1]} {day})
+                              </span>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    {holidays.filter(h => {
+                      const [year, month] = h.nepaliDate.split('-').map(Number);
+                      return month === currentNepaliMonth && year === currentNepaliYear;
+                    }).length === 0 && (
+                      <p className="text-gray-500 text-sm text-center py-2">No holidays this month</p>
+                    )}
+                  </div>
+                </div>
+
+                <div className="mt-4 p-3 bg-blue-50 rounded-lg text-center">
+                  <p className="text-sm text-gray-700">
+                    <span className="font-semibold">Note:</span> Dates are shown in English numerals (1-31) for Nepali BS calendar
+                  </p>
                 </div>
               </div>
 
