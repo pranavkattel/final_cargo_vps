@@ -39,28 +39,32 @@ const Home = () => {
       title: 'Air Freight Services',
       description: 'Best air cargo company in Nepal - Fast international shipping',
       features: ['Priority delivery', 'Real-time tracking', 'Secure handling'],
-      image: 'https://images.pexels.com/photos/62623/wing-plane-flying-airplane-62623.jpeg?auto=compress&cs=tinysrgb&w=800'
+      image: 'https://images.pexels.com/photos/62623/wing-plane-flying-airplane-62623.jpeg?auto=compress&cs=tinysrgb&w=800',
+      isExternal: true
     },
     {
       icon: Ship,
       title: 'Sea Freight & Ocean Shipping',
       description: 'Top-rated sea freight forwarding services in Nepal',
       features: ['Bulk shipping', 'Container services', 'Port-to-port delivery'],
-      image: cargoLoaded
+      image: cargoLoaded,
+      isExternal: false
     },
     {
       icon: Truck,
       title: 'Land Transport & Logistics',
       description: 'Reliable cargo transport across Nepal and borders',
       features: ['Cross-border delivery', 'Flexible scheduling', 'Last-mile precision'],
-      image: truckImg
+      image: truckImg,
+      isExternal: false
     },
     {
       icon: DoorOpen,
       title: 'Door-to-Door Delivery',
       description: 'Complete cargo solutions from pickup to delivery',
       features: ['Easy pickup', 'Direct delivery', 'Stress-free'],
-      image: dsc05488
+      image: dsc05488,
+      isExternal: false
     }
   ];
 
@@ -199,7 +203,7 @@ const Home = () => {
       {/* SEO Content - Hidden but crawlable */}
       <div className="sr-only">
         <h1>Cargo Company Nepal | Best Logistics Company Nepal | Capital Cargo #1</h1>
-        <p>Capital Cargo is the #1 cargo company in Nepal and best logistics company in Nepal based in Kathmandu. As the leading freight forwarding company Nepal, we offer international shipping services, air cargo Nepal, sea freight Nepal, land transport and reliable cargo delivery across Nepal and worldwide. Trusted by 1000+ customers for import-export solutions.</p>
+        <p>Capital Cargo International Pvt. Ltd is the #1 cargo company in Nepal and best logistics company in Nepal based in Kathmandu. As the leading freight forwarding company Nepal, we offer international shipping services, air cargo Nepal, sea freight Nepal, land transport and reliable cargo delivery across Nepal and worldwide. Trusted by 1000+ customers for import-export solutions.</p>
         <p>Top Services: Best cargo company Nepal, logistics company Nepal, air freight Nepal, sea cargo services, international shipping from Nepal, freight forwarding Kathmandu, cargo transport Nepal, import export cargo Nepal, door-to-door delivery, customs clearance Nepal, warehousing services</p>
         <p>Areas Served: Cargo company Kathmandu, logistics Pokhara, freight forwarding Biratnagar, shipping services Bhairahawa, cargo delivery throughout Nepal and international destinations including USA, UK, Australia, Europe, Middle East, Asia Pacific</p>
       </div>
@@ -670,7 +674,7 @@ const Home = () => {
                 About Capital Cargo
               </h2>
               <p className="text-lg text-gray-700 leading-relaxed mb-6">
-                Established in 1998, Capital Cargo has been Nepal's most trusted logistics and freight forwarding company for over 27 years. We are headquartered in Kathmandu and specialize in international cargo shipping, connecting Nepali businesses with global markets.
+                Established in 1998, Capital Cargo International Pvt. Ltd has been Nepal's most trusted logistics and freight forwarding company for over 27 years. We are headquartered in Kathmandu and specialize in international cargo shipping, connecting Nepali businesses with global markets.
               </p>
               <p className="text-lg text-gray-700 leading-relaxed mb-6">
                 As Nepal's #1 cargo company, we handle everything from small parcels to large commercial shipments across 110+ countries worldwide. Our expertise spans air freight, sea freight, land transport, and door-to-door delivery services.
@@ -697,7 +701,7 @@ const Home = () => {
             <div className="relative">
               <img
                 src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80"
-                alt="About Capital Cargo Nepal"
+                alt="About Capital Cargo International Pvt. Ltd"
                 className="rounded-2xl shadow-2xl object-cover w-full h-[500px]"
               />
               <div className="absolute -bottom-6 -left-6 bg-primary-white p-6 rounded-xl shadow-xl">
@@ -746,7 +750,7 @@ const Home = () => {
               <div className="space-y-6">
                 <div>
                   <h3 className="text-2xl font-bold mb-4" style={{ color: '#0096C7' }}>
-                    Capital Cargo Nepal
+                    Capital Cargo International Pvt. Ltd
                   </h3>
                   <p className="text-gray-600 leading-relaxed">
                     Located in the bustling heart of Thamel, our office provides easy access for all your international cargo and shipping needs.
@@ -887,15 +891,12 @@ const Home = () => {
             {services.map((service, index) => (
               <div key={index} className="bg-primary-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 hover:scale-105 border border-gray-100">
                 <div className="relative h-48 overflow-hidden">
-                  <picture>
-                    <source srcSet={`${service.image}.webp`} type="image/webp" />
-                    <img 
-                      src={service.image} 
-                      alt={service.title}
-                      className="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
-                      loading="lazy"
-                    />
-                  </picture>
+                  <img 
+                    src={service.image} 
+                    alt={service.title}
+                    className="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
+                    loading="lazy"
+                  />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
                   <div className="absolute bottom-4 left-4 rounded-full p-3 w-fit" style={{ backgroundColor: '#F9B222', color: 'white' }}>
                     <service.icon className="h-6 w-6" />

@@ -84,6 +84,22 @@ const ShipmentDetailsSchema = new mongoose.Schema({
     required: true,
     min: 0
   },
+  actualWeight: {
+    type: Number,
+    required: false,
+    min: 0
+  },
+  volumetricWeight: {
+    type: Number,
+    required: false,
+    min: 0
+  },
+  numberOfPackages: {
+    type: Number,
+    required: false,
+    min: 1,
+    default: 1
+  },
   dimensions: {
     type: DimensionsSchema,
     required: false
@@ -97,6 +113,11 @@ const ShipmentDetailsSchema = new mongoose.Schema({
   description: {
     type: String,
     required: true,
+    trim: true
+  },
+  flightDetails: {
+    type: String,
+    required: false,
     trim: true
   },
   value: {

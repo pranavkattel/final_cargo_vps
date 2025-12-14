@@ -10,7 +10,7 @@ interface Holiday {
 }
 
 const NepaliCalendar: React.FC = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false); // Sidebar toggle
   const [currentDate] = useState(new Date());
   const [calendarDays, setCalendarDays] = useState<any[]>([]);
   const [holidays, setHolidays] = useState<Holiday[]>([]);
@@ -292,14 +292,15 @@ const NepaliCalendar: React.FC = () => {
 
   return (
     <>
+      {/* Floating button to toggle sidebar */}
       <button
-        onClick={() => setIsOpen(true)}
-        className="fixed bottom-24 right-6 z-40 p-4 rounded-full shadow-2xl hover:scale-110 transition-all duration-300 flex items-center space-x-2 group"
+        onClick={() => setIsOpen(!isOpen)}
+        className="fixed bottom-6 right-6 z-[60] p-3 rounded-full shadow-2xl hover:scale-110 transition-all duration-300 flex items-center gap-2"
         style={{ backgroundColor: '#F9B222' }}
         title="Nepali Calendar & Holidays"
       >
-        <Calendar className="h-6 w-6 text-white" />
-        <span className="text-white font-semibold text-sm hidden group-hover:inline-block">
+        <Calendar className="h-5 w-5 text-white" />
+        <span className="text-white font-semibold text-sm hidden sm:inline">
           Calendar
         </span>
         {isSaturday && (
@@ -310,36 +311,36 @@ const NepaliCalendar: React.FC = () => {
         )}
       </button>
 
+      {/* Sidebar Calendar - slides in from right */}
       {isOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
-          <div className="bg-primary-white rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
-            <div className="w-full rounded-t-2xl overflow-hidden">
-              <picture>
-                <source srcSet={`${bannerImg}.webp`} type="image/webp" />
-                <img src={bannerImg} alt="Capital Cargo Banner" className="w-full h-auto object-cover" loading="lazy" />
-              </picture>
+        <>
+          {/* Backdrop */}
+          <div 
+            className="fixed inset-0 bg-black bg-opacity-50 z-[55] transition-opacity"
+            onClick={() => setIsOpen(false)}
+          />
+          
+          {/* Sidebar */}
+          <div className="fixed top-0 right-0 h-full w-full md:w-[500px] lg:w-[600px] bg-primary-white shadow-2xl z-[56] overflow-y-auto transform transition-transform duration-300">
+            <div className="sticky top-0 bg-gradient-to-r from-primary-blue to-blue-600 text-white p-4 z-10 flex justify-between items-center">
+              <div className="flex-1">
+                <h2 className="text-lg font-bold">📅 Nepali Calendar</h2>
+                <p className="text-xs text-blue-100 mt-1">Today: {formattedDate}</p>
+              </div>
+              <button
+                onClick={() => setIsOpen(false)}
+                className="p-2 hover:bg-white/20 rounded-full transition-colors"
+              >
+                <X className="h-5 w-5" />
+              </button>
             </div>
             
-            <div className="sticky top-0 bg-gradient-to-r from-primary-blue to-blue-600 text-white p-4 md:p-6 z-10">
-              <div className="flex justify-between items-center">
-                <div className="flex-1">
-                  <h2 className="text-xl md:text-2xl font-bold">
-                    Nepali Calendar & Holidays
-                  </h2>
-                  <p className="text-blue-100 text-xs md:text-sm mt-1">
-                    Today: {formattedDate}
-                  </p>
-                </div>
-                <button 
-                  onClick={() => setIsOpen(false)} 
-                  className="p-2 hover:bg-white/20 rounded-full transition-colors"
-                >
-                  <X className="h-6 w-6" />
-                </button>
+            <div className="p-4 space-y-4">
+              {/* Banner */}
+              <div className="w-full rounded-lg overflow-hidden -mx-4 -mt-4 mb-4">
+                <img src={bannerImg} alt="Capital Cargo Banner" className="w-full h-auto object-cover" loading="lazy" />
               </div>
-            </div>
 
-            <div className="p-4 md:p-6 space-y-6">
               {isSaturday ? (
                 <div className="bg-red-50 border-l-4 border-red-500 p-4 rounded-lg">
                   <div className="flex items-start">
@@ -415,6 +416,11 @@ const NepaliCalendar: React.FC = () => {
                       return <div key={index} className="aspect-square p-1"></div>;
                     }
 
+                    // Convert Nepali date to English
+                    const englishDate = nepaliToEnglish(currentNepaliYear, currentNepaliMonth, dayInfo.day);
+                    const englishDay = englishDate.getDate();
+                    const englishMonth = englishDate.toLocaleString('en-US', { month: 'short' });
+
                     return (
                       <div
                         key={index}
@@ -432,6 +438,9 @@ const NepaliCalendar: React.FC = () => {
                         <div className="flex flex-col items-center justify-center h-full">
                           <span className={`text-base sm:text-lg font-semibold ${dayInfo.isToday ? 'text-white' : 'text-gray-900'}`}>
                             {dayInfo.day}
+                          </span>
+                          <span className={`text-[10px] leading-tight ${dayInfo.isToday ? 'text-white/80' : 'text-gray-500'}`}>
+                            {englishDay} {englishMonth}
                           </span>
                           {dayInfo.isHoliday && (
                             <span className="text-xs mt-1">🎉</span>
@@ -544,7 +553,7 @@ const NepaliCalendar: React.FC = () => {
               </div>
             </div>
           </div>
-        </div>
+        </>
       )}
     </>
   );

@@ -8,6 +8,7 @@ interface QuoteForm {
   pickupAddress: string;
   pickupCity: string;
   pickupCountry: string;
+  pickupAirport: string;
   destinationAddress: string;
   destinationCity: string;
   destinationCountry: string;
@@ -39,6 +40,7 @@ const Quote = () => {
     pickupAddress: '',
     pickupCity: '',
     pickupCountry: 'Nepal',
+    pickupAirport: '',
     destinationAddress: '',
     destinationCity: '',
     destinationCountry: getInitialDestination(),
@@ -101,9 +103,7 @@ const Quote = () => {
     switch (currentStep) {
       case 1:
         return (
-          formData.pickupCity.trim() &&
           formData.pickupCountry.trim() &&
-          formData.destinationCity.trim() &&
           formData.destinationCountry.trim()
         );
       case 2:
@@ -162,8 +162,8 @@ const Quote = () => {
           email: formData.email,
           phone: formData.phone,
           company: '', // Not collected in current form
-          origin: `${formData.pickupAddress}, ${formData.pickupCity}, ${formData.pickupCountry}`,
-          destination: `${formData.destinationAddress}, ${formData.destinationCity}, ${formData.destinationCountry}${formData.destinationAirport ? ` - ${formData.destinationAirport}` : ''}`,
+          origin: `${formData.pickupAddress}${formData.pickupAddress && formData.pickupCity ? ', ' : ''}${formData.pickupCity}${(formData.pickupAddress || formData.pickupCity) && formData.pickupCountry ? ', ' : ''}${formData.pickupCountry}${formData.pickupAirport ? ` - ${formData.pickupAirport}` : ''}`,
+          destination: `${formData.destinationAddress}${formData.destinationAddress && formData.destinationCity ? ', ' : ''}${formData.destinationCity}${(formData.destinationAddress || formData.destinationCity) && formData.destinationCountry ? ', ' : ''}${formData.destinationCountry}${formData.destinationAirport ? ` - ${formData.destinationAirport}` : ''}`,
           weight: `${formData.weight} kg`,
           dimensions: `${formData.length}x${formData.width}x${formData.height} cm`,
           cargoType: formData.goodsType,
@@ -228,11 +228,10 @@ const Quote = () => {
                 <input
                   type="text"
                   name="pickupCity"
-                  placeholder="City"
+                  placeholder="City (optional)"
                   value={formData.pickupCity}
                   onChange={handleInputChange}
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-orange focus:border-accent-orange"
-                  required
                 />
                 <select
                   name="pickupCountry"
@@ -253,6 +252,27 @@ const Quote = () => {
                     ))}
                   </optgroup>
                 </select>
+
+                {/* Airport selection for pickup if country is selected and has airports */}
+                {formData.pickupCountry && COUNTRY_AIRPORTS[formData.pickupCountry] && (
+                  <div className="mt-4">
+                    <label className="block font-medium text-gray-900 mb-2 flex items-center">
+                      <Plane className="h-4 w-4 mr-2 text-blue-600" />
+                      Select Pickup Airport (Optional)
+                    </label>
+                    <select
+                      name="pickupAirport"
+                      value={formData.pickupAirport}
+                      onChange={handleInputChange}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-orange focus:border-transparent bg-white"
+                    >
+                      <option value="">Choose an airport in {formData.pickupCountry}</option>
+                      {COUNTRY_AIRPORTS[formData.pickupCountry].map((airport, index) => (
+                        <option key={index} value={airport}>{airport}</option>
+                      ))}
+                    </select>
+                  </div>
+                )}
               </div>
               
               <div className="space-y-4">
@@ -271,11 +291,10 @@ const Quote = () => {
                 <input
                   type="text"
                   name="destinationCity"
-                  placeholder="City"
+                  placeholder="City (optional)"
                   value={formData.destinationCity}
                   onChange={handleInputChange}
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-orange focus:border-accent-orange"
-                  required
                 />
                 <select
                   name="destinationCountry"
@@ -405,8 +424,8 @@ const Quote = () => {
               <h4 className="font-medium text-gray-900">Select Shipping Method</h4>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {[
-                  { value: 'air-express', label: 'Air Express (Courier)', time: '1-3 days', icon: '✈️' },
-                  { value: 'air-standard', label: 'Air Standard', time: '3-5 days', icon: '🛩️' },
+                  { value: 'air-express', label: 'Air Express (Courier)', time: '1-3 days', icon: '📦' },
+                  { value: 'air-standard', label: 'Air Standard (Cargo)', time: '3-5 days', icon: '✈️' },
                   { value: 'sea-freight', label: 'Sea Freight', time: '15-25 days', icon: '🚢' },
                   { value: 'land-transport', label: 'Land Transport', time: '5-10 days', icon: '🚛' }
                 ].map(method => (

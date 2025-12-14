@@ -181,6 +181,35 @@ const Tracking: React.FC = () => {
                     </div>
                   </div>
                 </div>
+
+                {/* Weight & Package Information */}
+                {(trackingResult.shipmentDetails.actualWeight || trackingResult.shipmentDetails.volumetricWeight || trackingResult.shipmentDetails.numberOfPackages) && (
+                  <div className="bg-gradient-to-br from-blue-50 to-cyan-50 rounded-xl p-6 mb-8 border-2 border-blue-200">
+                    <h3 className="text-lg font-semibold mb-4" style={{ color: '#0096C7' }}>
+                      ⚖️ Weight & Package Information
+                    </h3>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                      {trackingResult.shipmentDetails.actualWeight && (
+                        <div>
+                          <p className="text-sm text-gray-600 mb-1">Actual Weight</p>
+                          <p className="text-lg font-semibold text-gray-800">{trackingResult.shipmentDetails.actualWeight} kg</p>
+                        </div>
+                      )}
+                      {trackingResult.shipmentDetails.volumetricWeight && (
+                        <div>
+                          <p className="text-sm text-gray-600 mb-1">Volumetric Weight</p>
+                          <p className="text-lg font-semibold text-gray-800">{trackingResult.shipmentDetails.volumetricWeight} kg</p>
+                        </div>
+                      )}
+                      {trackingResult.shipmentDetails.numberOfPackages && (
+                        <div>
+                          <p className="text-sm text-gray-600 mb-1">Number of Packages</p>
+                          <p className="text-lg font-semibold text-gray-800">{trackingResult.shipmentDetails.numberOfPackages}</p>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )}
                 {/* Customer Information */}
                 <div className="border-t border-gray-200 pt-6 mb-8">
                   <h3 className="text-lg font-semibold mb-4" style={{ color: '#0096C7' }}>Shipment Details</h3>
@@ -190,6 +219,9 @@ const Tracking: React.FC = () => {
                       <p className="text-gray-700">{trackingResult.customerInfo.name}</p>
                       <p className="text-gray-600 text-sm">{trackingResult.customerInfo.email}</p>
                       <p className="text-gray-600 text-sm">{trackingResult.customerInfo.phone}</p>
+                      {trackingResult.customerInfo.address && (
+                        <p className="text-gray-600 text-sm mt-2">{trackingResult.customerInfo.address}</p>
+                      )}
                     </div>
                     <div>
                       <h4 className="font-medium mb-2">Package Description</h4>
@@ -198,6 +230,21 @@ const Tracking: React.FC = () => {
                     </div>
                   </div>
                 </div>
+
+                {/* Flight Details */}
+                {trackingResult.shipmentDetails.flightDetails && (
+                  <div className="bg-gradient-to-br from-orange-50 to-yellow-50 rounded-xl p-6 mb-8 border-2 border-orange-200">
+                    <h3 className="text-lg font-semibold mb-4 flex items-center" style={{ color: '#0096C7' }}>
+                      <span className="text-2xl mr-2">✈️</span>
+                      Flight Details & Transit Information
+                    </h3>
+                    <div className="bg-white rounded-lg p-4 border border-orange-200">
+                      <pre className="text-sm text-gray-700 whitespace-pre-wrap font-mono leading-relaxed">
+{trackingResult.shipmentDetails.flightDetails}
+                      </pre>
+                    </div>
+                  </div>
+                )}
                 {/* Tracking Timeline */}
                 <div className="border-t border-gray-200 pt-6">
                   <h3 className="text-lg font-semibold mb-6" style={{ color: '#0096C7' }}>Tracking History</h3>

@@ -72,15 +72,33 @@ const Globe = () => {
 
 const Globe3D = () => {
   return (
-    <div className="flex items-center justify-center">
+    <div className="flex items-center justify-center relative">
+      {/* Sun rays effect behind the globe */}
+      <div 
+        className="absolute inset-0 rounded-full"
+        style={{
+          width: 'min(20rem, 40vw)',
+          aspectRatio: '1 / 1',
+          background: 'radial-gradient(circle at center, rgba(59, 130, 246, 0.3) 0%, rgba(59, 130, 246, 0.15) 30%, rgba(59, 130, 246, 0.05) 60%, transparent 70%)',
+          filter: 'blur(2px)',
+          animation: 'pulse 4s ease-in-out infinite'
+        }}
+      />
+      
       {/* Circular cutout using theme colors with inner shadow */}
       <div
-        className="rounded-full overflow-hidden"
+        className="rounded-full overflow-hidden relative z-10"
         style={{
           width: 'min(20rem, 40vw)',
           aspectRatio: '1 / 1',
           background: 'linear-gradient(180deg, #08306B 0%, #041226 100%)',
-          boxShadow: 'inset 0 0 40px rgba(4,18,38,0.85), 0 8px 30px rgba(4,18,38,0.25), 0 0 40px rgba(8,48,107,0.12)',
+          boxShadow: `
+            inset 0 0 40px rgba(4,18,38,0.85), 
+            0 8px 30px rgba(4,18,38,0.25), 
+            0 0 40px rgba(8,48,107,0.12),
+            0 0 80px rgba(59, 130, 246, 0.2),
+            0 0 120px rgba(59, 130, 246, 0.1)
+          `,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
@@ -108,6 +126,20 @@ const Globe3D = () => {
           </Suspense>
         </Canvas>
       </div>
+      
+      {/* Add keyframe animation in style tag */}
+      <style>{`
+        @keyframes pulse {
+          0%, 100% {
+            transform: scale(1);
+            opacity: 0.6;
+          }
+          50% {
+            transform: scale(1.05);
+            opacity: 0.8;
+          }
+        }
+      `}</style>
     </div>
   );
 };

@@ -86,6 +86,9 @@ export interface ShipmentDetails {
   origin: string;
   destination: string;
   weight: number;
+  actualWeight?: number;
+  volumetricWeight?: number;
+  numberOfPackages?: number;
   dimensions?: {
     length: number;
     width: number;
@@ -93,6 +96,7 @@ export interface ShipmentDetails {
   };
   serviceType: string;
   description: string;
+  flightDetails?: string;
   value?: number;
 }
 

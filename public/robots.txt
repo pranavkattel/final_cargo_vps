@@ -32,7 +32,7 @@ Allow: /
 Disallow: /admin
 Crawl-delay: 0
 
-# Sitemap location - Capital Cargo Nepal
+# Sitemap location - Capital Cargo International Pvt. Ltd
 Sitemap: https://cargocapital.com/sitemap.xml
 
 # Host preference

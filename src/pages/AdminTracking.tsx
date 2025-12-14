@@ -35,8 +35,12 @@ const AdminTracking: React.FC = () => {
     origin: '',
     destination: '',
     weight: '',
+    actualWeight: '',
+    volumetricWeight: '',
+    volume: '',
     serviceType: '',
     description: '',
+    flightDetails: '',
     status: '',
     estimatedDelivery: '',
   });
@@ -220,7 +224,8 @@ const AdminTracking: React.FC = () => {
       setEditOrder(null);
       setForm({
         trackingId: '', customerName: '', customerEmail: '', customerPhone: '', customerAddress: '',
-        origin: '', destination: '', weight: '', serviceType: '', description: '', status: '', estimatedDelivery: '',
+        origin: '', destination: '', weight: '', actualWeight: '', volumetricWeight: '', volume: '',
+        serviceType: '', description: '', flightDetails: '', status: '', estimatedDelivery: '',
       });
       setSelectedLocation(null);
       
@@ -248,8 +253,12 @@ const AdminTracking: React.FC = () => {
       origin: order.shipmentDetails.origin,
       destination: order.shipmentDetails.destination,
       weight: order.shipmentDetails.weight.toString(),
+      actualWeight: (order.shipmentDetails as any).actualWeight?.toString() || '',
+      volumetricWeight: (order.shipmentDetails as any).volumetricWeight?.toString() || '',
+      volume: (order.shipmentDetails as any).volume?.toString() || '',
       serviceType: order.shipmentDetails.serviceType,
       description: order.shipmentDetails.description,
+      flightDetails: (order.shipmentDetails as any).flightDetails || '',
       status: order.status,
       // Normalize to `YYYY-MM-DD` for HTML date input
       // Prefer top-level estimatedDelivery, fall back to nested shipmentDetails
@@ -295,17 +304,21 @@ const AdminTracking: React.FC = () => {
           // Set default values for new shipment
           const tomorrow = new Date();
           tomorrow.setDate(tomorrow.getDate() + 5); // Default 5 days from now
-          setForm({
-            trackingId: '', 
+          setForm({ 
+            trackingId: '',
             customerName: '', 
             customerEmail: '', 
             customerPhone: '', 
             customerAddress: '',
             origin: '', 
             destination: '', 
-            weight: '', 
+            weight: '',
+            actualWeight: '',
+            volumetricWeight: '',
+            volume: '',
             serviceType: 'standard', // Default service type
-            description: '', 
+            description: '',
+            flightDetails: '',
             status: 'processing', // Default status
             estimatedDelivery: tomorrow.toISOString().split('T')[0], // Default delivery date
           });
@@ -316,7 +329,24 @@ const AdminTracking: React.FC = () => {
         + Add New Order
       </button>
       {showForm && (
-        <form className="bg-primary-white p-6 rounded-lg shadow-lg mb-6 border border-gray-200" onSubmit={handleSubmit}>
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4 overflow-y-auto">
+          <div className="bg-primary-white rounded-lg shadow-2xl w-full max-w-6xl my-8">
+            <div className="sticky top-0 bg-white border-b border-gray-200 px-6 py-4 rounded-t-lg flex justify-between items-center">
+              <h2 className="text-2xl font-bold text-gray-800">
+                {editOrder ? '✏️ Edit Shipment' : '🆕 Add New Order'}
+              </h2>
+              <button
+                type="button"
+                onClick={() => {
+                  setShowForm(false);
+                  setEditOrder(null);
+                }}
+                className="text-gray-400 hover:text-gray-600 text-3xl leading-none"
+              >
+                ×
+              </button>
+            </div>
+        <form className="p-8" onSubmit={handleSubmit}>
           <div className="mb-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
             <h3 className="text-lg font-semibold text-gray-800 mb-2">
               {editOrder ? '✏️ Edit Shipment' : '🆕 Create New Shipment'}
@@ -445,6 +475,61 @@ const AdminTracking: React.FC = () => {
                 required 
               />
             </div>
+          </div>
+
+          {/* Weight and Volume Details Section */}
+          <div className="mb-6 p-6 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl border-2 border-blue-200">
+            <h3 className="text-lg font-bold text-gray-800 mb-4 flex items-center">
+              <span className="text-2xl mr-2">⚖️</span>
+              Weight & Volume Measurements
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">Actual Weight (kg)</label>
+                <input 
+                  name="actualWeight" 
+                  value={form.actualWeight} 
+                  onChange={handleInput} 
+                  placeholder="Actual physical weight" 
+                  type="number"
+                  step="0.01"
+                  min="0"
+                  className="w-full border-2 border-blue-300 p-3 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white" 
+                />
+                <p className="text-xs text-gray-500 mt-1">Physical weight on scale</p>
+              </div>
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">Volumetric Weight (kg)</label>
+                <input 
+                  name="volumetricWeight" 
+                  value={form.volumetricWeight} 
+                  onChange={handleInput} 
+                  placeholder="Dimensional weight" 
+                  type="number"
+                  step="0.01"
+                  min="0"
+                  className="w-full border-2 border-blue-300 p-3 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white" 
+                />
+                <p className="text-xs text-gray-500 mt-1">(L × W × H) / 5000</p>
+              </div>
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">Volume (m³)</label>
+                <input 
+                  name="volume" 
+                  value={form.volume} 
+                  onChange={handleInput} 
+                  placeholder="Total volume" 
+                  type="number"
+                  step="0.001"
+                  min="0"
+                  className="w-full border-2 border-blue-300 p-3 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white" 
+                />
+                <p className="text-xs text-gray-500 mt-1">Cubic meters</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Service Type</label>
@@ -476,17 +561,76 @@ const AdminTracking: React.FC = () => {
               </div>
             </div>
             <div className="md:col-span-2">
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Package Description <span className="text-gray-400">(optional)</span>
+              <label className="block text-sm font-semibold text-gray-700 mb-2">
+                📦 Package Description & Contents
               </label>
               <textarea 
                 name="description" 
                 value={form.description} 
                 onChange={handleInput} 
-                placeholder="Describe the package contents and any special instructions (optional)" 
-                className="w-full border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-accent-orange focus:border-transparent" 
-                rows={3}
+                placeholder="Describe the package contents, materials, quantity, and any special handling instructions..." 
+                className="w-full border-2 border-gray-300 p-4 rounded-lg focus:ring-2 focus:ring-accent-orange focus:border-accent-orange text-base" 
+                rows={4}
               />
+            </div>
+            <div className="md:col-span-2 mt-2">
+              <div className="bg-gradient-to-br from-orange-50 to-yellow-50 p-6 rounded-xl border-2 border-orange-200">
+                <label className="block text-lg font-bold text-gray-800 mb-3 flex items-center">
+                  <span className="text-2xl mr-2">✈️</span>
+                  Flight Details & Transit Information
+                </label>
+                <textarea 
+                  name="flightDetails" 
+                  value={form.flightDetails} 
+                  onChange={handleInput} 
+                  placeholder="Enter detailed flight information:
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+FLIGHT 1 (Main Segment)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Flight Number: EK 123
+Airline: Emirates
+Departure Airport: DXB (Dubai International)
+Departure Date & Time: 05/12/2025 14:30
+Arrival Airport: JFK (New York JFK)
+Arrival Date & Time: 05/12/2025 20:45
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+TRANSIT / LAYOVER (If applicable)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Transit Airport: DOH (Hamad International, Qatar)
+Layover Duration: 3 hours 15 minutes
+Terminal Change Required: Yes / No
+Special Notes: Customs clearance required
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+FLIGHT 2 (Connecting Flight - If multiple flights)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Flight Number: QR 456
+Airline: Qatar Airways
+Departure Airport: DOH (Doha)
+Departure Date & Time: 06/12/2025 02:15
+Arrival Airport: LAX (Los Angeles)
+Arrival Date & Time: 06/12/2025 09:30
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ADDITIONAL INFORMATION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Cargo Tracking Number: AWB 123-45678901
+Special Handling: Fragile / Temperature Controlled
+Customs Status: In Progress / Cleared
+Additional Notes: Handle with care, contains electronics"
+                  className="w-full border-2 border-orange-300 p-4 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 font-mono text-sm bg-white" 
+                  rows={18}
+                />
+                <div className="mt-3 p-3 bg-white rounded-lg border border-orange-200">
+                  <p className="text-xs text-gray-600 leading-relaxed">
+                    <strong className="text-orange-600">💡 Pro Tips:</strong> Include all flight numbers, airline names, airport codes (IATA), 
+                    precise departure/arrival times with dates, transit airports, layover durations, terminal information, 
+                    customs requirements, cargo tracking numbers, and any special handling instructions for multiple segments.
+                  </p>
+                </div>
+              </div>
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">Estimated Delivery Date</label>
@@ -500,22 +644,29 @@ const AdminTracking: React.FC = () => {
               />
             </div>
           </div>
-          <div className="mt-6 flex gap-3 pt-4 border-t border-gray-200">
-            <button 
-              type="submit" 
-              className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-medium transition-colors focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
-            >
-              {editOrder ? '✓ Update Order' : '+ Add Order'}
-            </button>
+          
+          {/* Submit Buttons */}
+          <div className="flex space-x-4 pt-6 mt-6 border-t-2 border-gray-200">
             <button 
               type="button" 
-              className="bg-gray-500 hover:bg-gray-600 text-white px-6 py-3 rounded-lg font-medium transition-colors focus:ring-2 focus:ring-gray-500 focus:ring-offset-2" 
-              onClick={() => setShowForm(false)}
+              onClick={() => {
+                setShowForm(false);
+                setEditOrder(null);
+              }}
+              className="flex-1 bg-gray-500 text-white py-4 px-6 rounded-lg hover:bg-gray-600 font-bold text-lg transition-all"
             >
-              Cancel
+              ❌ Cancel
+            </button>
+            <button 
+              type="submit" 
+              className="flex-1 bg-gradient-to-r from-orange-500 to-orange-600 text-white py-4 px-6 rounded-lg hover:from-orange-600 hover:to-orange-700 font-bold text-lg shadow-lg transition-all transform hover:scale-[1.02]"
+            >
+              {editOrder ? '💾 Update Order' : '✅ Add Order'}
             </button>
           </div>
         </form>
+          </div>
+        </div>
       )}
       {showMapDestination && (
         <div className="bg-primary-white p-4 rounded shadow mb-6">

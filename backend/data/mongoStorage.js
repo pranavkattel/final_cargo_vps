@@ -51,13 +51,20 @@ const mongoStorageHelpers = {
       }).lean();
       
       if (shipment) {
-        // Transform MongoDB document to match API format
+        // Transform MongoDB document to match API format with all fields
         return {
           id: shipment._id.toString(),
           trackingId: shipment.trackingId,
           status: shipment.status,
           customerInfo: shipment.customerInfo,
-          shipmentDetails: shipment.shipmentDetails,
+          shipmentDetails: {
+            ...shipment.shipmentDetails,
+            // Explicitly include optional fields to ensure they're returned
+            actualWeight: shipment.shipmentDetails?.actualWeight,
+            volumetricWeight: shipment.shipmentDetails?.volumetricWeight,
+            numberOfPackages: shipment.shipmentDetails?.numberOfPackages,
+            flightDetails: shipment.shipmentDetails?.flightDetails
+          },
           // include both 'events' and 'trackingEvents' for compatibility
           events: shipment.events || shipment.trackingEvents || [],
           trackingEvents: shipment.events || shipment.trackingEvents || [],
@@ -132,7 +139,14 @@ const mongoStorageHelpers = {
         trackingId: shipment.trackingId,
         status: shipment.status,
         customerInfo: shipment.customerInfo,
-        shipmentDetails: shipment.shipmentDetails,
+        shipmentDetails: {
+          ...shipment.shipmentDetails,
+          // Include all optional fields
+          actualWeight: shipment.shipmentDetails?.actualWeight,
+          volumetricWeight: shipment.shipmentDetails?.volumetricWeight,
+          numberOfPackages: shipment.shipmentDetails?.numberOfPackages,
+          flightDetails: shipment.shipmentDetails?.flightDetails
+        },
         trackingEvents: shipment.trackingEvents,
         createdAt: shipment.createdAt,
         updatedAt: shipment.updatedAt
@@ -197,12 +211,20 @@ const mongoStorageHelpers = {
 
       if (!updatedShipment) return null;
 
+      // Return the complete document with all fields including new ones
       return {
         id: updatedShipment._id.toString(),
         trackingId: updatedShipment.trackingId,
         status: updatedShipment.status,
         customerInfo: updatedShipment.customerInfo,
-        shipmentDetails: updatedShipment.shipmentDetails,
+        shipmentDetails: {
+          ...updatedShipment.shipmentDetails,
+          // Ensure all optional fields are included if they exist
+          actualWeight: updatedShipment.shipmentDetails?.actualWeight,
+          volumetricWeight: updatedShipment.shipmentDetails?.volumetricWeight,
+          numberOfPackages: updatedShipment.shipmentDetails?.numberOfPackages,
+          flightDetails: updatedShipment.shipmentDetails?.flightDetails
+        },
         events: updatedShipment.events || updatedShipment.trackingEvents || [],
         trackingEvents: updatedShipment.events || updatedShipment.trackingEvents || [],
         estimatedDelivery: updatedShipment.estimatedDelivery,

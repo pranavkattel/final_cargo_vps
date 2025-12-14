@@ -30,7 +30,7 @@ const BlogPost = () => {
     <div className="pt-16">
       {/* SEO Meta Tags in Hidden Section */}
       <div className="sr-only">
-        <h1>{post.title} - Capital Cargo Nepal</h1>
+        <h1>{post.title} - Capital Cargo International Pvt. Ltd</h1>
         <p>{post.excerpt}</p>
         <p>Keywords: {post.keywords?.join(', ')}</p>
         <p>By {post.author} | Published {post.date} | Category: {post.category}</p>

@@ -63,7 +63,7 @@ const About = () => {
       {/* Hidden SEO Content */}
       <div className="sr-only">
         <h1>About Capital Cargo - Best Cargo Company in Nepal & Top Logistics Company Nepal</h1>
-        <p>Learn about Capital Cargo, the #1 cargo company in Nepal and leading logistics company in Nepal. With over 25 years of experience, we are the most trusted freight forwarding company in Kathmandu serving 1000+ customers across Nepal and internationally.</p>
+        <p>Learn about Capital Cargo International Pvt. Ltd, the #1 cargo company in Nepal and leading logistics company in Nepal. With over 25 years of experience, we are the most trusted freight forwarding company in Kathmandu serving 1000+ customers across Nepal and internationally.</p>
       </div>
 
       {/* Hero Section */}
@@ -87,15 +87,12 @@ const About = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div className="flex justify-center md:justify-end">
               <div className="rounded-xl shadow-xl overflow-hidden w-[420px] md:w-[600px] aspect-square">
-                <picture>
-                  <source srcSet={`${mdImg}.webp`} type="image/webp" />
-                  <img
-                    src={mdImg}
-                    alt="Managing Director"
-                    className="w-full h-full object-cover"
-                    loading="lazy"
-                  />
-                </picture>
+                <img
+                  src={mdImg}
+                  alt="Managing Director"
+                  className="w-full h-full object-cover"
+                  loading="lazy"
+                />
               </div>
             </div>
             <div className="flex flex-col justify-center md:pl-8">
@@ -104,7 +101,7 @@ const About = () => {
               </h2>
               <div className="text-gray-700 text-lg leading-relaxed" style={{ fontFamily: 'Inter, Lato, sans-serif' }}>
                 <p className="mb-4">
-                  Welcome to Capital Cargo. Our journey is built on trust, reliability, and a relentless drive to deliver the best for our clients. We believe every shipment is a promise — and we keep our promises with precision, care, and a personal touch.
+                  Welcome to Capital Cargo International Pvt. Ltd. Our journey is built on trust, reliability, and a relentless drive to deliver the best for our clients. We believe every shipment is a promise — and we keep our promises with precision, care, and a personal touch.
                 </p>
                 <p className="mb-4">
                   <span className="font-bold italic text-[#F9B222]">"Excellent Service to Client — We're the right way to Reliant"</span>

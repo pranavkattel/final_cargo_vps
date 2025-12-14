@@ -90,8 +90,8 @@ const Navbar = () => {
                 e.currentTarget.style.transform = 'scale(1)';
               }}
             >
-              <Phone className="h-4 w-4 transition-transform duration-300 group-hover:rotate-12" />
-              <span className="text-sm font-medium">+977-01-5367883, 01-5368837</span>
+              <Phone className="h-5 w-5 transition-transform duration-300 group-hover:rotate-12" />
+              <span className="text-base font-semibold">+977-01-5367883, 01-5368837</span>
             </a>
           </div>
 
@@ -130,10 +130,10 @@ const Navbar = () => {
       {/* Mobile Navigation */}
       <div 
         className={`lg:hidden bg-primary-white border-t border-gray-200 transition-all duration-300 ease-in-out w-full ${
-          isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+          isOpen ? 'max-h-[600px] opacity-100' : 'max-h-0 opacity-0'
         } overflow-hidden`}
       >
-        <div className="px-2 pt-2 pb-3 space-y-1">
+        <div className="px-2 pt-2 pb-6 space-y-1">
           {navigation.map((item, index) => (
             <Link
               key={item.name}
@@ -169,7 +169,7 @@ const Navbar = () => {
           ))}
           <a 
             href="tel:+97715367883"
-            className="px-3 py-2 flex items-center space-x-2 rounded-lg transition-all duration-300 hover:scale-105 cursor-pointer group" 
+            className="px-3 py-2 mb-8 flex items-center space-x-2 rounded-lg transition-all duration-300 hover:scale-105 cursor-pointer group" 
             style={{ 
               color: '#0096C7',
               transitionDelay: `${navigation.length * 50}ms`,
@@ -183,8 +183,11 @@ const Navbar = () => {
               e.currentTarget.style.backgroundColor = 'transparent';
             }}
           >
-            <Phone className="h-4 w-4 transition-transform duration-300 group-hover:rotate-12" />
-            <span className="text-sm font-medium">+977-01-5367883, 01-5368837</span>
+            <Phone className="h-4 w-4 transition-transform duration-300 group-hover:rotate-12 flex-shrink-0" />
+            <div className="flex flex-col leading-tight">
+              <span className="text-xs font-semibold">+977-01-5367883</span>
+              <span className="text-[10px] font-medium">01-5368837</span>
+            </div>
           </a>
         </div>
       </div>

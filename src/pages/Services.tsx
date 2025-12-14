@@ -132,7 +132,7 @@ const Services = () => {
       {/* Hidden SEO Content */}
       <div className="sr-only">
         <h1>Cargo Services Nepal | Best Logistics Services Nepal | Capital Cargo</h1>
-        <p>Comprehensive cargo and logistics services in Nepal by Capital Cargo - the #1 cargo company Nepal. We offer air freight Nepal, sea cargo services, land transport, customs clearance, door-to-door delivery, and warehousing. Best freight forwarding company in Kathmandu serving all of Nepal.</p>
+        <p>Comprehensive cargo and logistics services in Nepal by Capital Cargo International Pvt. Ltd - the #1 cargo company Nepal. We offer air freight Nepal, sea cargo services, land transport, customs clearance, door-to-door delivery, and warehousing. Best freight forwarding company in Kathmandu serving all of Nepal.</p>
         <p>Services: air cargo Nepal, sea freight Nepal, land transport logistics, international shipping Nepal, customs clearance Kathmandu, warehousing Nepal, door-to-door cargo service, express delivery Nepal, bulk cargo shipping, container services Nepal</p>
       </div>
 
@@ -183,15 +183,12 @@ const Services = () => {
                 </div>
                 
                 <div className={`relative ${index % 2 === 1 ? 'lg:col-start-1' : ''}`}>
-                    <picture>
-                      <source srcSet={`${service.image}.webp`} type="image/webp" />
-                      <img
-                        src={service.image}
-                        alt={service.title}
-                        className="rounded-xl shadow-xl w-full h-64 object-cover"
-                        loading="lazy"
-                      />
-                    </picture>
+                  <img
+                    src={service.image}
+                    alt={service.title}
+                    className="rounded-xl shadow-xl w-full h-64 object-cover"
+                    loading="lazy"
+                  />
                   <div className="absolute inset-0 opacity-10 rounded-xl" style={{ backgroundColor: '#1a1a1a' }}></div>
                 </div>
               </div>

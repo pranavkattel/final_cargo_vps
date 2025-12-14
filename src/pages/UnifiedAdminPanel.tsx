@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import ReactDOM from 'react-dom';
 import { trackingAPI, ShipmentData } from '../services/trackingService';
 
 interface DashboardStats {
@@ -171,12 +172,16 @@ const UnifiedAdminPanel: React.FC = () => {
       origin: '',
       destination: '',
       weight: '',
+      actualWeight: '',
+      volumetricWeight: '',
+      numberOfPackages: '',
       dimensions: { length: '', width: '', height: '' },
       value: '',
       serviceType: 'standard',
       status: 'pending',
       estimatedDelivery: '',
-      description: ''
+      description: '',
+      flightDetails: ''
     });
 
     // generate a friendly preview tracking id when modal opens
@@ -216,8 +221,13 @@ const UnifiedAdminPanel: React.FC = () => {
         return;
       }
 
-      if (!newOrder.weight || parseFloat(newOrder.weight) <= 0) {
+      if (!newOrder.actualWeight || parseFloat(newOrder.actualWeight) <= 0) {
         alert('Please provide a valid weight');
+        return;
+      }
+
+      if (!newOrder.numberOfPackages || parseInt(newOrder.numberOfPackages) <= 0) {
+        alert('Please provide number of packages');
         return;
       }
 
@@ -241,10 +251,16 @@ const UnifiedAdminPanel: React.FC = () => {
         const shipmentDetailsObj: any = {
           origin: newOrder.origin,
           destination: newOrder.destination,
-          weight: parseFloat(newOrder.weight) || 0,
+          weight: parseFloat(newOrder.actualWeight) || 0,
+          actualWeight: parseFloat(newOrder.actualWeight) || 0,
           serviceType: newOrder.serviceType,
-          description: newOrder.description || ''
+          description: newOrder.description || '',
+          numberOfPackages: parseInt(newOrder.numberOfPackages) || 1
         };
+
+        if (newOrder.volumetricWeight) {
+          shipmentDetailsObj.volumetricWeight = parseFloat(newOrder.volumetricWeight);
+        }
 
         if (Object.keys(dims).length > 0) {
           shipmentDetailsObj.dimensions = dims;
@@ -303,12 +319,16 @@ const UnifiedAdminPanel: React.FC = () => {
           origin: '',
           destination: '',
           weight: '',
+          actualWeight: '',
+          volumetricWeight: '',
+          numberOfPackages: '',
           dimensions: { length: '', width: '', height: '' },
           value: '',
           serviceType: 'standard',
           status: 'pending',
           estimatedDelivery: '',
-          description: ''
+          description: '',
+          flightDetails: ''
         });
         await fetchOrders();
       } catch (error) {
@@ -316,18 +336,23 @@ const UnifiedAdminPanel: React.FC = () => {
       }
     };
 
-    return (
-      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-        <div className="bg-primary-white rounded-lg p-6 w-full max-w-md max-h-[90vh] overflow-y-auto">
-          <div className="flex justify-between items-center mb-4">
-            <h3 className="text-lg font-semibold">Add New Order</h3>
-            <button onClick={() => setShowAddModal(false)} className="text-primary-blue hover:text-accent-orange">
-              ✕
+    return ReactDOM.createPortal(
+      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[9999] p-4 overflow-y-auto">
+        <div className="bg-primary-white rounded-lg w-full max-w-6xl my-8 shadow-2xl relative z-[10000]">
+          <div className="sticky top-0 bg-white border-b border-gray-200 px-8 py-5 rounded-t-lg flex justify-between items-center z-[10001] shadow-sm">
+            <h3 className="text-2xl font-bold text-gray-800">🆕 Add New Order</h3>
+            <button 
+              onClick={() => setShowAddModal(false)} 
+              className="text-gray-400 hover:text-gray-600 text-3xl leading-none hover:bg-gray-100 w-10 h-10 rounded-full flex items-center justify-center transition-colors"
+            >
+              ×
             </button>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
+          <div className="max-h-[calc(90vh-80px)] overflow-y-auto">
+          <form onSubmit={handleSubmit} className="p-8 space-y-6">
+            {/* Tracking ID Section */}
+            <div className="p-6 bg-gray-50 rounded-xl border-2 border-gray-200">
               <label className="block text-sm font-medium text-primary-blue mb-1">Tracking ID (auto-generated)</label>
               <input
                 type="text"
@@ -339,147 +364,257 @@ const UnifiedAdminPanel: React.FC = () => {
               <p className="text-xs text-blue-400 mt-1">The system will create a final tracking ID on save; this is a preview.</p>
             </div>
 
-            <div>
-              <label className="block text-sm font-medium text-primary-blue mb-1">Customer Name</label>
-              <input
-                type="text"
+            {/* Customer Information Section */}
+            <div className="p-6 bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl border-2 border-green-200">
+              <h4 className="text-lg font-bold text-gray-800 mb-4 flex items-center">
+                <span className="text-2xl mr-2">👤</span>
+                Customer Information
+              </h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">Customer Name</label>
+                  <input
+                    type="text"
+                    required
+                    value={newOrder.customerName}
+                    onChange={(e) => setNewOrder({...newOrder, customerName: e.target.value})}
+                    className="w-full px-4 py-3 border-2 border-green-300 rounded-lg focus:ring-2 focus:ring-green-500"
+                    placeholder="John Doe"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">Customer Email</label>
+                  <input
+                    type="email"
+                    value={newOrder.customerEmail}
+                    onChange={(e) => setNewOrder({...newOrder, customerEmail: e.target.value})}
+                    className="w-full px-4 py-3 border-2 border-green-300 rounded-lg focus:ring-2 focus:ring-green-500"
+                    placeholder="john@example.com"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">Customer Phone</label>
+                  <input
+                    type="tel"
+                    required
+                    value={newOrder.customerPhone}
+                    onChange={(e) => setNewOrder({...newOrder, customerPhone: e.target.value})}
+                    className="w-full px-4 py-3 border-2 border-green-300 rounded-lg focus:ring-2 focus:ring-green-500"
+                    placeholder="+1-555-0123"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">Customer Address</label>
+                  <input
+                    type="text"
+                    value={newOrder.customerAddress}
+                    onChange={(e) => setNewOrder({...newOrder, customerAddress: e.target.value})}
+                    className="w-full px-4 py-3 border-2 border-green-300 rounded-lg focus:ring-2 focus:ring-green-500"
+                    placeholder="Street, City, Country"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Shipment Details Section */}
+            <div className="p-6 bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl border-2 border-purple-200">
+              <h4 className="text-lg font-bold text-gray-800 mb-4 flex items-center">
+                <span className="text-2xl mr-2">📦</span>
+                Shipment Details
+              </h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">Origin</label>
+                  <input
+                    type="text"
+                    required
+                    value={newOrder.origin}
+                    onChange={(e) => setNewOrder({...newOrder, origin: e.target.value})}
+                    className="w-full px-4 py-3 border-2 border-purple-300 rounded-lg focus:ring-2 focus:ring-purple-500"
+                    placeholder="New York, NY"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">Destination</label>
+                  <input
+                    type="text"
+                    required
+                    value={newOrder.destination}
+                    onChange={(e) => setNewOrder({...newOrder, destination: e.target.value})}
+                    className="w-full px-4 py-3 border-2 border-purple-300 rounded-lg focus:ring-2 focus:ring-purple-500"
+                    placeholder="Los Angeles, CA"
+                  />
+                </div>
+                <div className="md:col-span-2">
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">Estimated Delivery Date</label>
+                  <input
+                    type="date"
+                    required
+                    min={new Date().toISOString().split('T')[0]}
+                    value={newOrder.estimatedDelivery}
+                    onChange={(e) => setNewOrder({...newOrder, estimatedDelivery: e.target.value})}
+                    className="w-full px-4 py-3 border-2 border-purple-300 rounded-lg focus:ring-2 focus:ring-purple-500"
+                  />
+                  <p className="text-xs text-gray-500 mt-1">Enter the expected delivery date (required)</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Weight & Volume Information Section */}
+            <div className="p-6 bg-gradient-to-br from-blue-50 to-cyan-50 rounded-xl border-2 border-blue-200">
+              <h4 className="text-lg font-bold text-gray-800 mb-4 flex items-center">
+                <span className="text-2xl mr-2">⚖️</span>
+                Weight & Package Information
+              </h4>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    Actual Weight (kg) <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="number"
+                    step="0.01"
+                    min="0.01"
+                    required
+                    value={newOrder.actualWeight}
+                    onChange={(e) => setNewOrder({...newOrder, actualWeight: e.target.value})}
+                    className="w-full px-4 py-3 border-2 border-blue-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                    placeholder="25.5"
+                  />
+                  <p className="text-xs text-red-500 mt-1">Please provide a valid weight</p>
+                </div>
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">Volumetric Weight (kg)</label>
+                  <input
+                    type="number"
+                    step="0.01"
+                    min="0"
+                    value={newOrder.volumetricWeight}
+                    onChange={(e) => setNewOrder({...newOrder, volumetricWeight: e.target.value})}
+                    className="w-full px-4 py-3 border-2 border-blue-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                    placeholder="30.0 (optional)"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    Number of Packages <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="number"
+                    min="1"
+                    required
+                    value={newOrder.numberOfPackages}
+                    onChange={(e) => setNewOrder({...newOrder, numberOfPackages: e.target.value})}
+                    className="w-full px-4 py-3 border-2 border-blue-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                    placeholder="1"
+                  />
+                </div>
+              </div>
+              <div className="mt-4 p-3 bg-white rounded-lg border border-blue-200">
+                <p className="text-xs text-gray-600">
+                  <strong className="text-blue-600">💡 Note:</strong> Volumetric weight = (Length × Width × Height) / 5000. 
+                  Carriers charge based on the higher of actual weight or volumetric weight. Volumetric weight is optional.
+                </p>
+              </div>
+            </div>
+
+            {/* Package Description Section */}
+            <div className="p-6 bg-gradient-to-br from-indigo-50 to-purple-50 rounded-xl border-2 border-indigo-200">
+              <h4 className="text-lg font-bold text-gray-800 mb-4 flex items-center">
+                <span className="text-2xl mr-2">📦</span>
+                Shipment Description & Contents
+              </h4>
+              <textarea
                 required
-                value={newOrder.customerName}
-                onChange={(e) => setNewOrder({...newOrder, customerName: e.target.value})}
-                className="w-full px-3 py-2 border border-blue-200 rounded-lg"
-                placeholder="John Doe"
+                value={newOrder.description}
+                onChange={(e) => setNewOrder({...newOrder, description: e.target.value})}
+                className="w-full px-4 py-3 border-2 border-indigo-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+                placeholder="Describe the package contents, materials, quantity, and any special handling instructions..."
+                rows={4}
               />
             </div>
 
-            <div>
-              <label className="block text-sm font-medium text-primary-blue mb-1">Customer Email</label>
-              <input
-                type="email"
-                value={newOrder.customerEmail}
-                onChange={(e) => setNewOrder({...newOrder, customerEmail: e.target.value})}
-                className="w-full px-3 py-2 border border-blue-200 rounded-lg"
-                placeholder="john@example.com"
+            {/* Flight Details Section */}
+            <div className="bg-gradient-to-br from-orange-50 to-yellow-50 p-6 rounded-xl border-2 border-orange-200">
+              <label className="block text-lg font-bold text-gray-800 mb-3 flex items-center">
+                <span className="text-2xl mr-2">✈️</span>
+                Flight Details & Transit Information
+              </label>
+              <textarea
+                value={newOrder.flightDetails}
+                onChange={(e) => setNewOrder({...newOrder, flightDetails: e.target.value})}
+                className="w-full px-4 py-3 border-2 border-orange-300 rounded-lg focus:ring-2 focus:ring-orange-500 font-mono text-sm"
+                placeholder="Enter detailed flight information:
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+FLIGHT 1 (Main Segment)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Flight Number: EK 123
+Airline: Emirates
+Departure Airport: DXB (Dubai International)
+Departure Date & Time: 05/12/2025 14:30
+Arrival Airport: JFK (New York JFK)
+Arrival Date & Time: 05/12/2025 20:45
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+TRANSIT / LAYOVER (If applicable)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Transit Airport: DOH (Hamad International, Qatar)
+Layover Duration: 3 hours 15 minutes
+Terminal Change Required: Yes / No
+Special Notes: Customs clearance required
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+FLIGHT 2 (Connecting Flight - If multiple flights)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Flight Number: QR 456
+Airline: Qatar Airways
+Departure Airport: DOH (Doha)
+Departure Date & Time: 06/12/2025 02:15
+Arrival Airport: LAX (Los Angeles)
+Arrival Date & Time: 06/12/2025 09:30
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ADDITIONAL INFORMATION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Cargo Tracking Number: AWB 123-45678901
+Special Handling: Fragile / Temperature Controlled
+Customs Status: In Progress / Cleared
+Additional Notes: Handle with care, contains electronics"
+                rows={18}
               />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-primary-blue mb-1">Customer Phone</label>
-              <input
-                type="tel"
-                required
-                value={newOrder.customerPhone}
-                onChange={(e) => setNewOrder({...newOrder, customerPhone: e.target.value})}
-                className="w-full px-3 py-2 border border-blue-200 rounded-lg"
-                placeholder="+1-555-0123"
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-primary-blue mb-1">Customer Address</label>
-              <input
-                type="text"
-                value={newOrder.customerAddress}
-                onChange={(e) => setNewOrder({...newOrder, customerAddress: e.target.value})}
-                className="w-full px-3 py-2 border border-blue-200 rounded-lg"
-                placeholder="Street, City, Country"
-              />
-            </div>
-
-            <div className="grid grid-cols-2 gap-3">
-              <div>
-                <label className="block text-sm font-medium text-primary-blue mb-1">Origin</label>
-                <input
-                  type="text"
-                  required
-                  value={newOrder.origin}
-                  onChange={(e) => setNewOrder({...newOrder, origin: e.target.value})}
-                  className="w-full px-3 py-2 border border-blue-200 rounded-lg"
-                  placeholder="New York, NY"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-primary-blue mb-1">Destination</label>
-                <input
-                  type="text"
-                  required
-                  value={newOrder.destination}
-                  onChange={(e) => setNewOrder({...newOrder, destination: e.target.value})}
-                  className="w-full px-3 py-2 border border-blue-200 rounded-lg"
-                  placeholder="Los Angeles, CA"
-                />
+              <div className="mt-3 p-3 bg-white rounded-lg border border-orange-200">
+                <p className="text-xs text-gray-600 leading-relaxed">
+                  <strong className="text-orange-600">💡 Pro Tips:</strong> Include all flight numbers, airline names, airport codes (IATA),
+                  precise departure/arrival times with dates, transit airports, layover durations, terminal information,
+                  customs requirements, cargo tracking numbers, and any special handling instructions for multiple segments.
+                </p>
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-3">
-              <div>
-                <label className="block text-sm font-medium text-primary-blue mb-1">Weight (kg)</label>
-                <input
-                  type="number"
-                  value={newOrder.weight}
-                  onChange={(e) => setNewOrder({...newOrder, weight: e.target.value})}
-                  className="w-full px-3 py-2 border border-blue-200 rounded-lg"
-                  placeholder="10.5"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-primary-blue mb-1">Service Type</label>
-                <select
-                  value={newOrder.serviceType}
-                  onChange={(e) => setNewOrder({...newOrder, serviceType: e.target.value})}
-                  className="w-full px-3 py-2 border border-blue-200 rounded-lg"
-                >
-                  <option value="standard">Standard</option>
-                  <option value="express">Express</option>
-                  <option value="overnight">Overnight</option>
-                </select>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-2 gap-3">
-              <div>
-                <label className="block text-sm font-medium text-primary-blue mb-1">Estimated Delivery Date</label>
-                <input
-                  type="date"
-                  required
-                  min={new Date().toISOString().split('T')[0]}
-                  value={newOrder.estimatedDelivery}
-                  onChange={(e) => setNewOrder({...newOrder, estimatedDelivery: e.target.value})}
-                  className="w-full px-3 py-2 border border-blue-200 rounded-lg bg-primary-white"
-                />
-                <p className="text-xs text-blue-400 mt-1">Enter the expected delivery date (required)</p>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-primary-blue mb-1">Shipment Description / Notes</label>
-                <textarea
-                  required
-                  value={newOrder.description}
-                  onChange={(e) => setNewOrder({...newOrder, description: e.target.value})}
-                  className="w-full px-3 py-2 border border-blue-200 rounded-lg"
-                  placeholder="Description or handling notes (required)"
-                  rows={3}
-                />
-              </div>
-            </div>
-
-            <div className="flex space-x-3 pt-4">
+            <div className="flex space-x-4 pt-6 mt-6 border-t-2 border-gray-200 sticky bottom-0 bg-white">
               <button
                 type="button"
                 onClick={() => setShowAddModal(false)}
-                className="flex-1 px-4 py-2 border border-blue-200 text-primary-blue rounded-lg hover:bg-blue-50"
+                className="flex-1 px-6 py-4 bg-gray-500 text-white rounded-lg hover:bg-gray-600 font-bold text-lg transition-all"
               >
-                Cancel
+                ❌ Cancel
               </button>
               <button
                 type="submit"
-                className="flex-1 px-4 py-2 bg-smoke-dark text-white rounded-lg hover:bg-accent-orange-hover"
+                className="flex-1 px-6 py-4 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-lg hover:from-orange-600 hover:to-orange-700 font-bold text-lg shadow-lg transition-all transform hover:scale-[1.02]"
               >
-                Add Order
+                ✅ Add Order
               </button>
             </div>
           </form>
+          </div>
         </div>
-      </div>
+      </div>,
+      document.body
     );
   };
 
@@ -494,6 +629,9 @@ const UnifiedAdminPanel: React.FC = () => {
       origin: editingOrder.shipmentDetails.origin,
       destination: editingOrder.shipmentDetails.destination,
       weight: editingOrder.shipmentDetails.weight.toString(),
+      actualWeight: (editingOrder.shipmentDetails as any).actualWeight?.toString() || '',
+      volumetricWeight: (editingOrder.shipmentDetails as any).volumetricWeight?.toString() || '',
+      numberOfPackages: (editingOrder.shipmentDetails as any).numberOfPackages?.toString() || '',
       dimensions: {
         length: (editingOrder.shipmentDetails as any).dimensions?.length?.toString() || '',
         width: (editingOrder.shipmentDetails as any).dimensions?.width?.toString() || '',
@@ -506,7 +644,8 @@ const UnifiedAdminPanel: React.FC = () => {
         const ed = resolveEstimatedDelivery(editingOrder);
         return ed ? new Date(ed).toISOString().split('T')[0] : '';
       })(),
-      description: editingOrder.shipmentDetails.description || ''
+      description: editingOrder.shipmentDetails.description || '',
+      flightDetails: (editingOrder.shipmentDetails as any).flightDetails || ''
     });
 
     const handleEditSubmit = async (e: React.FormEvent) => {
@@ -530,6 +669,11 @@ const UnifiedAdminPanel: React.FC = () => {
           serviceType: editForm.serviceType,
           description: editForm.description || ''
         };
+
+        if (editForm.actualWeight) shipmentDetailsObj.actualWeight = parseFloat(editForm.actualWeight);
+        if (editForm.volumetricWeight) shipmentDetailsObj.volumetricWeight = parseFloat(editForm.volumetricWeight);
+        if (editForm.numberOfPackages) shipmentDetailsObj.numberOfPackages = parseInt(editForm.numberOfPackages);
+        if (editForm.flightDetails) shipmentDetailsObj.flightDetails = editForm.flightDetails;
 
         if (Object.keys(dims).length > 0) {
           shipmentDetailsObj.dimensions = dims;
@@ -648,6 +792,42 @@ const UnifiedAdminPanel: React.FC = () => {
               </div>
 
               <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Actual Weight (kg)</label>
+                <input
+                  type="number"
+                  step="0.01"
+                  value={editForm.actualWeight}
+                  onChange={(e) => setEditForm({...editForm, actualWeight: e.target.value})}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+                  placeholder="Optional"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Volumetric Weight (kg)</label>
+                <input
+                  type="number"
+                  step="0.01"
+                  value={editForm.volumetricWeight}
+                  onChange={(e) => setEditForm({...editForm, volumetricWeight: e.target.value})}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+                  placeholder="Optional"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Number of Packages</label>
+                <input
+                  type="number"
+                  min="1"
+                  value={editForm.numberOfPackages}
+                  onChange={(e) => setEditForm({...editForm, numberOfPackages: e.target.value})}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+                  placeholder="Optional"
+                />
+              </div>
+
+              <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Service Type</label>
                 <select
                   value={editForm.serviceType}
@@ -695,6 +875,17 @@ const UnifiedAdminPanel: React.FC = () => {
                   onChange={(e) => setEditForm({...editForm, description: e.target.value})}
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg"
                   rows={3}
+                />
+              </div>
+
+              <div className="col-span-2">
+                <label className="block text-sm font-medium text-gray-700 mb-1">✈️ Flight Details (Optional)</label>
+                <textarea
+                  value={editForm.flightDetails}
+                  onChange={(e) => setEditForm({...editForm, flightDetails: e.target.value})}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg font-mono text-sm"
+                  rows={8}
+                  placeholder="Enter flight information, transit details, etc."
                 />
               </div>
             </div>

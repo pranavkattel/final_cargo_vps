@@ -98,7 +98,7 @@ const Footer = () => {
 
         <div className="border-t border-primary-blue mt-8 pt-8 text-center">
           <p className="text-gray-300 text-sm">
-            © 2024 Capital Cargo. All rights reserved. | Connecting Nepal to the World
+            © 2024 Capital Cargo International Pvt. Ltd. All rights reserved. | Connecting Nepal to the World
           </p>
         </div>
       </div>

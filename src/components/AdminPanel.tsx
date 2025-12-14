@@ -19,6 +19,9 @@ interface FormData {
     origin: string;
     destination: string;
     weight: number;
+    actualWeight: number;
+    volumetricWeight: number;
+    volume: number;
     dimensions: {
       length: number;
       width: number;
@@ -26,6 +29,7 @@ interface FormData {
     };
     serviceType: string;
     description: string;
+    flightDetails: string;
     value: number;
   };
 }
@@ -52,9 +56,13 @@ export const AdminPanel: React.FC<AdminPanelProps> = () => {
       origin: '',
       destination: '',
       weight: 0,
+      actualWeight: 0,
+      volumetricWeight: 0,
+      volume: 0,
       dimensions: { length: 0, width: 0, height: 0 },
       serviceType: '',
       description: '',
+      flightDetails: '',
       value: 0
     }
   });
@@ -167,8 +175,9 @@ export const AdminPanel: React.FC<AdminPanelProps> = () => {
         customerInfo: { name: '', email: '', phone: '', address: '' },
         shipmentDetails: {
           origin: '', destination: '', weight: 0,
+          actualWeight: 0, volumetricWeight: 0, volume: 0,
           dimensions: { length: 0, width: 0, height: 0 },
-          serviceType: '', description: '', value: 0
+          serviceType: '', description: '', flightDetails: '', value: 0
         }
       });
 
@@ -330,10 +339,10 @@ export const AdminPanel: React.FC<AdminPanelProps> = () => {
 
         {/* Create Shipment Tab */}
         {activeTab === 'create' && (
-          <div className="create-shipment">
-            <h2>Create New Shipment</h2>
+          <div className="create-shipment max-w-6xl mx-auto">
+            <h2 className="text-2xl font-bold mb-6">Create New Shipment</h2>
             
-            <form onSubmit={handleCreateShipment} className="shipment-form">
+            <form onSubmit={handleCreateShipment} className="shipment-form space-y-6">
               <div className="form-section">
                 <h3>Customer Information</h3>
                 <div className="form-grid">
@@ -512,7 +521,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = () => {
                   
                   <input
                     type="number"
-                    placeholder="Weight (lbs)"
+                    placeholder="Weight (kg)"
                     value={formData.shipmentDetails.weight}
                     onChange={(e) => setFormData({
                       ...formData,
@@ -522,15 +531,97 @@ export const AdminPanel: React.FC<AdminPanelProps> = () => {
                   />
                 </div>
 
-                <textarea
-                  placeholder="Package Description"
-                  value={formData.shipmentDetails.description}
-                  onChange={(e) => setFormData({
-                    ...formData,
-                    shipmentDetails: { ...formData.shipmentDetails, description: e.target.value }
-                  })}
-                  required
-                />
+                {/* Weight and Volume Section */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Actual Weight (kg)</label>
+                    <input
+                      type="number"
+                      step="0.01"
+                      placeholder="Actual Weight"
+                      value={formData.shipmentDetails.actualWeight}
+                      onChange={(e) => setFormData({
+                        ...formData,
+                        shipmentDetails: { ...formData.shipmentDetails, actualWeight: parseFloat(e.target.value) || 0 }
+                      })}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-orange focus:border-transparent"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Volumetric Weight (kg)</label>
+                    <input
+                      type="number"
+                      step="0.01"
+                      placeholder="Volumetric Weight"
+                      value={formData.shipmentDetails.volumetricWeight}
+                      onChange={(e) => setFormData({
+                        ...formData,
+                        shipmentDetails: { ...formData.shipmentDetails, volumetricWeight: parseFloat(e.target.value) || 0 }
+                      })}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-orange focus:border-transparent"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Volume (m³)</label>
+                    <input
+                      type="number"
+                      step="0.001"
+                      placeholder="Volume"
+                      value={formData.shipmentDetails.volume}
+                      onChange={(e) => setFormData({
+                        ...formData,
+                        shipmentDetails: { ...formData.shipmentDetails, volume: parseFloat(e.target.value) || 0 }
+                      })}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-orange focus:border-transparent"
+                    />
+                  </div>
+                </div>
+
+                <div className="mt-4">
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Package Description</label>
+                  <textarea
+                    placeholder="Describe the package contents..."
+                    value={formData.shipmentDetails.description}
+                    onChange={(e) => setFormData({
+                      ...formData,
+                      shipmentDetails: { ...formData.shipmentDetails, description: e.target.value }
+                    })}
+                    rows={3}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-orange focus:border-transparent"
+                    required
+                  />
+                </div>
+
+                <div className="mt-4">
+                  <label className="block text-sm font-medium text-gray-700 mb-2">✈️ Flight Details & Transit Information</label>
+                  <textarea
+                    placeholder="Enter flight details here:
+
+Flight 1:
+Flight No: XX123
+Departure: Airport/City - DD/MM/YYYY HH:MM
+Arrival: Airport/City - DD/MM/YYYY HH:MM
+
+Transit 1 (if applicable):
+Airport: Transit Airport Name
+Layover Duration: X hours
+
+Flight 2 (if multiple flights):
+Flight No: XX456
+Departure: Airport/City - DD/MM/YYYY HH:MM
+Arrival: Airport/City - DD/MM/YYYY HH:MM
+
+Additional Notes: ..."
+                    value={formData.shipmentDetails.flightDetails}
+                    onChange={(e) => setFormData({
+                      ...formData,
+                      shipmentDetails: { ...formData.shipmentDetails, flightDetails: e.target.value }
+                    })}
+                    rows={12}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-orange focus:border-transparent font-mono text-sm"
+                  />
+                  <p className="text-xs text-gray-500 mt-1">💡 Include all flight numbers, departure/arrival times, transit airports, and layover durations</p>
+                </div>
 
                 <div className="dimensions-grid">
                   <input

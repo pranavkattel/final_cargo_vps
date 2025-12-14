@@ -4,11 +4,14 @@ import react from '@vitejs/plugin-react';
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  assetsInclude: ['**/*.JPG', '**/*.JPEG'],
+  base: '/', // Ensure correct base path for assets
+  assetsInclude: ['**/*.JPG', '**/*.JPEG', '**/*.jpg', '**/*.jpeg', '**/*.png', '**/*.webp'],
   build: {
     outDir: 'dist',
     sourcemap: false,
     minify: 'terser',
+    assetsInlineLimit: 0, // Don't inline any assets as base64, always copy them
+    copyPublicDir: true, // Ensure public directory is copied
     terserOptions: {
       compress: {
         drop_console: true,
