@@ -249,7 +249,8 @@ const Tracking: React.FC = () => {
                 <div className="border-t border-gray-200 pt-6">
                   <h3 className="text-lg font-semibold mb-6" style={{ color: '#0096C7' }}>Tracking History</h3>
                   <div className="space-y-6">
-                    {trackingResult.events.map((event, index) => (
+                    {trackingResult.events && trackingResult.events.length > 0 ? (
+                      trackingResult.events.map((event, index) => (
                       <div key={index} className="flex items-start space-x-4">
                         <div className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center ${
                           event.completed ? 'bg-green-100 text-green-600' : 'bg-gray-100 text-gray-400'
@@ -269,7 +270,16 @@ const Tracking: React.FC = () => {
                           <p className="text-xs text-gray-500 mt-1">{event.location}</p>
                         </div>
                       </div>
-                    ))}
+                    ))
+                    ) : (
+                      <div className="text-center py-8">
+                        <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gray-100 mb-4">
+                          <Clock className="h-8 w-8 text-gray-400" />
+                        </div>
+                        <p className="text-gray-600 text-sm">No tracking history available yet.</p>
+                        <p className="text-gray-500 text-xs mt-1">Events will appear here as your shipment progresses.</p>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>

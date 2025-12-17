@@ -142,7 +142,25 @@ const UnifiedAdminPanel: React.FC = () => {
 
   const handleStatusUpdate = async (trackingId: string, newStatus: string) => {
     try {
-      await trackingAPI.updateShipmentStatus(trackingId, newStatus, `Status updated by admin`, '');
+      // Find the order to get its current location
+      const order = orders.find(o => o.trackingId === trackingId);
+      const location = order?.shipmentDetails?.destination || 'In Transit';
+      
+      // Create descriptive message for each status
+      const statusDescriptions: Record<string, string> = {
+        'processing': 'Shipment is being processed at warehouse',
+        'picked-up': 'Package has been picked up from sender',
+        'in-transit': 'Package is in transit to destination',
+        'out-for-delivery': 'Package is out for delivery',
+        'delivered': 'Package has been successfully delivered',
+        'failed-delivery': 'Delivery attempt failed - will retry',
+        'returned': 'Package has been returned to sender',
+        'cancelled': 'Shipment has been cancelled'
+      };
+      
+      const description = statusDescriptions[newStatus] || `Status updated to ${newStatus}`;
+      
+      await trackingAPI.updateShipmentStatus(trackingId, newStatus, description, location);
       await fetchOrders();
     } catch (error) {
       alert('Failed to update status.');
@@ -266,6 +284,10 @@ const UnifiedAdminPanel: React.FC = () => {
         }
 
         if (newOrder.value) shipmentDetailsObj.value = parseFloat(newOrder.value);
+        
+        if (newOrder.flightDetails && newOrder.flightDetails.trim()) {
+          shipmentDetailsObj.flightDetails = newOrder.flightDetails.trim();
+        }
 
         const orderData = {
           // include the preview trackingId (backend will assign final one if needed)

@@ -229,7 +229,7 @@ router.put('/shipments/:id', async (req, res) => {
 router.put('/shipments/:id/status', async (req, res) => {
   try {
     const { id } = req.params;
-    const { status } = req.body;
+    const { status, description, location } = req.body;
     
     if (!status) {
       return res.status(400).json({
@@ -250,19 +250,46 @@ router.put('/shipments/:id/status', async (req, res) => {
 
     console.log(`🔄 Updating status for ${id} to: ${status}`);
 
-    const shipment = await req.storage.updateShipment(id, { 
-      status,
-      updatedAt: new Date().toISOString()
-    });
-
-    if (!shipment) {
+    // First get the current shipment to access its data
+    const currentShipment = await req.storage.findByTrackingId(id);
+    
+    if (!currentShipment) {
       return res.status(404).json({
         success: false,
         message: 'Shipment not found'
       });
     }
 
-    console.log(`✅ Status updated successfully for ${shipment.trackingId}`);
+    // Create a new tracking event for this status change
+    const newEvent = {
+      status: status,
+      description: description || `Status updated to ${status}`,
+      location: location || currentShipment.shipmentDetails?.destination || 'In Transit',
+      timestamp: new Date().toISOString(),
+      completed: status === 'delivered'
+    };
+
+    // Get existing events or initialize empty array
+    const existingEvents = currentShipment.events || [];
+    
+    // Add the new event to the events array
+    const updatedEvents = [...existingEvents, newEvent];
+
+    // Update the shipment with new status and event
+    const shipment = await req.storage.updateShipment(id, { 
+      status,
+      events: updatedEvents,
+      updatedAt: new Date().toISOString()
+    });
+
+    if (!shipment) {
+      return res.status(404).json({
+        success: false,
+        message: 'Failed to update shipment'
+      });
+    }
+
+    console.log(`✅ Status updated successfully for ${shipment.trackingId} with tracking event`);
 
     res.json({
       success: true,
