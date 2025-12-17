@@ -205,10 +205,9 @@ ShipmentSchema.methods.addTrackingEvent = function(status, description, location
 
 // Method to generate tracking ID
 ShipmentSchema.statics.generateTrackingId = function() {
-  const prefix = 'CC'; // Capital Cargo
-  const timestamp = Date.now().toString(36).toUpperCase();
-  const random = Math.random().toString(36).substr(2, 4).toUpperCase();
-  return `${prefix}${timestamp}${random}`;
+  const prefix = 'CCIPL'; // Capital Cargo International Pvt. Ltd
+  const randomNumbers = Math.floor(Math.random() * 1000000000).toString().padStart(9, '0');
+  return `${prefix}${randomNumbers}`;
 };
 
 // Pre-save middleware to generate tracking ID if not provided

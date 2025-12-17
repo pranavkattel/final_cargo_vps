@@ -187,10 +187,9 @@ const UnifiedAdminPanel: React.FC = () => {
     // generate a friendly preview tracking id when modal opens
     useEffect(() => {
       const generateTrackingId = () => {
-        const prefix = 'CC';
-        const timestamp = Date.now().toString(36).toUpperCase();
-        const random = Math.random().toString(36).substr(2, 4).toUpperCase();
-        return `${prefix}${timestamp}${random}`;
+        const prefix = 'CCIPL';
+        const randomNumbers = Math.floor(Math.random() * 1000000000).toString().padStart(9, '0');
+        return `${prefix}${randomNumbers}`;
       };
 
       setNewOrder(prev => ({ ...prev, trackingId: generateTrackingId() }));

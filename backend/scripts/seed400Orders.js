@@ -65,10 +65,9 @@ const randomWeight = () => {
 };
 
 const randomTrackingId = () => {
-  const prefix = 'CC';
-  const year = new Date().getFullYear();
-  const random = Math.floor(Math.random() * 1000000).toString().padStart(6, '0');
-  return `${prefix}${year}${random}`;
+  const prefix = 'CCIPL';
+  const randomNumbers = Math.floor(Math.random() * 1000000000).toString().padStart(9, '0');
+  return `${prefix}${randomNumbers}`;
 };
 
 const generateShipment = (index) => {
